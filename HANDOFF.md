@@ -27,3 +27,6 @@ Guard tightened: future runs should not count as strong progress unless they imp
 
 ## Automation note
 Rotating target this run: spec. Future runs should keep balancing artifact types.
+
+## Automation note
+Rotating target this run: docs. Future runs should keep balancing artifact types.

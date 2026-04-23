@@ -25,3 +25,6 @@ A useful first trace should capture: task metadata, tool calls, commands, file e
 
 ## Trace artifact acceptance criteria
 A daily improvement should move at least one concrete artifact forward: trace schema, JSON example, Markdown summary example, or report structure.
+
+## Contribution rhythm
+This project is improved continuously through repo-specific agent runs, supervisor review, and weekly prompt tuning.
