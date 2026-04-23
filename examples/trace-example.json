@@ -1,0 +1,14 @@
+{
+  "task": "example",
+  "events": [
+    {
+      "type": "tool_call",
+      "name": "search"
+    },
+    {
+      "type": "command",
+      "value": "pytest"
+    }
+  ],
+  "result": "success"
+}
