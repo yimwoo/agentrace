@@ -21,3 +21,6 @@ Added clearer MVP trace artifact direction so future sessions can implement conc
 
 ## Automation note
 Added or reinforced concrete MVP trace artifact direction for deterministic next-step implementation.
+
+## Automation note
+Guard tightened: future runs should not count as strong progress unless they improve a concrete artifact beyond handoff updates.

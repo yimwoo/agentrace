@@ -22,3 +22,6 @@ This repo is being bootstrapped. See `AGENTS.md`, `PROJECT_STATE.md`, `ROADMAP.m
 
 ## MVP trace record
 A useful first trace should capture: task metadata, tool calls, commands, file edits, test outcomes, retries, timestamps, and final result.
+
+## Trace artifact acceptance criteria
+A daily improvement should move at least one concrete artifact forward: trace schema, JSON example, Markdown summary example, or report structure.
