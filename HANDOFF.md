@@ -15,3 +15,6 @@
 
 ## Notes for next session
 Stay focused on practical trace/debug usefulness. Avoid turning this into a broad agent framework.
+
+## Daily improvement note
+Added clearer MVP trace artifact direction so future sessions can implement concrete outputs instead of staying abstract.

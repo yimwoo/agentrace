@@ -25,3 +25,7 @@ Bootstrap
 
 ## Current success definition
 A user can inspect a coding-agent run and understand what happened across tools, commands, edits, tests, and outcomes.
+
+## first concrete artifact target
+- define a minimal JSON trace example
+- define one Markdown summary example

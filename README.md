@@ -19,3 +19,6 @@ The first versions should focus on:
 ## Status
 
 This repo is being bootstrapped. See `AGENTS.md`, `PROJECT_STATE.md`, `ROADMAP.md`, and `HANDOFF.md` for working context.
+
+## MVP trace record
+A useful first trace should capture: task metadata, tool calls, commands, file edits, test outcomes, retries, timestamps, and final result.
