@@ -18,3 +18,6 @@ Stay focused on practical trace/debug usefulness. Avoid turning this into a broa
 
 ## Daily improvement note
 Added clearer MVP trace artifact direction so future sessions can implement concrete outputs instead of staying abstract.
+
+## Automation note
+Added or reinforced concrete MVP trace artifact direction for deterministic next-step implementation.
