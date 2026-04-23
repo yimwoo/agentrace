@@ -24,3 +24,6 @@ Rotating target this run: spec+example. Future runs should favor implementation 
 
 ## Automation note
 Rotating target this run: code. Future runs should keep balancing artifact types.
+
+## Automation note
+Rotating target this run: spec. Future runs should keep balancing artifact types.
