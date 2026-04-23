@@ -24,3 +24,6 @@ Added or reinforced concrete MVP trace artifact direction for deterministic next
 
 ## Automation note
 Guard tightened: future runs should not count as strong progress unless they improve a concrete artifact beyond handoff updates.
+
+## Automation note
+Rotating target this run: spec. Future runs should keep balancing artifact types.

@@ -29,3 +29,8 @@ A user can inspect a coding-agent run and understand what happened across tools,
 ## first concrete artifact target
 - define a minimal JSON trace example
 - define one Markdown summary example
+
+## Trace schema checkpoint
+- identify minimum run metadata
+- identify minimum tool-call event fields
+- identify minimum test outcome fields
