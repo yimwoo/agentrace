@@ -1,35 +1,26 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` has been initialized as the primary repo in the portfolio.
+`agentrace` now has its first practical trace schema checkpoint and a substantially improved example trace artifact.
 
 ## What was done
-- defined repo purpose and positioning
-- created initial operating docs for agents
-- created initial project state and roadmap
+- created `TRACE_SCHEMA.md` with a debugging-first MVP trace design
+- upgraded `examples/trace-example.json` from a placeholder into a realistic run artifact
+- updated project state, roadmap, and decisions to reflect the new concrete artifact baseline
 
 ## What should happen next
-1. define a minimal trace schema
-2. define the initial output/report structure
-3. create the first code skeleton for capturing an agent run
+1. create a small code skeleton that can emit a trace JSON file matching `TRACE_SCHEMA.md`
+2. add a Markdown report example derived from the trace summary and key events
+3. define how command logs and diffs should be referenced or stored as artifacts
 
 ## Notes for next session
-Stay focused on practical trace/debug usefulness. Avoid turning this into a broad agent framework.
+Stay focused on practical trace/debug usefulness. The next best step is implementation: emitting traces for commands, tool calls, file edits, and test results.
 
 ## Daily improvement note
-Added clearer MVP trace artifact direction so future sessions can implement concrete outputs instead of staying abstract.
+This run converted the project from high-level intent into a concrete event model with realistic example data that can directly guide implementation.
 
 ## Automation note
-Added or reinforced concrete MVP trace artifact direction for deterministic next-step implementation.
+Rotating target this run: spec+example. Future runs should favor implementation or report-generation work built on this schema.
 
 ## Automation note
-Guard tightened: future runs should not count as strong progress unless they improve a concrete artifact beyond handoff updates.
-
-## Automation note
-Rotating target this run: spec. Future runs should keep balancing artifact types.
-
-## Automation note
-Rotating target this run: docs. Future runs should keep balancing artifact types.
-
-## Automation note
-Rotating target this run: example. Future runs should keep balancing artifact types.
+Rotating target this run: code. Future runs should keep balancing artifact types.

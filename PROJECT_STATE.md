@@ -1,36 +1,40 @@
 # PROJECT_STATE.md
 
 ## Current phase
-Bootstrap
+Bootstrap moving into first concrete trace spec
 
 ## What exists now
 - initial README
 - initial agent operating docs
+- first concrete JSON trace example in `examples/trace-example.json`
+- first practical trace schema checkpoint in `TRACE_SCHEMA.md`
 
 ## What is incomplete
-- trace schema
 - event capture implementation
-- report generation
-- demo/example workflow
-- actual code structure
+- report generation in Markdown/HTML
+- demo/example workflow runner
+- actual code structure for ingestion and rendering
 
 ## Active focus
-- define the first useful trace model
-- define the first MVP output format
-- keep project scope narrow and useful
+- turn the trace schema into a small code skeleton for emitting traces
+- define the first Markdown summary/report shape
+- preserve narrow scope around practical debugging value
 
 ## Risks / blockers
 - risk of becoming too abstract or framework-heavy
 - risk of building generic telemetry without coding-agent-specific value
+- risk of adding schema complexity before capture and reporting exist
 
 ## Current success definition
 A user can inspect a coding-agent run and understand what happened across tools, commands, edits, tests, and outcomes.
 
-## first concrete artifact target
+## First concrete artifact target
 - define a minimal JSON trace example
 - define one Markdown summary example
+- keep schema tied to debugging questions, not generic spans
 
 ## Trace schema checkpoint
-- identify minimum run metadata
-- identify minimum tool-call event fields
-- identify minimum test outcome fields
+- minimum run metadata defined
+- minimum event envelope defined
+- minimum event types defined: model_call, tool_call, command, file_edit, test_result, note
+- run summary fields defined for fast inspection

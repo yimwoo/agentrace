@@ -1,14 +1,180 @@
 {
-  "task": "example",
+  "trace_version": "0.1",
+  "run": {
+    "id": "run_2026_04_23_auth_fix",
+    "task": "Fix failing auth test and explain the root cause",
+    "agent": {
+      "name": "example-agent",
+      "version": "0.1.0",
+      "model": "gpt-5"
+    },
+    "repo": {
+      "name": "acme-app",
+      "branch": "main",
+      "commit": "abc123def"
+    },
+    "status": "succeeded",
+    "started_at": "2026-04-23T13:00:00Z",
+    "ended_at": "2026-04-23T13:03:42Z",
+    "duration_ms": 222000,
+    "attempt": 1,
+    "parent_run_id": null
+  },
   "events": [
     {
-      "type": "tool_call",
-      "name": "search"
+      "id": "evt_001",
+      "seq": 1,
+      "type": "model_call",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:00:01Z",
+      "ended_at": "2026-04-23T13:00:04Z",
+      "duration_ms": 3200,
+      "input": {
+        "messages": 6,
+        "system_chars": 1200,
+        "user_chars": 340,
+        "context_chars": 8200
+      },
+      "output": {
+        "finish_reason": "tool_use",
+        "assistant_chars": 180
+      }
     },
     {
+      "id": "evt_002",
+      "seq": 2,
+      "type": "tool_call",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:00:05Z",
+      "ended_at": "2026-04-23T13:00:05Z",
+      "duration_ms": 120,
+      "tool": {
+        "name": "search_files",
+        "args": {
+          "pattern": "AuthError",
+          "path": "src"
+        }
+      },
+      "result": {
+        "preview": "3 matches in src/auth.py",
+        "item_count": 3
+      }
+    },
+    {
+      "id": "evt_003",
+      "seq": 3,
       "type": "command",
-      "value": "pytest"
+      "status": "failed",
+      "started_at": "2026-04-23T13:01:10Z",
+      "ended_at": "2026-04-23T13:01:12Z",
+      "duration_ms": 2100,
+      "command": {
+        "value": "pytest tests/test_auth.py -q",
+        "cwd": "/workspace/app"
+      },
+      "exit_code": 1,
+      "stdout_preview": "F                                                                    [100%]",
+      "stderr_preview": "AssertionError: expected 401 but got 500",
+      "error": {
+        "message": "pytest exited with status 1",
+        "type": "nonzero_exit",
+        "details": {
+          "exit_code": 1
+        }
+      }
+    },
+    {
+      "id": "evt_004",
+      "seq": 4,
+      "type": "note",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:01:20Z",
+      "message": "Failure indicates auth middleware is surfacing a decoder exception as 500 instead of translating it to 401."
+    },
+    {
+      "id": "evt_005",
+      "seq": 5,
+      "type": "file_edit",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:02:00Z",
+      "ended_at": "2026-04-23T13:02:01Z",
+      "duration_ms": 400,
+      "file": {
+        "path": "src/auth.py"
+      },
+      "change": {
+        "kind": "modify",
+        "added_lines": 4,
+        "removed_lines": 1,
+        "summary": "Return 401 for invalid tokens instead of re-raising decoder exception"
+      }
+    },
+    {
+      "id": "evt_006",
+      "seq": 6,
+      "type": "command",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:02:15Z",
+      "ended_at": "2026-04-23T13:02:18Z",
+      "duration_ms": 3100,
+      "command": {
+        "value": "pytest tests/test_auth.py -q",
+        "cwd": "/workspace/app"
+      },
+      "exit_code": 0,
+      "stdout_preview": ".                                                                    [100%]",
+      "stderr_preview": ""
+    },
+    {
+      "id": "evt_007",
+      "seq": 7,
+      "type": "test_result",
+      "status": "succeeded",
+      "started_at": "2026-04-23T13:02:15Z",
+      "ended_at": "2026-04-23T13:02:18Z",
+      "duration_ms": 3100,
+      "test": {
+        "runner": "pytest",
+        "target": "tests/test_auth.py",
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "source_command_event_id": "evt_006"
     }
   ],
-  "result": "success"
+  "artifacts": [
+    {
+      "kind": "command_log",
+      "path": "artifacts/evt_003.log",
+      "event_id": "evt_003"
+    },
+    {
+      "kind": "diff",
+      "path": "artifacts/evt_005.diff",
+      "event_id": "evt_005"
+    }
+  ],
+  "summary": {
+    "result": "succeeded",
+    "failure_reason": null,
+    "event_counts": {
+      "model_call": 1,
+      "tool_call": 1,
+      "command": 2,
+      "file_edit": 1,
+      "test_result": 1,
+      "note": 1
+    },
+    "files_changed": [
+      "src/auth.py"
+    ],
+    "commands_run": [
+      "pytest tests/test_auth.py -q"
+    ],
+    "next_inspection_targets": [
+      "command evt_003 stderr_preview for initial failure context",
+      "diff artifact for evt_005 to review the fix"
+    ]
+  }
 }
