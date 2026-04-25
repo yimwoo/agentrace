@@ -317,3 +317,11 @@ A trace is MVP-useful if a developer can answer all of the following from one ar
 
 ## Scope note
 This is a practical schema checkpoint, not a final standard. Future versions can add retry groups, parent/child spans, token metrics, and richer command/test payloads once basic traces are working.
+
+## Minimum trace event fields
+- `timestamp`
+- `type`
+- `name`
+- `status`
+- `details`
+- `duration_ms`
