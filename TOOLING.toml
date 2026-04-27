@@ -2,12 +2,14 @@
 python_requires = ">=3.10"
 runner = ".venv/bin/python"
 bootstrap = "bash scripts/bootstrap_env.sh"
-
 environment = "venv"
+lockfile = "dev-requirements.lock"
+ci_check = "bash scripts/ci_check.sh"
+venv_stamp = ".venv/.bootstrap.stamp"
 
 [testing]
 framework = "pytest"
-primary = "bash scripts/run_tests.sh tests/test_trace_schema.py -q"
+primary = "bash scripts/run_tests.sh tests/test_trace_schema.py tests/test_report_outputs.py -q"
 fallback = "bash scripts/smoke_check.sh"
 smoke = [
   "bash scripts/smoke_check.sh"

@@ -20,3 +20,10 @@ def test_build_markdown_summary():
     text = build_markdown_summary(TRACE)
     assert "Trace Summary: debug sample" in text
     assert "event_count: 1" in text
+
+
+def test_json_and_markdown_stay_consistent():
+    payload = build_json_summary(TRACE)
+    text = build_markdown_summary(TRACE)
+    assert str(payload["summary"]["ok_events"]) in text
+    assert payload["run_id"] in text
