@@ -1,10 +1,14 @@
 [tooling]
 python_requires = ">=3.10"
-runner = "python3"
+runner = ".venv/bin/python"
+bootstrap = "bash scripts/bootstrap_env.sh"
+
+environment = "venv"
 
 [testing]
 framework = "pytest"
-fallback = "python3 src/emit_example_trace.py"
+primary = "bash scripts/run_tests.sh tests/test_trace_schema.py -q"
+fallback = "bash scripts/smoke_check.sh"
 smoke = [
-  "python3 src/emit_example_trace.py"
+  "bash scripts/smoke_check.sh"
 ]
