@@ -60,3 +60,6 @@ Rotating target this run: spec. Future runs should keep balancing artifact types
 
 ## Automation note
 Rotating target this run: spec. Preserve source/example/schema/test momentum.
+
+## Automation note
+Rotating target this run: code. Preserve source/example/schema/test momentum.
