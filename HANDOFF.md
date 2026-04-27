@@ -66,3 +66,6 @@ Rotating target this run: code. Preserve source/example/schema/test momentum.
 
 ## Automation note
 Rotating target this run: spec. Preserve source/example/schema/test momentum with multi-file implementation chunks.
+
+## Automation note
+Rotating target this run: example. Preserve source/example/schema/test momentum with multi-file implementation chunks.
