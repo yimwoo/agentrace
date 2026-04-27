@@ -1,0 +1,10 @@
+[tooling]
+python_requires = ">=3.10"
+runner = "python3"
+
+[testing]
+framework = "pytest"
+fallback = "python3 src/emit_example_trace.py"
+smoke = [
+  "python3 src/emit_example_trace.py"
+]
