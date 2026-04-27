@@ -325,3 +325,10 @@ This is a practical schema checkpoint, not a final standard. Future versions can
 - `status`
 - `details`
 - `duration_ms`
+
+## Trace run artifact
+- `run_id`
+- `task`
+- `events`
+- `result_summary`
+- `timing`
