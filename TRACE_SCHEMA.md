@@ -332,3 +332,7 @@ This is a practical schema checkpoint, not a final standard. Future versions can
 - `events`
 - `result_summary`
 - `timing`
+
+## Trace report outputs
+- JSON summary should include event_count, ok_events, and total_duration_ms
+- Markdown summary should include task, run_id, status, and timing overview

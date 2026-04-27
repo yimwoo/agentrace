@@ -69,3 +69,6 @@ Rotating target this run: spec. Preserve source/example/schema/test momentum wit
 
 ## Automation note
 Rotating target this run: example. Preserve source/example/schema/test momentum with multi-file implementation chunks.
+
+## Automation note
+Captain packet milestone: trace artifact core. Follow design note, plan, verification, and review gate expectations.
