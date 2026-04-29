@@ -1,26 +1,26 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` now has AgentSpec artifacts bootstrapped and its reports can include compact run-level summaries for quick inspection.
+`agentrace` now has its generated sample trace aligned with the newer `TRACE_SCHEMA.md` top-level shape while preserving legacy report compatibility.
 
 ## What was done
-- bootstrapped AgentSpec in brownfield mode and ingested `README.md` plus `TRACE_SCHEMA.md`
-- created AgentSpec task `T-001` for requirement `R-007` / source section `D-08`
-- added `build_run_summary(trace)` to extract result, failure reason, event counts, changed files, commands, and next inspection targets
-- included the compact run summary in JSON and Markdown report payloads
-- added tests for schema-level summary extraction and report output alignment
+- created AgentSpec task `T-002` for requirement `R-004` / source section `D-03`
+- updated `build_sample_trace()` and `examples/trace-example.json` to emit `trace_version`, `run`, `events`, `artifacts`, and `summary`
+- kept JSON/Markdown report builders compatible with both legacy top-level `task`/`run_id` traces and newer `run` metadata
+- updated event validation so the schema event envelope counts as report-compatible while legacy events still pass
+- added tests for the newer sample shape, report compatibility, and schema envelope validation
 
 ## Verification
-- `./.venv/bin/python -m pytest tests/test_trace_schema.py tests/test_report_outputs.py -q`
+- `bash scripts/run_tests.sh tests/test_trace_schema.py tests/test_report_outputs.py -q`
 - `bash scripts/smoke_check.sh`
 
 ## What should happen next
-1. update `examples/trace-example.json` to the newer `trace_version` / `run` / `summary` shape from `TRACE_SCHEMA.md`
-2. add a Markdown report fixture generated from a richer trace with command, file_edit, and test_result events
-3. define how command logs and diffs should be referenced or stored as artifacts
+1. add a Markdown report fixture generated from a richer trace with command, file_edit, and test_result events
+2. define how command logs and diffs should be referenced or stored as artifacts
+3. consider migrating the compatibility summary names once the newer schema shape is consistently used
 
 ## Notes for next session
-Stay focused on practical trace/debug usefulness. AgentSpec generated a low readiness score because only a narrow slice of repo docs was ingested; future sessions can ingest `AGENTS.md`, `PROJECT_STATE.md`, and `ROADMAP.md` if richer AgentSpec planning is useful.
+Stay focused on practical trace/debug usefulness. AgentSpec status still reports low readiness because this brownfield setup has only a narrow source slice ingested; `task create` required using a scaffold task under the readiness gate.
 
 ## Daily improvement note
-This run moved reporting closer to the schema's quick-inspection goal by surfacing the most useful debugging fields directly in report summaries.
+This run moved the example artifact itself toward `TRACE_SCHEMA.md` D-03 while keeping existing JSON and Markdown report output expectations usable for older trace payloads.

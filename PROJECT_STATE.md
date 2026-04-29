@@ -6,7 +6,7 @@ Bootstrap moving into first concrete trace spec
 ## What exists now
 - initial README
 - initial agent operating docs
-- first concrete JSON trace example in `examples/trace-example.json`
+- first concrete JSON trace example in `examples/trace-example.json` using the `trace_version` / `run` / `summary` shape
 - first practical trace schema checkpoint in `TRACE_SCHEMA.md`
 - AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
 - compact run-level summary extraction for JSON and Markdown reports

@@ -1,13 +1,18 @@
 from collections import Counter
 
-TRACE_EVENT_FIELDS = [
+LEGACY_TRACE_EVENT_FIELDS = [
     "timestamp", "type", "name", "status", "details", "duration_ms"
 ]
+TRACE_EVENT_FIELDS = LEGACY_TRACE_EVENT_FIELDS
+SCHEMA_TRACE_EVENT_FIELDS = ["id", "seq", "type", "started_at", "status"]
 
 
 def validate_trace_event(event):
-    missing = [field for field in TRACE_EVENT_FIELDS if field not in event]
-    return {"ok": not missing, "missing": missing}
+    legacy_missing = [field for field in LEGACY_TRACE_EVENT_FIELDS if field not in event]
+    schema_missing = [field for field in SCHEMA_TRACE_EVENT_FIELDS if field not in event]
+    if not legacy_missing or not schema_missing:
+        return {"ok": True, "missing": []}
+    return {"ok": False, "missing": legacy_missing}
 
 
 def _event_type(event):
@@ -56,7 +61,11 @@ def build_run_summary(trace):
     event_counts = dict(Counter(_event_type(event) for event in events))
     files_changed = sorted({path for event in events for path in [_file_path(event)] if path})
     commands_run = [command for event in events for command in [_command_value(event)] if command]
-    failed_events = [event for event in events if event.get("status") in {"failed", "error"} or event.get("error")]
+    failed_events = [
+        event
+        for event in events
+        if event.get("status") in {"failed", "error"} or event.get("error")
+    ]
 
     run = trace.get("run", {})
     existing_summary = trace.get("summary", {})

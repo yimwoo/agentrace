@@ -8,6 +8,19 @@ def test_validate_trace_event_accepts_complete_event():
     assert result["missing"] == []
 
 
+def test_validate_trace_event_accepts_schema_event_envelope():
+    event = {
+        "id": "evt_001",
+        "seq": 1,
+        "type": "tool_call",
+        "started_at": "2026-04-25T00:00:00Z",
+        "status": "succeeded",
+    }
+    result = validate_trace_event(event)
+    assert result["ok"] is True
+    assert result["missing"] == []
+
+
 def test_summarize_trace_counts_ok_events_and_duration():
     events = [{"timestamp": "2026-04-25T00:00:00Z", "type": "tool_call", "name": "search", "status": "ok", "details": {}, "duration_ms": 3}]
     result = summarize_trace(events)

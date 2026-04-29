@@ -9,6 +9,15 @@
         "status": "passed"
       },
       "updated_at": "2026-04-29T03:53:13Z"
+    },
+    "agent/context-packs/T-002-update-sample-trace-to-run-summary-schema.md": {
+      "status": "complete",
+      "run_id": "complete-t-002-update-sample-trace-to-run-summary-schema-20260429163408",
+      "reason": "Updated sample trace to D-03 top-level schema shape while preserving JSON/Markdown report compatibility.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-04-29T16:34:08Z"
     }
   }
 }
