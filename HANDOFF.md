@@ -24,3 +24,6 @@ Stay focused on practical trace/debug usefulness. AgentSpec status still reports
 
 ## Daily improvement note
 This run moved the example artifact itself toward `TRACE_SCHEMA.md` D-03 while keeping existing JSON and Markdown report output expectations usable for older trace payloads.
+
+## Automation note
+Captain packet milestone: trace artifact core. Follow design note, plan, verification, and review gate expectations.
