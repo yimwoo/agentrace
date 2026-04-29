@@ -18,12 +18,15 @@ def test_build_json_summary():
     payload = build_json_summary(TRACE)
     assert payload["summary"]["event_count"] == 1
     assert payload["status"] == "success"
+    assert payload["run_summary"]["event_counts"] == {"tool_call": 1}
 
 
 def test_build_markdown_summary():
     text = build_markdown_summary(TRACE)
     assert "Trace Summary: debug sample" in text
     assert "event_count: 1" in text
+    assert "event_counts: tool_call: 1" in text
+    assert "next_inspection_targets: none" in text
 
 
 def test_json_and_markdown_stay_consistent():

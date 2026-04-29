@@ -24,6 +24,3 @@ Stay focused on practical trace/debug usefulness. AgentSpec generated a low read
 
 ## Daily improvement note
 This run moved reporting closer to the schema's quick-inspection goal by surfacing the most useful debugging fields directly in report summaries.
-
-## Automation note
-Captain packet milestone: trace artifact core. Follow design note, plan, verification, and review gate expectations.
