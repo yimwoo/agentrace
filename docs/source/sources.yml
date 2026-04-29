@@ -1,0 +1,26 @@
+[
+  {
+    "id": "SRC-0001",
+    "kind": "markdown",
+    "uri": "docs/source/src-0001-readme.md",
+    "original_uri": "/Users/jc/Workspace/Apps/agentrace/README.md",
+    "title": "agentrace",
+    "version": null,
+    "content_hash": "sha256:88d6cbaf8a9222c2713d3d5a609025f3fe8eaa6b770ef72aa031ce66f0ef4e80",
+    "fetched_at": "2026-04-29T03:51:38Z",
+    "classification": "internal",
+    "storage_mode": "committed"
+  },
+  {
+    "id": "SRC-0002",
+    "kind": "markdown",
+    "uri": "docs/source/src-0002-trace-schema.md",
+    "original_uri": "/Users/jc/Workspace/Apps/agentrace/TRACE_SCHEMA.md",
+    "title": "TRACE_SCHEMA.md",
+    "version": null,
+    "content_hash": "sha256:d489b982d4cd1d81279cddf0e31cfe3c6878344ea5c23c0501bb0ff5e4b4f8ee",
+    "fetched_at": "2026-04-29T03:51:38Z",
+    "classification": "internal",
+    "storage_mode": "committed"
+  }
+]

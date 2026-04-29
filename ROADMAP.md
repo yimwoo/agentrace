@@ -5,8 +5,9 @@
 - define run artifact model
 - create JSON output format
 - create Markdown summary output
-- document one realistic example workflow
+- define one realistic example workflow
 - create a small code skeleton that can emit a trace file
+- include compact run summaries in JSON and Markdown reports
 
 ## Phase 2: practical debugging value
 - add failure summaries

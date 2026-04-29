@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "mode": "brownfield",
+  "archetype": "code-agent-tooling",
+  "targets": [
+    "codex",
+    "claude"
+  ],
+  "readiness_gate": 60,
+  "source_classification_default": "internal",
+  "storage_mode_default": "committed",
+  "agent_profiles": {
+    "main_executor": {
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "supervised_runs": {
+    "executor_profile": "main_executor",
+    "continuation_reviewer_profile": "continuation_reviewer",
+    "quality_reviewer_profile": "quality_reviewer",
+    "reviewer_mode": "deterministic",
+    "max_iterations": {
+      "implementation": 3,
+      "spike": 2,
+      "spec": 2,
+      "review": 2
+    }
+  },
+  "autonomous_mode": {
+    "findings_dir": "docs/discovery/open-questions.yml",
+    "allow_remote_push": false,
+    "max_consecutive_blocks": 3
+  },
+  "generated_by": "agentspec"
+}

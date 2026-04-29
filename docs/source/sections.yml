@@ -1,0 +1,402 @@
+[
+  {
+    "id": "D-01",
+    "source_id": "SRC-0001",
+    "title": "Why this exists",
+    "heading_path": [
+      "Why this exists"
+    ],
+    "start_line": 7,
+    "end_line": 10,
+    "content_hash": "sha256:6b3edb5d4e9c0ac06da90dacf1443c83fa463b59ea438a2ff31b6a45559bb0a4",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-02",
+    "source_id": "SRC-0001",
+    "title": "Initial direction",
+    "heading_path": [
+      "Initial direction"
+    ],
+    "start_line": 11,
+    "end_line": 18,
+    "content_hash": "sha256:f80c208f8bb14b7b64d345afd3b6364eb45029f0c2f8eb2cc3c91c1c925fbb62",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-03",
+    "source_id": "SRC-0001",
+    "title": "Status",
+    "heading_path": [
+      "Status"
+    ],
+    "start_line": 19,
+    "end_line": 22,
+    "content_hash": "sha256:c3d3dd6af37b305062441198f991cf3463a04f5c85184d3cc6943679004531bd",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-04",
+    "source_id": "SRC-0001",
+    "title": "MVP trace record",
+    "heading_path": [
+      "MVP trace record"
+    ],
+    "start_line": 23,
+    "end_line": 25,
+    "content_hash": "sha256:b687cbc323ed73813bb657beb82cb4f1aabf59180a766e7e7cf2c0380df3a9d9",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-05",
+    "source_id": "SRC-0001",
+    "title": "Trace artifact acceptance criteria",
+    "heading_path": [
+      "Trace artifact acceptance criteria"
+    ],
+    "start_line": 26,
+    "end_line": 28,
+    "content_hash": "sha256:9ead8e4a784d52369f9d95fef5b96a5dc0f4c323ac725b207c06c4851a2a570b",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-06",
+    "source_id": "SRC-0001",
+    "title": "Contribution rhythm",
+    "heading_path": [
+      "Contribution rhythm"
+    ],
+    "start_line": 29,
+    "end_line": 30,
+    "content_hash": "sha256:f4eca781e8e1c947eae11e65e6dc6953bdb5cb360e7fc6fab2d2386c40445bce",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-01",
+    "source_id": "SRC-0002",
+    "title": "Goal",
+    "heading_path": [
+      "Goal"
+    ],
+    "start_line": 3,
+    "end_line": 7,
+    "content_hash": "sha256:bce7140d83813a80e73167f850335b5ac2c4c194389b33d4cb277af8475177e0",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-02",
+    "source_id": "SRC-0002",
+    "title": "Design principles",
+    "heading_path": [
+      "Design principles"
+    ],
+    "start_line": 8,
+    "end_line": 14,
+    "content_hash": "sha256:d1aaff5a07ba7dba34ce749612e7ac78403fdf9785dc1aba7ed2130cb0a606f5",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-03",
+    "source_id": "SRC-0002",
+    "title": "Top-level trace object",
+    "heading_path": [
+      "Top-level trace object"
+    ],
+    "start_line": 15,
+    "end_line": 26,
+    "content_hash": "sha256:5cbc6d43d61f322380a1de53d759e4c741a95035531125e7efc9bbe07169bcf0",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-04",
+    "source_id": "SRC-0002",
+    "title": "`run`",
+    "heading_path": [
+      "`run`"
+    ],
+    "start_line": 27,
+    "end_line": 69,
+    "content_hash": "sha256:4b399d98c2ec6e1d65b570d7bc1c9715da22b30d1ec712ad580259835b6a0ef4",
+    "parent": null,
+    "children": [
+      "D-04.1",
+      "D-04.2"
+    ]
+  },
+  {
+    "id": "D-04.1",
+    "source_id": "SRC-0002",
+    "title": "Required `run` fields",
+    "heading_path": [
+      "`run`",
+      "Required `run` fields"
+    ],
+    "start_line": 53,
+    "end_line": 58,
+    "content_hash": "sha256:cf290e17979d13ad94c30953264763b8ef36f558c53fa8de3f654622d8ee1c71",
+    "parent": "D-04",
+    "children": []
+  },
+  {
+    "id": "D-04.2",
+    "source_id": "SRC-0002",
+    "title": "Recommended `run` fields",
+    "heading_path": [
+      "`run`",
+      "Recommended `run` fields"
+    ],
+    "start_line": 59,
+    "end_line": 69,
+    "content_hash": "sha256:8a1b9f3d1b1e7d9d980bc18fcad27b1b9efcd784e9bf2f00a77be30130b5850e",
+    "parent": "D-04",
+    "children": []
+  },
+  {
+    "id": "D-05",
+    "source_id": "SRC-0002",
+    "title": "Event model",
+    "heading_path": [
+      "Event model"
+    ],
+    "start_line": 70,
+    "end_line": 106,
+    "content_hash": "sha256:2ff81cec3f7df90b3f01d47ca61cac33186c132faf7713110f2f73584635cf99",
+    "parent": null,
+    "children": [
+      "D-05.1",
+      "D-05.2"
+    ]
+  },
+  {
+    "id": "D-05.1",
+    "source_id": "SRC-0002",
+    "title": "Common event fields",
+    "heading_path": [
+      "Event model",
+      "Common event fields"
+    ],
+    "start_line": 85,
+    "end_line": 94,
+    "content_hash": "sha256:88c80ea1d602b229de8c28c68ae5311159e1eb1a1291f6b454c0ffc4c48c4a4b",
+    "parent": "D-05",
+    "children": []
+  },
+  {
+    "id": "D-05.2",
+    "source_id": "SRC-0002",
+    "title": "Error object",
+    "heading_path": [
+      "Event model",
+      "Error object"
+    ],
+    "start_line": 95,
+    "end_line": 106,
+    "content_hash": "sha256:2bfb3a71dfc24b8fe2b2a36ea3f7e9d89b3ccaf88a8d4a0cfe56b346ae233fb0",
+    "parent": "D-05",
+    "children": []
+  },
+  {
+    "id": "D-06",
+    "source_id": "SRC-0002",
+    "title": "Event types",
+    "heading_path": [
+      "Event types"
+    ],
+    "start_line": 107,
+    "end_line": 262,
+    "content_hash": "sha256:d047c02e0c0a9338873fe96ebb922cffb838babffd940335c42f80f184b0ca31",
+    "parent": null,
+    "children": [
+      "D-06.1",
+      "D-06.2",
+      "D-06.3",
+      "D-06.4",
+      "D-06.5",
+      "D-06.6"
+    ]
+  },
+  {
+    "id": "D-06.1",
+    "source_id": "SRC-0002",
+    "title": "1. `model_call`",
+    "heading_path": [
+      "Event types",
+      "1. `model_call`"
+    ],
+    "start_line": 109,
+    "end_line": 135,
+    "content_hash": "sha256:a00ba8087d3b63a0a99a7e916cfbce90f6a3063c9579f51f809158640857ff14",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-06.2",
+    "source_id": "SRC-0002",
+    "title": "2. `tool_call`",
+    "heading_path": [
+      "Event types",
+      "2. `tool_call`"
+    ],
+    "start_line": 136,
+    "end_line": 166,
+    "content_hash": "sha256:b13304edd9f4e725617aec4e207302daaa47e9a9beba58a424411e181c402e5b",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-06.3",
+    "source_id": "SRC-0002",
+    "title": "3. `command`",
+    "heading_path": [
+      "Event types",
+      "3. `command`"
+    ],
+    "start_line": 167,
+    "end_line": 194,
+    "content_hash": "sha256:16a2902324304235f550c6100d38239b7d4865607f21b6d5c7472d02e9332f3f",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-06.4",
+    "source_id": "SRC-0002",
+    "title": "4. `file_edit`",
+    "heading_path": [
+      "Event types",
+      "4. `file_edit`"
+    ],
+    "start_line": 195,
+    "end_line": 223,
+    "content_hash": "sha256:c0840cbe6b025718f8c10904fad4e1e80bddafef12c240ab5a36d5ec7d326684",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-06.5",
+    "source_id": "SRC-0002",
+    "title": "5. `test_result`",
+    "heading_path": [
+      "Event types",
+      "5. `test_result`"
+    ],
+    "start_line": 224,
+    "end_line": 246,
+    "content_hash": "sha256:453a07f0d65ef7a8c1864f2921d3972170c0a512ea5458bc075506bc3029590a",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-06.6",
+    "source_id": "SRC-0002",
+    "title": "6. `note`",
+    "heading_path": [
+      "Event types",
+      "6. `note`"
+    ],
+    "start_line": 247,
+    "end_line": 262,
+    "content_hash": "sha256:401f93d71ab54c7d7bdd76557f59e5244cdc05a22ddaeb2b9e1ed1518be1c33f",
+    "parent": "D-06",
+    "children": []
+  },
+  {
+    "id": "D-07",
+    "source_id": "SRC-0002",
+    "title": "`artifacts`",
+    "heading_path": [
+      "`artifacts`"
+    ],
+    "start_line": 263,
+    "end_line": 280,
+    "content_hash": "sha256:5abcdac9b6a1f967d3dec679d499726d1b3d16d0d79413a86819147aa4610ba3",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-08",
+    "source_id": "SRC-0002",
+    "title": "`summary`",
+    "heading_path": [
+      "`summary`"
+    ],
+    "start_line": 281,
+    "end_line": 308,
+    "content_hash": "sha256:d6b49ddb92850b647a7957d2f4710f154dcf6bd68bd51b6d788d1d856ad68a96",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-09",
+    "source_id": "SRC-0002",
+    "title": "MVP acceptance rule",
+    "heading_path": [
+      "MVP acceptance rule"
+    ],
+    "start_line": 309,
+    "end_line": 317,
+    "content_hash": "sha256:0064b9da7a6269fdf74c3858dcbd9d77573ee9e7f6d56a4639c76c997f2c0595",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-10",
+    "source_id": "SRC-0002",
+    "title": "Scope note",
+    "heading_path": [
+      "Scope note"
+    ],
+    "start_line": 318,
+    "end_line": 320,
+    "content_hash": "sha256:0b50cacc7338513e0b84d3ec7f3ead7bbe2fbc86f7236b239845c13919ec949c",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-11",
+    "source_id": "SRC-0002",
+    "title": "Minimum trace event fields",
+    "heading_path": [
+      "Minimum trace event fields"
+    ],
+    "start_line": 321,
+    "end_line": 328,
+    "content_hash": "sha256:9b994a7a4b0b8a7dd568f5c988233c03dd0254c16d947997d84c693adf99917d",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-12",
+    "source_id": "SRC-0002",
+    "title": "Trace run artifact",
+    "heading_path": [
+      "Trace run artifact"
+    ],
+    "start_line": 329,
+    "end_line": 335,
+    "content_hash": "sha256:f3f7366a4fb8e1c72ef706955f7b8d0e31f64baa2d5834423e50c2bd2b69f3d2",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-13",
+    "source_id": "SRC-0002",
+    "title": "Trace report outputs",
+    "heading_path": [
+      "Trace report outputs"
+    ],
+    "start_line": 336,
+    "end_line": 338,
+    "content_hash": "sha256:88da31a13d2fa1b15f1c983b84596e7ce87f2c85f944bd10c22e5b751da8de15",
+    "parent": null,
+    "children": []
+  }
+]

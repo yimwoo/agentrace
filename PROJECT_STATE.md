@@ -8,6 +8,8 @@ Bootstrap moving into first concrete trace spec
 - initial agent operating docs
 - first concrete JSON trace example in `examples/trace-example.json`
 - first practical trace schema checkpoint in `TRACE_SCHEMA.md`
+- AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
+- compact run-level summary extraction for JSON and Markdown reports
 
 ## What is incomplete
 - event capture implementation
@@ -19,6 +21,7 @@ Bootstrap moving into first concrete trace spec
 - turn the trace schema into a small code skeleton for emitting traces
 - define the first Markdown summary/report shape
 - preserve narrow scope around practical debugging value
+- keep report summaries aligned with `TRACE_SCHEMA.md` quick-inspection fields
 
 ## Risks / blockers
 - risk of becoming too abstract or framework-heavy

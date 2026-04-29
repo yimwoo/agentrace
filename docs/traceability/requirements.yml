@@ -1,0 +1,218 @@
+[
+  {
+    "id": "R-001",
+    "title": "capture what a developer needs to answer: what happened, in what order, why did it fail, what ch",
+    "description": "capture what a developer needs to answer: what happened, in what order, why did it fail, what changed, and what should I inspect next.",
+    "source_sections": [
+      "D-02"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: capture what a developer needs to answer: what happened, in what order, why did it fail, what changed, and what should I inspect next.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-002",
+    "title": "separate top-level run summary from per-event details",
+    "description": "separate top-level run summary from per-event details.",
+    "source_sections": [
+      "D-02"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: separate top-level run summary from per-event details.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-003",
+    "title": "support partial traces from incomplete or crashed runs",
+    "description": "support partial traces from incomplete or crashed runs.",
+    "source_sections": [
+      "D-02"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: support partial traces from incomplete or crashed runs.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-004",
+    "title": "\"run\": {},",
+    "description": "\"run\": {},.",
+    "source_sections": [
+      "D-03"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: \"run\": {},.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-005",
+    "title": "Each event should share a small common envelope",
+    "description": "Each event should share a small common envelope.",
+    "source_sections": [
+      "D-05"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Each event should share a small common envelope.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-006",
+    "title": "Optional references to larger payloads that should not be inlined in every event",
+    "description": "Optional references to larger payloads that should not be inlined in every event.",
+    "source_sections": [
+      "D-07"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Optional references to larger payloads that should not be inlined in every event.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-007",
+    "title": "A compact run-level summary for quick inspection",
+    "description": "A compact run-level summary for quick inspection.",
+    "source_sections": [
+      "D-08"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: A compact run-level summary for quick inspection.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-008",
+    "title": "JSON summary should include event_count, ok_events, and total_duration_ms",
+    "description": "JSON summary should include event_count, ok_events, and total_duration_ms.",
+    "source_sections": [
+      "D-13"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: JSON summary should include event_count, ok_events, and total_duration_ms.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-009",
+    "title": "Markdown summary should include task, run_id, status, and timing overview",
+    "description": "Markdown summary should include task, run_id, status, and timing overview.",
+    "source_sections": [
+      "D-13"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Markdown summary should include task, run_id, status, and timing overview.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  }
+]
