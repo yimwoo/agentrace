@@ -1,22 +1,55 @@
 {
-  "task": "debug sample",
-  "run_id": "sample-1",
+  "trace_version": "0.1",
+  "run": {
+    "id": "sample-1",
+    "task": "debug sample",
+    "agent": {
+      "name": "example-agent",
+      "version": "0.1.0",
+      "model": "sample-model"
+    },
+    "repo": {
+      "name": "agentrace-example",
+      "branch": "main",
+      "commit": "abc123def"
+    },
+    "status": "success",
+    "started_at": "2026-04-25T00:00:00Z",
+    "ended_at": "2026-04-25T00:00:00.012Z",
+    "duration_ms": 12,
+    "attempt": 1,
+    "parent_run_id": null
+  },
   "events": [
     {
-      "timestamp": "2026-04-25T00:00:00Z",
+      "id": "evt_001",
+      "seq": 1,
       "type": "tool_call",
-      "name": "search",
-      "status": "ok",
-      "details": {
-        "query": "agent trace"
+      "status": "succeeded",
+      "started_at": "2026-04-25T00:00:00Z",
+      "ended_at": "2026-04-25T00:00:00.012Z",
+      "duration_ms": 12,
+      "tool": {
+        "name": "search",
+        "args": {
+          "query": "agent trace"
+        }
       },
-      "duration_ms": 12
+      "result": {
+        "preview": "Found introductory agent trace notes",
+        "item_count": 1
+      }
     }
   ],
-  "result_summary": {
-    "status": "success"
-  },
-  "timing": {
-    "wall_clock_ms": 12
+  "artifacts": [],
+  "summary": {
+    "result": "success",
+    "failure_reason": null,
+    "event_counts": {
+      "tool_call": 1
+    },
+    "files_changed": [],
+    "commands_run": [],
+    "next_inspection_targets": []
   }
 }

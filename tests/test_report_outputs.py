@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import runpy
 
 from src.emit_example_trace import build_sample_trace
@@ -18,6 +19,7 @@ def test_build_json_summary():
     payload = build_json_summary(TRACE)
     assert payload["summary"]["event_count"] == 1
     assert payload["status"] == "success"
+    assert payload["run_summary"]["result"] == "success"
 
 
 def test_build_markdown_summary():
@@ -35,18 +37,26 @@ def test_json_and_markdown_stay_consistent():
 
 def test_build_sample_trace_shape():
     trace = build_sample_trace()
-    assert trace["task"] == "debug sample"
-    assert trace["result_summary"]["status"] == "success"
-    assert trace["events"][0]["details"]["query"] == "agent trace"
+    assert trace["trace_version"] == "0.1"
+    assert trace["run"]["id"] == "sample-1"
+    assert trace["run"]["status"] == "success"
+    assert trace["events"][0]["tool"]["args"]["query"] == "agent trace"
+    assert trace["summary"]["event_counts"] == {"tool_call": 1}
+
+
+def test_new_trace_shape_preserves_report_compatibility():
+    payload = build_json_summary(build_sample_trace())
+    assert payload["task"] == "debug sample"
+    assert payload["run_id"] == "sample-1"
+    assert payload["status"] == "success"
+    assert payload["timing"] == {"wall_clock_ms": 12}
 
 
 def test_example_write(tmp_path):
-    examples = tmp_path / "examples"
-    examples.mkdir()
-    out = examples / "trace-example.json"
-    out.write_text(__import__("json").dumps(build_sample_trace(), indent=2) + "\n")
-    assert out.exists()
-    assert "sample-1" in out.read_text()
+    out = tmp_path / "trace-example.json"
+    out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")
+    payload = json.loads(out.read_text())
+    assert payload["trace_version"] == "0.1"
 
 
 def test_script_main_writes_example(monkeypatch, tmp_path):
@@ -54,4 +64,5 @@ def test_script_main_writes_example(monkeypatch, tmp_path):
     runpy.run_module("src.emit_example_trace", run_name="__main__")
     out = tmp_path / "examples" / "trace-example.json"
     assert out.exists()
-    assert "agent trace" in out.read_text()
+    payload = json.loads(out.read_text())
+    assert payload["events"][0]["tool"]["args"]["query"] == "agent trace"

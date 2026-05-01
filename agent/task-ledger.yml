@@ -18,6 +18,15 @@
         "status": "passed"
       },
       "updated_at": "2026-04-29T16:34:08Z"
+    },
+    "agent/context-packs/T-003-validate-trace-event-envelopes.md": {
+      "status": "complete",
+      "run_id": "complete-t-003-validate-trace-event-envelopes-20260501161616",
+      "reason": "Implemented R-005 trace envelope validation with CI passing (12 tests).",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-01T16:16:16Z"
     }
   }
 }
