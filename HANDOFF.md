@@ -27,3 +27,6 @@ This run moved the example artifact itself toward `TRACE_SCHEMA.md` D-03 while k
 
 ## Automation note
 Captain packet milestone: trace artifact core. Follow design note, plan, verification, and review gate expectations.
+
+## Automation note
+Captain packet milestone: run summarization and failure reporting. Applied additive AgentSpec-safe slice; runner preserves richer work instead of reverting to stale templates.

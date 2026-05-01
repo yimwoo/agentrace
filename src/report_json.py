@@ -1,3 +1,4 @@
+from src.failure_summary import build_failure_summary
 from src.trace_schema import build_run_summary, summarize_trace
 
 
@@ -21,4 +22,5 @@ def build_json_summary(trace):
         "timing": metadata["timing"],
         "summary": summary,
         "run_summary": trace.get("summary") or build_run_summary(trace),
+        "failure_summary": build_failure_summary(trace),
     }
