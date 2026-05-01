@@ -50,6 +50,8 @@
     },
     "files_changed": [],
     "commands_run": [],
+    "command_durations_ms": [],
+    "edit_summaries": [],
     "next_inspection_targets": []
   }
 }

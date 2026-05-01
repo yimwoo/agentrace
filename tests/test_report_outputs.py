@@ -52,6 +52,73 @@ def test_new_trace_shape_preserves_report_compatibility():
     assert payload["timing"] == {"wall_clock_ms": 12}
 
 
+def test_report_includes_command_timing_and_edit_summary():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "run-commands", "task": "inspect commands", "status": "failed", "started_at": "2026-04-25T00:00:00Z", "duration_ms": 3700},
+        "events": [
+            {
+                "id": "evt_cmd",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:01Z",
+                "duration_ms": 3200,
+                "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+                "stderr_preview": "AssertionError: expected 401 but got 500",
+            },
+            {
+                "id": "evt_edit",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:05Z",
+                "duration_ms": 500,
+                "file": {"path": "src/auth.py"},
+                "change": {"kind": "modify", "added_lines": 4, "removed_lines": 1, "summary": "Translate decoder errors into 401 responses"},
+            },
+        ],
+    }
+    payload = build_json_summary(trace)
+    assert payload["command_timing"] == [{
+        "event": "evt_cmd",
+        "command": "pytest tests/test_auth.py -q",
+        "cwd": "/workspace/app",
+        "status": "failed",
+        "duration_ms": 3200,
+        "exit_code": 1,
+    }]
+    assert payload["edit_summary"] == [{
+        "event": "evt_edit",
+        "path": "src/auth.py",
+        "kind": "modify",
+        "added_lines": 4,
+        "removed_lines": 1,
+        "summary": "Translate decoder errors into 401 responses",
+    }]
+    assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
+    assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
+
+
+def test_markdown_report_renders_command_timing_and_edit_summary():
+    trace = {
+        "task": "legacy edit trace",
+        "run_id": "legacy-1",
+        "events": [
+            {"timestamp": "2026-04-25T00:00:00Z", "type": "command", "name": "pytest -q", "status": "ok", "details": {"exit_code": 0}, "duration_ms": 9},
+            {"timestamp": "2026-04-25T00:00:01Z", "type": "file_edit", "name": "src/report.py", "status": "ok", "details": {"kind": "modify", "added_lines": 2, "removed_lines": 0, "summary": "Add timing section"}, "duration_ms": 1},
+        ],
+        "result_summary": {"status": "success"},
+        "timing": {"wall_clock_ms": 10},
+    }
+    text = build_markdown_summary(trace)
+    assert "## Command Timing" in text
+    assert "`pytest -q` — 9ms, status=ok, exit_code=0" in text
+    assert "## Edit Summary" in text
+    assert "src/report.py: modify (+2/-0) — Add timing section" in text
+
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")

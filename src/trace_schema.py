@@ -59,6 +59,8 @@ def build_run_summary(trace):
     event_counts = {}
     files_changed = []
     commands_run = []
+    command_durations_ms = []
+    edit_summaries = []
     next_inspection_targets = []
     failure_reason = None
 
@@ -70,9 +72,23 @@ def build_run_summary(trace):
         command_value = event.get("command", {}).get("value") if isinstance(event.get("command"), dict) else None
         if command_value:
             commands_run.append(command_value)
+            command_durations_ms.append({
+                "command": command_value,
+                "duration_ms": event.get("duration_ms", 0),
+                "status": event.get("status"),
+                "exit_code": event.get("exit_code"),
+            })
         file_path = event.get("file", {}).get("path") if isinstance(event.get("file"), dict) else None
         if file_path:
             files_changed.append(file_path)
+            change = event.get("change") if isinstance(event.get("change"), dict) else {}
+            edit_summaries.append({
+                "path": file_path,
+                "kind": change.get("kind"),
+                "added_lines": change.get("added_lines"),
+                "removed_lines": change.get("removed_lines"),
+                "summary": change.get("summary"),
+            })
         if event.get("status") == "failed":
             if event.get("stderr_preview"):
                 failure_reason = failure_reason or event["stderr_preview"]
@@ -89,5 +105,7 @@ def build_run_summary(trace):
         "event_counts": event_counts,
         "files_changed": files_changed,
         "commands_run": commands_run,
+        "command_durations_ms": command_durations_ms,
+        "edit_summaries": edit_summaries,
         "next_inspection_targets": next_inspection_targets,
     }

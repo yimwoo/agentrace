@@ -2,6 +2,10 @@ from src.failure_summary import build_failure_summary
 from src.trace_schema import build_run_summary, summarize_trace
 
 
+def _event_ref(event):
+    return event.get("id") or event.get("seq") or event.get("name")
+
+
 def _run_metadata(trace):
     run = trace.get("run", {}) if isinstance(trace.get("run"), dict) else {}
     return {
@@ -12,8 +16,48 @@ def _run_metadata(trace):
     }
 
 
+def build_command_timing(events):
+    """Extract report-ready timing rows for command events."""
+    rows = []
+    for event in events:
+        if not isinstance(event, dict) or event.get("type") != "command":
+            continue
+        command = event.get("command") if isinstance(event.get("command"), dict) else {}
+        details = event.get("details") if isinstance(event.get("details"), dict) else {}
+        rows.append({
+            "event": _event_ref(event),
+            "command": command.get("value") or event.get("name") or details.get("command"),
+            "cwd": command.get("cwd") or details.get("cwd"),
+            "status": event.get("status"),
+            "duration_ms": event.get("duration_ms", 0),
+            "exit_code": event.get("exit_code", details.get("exit_code")),
+        })
+    return rows
+
+
+def build_edit_summary(events):
+    """Extract report-ready summaries for file_edit events."""
+    rows = []
+    for event in events:
+        if not isinstance(event, dict) or event.get("type") != "file_edit":
+            continue
+        file_info = event.get("file") if isinstance(event.get("file"), dict) else {}
+        change = event.get("change") if isinstance(event.get("change"), dict) else {}
+        details = event.get("details") if isinstance(event.get("details"), dict) else {}
+        rows.append({
+            "event": _event_ref(event),
+            "path": file_info.get("path") or details.get("path") or event.get("name"),
+            "kind": change.get("kind") or details.get("kind"),
+            "added_lines": change.get("added_lines", details.get("added_lines")),
+            "removed_lines": change.get("removed_lines", details.get("removed_lines")),
+            "summary": change.get("summary") or details.get("summary"),
+        })
+    return rows
+
+
 def build_json_summary(trace):
-    summary = summarize_trace(trace.get("events", []))
+    events = trace.get("events", [])
+    summary = summarize_trace(events)
     metadata = _run_metadata(trace)
     return {
         "task": metadata["task"],
@@ -23,4 +67,6 @@ def build_json_summary(trace):
         "summary": summary,
         "run_summary": trace.get("summary") or build_run_summary(trace),
         "failure_summary": build_failure_summary(trace),
+        "command_timing": build_command_timing(events),
+        "edit_summary": build_edit_summary(events),
     }

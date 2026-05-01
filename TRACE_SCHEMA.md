@@ -299,12 +299,33 @@ A compact run-level summary for quick inspection.
   "commands_run": [
     "pytest tests/test_auth.py -q"
   ],
+  "command_durations_ms": [
+    {
+      "command": "pytest tests/test_auth.py -q",
+      "duration_ms": 2100,
+      "status": "failed",
+      "exit_code": 1
+    }
+  ],
+  "edit_summaries": [
+    {
+      "path": "src/auth.py",
+      "kind": "modify",
+      "added_lines": 4,
+      "removed_lines": 1,
+      "summary": "Return 401 for invalid tokens instead of re-raising decoder exception"
+    }
+  ],
   "next_inspection_targets": [
     "command evt_003 stderr_preview",
     "diff artifact for evt_004"
   ]
 }
 ```
+
+Report builders should surface command timing and edit summaries in both JSON
+and Markdown so a developer can quickly identify slow or failed commands and
+understand the file-level impact of edits without opening raw events first.
 
 ## MVP acceptance rule
 A trace is MVP-useful if a developer can answer all of the following from one artifact bundle:
