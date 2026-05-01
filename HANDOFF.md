@@ -1,16 +1,26 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` reports now expose command timing and file edit summaries in JSON and Markdown outputs while preserving legacy trace compatibility.
+`agentrace` Markdown reports now have a checked-in rich fixture covering command timing, cwd, edit summaries, and a test-result event.
 
 ## What was done
+- created AgentSpec task `T-005` for the report fixture/readability follow-up slice
+- added `tests/fixtures/rich-report.md` as a concrete Markdown report artifact from a richer trace
+- added coverage that renders a trace containing `command`, `file_edit`, and `test_result` events and compares it to the fixture
+- updated Markdown command timing rows to include `cwd` when present
+- preserved legacy trace compatibility for existing command timing and edit summary reports
+
+## Previous work
 - created AgentSpec task `T-004` for the report timing/edit-summary slice
 - added JSON report sections for command timing rows and file edit summaries
 - added Markdown `Command Timing` and `Edit Summary` sections
 - expanded run summaries with `command_durations_ms` and `edit_summaries`
 - updated `TRACE_SCHEMA.md` and the generated sample trace summary to include the new quick-inspection fields
 
-## Previous work
+## Verification
+- `bash scripts/ci_check.sh` — 15 passed, 1 warning
+
+## Previous verification
 - created AgentSpec task `T-002` for requirement `R-004` / source section `D-03`
 - updated `build_sample_trace()` and `examples/trace-example.json` to emit `trace_version`, `run`, `events`, `artifacts`, and `summary`
 - kept JSON/Markdown report builders compatible with both legacy top-level `task`/`run_id` traces and newer `run` metadata
@@ -25,10 +35,9 @@
 - `bash scripts/smoke_check.sh`
 
 ## What should happen next
-1. add a Markdown report fixture generated from a richer trace with command, file_edit, and test_result events
-2. define how command logs and diffs should be referenced or stored as artifacts
-3. consider migrating the compatibility summary names once the newer schema shape is consistently used
-4. add a CLI entry point for rendering report files once the report shape stabilizes
+1. define how command logs and diffs should be referenced or stored as artifacts
+2. consider migrating the compatibility summary names once the newer schema shape is consistently used
+3. add a CLI entry point for rendering report files once the report shape stabilizes
 
 ## Notes for next session
 Stay focused on practical trace/debug usefulness. AgentSpec status still reports low readiness because this brownfield setup has only a narrow source slice ingested; `task create` required using a scaffold task under the readiness gate.

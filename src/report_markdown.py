@@ -9,7 +9,8 @@ def _format_command_timing(rows):
         command = row["command"] or "<unknown command>"
         duration = row["duration_ms"]
         exit_code = "unknown" if row["exit_code"] is None else row["exit_code"]
-        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}")
+        cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
+        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}")
     return lines
 
 

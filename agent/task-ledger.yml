@@ -36,6 +36,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-01T18:03:38Z"
+    },
+    "agent/context-packs/T-005-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-005-add-command-timing-and-edit-summaries-to-reports-20260501230342",
+      "reason": "Implemented Markdown report fixture/readability follow-up; bash scripts/ci_check.sh passed (15 passed, 1 warning).",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-01T23:03:42Z"
     }
   }
 }

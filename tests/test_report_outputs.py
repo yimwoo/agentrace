@@ -119,6 +119,46 @@ def test_markdown_report_renders_command_timing_and_edit_summary():
     assert "src/report.py: modify (+2/-0) — Add timing section" in text
 
 
+def test_markdown_report_matches_rich_trace_fixture():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "rich-1", "task": "investigate auth failure", "status": "failed", "duration_ms": 3325},
+        "events": [
+            {
+                "id": "evt_cmd_1",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:01Z",
+                "duration_ms": 3200,
+                "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_edit_1",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:05Z",
+                "duration_ms": 125,
+                "file": {"path": "src/auth.py"},
+                "change": {"kind": "modify", "added_lines": 4, "removed_lines": 1, "summary": "Translate decoder errors into 401 responses"},
+            },
+            {
+                "id": "evt_test_1",
+                "seq": 3,
+                "type": "test_result",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:06Z",
+                "duration_ms": 0,
+                "test": {"command_event": "evt_cmd_1", "failed": 1},
+            },
+        ],
+    }
+    expected = Path("tests/fixtures/rich-report.md").read_text()
+    assert build_markdown_summary(trace) == expected
+
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")
