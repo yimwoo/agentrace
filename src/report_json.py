@@ -95,14 +95,17 @@ def build_json_summary(trace):
     events = trace.get("events", [])
     summary = summarize_trace(events)
     metadata = _run_metadata(trace)
+    run_summary = trace.get("summary") or build_run_summary(trace)
+    command_timing = build_command_timing(events, trace.get("artifacts", [])) or run_summary.get("command_durations_ms", [])
+    edit_summary = build_edit_summary(events, trace.get("artifacts", [])) or run_summary.get("edit_summaries", [])
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
         "status": metadata["status"],
         "timing": metadata["timing"],
         "summary": summary,
-        "run_summary": trace.get("summary") or build_run_summary(trace),
+        "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
-        "command_timing": build_command_timing(events, trace.get("artifacts", [])),
-        "edit_summary": build_edit_summary(events, trace.get("artifacts", [])),
+        "command_timing": command_timing,
+        "edit_summary": edit_summary,
     }

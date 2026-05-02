@@ -38,3 +38,64 @@ def test_build_run_summary_extracts_failure_inspection_targets():
     assert result["commands_run"] == ["pytest -q"]
     assert result["files_changed"] == ["src/example.py"]
     assert result["next_inspection_targets"] == ["command evt_1 stderr_preview"]
+
+
+def test_build_run_summary_carries_report_ready_timing_and_edit_fields():
+    trace = {
+        "run": {"status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:02Z",
+                "duration_ms": 2000,
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_edit",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:03Z",
+                "ended_at": "2026-04-25T00:00:03.100Z",
+                "duration_ms": 100,
+                "file": {"path": "src/example.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Tighten report rows"},
+            },
+        ],
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd.log", "event_id": "evt_cmd"},
+            {"kind": "diff", "path": "artifacts/evt_edit.diff", "event_id": "evt_edit"},
+        ],
+    }
+
+    result = build_run_summary(trace)
+
+    assert result["command_durations_ms"] == [{
+        "event": "evt_cmd",
+        "command": "pytest -q",
+        "duration_ms": 2000,
+        "status": "failed",
+        "exit_code": 1,
+        "cwd": "/workspace/app",
+        "started_at": "2026-04-25T00:00:00Z",
+        "ended_at": "2026-04-25T00:00:02Z",
+        "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd.log"}],
+    }]
+    assert result["edit_summaries"] == [{
+        "event": "evt_edit",
+        "path": "src/example.py",
+        "kind": "modify",
+        "status": "succeeded",
+        "duration_ms": 100,
+        "added_lines": 2,
+        "removed_lines": 1,
+        "summary": "Tighten report rows",
+        "started_at": "2026-04-25T00:00:03Z",
+        "ended_at": "2026-04-25T00:00:03.100Z",
+        "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit.diff"}],
+    }]

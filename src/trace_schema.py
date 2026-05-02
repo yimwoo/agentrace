@@ -53,9 +53,36 @@ def summarize_trace(events):
     }
 
 
+def _event_ref(event):
+    return event.get("id") or event.get("seq") or event.get("name")
+
+
+def _artifact_refs_by_event(artifacts):
+    refs = {}
+    for artifact in artifacts or []:
+        if not isinstance(artifact, dict):
+            continue
+        event_id = artifact.get("event_id")
+        path = artifact.get("path")
+        if not event_id or not path:
+            continue
+        refs.setdefault(event_id, []).append({
+            "kind": artifact.get("kind", "artifact"),
+            "path": path,
+        })
+    return refs
+
+
+def _copy_present(row, source, fields):
+    for field in fields:
+        if source.get(field) is not None:
+            row[field] = source[field]
+
+
 def build_run_summary(trace):
     """Build a compact R-007 summary from canonical event envelopes."""
     events = trace.get("events", [])
+    artifact_refs = _artifact_refs_by_event(trace.get("artifacts", []))
     event_counts = {}
     files_changed = []
     commands_run = []
@@ -69,26 +96,44 @@ def build_run_summary(trace):
             continue
         event_type = event.get("type", "unknown")
         event_counts[event_type] = event_counts.get(event_type, 0) + 1
-        command_value = event.get("command", {}).get("value") if isinstance(event.get("command"), dict) else None
+        event_ref = _event_ref(event)
+        command = event.get("command") if isinstance(event.get("command"), dict) else {}
+        details = event.get("details") if isinstance(event.get("details"), dict) else {}
+        command_value = command.get("value") or details.get("command") if event_type == "command" else None
         if command_value:
             commands_run.append(command_value)
-            command_durations_ms.append({
+            row = {
+                "event": event_ref,
                 "command": command_value,
                 "duration_ms": event.get("duration_ms", 0),
                 "status": event.get("status"),
-                "exit_code": event.get("exit_code"),
-            })
-        file_path = event.get("file", {}).get("path") if isinstance(event.get("file"), dict) else None
+                "exit_code": event.get("exit_code", details.get("exit_code")),
+            }
+            if command.get("cwd") or details.get("cwd"):
+                row["cwd"] = command.get("cwd") or details.get("cwd")
+            _copy_present(row, event, ["started_at", "ended_at"])
+            if event_ref in artifact_refs:
+                row["artifacts"] = artifact_refs[event_ref]
+            command_durations_ms.append(row)
+        file_info = event.get("file") if isinstance(event.get("file"), dict) else {}
+        file_path = file_info.get("path") or details.get("path") if event_type == "file_edit" else None
         if file_path:
             files_changed.append(file_path)
             change = event.get("change") if isinstance(event.get("change"), dict) else {}
-            edit_summaries.append({
+            row = {
+                "event": event_ref,
                 "path": file_path,
-                "kind": change.get("kind"),
-                "added_lines": change.get("added_lines"),
-                "removed_lines": change.get("removed_lines"),
-                "summary": change.get("summary"),
-            })
+                "kind": change.get("kind") or details.get("kind"),
+                "status": event.get("status"),
+                "duration_ms": event.get("duration_ms", 0),
+                "added_lines": change.get("added_lines", details.get("added_lines")),
+                "removed_lines": change.get("removed_lines", details.get("removed_lines")),
+                "summary": change.get("summary") or details.get("summary"),
+            }
+            _copy_present(row, event, ["started_at", "ended_at"])
+            if event_ref in artifact_refs:
+                row["artifacts"] = artifact_refs[event_ref]
+            edit_summaries.append(row)
         if event.get("status") == "failed":
             if event.get("stderr_preview"):
                 failure_reason = failure_reason or event["stderr_preview"]

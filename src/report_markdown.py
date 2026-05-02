@@ -29,7 +29,8 @@ def _format_command_timing(rows):
         cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
         time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
-        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{time_window}{artifacts}")
+        event = row.get("event", "summary")
+        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{time_window}{artifacts}")
     return lines
 
 
@@ -45,7 +46,9 @@ def _format_edit_summary(rows):
         duration = f", duration_ms={row['duration_ms']}" if "duration_ms" in row else ""
         time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
-        lines.append(f"- {row['path']}: {row['kind']} (+{added}/-{removed}) — {summary}{status}{duration}{time_window}{artifacts}")
+        path = row.get("path") or "<unknown file>"
+        kind = row.get("kind") or "unknown"
+        lines.append(f"- {path}: {kind} (+{added}/-{removed}) — {summary}{status}{duration}{time_window}{artifacts}")
     return lines
 
 

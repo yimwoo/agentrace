@@ -209,6 +209,55 @@ def test_reports_include_artifact_refs_for_commands_and_edits():
     assert "artifacts: command_log=artifacts/evt_cmd_log.log" in text
     assert "artifacts: diff=artifacts/evt_diff.diff" in text
 
+
+def test_report_outputs_fall_back_to_existing_run_summary_rows():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-only", "task": "inspect summarized run", "status": "failed", "duration_ms": 60},
+        "events": [],
+        "summary": {
+            "result": "failed",
+            "event_counts": {"command": 1, "file_edit": 1},
+            "files_changed": ["src/report.py"],
+            "commands_run": ["pytest -q"],
+            "command_durations_ms": [{
+                "event": "evt_cmd",
+                "command": "pytest -q",
+                "duration_ms": 50,
+                "status": "failed",
+                "exit_code": 1,
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.050Z",
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd.log"}],
+            }],
+            "edit_summaries": [{
+                "event": "evt_edit",
+                "path": "src/report.py",
+                "kind": "modify",
+                "status": "succeeded",
+                "duration_ms": 10,
+                "added_lines": 1,
+                "removed_lines": 0,
+                "summary": "Document existing summary rows",
+                "started_at": "2026-04-25T00:00:02Z",
+                "ended_at": "2026-04-25T00:00:02.010Z",
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit.diff"}],
+            }],
+            "next_inspection_targets": [],
+        },
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing"] == trace["summary"]["command_durations_ms"]
+    assert payload["edit_summary"] == trace["summary"]["edit_summaries"]
+
+    text = build_markdown_summary(trace)
+    assert "evt_cmd: `pytest -q` — 50ms, status=failed, exit_code=1" in text
+    assert "started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.050Z" in text
+    assert "artifacts: command_log=artifacts/evt_cmd.log" in text
+    assert "src/report.py: modify (+1/-0) — Document existing summary rows" in text
+    assert "artifacts: diff=artifacts/evt_edit.diff" in text
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")
