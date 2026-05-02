@@ -9,6 +9,15 @@ def _format_artifacts(row):
     return f", artifacts: {refs}"
 
 
+def _format_time_window(row):
+    parts = []
+    if row.get("started_at"):
+        parts.append(f"started_at={row['started_at']}")
+    if row.get("ended_at"):
+        parts.append(f"ended_at={row['ended_at']}")
+    return f", {', '.join(parts)}" if parts else ""
+
+
 def _format_command_timing(rows):
     if not rows:
         return ["## Command Timing", "", "No command events recorded."]
@@ -18,8 +27,9 @@ def _format_command_timing(rows):
         duration = row["duration_ms"]
         exit_code = "unknown" if row["exit_code"] is None else row["exit_code"]
         cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
+        time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
-        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{artifacts}")
+        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{time_window}{artifacts}")
     return lines
 
 
@@ -31,8 +41,11 @@ def _format_edit_summary(rows):
         added = 0 if row["added_lines"] is None else row["added_lines"]
         removed = 0 if row["removed_lines"] is None else row["removed_lines"]
         summary = row["summary"] or "No edit summary recorded."
+        status = f", status={row['status']}" if row.get("status") else ""
+        duration = f", duration_ms={row['duration_ms']}" if "duration_ms" in row else ""
+        time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
-        lines.append(f"- {row['path']}: {row['kind']} (+{added}/-{removed}) — {summary}{artifacts}")
+        lines.append(f"- {row['path']}: {row['kind']} (+{added}/-{removed}) — {summary}{status}{duration}{time_window}{artifacts}")
     return lines
 
 

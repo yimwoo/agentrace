@@ -50,6 +50,10 @@ def build_command_timing(events, artifacts=None):
             "duration_ms": event.get("duration_ms", 0),
             "exit_code": event.get("exit_code", details.get("exit_code")),
         }
+        if event.get("started_at"):
+            row["started_at"] = event["started_at"]
+        if event.get("ended_at"):
+            row["ended_at"] = event["ended_at"]
         if event_ref in artifact_refs:
             row["artifacts"] = artifact_refs[event_ref]
         rows.append(row)
@@ -71,10 +75,16 @@ def build_edit_summary(events, artifacts=None):
             "event": event_ref,
             "path": file_info.get("path") or details.get("path") or event.get("name"),
             "kind": change.get("kind") or details.get("kind"),
+            "status": event.get("status"),
+            "duration_ms": event.get("duration_ms", 0),
             "added_lines": change.get("added_lines", details.get("added_lines")),
             "removed_lines": change.get("removed_lines", details.get("removed_lines")),
             "summary": change.get("summary") or details.get("summary"),
         }
+        if event.get("started_at"):
+            row["started_at"] = event["started_at"]
+        if event.get("ended_at"):
+            row["ended_at"] = event["ended_at"]
         if event_ref in artifact_refs:
             row["artifacts"] = artifact_refs[event_ref]
         rows.append(row)

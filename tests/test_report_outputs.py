@@ -88,14 +88,18 @@ def test_report_includes_command_timing_and_edit_summary():
         "status": "failed",
         "duration_ms": 3200,
         "exit_code": 1,
+        "started_at": "2026-04-25T00:00:01Z",
     }]
     assert payload["edit_summary"] == [{
         "event": "evt_edit",
         "path": "src/auth.py",
         "kind": "modify",
+        "status": "succeeded",
+        "duration_ms": 500,
         "added_lines": 4,
         "removed_lines": 1,
         "summary": "Translate decoder errors into 401 responses",
+        "started_at": "2026-04-25T00:00:05Z",
     }]
     assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
     assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
@@ -130,6 +134,7 @@ def test_markdown_report_matches_rich_trace_fixture():
                 "type": "command",
                 "status": "failed",
                 "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:04.200Z",
                 "duration_ms": 3200,
                 "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
                 "exit_code": 1,
@@ -140,6 +145,7 @@ def test_markdown_report_matches_rich_trace_fixture():
                 "type": "file_edit",
                 "status": "succeeded",
                 "started_at": "2026-04-25T00:00:05Z",
+                "ended_at": "2026-04-25T00:00:05.125Z",
                 "duration_ms": 125,
                 "file": {"path": "src/auth.py"},
                 "change": {"kind": "modify", "added_lines": 4, "removed_lines": 1, "summary": "Translate decoder errors into 401 responses"},

@@ -10,7 +10,7 @@ Bootstrap moving into first concrete trace spec
 - first practical trace schema checkpoint in `TRACE_SCHEMA.md`
 - AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
 - compact run-level summary extraction for JSON and Markdown reports
-- JSON and Markdown reports now surface command timing rows, file edit summaries, and linked command-log/diff artifact references
+- JSON and Markdown reports now surface command timing rows, file edit summaries, linked command-log/diff artifact references, and available start/end timestamp context
 - a rich Markdown report fixture demonstrates command timing with cwd, edit summaries, and test-result context
 
 ## What is incomplete
@@ -24,7 +24,7 @@ Bootstrap moving into first concrete trace spec
 - define the first Markdown summary/report shape
 - preserve narrow scope around practical debugging value
 - keep report summaries aligned with `TRACE_SCHEMA.md` quick-inspection fields
-- make command duration and file-change impact visible without opening raw events first
+- make command duration, start/end timestamp context, and file-change impact visible without opening raw events first
 
 ## Risks / blockers
 - risk of becoming too abstract or framework-heavy

@@ -304,13 +304,19 @@ A compact run-level summary for quick inspection.
       "command": "pytest tests/test_auth.py -q",
       "duration_ms": 2100,
       "status": "failed",
-      "exit_code": 1
+      "exit_code": 1,
+      "started_at": "2026-04-23T13:01:10Z",
+      "ended_at": "2026-04-23T13:01:12Z"
     }
   ],
   "edit_summaries": [
     {
       "path": "src/auth.py",
       "kind": "modify",
+      "status": "succeeded",
+      "duration_ms": 400,
+      "started_at": "2026-04-23T13:02:00Z",
+      "ended_at": "2026-04-23T13:02:01Z",
       "added_lines": 4,
       "removed_lines": 1,
       "summary": "Return 401 for invalid tokens instead of re-raising decoder exception"
@@ -326,8 +332,11 @@ A compact run-level summary for quick inspection.
 Report builders should surface command timing and edit summaries in both JSON
 and Markdown so a developer can quickly identify slow or failed commands and
 understand the file-level impact of edits without opening raw events first.
-When command or diff artifacts are linked to those events, reports should also
-show the artifact kind and path beside the relevant command timing or edit row.
+Command timing rows should carry duration, status, exit code, cwd, and available
+start/end timestamps. Edit summary rows should carry file impact plus edit
+status, duration, and available start/end timestamps. When command or diff
+artifacts are linked to those events, reports should also show the artifact kind
+and path beside the relevant command timing or edit row.
 
 ## MVP acceptance rule
 A trace is MVP-useful if a developer can answer all of the following from one artifact bundle:
