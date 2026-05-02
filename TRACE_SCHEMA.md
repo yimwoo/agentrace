@@ -326,6 +326,8 @@ A compact run-level summary for quick inspection.
 Report builders should surface command timing and edit summaries in both JSON
 and Markdown so a developer can quickly identify slow or failed commands and
 understand the file-level impact of edits without opening raw events first.
+When command or diff artifacts are linked to those events, reports should also
+show the artifact kind and path beside the relevant command timing or edit row.
 
 ## MVP acceptance rule
 A trace is MVP-useful if a developer can answer all of the following from one artifact bundle:

@@ -1,6 +1,14 @@
 from src.report_json import build_json_summary
 
 
+def _format_artifacts(row):
+    artifacts = row.get("artifacts") or []
+    if not artifacts:
+        return ""
+    refs = "; ".join(f"{artifact['kind']}={artifact['path']}" for artifact in artifacts)
+    return f", artifacts: {refs}"
+
+
 def _format_command_timing(rows):
     if not rows:
         return ["## Command Timing", "", "No command events recorded."]
@@ -10,7 +18,8 @@ def _format_command_timing(rows):
         duration = row["duration_ms"]
         exit_code = "unknown" if row["exit_code"] is None else row["exit_code"]
         cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
-        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}")
+        artifacts = _format_artifacts(row)
+        lines.append(f"- {row['event']}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{artifacts}")
     return lines
 
 
@@ -22,7 +31,8 @@ def _format_edit_summary(rows):
         added = 0 if row["added_lines"] is None else row["added_lines"]
         removed = 0 if row["removed_lines"] is None else row["removed_lines"]
         summary = row["summary"] or "No edit summary recorded."
-        lines.append(f"- {row['path']}: {row['kind']} (+{added}/-{removed}) — {summary}")
+        artifacts = _format_artifacts(row)
+        lines.append(f"- {row['path']}: {row['kind']} (+{added}/-{removed}) — {summary}{artifacts}")
     return lines
 
 

@@ -159,6 +159,50 @@ def test_markdown_report_matches_rich_trace_fixture():
     assert build_markdown_summary(trace) == expected
 
 
+def test_reports_include_artifact_refs_for_commands_and_edits():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "artifact-1", "task": "inspect artifacts", "status": "failed", "duration_ms": 52},
+        "events": [
+            {
+                "id": "evt_cmd_log",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:01Z",
+                "duration_ms": 50,
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_diff",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:02Z",
+                "duration_ms": 2,
+                "file": {"path": "src/report.py"},
+                "change": {"kind": "modify", "added_lines": 3, "removed_lines": 1, "summary": "Surface linked artifacts"},
+            },
+        ],
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd_log.log", "event_id": "evt_cmd_log"},
+            {"kind": "diff", "path": "artifacts/evt_diff.diff", "event_id": "evt_diff"},
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing"][0]["artifacts"] == [
+        {"kind": "command_log", "path": "artifacts/evt_cmd_log.log"}
+    ]
+    assert payload["edit_summary"][0]["artifacts"] == [
+        {"kind": "diff", "path": "artifacts/evt_diff.diff"}
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "artifacts: command_log=artifacts/evt_cmd_log.log" in text
+    assert "artifacts: diff=artifacts/evt_diff.diff" in text
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")
