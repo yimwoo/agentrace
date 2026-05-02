@@ -258,6 +258,44 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
     assert "src/report.py: modify (+1/-0) — Document existing summary rows" in text
     assert "artifacts: diff=artifacts/evt_edit.diff" in text
 
+
+def test_report_outputs_derive_duration_from_time_windows():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "window-1", "task": "derive durations", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_window",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.333Z",
+                "command": {"value": "python -m pytest"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_window",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.012Z",
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Derive report timing"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing"][0]["duration_ms"] == 333
+    assert payload["edit_summary"][0]["duration_ms"] == 12
+
+    text = build_markdown_summary(trace)
+    assert "`python -m pytest` — 333ms" in text
+    assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12" in text
+
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")

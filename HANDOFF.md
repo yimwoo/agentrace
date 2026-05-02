@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` report timing rows now derive command and edit durations from `started_at` / `ended_at` windows when explicit `duration_ms` is absent, keeping quick-inspection reports useful for traces that record timestamp windows only.
+
+## What was done
+- created AgentSpec task `T-009` for a report observability follow-up slice
+- added shared event duration derivation from ISO trace timestamp windows
+- updated JSON command timing and edit summary extraction to use derived durations when needed
+- updated run summary command/edit rows to use the same derived duration behavior
+- added regression coverage for summary and report output duration derivation
+
+## Verification
+- `bash scripts/ci_check.sh` — 20 passed, 1 warning
+
+## Previous status
 `agentrace` report summaries now preserve report-ready command timing and edit summary rows even when a trace already contains summarized quick-inspection data instead of raw command/edit events.
 
 ## What was done

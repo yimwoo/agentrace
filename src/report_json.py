@@ -1,5 +1,5 @@
 from src.failure_summary import build_failure_summary
-from src.trace_schema import build_run_summary, summarize_trace
+from src.trace_schema import build_run_summary, summarize_trace, event_duration_ms
 
 
 def _event_ref(event):
@@ -47,7 +47,7 @@ def build_command_timing(events, artifacts=None):
             "command": command.get("value") or event.get("name") or details.get("command"),
             "cwd": command.get("cwd") or details.get("cwd"),
             "status": event.get("status"),
-            "duration_ms": event.get("duration_ms", 0),
+            "duration_ms": event_duration_ms(event),
             "exit_code": event.get("exit_code", details.get("exit_code")),
         }
         if event.get("started_at"):
@@ -76,7 +76,7 @@ def build_edit_summary(events, artifacts=None):
             "path": file_info.get("path") or details.get("path") or event.get("name"),
             "kind": change.get("kind") or details.get("kind"),
             "status": event.get("status"),
-            "duration_ms": event.get("duration_ms", 0),
+            "duration_ms": event_duration_ms(event),
             "added_lines": change.get("added_lines", details.get("added_lines")),
             "removed_lines": change.get("removed_lines", details.get("removed_lines")),
             "summary": change.get("summary") or details.get("summary"),

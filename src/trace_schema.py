@@ -1,3 +1,6 @@
+from datetime import datetime, timezone
+
+
 LEGACY_TRACE_EVENT_FIELDS = [
     "timestamp", "type", "name", "status", "details", "duration_ms"
 ]
@@ -43,6 +46,32 @@ def validate_trace_event(event):
 
     missing = envelope_missing if len(envelope_missing) <= len(legacy_missing) else legacy_missing
     return {"ok": False, "missing": missing, "errors": ["event does not match envelope or legacy trace shape"], "schema": "unknown"}
+
+
+def _parse_trace_timestamp(value):
+    if not isinstance(value, str) or not value:
+        return None
+    normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+    try:
+        return datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+
+
+def event_duration_ms(event):
+    duration = event.get("duration_ms")
+    if duration is not None:
+        return duration
+    started_at = _parse_trace_timestamp(event.get("started_at"))
+    ended_at = _parse_trace_timestamp(event.get("ended_at"))
+    if not started_at or not ended_at:
+        return 0
+    if started_at.tzinfo is None and ended_at.tzinfo is not None:
+        started_at = started_at.replace(tzinfo=timezone.utc)
+    if ended_at.tzinfo is None and started_at.tzinfo is not None:
+        ended_at = ended_at.replace(tzinfo=timezone.utc)
+    elapsed_ms = int((ended_at - started_at).total_seconds() * 1000)
+    return elapsed_ms if elapsed_ms >= 0 else 0
 
 
 def summarize_trace(events):
@@ -105,7 +134,7 @@ def build_run_summary(trace):
             row = {
                 "event": event_ref,
                 "command": command_value,
-                "duration_ms": event.get("duration_ms", 0),
+                "duration_ms": event_duration_ms(event),
                 "status": event.get("status"),
                 "exit_code": event.get("exit_code", details.get("exit_code")),
             }
@@ -125,7 +154,7 @@ def build_run_summary(trace):
                 "path": file_path,
                 "kind": change.get("kind") or details.get("kind"),
                 "status": event.get("status"),
-                "duration_ms": event.get("duration_ms", 0),
+                "duration_ms": event_duration_ms(event),
                 "added_lines": change.get("added_lines", details.get("added_lines")),
                 "removed_lines": change.get("removed_lines", details.get("removed_lines")),
                 "summary": change.get("summary") or details.get("summary"),

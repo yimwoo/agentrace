@@ -99,3 +99,36 @@ def test_build_run_summary_carries_report_ready_timing_and_edit_fields():
         "ended_at": "2026-04-25T00:00:03.100Z",
         "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit.diff"}],
     }]
+
+
+def test_build_run_summary_derives_duration_from_time_window_when_missing():
+    trace = {
+        "run": {"status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_window",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:01.250Z",
+                "command": {"value": "pytest -q"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_window",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:02Z",
+                "ended_at": "2026-04-25T00:00:02.075Z",
+                "file": {"path": "src/example.py"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0, "summary": "Derive timing"},
+            },
+        ],
+    }
+
+    result = build_run_summary(trace)
+
+    assert result["command_durations_ms"][0]["duration_ms"] == 1250
+    assert result["edit_summaries"][0]["duration_ms"] == 75
