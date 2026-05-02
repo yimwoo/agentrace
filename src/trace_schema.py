@@ -78,7 +78,7 @@ def summarize_trace(events):
     return {
         "event_count": len(events),
         "ok_events": sum(1 for event in events if validate_trace_event(event)["ok"]),
-        "total_duration_ms": sum(event.get("duration_ms", 0) for event in events if isinstance(event, dict)),
+        "total_duration_ms": sum(event_duration_ms(event) for event in events if isinstance(event, dict)),
     }
 
 

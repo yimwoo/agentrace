@@ -336,7 +336,10 @@ Command timing rows should carry duration, status, exit code, cwd, and available
 start/end timestamps. Edit summary rows should carry file impact plus edit
 status, duration, and available start/end timestamps. If `duration_ms` is absent
 but both `started_at` and `ended_at` are present, report builders derive the row
-duration from that timestamp window. When command or diff artifacts are linked
+duration from that timestamp window. Derived durations should be used
+consistently in quick-inspection rows and the report-level
+`summary.total_duration_ms` so report timing does not undercount traces that
+record timestamp windows only. When command or diff artifacts are linked
 to those events, reports should also show the artifact kind and path beside the
 relevant command timing or edit row.
 

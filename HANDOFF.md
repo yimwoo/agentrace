@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` report totals now use the same derived command/edit durations shown in quick-inspection rows, so traces that record only `started_at` / `ended_at` windows no longer show useful row durations but a zero aggregate total.
+
+## What was done
+- created AgentSpec task `T-010` for a report observability follow-up slice
+- updated summary total duration calculation to reuse shared timestamp-window duration derivation
+- added regression coverage ensuring JSON and Markdown totals include derived command/edit durations
+- clarified `TRACE_SCHEMA.md` guidance that derived durations apply to quick-inspection rows and report-level totals
+- refreshed `PROJECT_STATE.md` to reflect that Markdown report helpers now exist while HTML and capture/ingestion remain incomplete
+
+## Verification
+- `bash scripts/ci_check.sh` — 20 passed, 1 warning
+
+## Previous status
 `agentrace` report timing rows now derive command and edit durations from `started_at` / `ended_at` windows when explicit `duration_ms` is absent, keeping quick-inspection reports useful for traces that record timestamp windows only.
 
 ## What was done

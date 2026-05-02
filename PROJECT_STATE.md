@@ -15,9 +15,9 @@ Bootstrap moving into first concrete trace spec
 
 ## What is incomplete
 - event capture implementation
-- report generation in Markdown/HTML
+- report generation in HTML
 - demo/example workflow runner
-- actual code structure for ingestion and rendering
+- actual capture/ingestion code beyond the current schema/report helpers
 
 ## Active focus
 - turn the trace schema into a small code skeleton for emitting traces

@@ -290,8 +290,10 @@ def test_report_outputs_derive_duration_from_time_windows():
     payload = build_json_summary(trace)
     assert payload["command_timing"][0]["duration_ms"] == 333
     assert payload["edit_summary"][0]["duration_ms"] == 12
+    assert payload["summary"]["total_duration_ms"] == 345
 
     text = build_markdown_summary(trace)
+    assert "total_duration_ms: 345" in text
     assert "`python -m pytest` — 333ms" in text
     assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12" in text
 
