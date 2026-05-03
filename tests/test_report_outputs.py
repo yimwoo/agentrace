@@ -352,6 +352,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "failed_count": 1,
+        "status_counts": {"failed": 1, "succeeded": 1},
         "slowest": {
             "event": "evt_cmd_slow",
             "command": "pytest -q",
@@ -368,6 +369,16 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "total_removed_lines": 3,
         "net_line_delta": 8,
         "total_duration_ms": 20,
+        "average_duration_ms": 10.0,
+        "largest_edit": {
+            "event": "evt_edit_one",
+            "path": "src/report_json.py",
+            "added_lines": 8,
+            "removed_lines": 2,
+            "net_line_delta": 6,
+            "duration_ms": 12,
+            "status": "succeeded",
+        },
     }
 
     text = build_markdown_summary(trace)
@@ -375,12 +386,15 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
+    assert "command_status_counts: failed=1, succeeded=1" in text
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text
+    assert "edit_average_duration_ms: 10.0" in text
+    assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded)" in text
 
 
 def test_example_write(tmp_path):

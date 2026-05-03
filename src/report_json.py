@@ -101,15 +101,19 @@ def build_command_timing_summary(rows):
     """Build aggregate command timing metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
     slowest = None
+    status_counts = {}
     for row in normalized_rows:
         if slowest is None or _numeric_value(row.get("duration_ms")) > _numeric_value(slowest.get("duration_ms")):
             slowest = row
+        status = row.get("status") or "unknown"
+        status_counts[status] = status_counts.get(status, 0) + 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     return {
         "count": len(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
+        "status_counts": status_counts,
         "slowest": None if slowest is None else {
             "event": slowest.get("event"),
             "command": slowest.get("command"),
@@ -120,12 +124,27 @@ def build_command_timing_summary(rows):
     }
 
 
+def _largest_edit_row(rows):
+    largest = None
+    for row in rows:
+        if largest is None:
+            largest = row
+            continue
+        row_churn = _numeric_value(row.get("added_lines")) + _numeric_value(row.get("removed_lines"))
+        largest_churn = _numeric_value(largest.get("added_lines")) + _numeric_value(largest.get("removed_lines"))
+        if row_churn > largest_churn:
+            largest = row
+    return largest
+
+
 def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
     files = [row.get("path") for row in normalized_rows if row.get("path")]
     total_added_lines = sum(_numeric_value(row.get("added_lines")) for row in normalized_rows)
     total_removed_lines = sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows)
+    total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
+    largest_edit = _largest_edit_row(normalized_rows)
     return {
         "count": len(normalized_rows),
         "files_changed": files,
@@ -133,7 +152,17 @@ def build_edit_summary_totals(rows):
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,
         "net_line_delta": total_added_lines - total_removed_lines,
-        "total_duration_ms": sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows),
+        "total_duration_ms": total_duration_ms,
+        "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "largest_edit": None if largest_edit is None else {
+            "event": largest_edit.get("event"),
+            "path": largest_edit.get("path"),
+            "added_lines": _numeric_value(largest_edit.get("added_lines")),
+            "removed_lines": _numeric_value(largest_edit.get("removed_lines")),
+            "net_line_delta": _numeric_value(largest_edit.get("added_lines")) - _numeric_value(largest_edit.get("removed_lines")),
+            "duration_ms": _numeric_value(largest_edit.get("duration_ms")),
+            "status": largest_edit.get("status"),
+        },
     }
 
 

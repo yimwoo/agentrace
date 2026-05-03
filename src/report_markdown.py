@@ -35,6 +35,25 @@ def _format_changed_files(files):
     return ", ".join(files)
 
 
+def _format_status_counts(status_counts):
+    if not status_counts:
+        return "none"
+    return ", ".join(f"{status}={count}" for status, count in sorted(status_counts.items()))
+
+
+def _format_largest_edit(largest_edit):
+    if not largest_edit:
+        return "none"
+    event = largest_edit.get("event") or "summary"
+    path = largest_edit.get("path") or "<unknown file>"
+    added = largest_edit.get("added_lines", 0)
+    removed = largest_edit.get("removed_lines", 0)
+    net = largest_edit.get("net_line_delta", 0)
+    duration = largest_edit.get("duration_ms", 0)
+    status = largest_edit.get("status") or "unknown"
+    return f"{event}: {path} (+{added}/-{removed}, net={net}, duration_ms={duration}, status={status})"
+
+
 def _format_command_timing(rows):
     if not rows:
         return ["## Command Timing", "", "No command events recorded."]
@@ -84,12 +103,15 @@ def build_markdown_summary(trace):
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
+        f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
         f"- edit_net_line_delta: {edit_totals['net_line_delta']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
+        f"- edit_average_duration_ms: {edit_totals['average_duration_ms']}",
+        f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
         "",
     ]
     lines.extend(_format_command_timing(payload["command_timing"]))

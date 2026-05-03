@@ -1,6 +1,18 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate reports now include command status distributions plus average edit duration and largest-edit impact, making command outcomes and edit churn easier to inspect before reading individual rows.
+
+## What was done
+- created AgentSpec task `T-014` for a report observability follow-up slice
+- added `status_counts` to JSON `command_timing_summary` and rendered it in Markdown report totals
+- added `average_duration_ms` and `largest_edit` to JSON `edit_summary_totals` and rendered both in Markdown report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the expanded aggregate fields
+
+## Verification
+- `bash scripts/ci_check.sh` — 21 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report totals now include average command duration and net edit line delta in both JSON and Markdown, making command pacing and file-change impact clearer at a glance.
 
 ## What was done

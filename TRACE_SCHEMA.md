@@ -336,13 +336,14 @@ Command timing rows should carry duration, status, exit code, cwd, and available
 start/end timestamps. Edit summary rows should carry file impact plus edit
 status, duration, and available start/end timestamps. JSON reports should also
 include aggregate `command_timing_summary` totals (`count`,
-`total_duration_ms`, `average_duration_ms`, `failed_count`, and `slowest`) plus
-`edit_summary_totals` (`count`, changed files, total added/removed lines,
-`net_line_delta`, and total edit duration). Markdown reports should render the
-same aggregate command/edit totals near the top-level summary so reviewers can
-inspect the run impact before scanning individual rows, including the average
-command duration, slowest command identity, changed-file list, and net line
-delta when present.
+`total_duration_ms`, `average_duration_ms`, `failed_count`, `status_counts`,
+and `slowest`) plus `edit_summary_totals` (`count`, changed files, total
+added/removed lines, `net_line_delta`, total/average edit duration, and
+`largest_edit`). Markdown reports should render the same aggregate command/edit
+totals near the top-level summary so reviewers can inspect the run impact
+before scanning individual rows, including command status counts, the average
+command duration, slowest command identity, changed-file list, net line delta,
+average edit duration, and largest edit when present.
 If `duration_ms` is absent but both `started_at` and `ended_at` are
 present, report builders derive the row duration from that timestamp window.
 Derived durations should be used consistently in quick-inspection rows,
