@@ -82,11 +82,13 @@ def build_markdown_summary(trace):
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
         f"- command_count: {command_totals['count']}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
+        f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
+        f"- edit_net_line_delta: {edit_totals['net_line_delta']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
         "",
     ]

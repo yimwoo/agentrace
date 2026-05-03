@@ -108,6 +108,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-03T08:02:24Z"
+    },
+    "agent/context-packs/T-013-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-013-add-command-timing-and-edit-summaries-to-reports-20260503130337",
+      "reason": "Implemented average command duration and net edit line delta report aggregates; bash scripts/ci_check.sh passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-03T13:03:37Z"
     }
   }
 }

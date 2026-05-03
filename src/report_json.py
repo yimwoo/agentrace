@@ -104,9 +104,11 @@ def build_command_timing_summary(rows):
     for row in normalized_rows:
         if slowest is None or _numeric_value(row.get("duration_ms")) > _numeric_value(slowest.get("duration_ms")):
             slowest = row
+    total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     return {
         "count": len(normalized_rows),
-        "total_duration_ms": sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows),
+        "total_duration_ms": total_duration_ms,
+        "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
         "slowest": None if slowest is None else {
             "event": slowest.get("event"),
@@ -122,12 +124,15 @@ def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
     files = [row.get("path") for row in normalized_rows if row.get("path")]
+    total_added_lines = sum(_numeric_value(row.get("added_lines")) for row in normalized_rows)
+    total_removed_lines = sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows)
     return {
         "count": len(normalized_rows),
         "files_changed": files,
         "files_changed_count": len(set(files)),
-        "total_added_lines": sum(_numeric_value(row.get("added_lines")) for row in normalized_rows),
-        "total_removed_lines": sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows),
+        "total_added_lines": total_added_lines,
+        "total_removed_lines": total_removed_lines,
+        "net_line_delta": total_added_lines - total_removed_lines,
         "total_duration_ms": sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows),
     }
 
