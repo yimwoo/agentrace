@@ -7,7 +7,9 @@
 - command_count: 1
 - command_total_duration_ms: 3200
 - command_failed_count: 1
+- slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1)
 - files_changed_count: 1
+- files_changed: src/auth.py
 - edit_total_lines: +4/-1
 - edit_total_duration_ms: 125
 

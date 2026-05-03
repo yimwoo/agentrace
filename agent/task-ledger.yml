@@ -99,6 +99,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-03T04:02:18Z"
+    },
+    "agent/context-packs/T-012-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-012-add-command-timing-and-edit-summaries-to-reports-20260503080224",
+      "reason": "Implemented Markdown aggregate quick-inspection detail; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-03T08:02:24Z"
     }
   }
 }

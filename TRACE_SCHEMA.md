@@ -340,7 +340,8 @@ include aggregate `command_timing_summary` totals (`count`,
 (`count`, changed files, total line delta, and total edit duration). Markdown
 reports should render the same aggregate command/edit totals near the top-level
 summary so reviewers can inspect the run impact before scanning individual
-rows. If `duration_ms` is absent but both `started_at` and `ended_at` are
+rows, including the slowest command identity and changed-file list when present.
+If `duration_ms` is absent but both `started_at` and `ended_at` are
 present, report builders derive the row duration from that timestamp window.
 Derived durations should be used consistently in quick-inspection rows,
 aggregate command/edit totals, and the report-level `summary.total_duration_ms`

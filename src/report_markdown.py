@@ -18,6 +18,23 @@ def _format_time_window(row):
     return f", {', '.join(parts)}" if parts else ""
 
 
+def _format_slowest_command(slowest):
+    if not slowest:
+        return "none"
+    event = slowest.get("event") or "summary"
+    command = slowest.get("command") or "<unknown command>"
+    duration = slowest.get("duration_ms", 0)
+    status = slowest.get("status") or "unknown"
+    exit_code = "unknown" if slowest.get("exit_code") is None else slowest.get("exit_code")
+    return f"{event}: `{command}` ({duration}ms, status={status}, exit_code={exit_code})"
+
+
+def _format_changed_files(files):
+    if not files:
+        return "none"
+    return ", ".join(files)
+
+
 def _format_command_timing(rows):
     if not rows:
         return ["## Command Timing", "", "No command events recorded."]
@@ -66,7 +83,9 @@ def build_markdown_summary(trace):
         f"- command_count: {command_totals['count']}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
+        f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
+        f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
         "",

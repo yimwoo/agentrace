@@ -1,0 +1,52 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-012-add-command-timing-and-edit-summaries-to-reports-20260503080224",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-012-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-012: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-03T08:02:24Z",
+  "updated_at": "2026-05-03T08:02:24Z",
+  "last_decision": "complete",
+  "completion_reason": "Implemented Markdown aggregate quick-inspection detail; CI passed.",
+  "verification": {
+    "status": "passed"
+  }
+}

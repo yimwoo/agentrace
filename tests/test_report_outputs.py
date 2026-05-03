@@ -372,7 +372,9 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_count: 2" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_failed_count: 1" in text
+    assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
     assert "files_changed_count: 2" in text
+    assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_total_duration_ms: 20" in text
 

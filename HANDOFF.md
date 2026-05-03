@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` Markdown reports now expand aggregate command/edit quick-inspection totals with the slowest command identity and changed-file list, matching the detail already available in JSON report aggregates.
+
+## What was done
+- created AgentSpec task `T-012` for a report observability follow-up slice
+- added Markdown rendering for the slowest command aggregate, including event, command, duration, status, and exit code
+- added Markdown rendering for aggregate changed-file lists, with `none` used when no files are present
+- updated regression coverage and the rich Markdown report fixture for the expanded top-level report totals
+- clarified `TRACE_SCHEMA.md` and `PROJECT_STATE.md` guidance for slowest-command and changed-file-list visibility
+
+## Verification
+- `bash scripts/ci_check.sh` — 21 passed, 1 warning
+
+## Previous status
 `agentrace` reports now include aggregate command timing and edit-impact totals in JSON and Markdown output, making slow/failed commands and total file-change impact visible before reading individual rows.
 
 ## What was done
