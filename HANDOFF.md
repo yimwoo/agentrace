@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` reports now include aggregate command timing and edit-impact totals in JSON and Markdown output, making slow/failed commands and total file-change impact visible before reading individual rows.
+
+## What was done
+- created AgentSpec task `T-011` for a report observability follow-up slice
+- added `command_timing_summary` to JSON reports with command count, total duration, failed count, and slowest command
+- added `edit_summary_totals` to JSON reports with changed-file count/list, total line delta, and total edit duration
+- rendered the aggregate command/edit totals near the top of Markdown reports
+- added regression coverage for aggregate report totals and updated the rich Markdown report fixture
+- clarified `TRACE_SCHEMA.md` guidance for aggregate report totals and duration derivation
+
+## Verification
+- `bash scripts/ci_check.sh` — 21 passed, 1 warning
+
+## Previous status
 `agentrace` report totals now use the same derived command/edit durations shown in quick-inspection rows, so traces that record only `started_at` / `ended_at` windows no longer show useful row durations but a zero aggregate total.
 
 ## What was done

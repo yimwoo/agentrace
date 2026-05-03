@@ -54,6 +54,8 @@ def _format_edit_summary(rows):
 
 def build_markdown_summary(trace):
     payload = build_json_summary(trace)
+    command_totals = payload["command_timing_summary"]
+    edit_totals = payload["edit_summary_totals"]
     lines = [
         f"# Trace Summary: {payload['task']}",
         f"- run_id: {payload['run_id']}",
@@ -61,6 +63,12 @@ def build_markdown_summary(trace):
         f"- event_count: {payload['summary']['event_count']}",
         f"- ok_events: {payload['summary']['ok_events']}",
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
+        f"- command_count: {command_totals['count']}",
+        f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
+        f"- command_failed_count: {command_totals['failed_count']}",
+        f"- files_changed_count: {edit_totals['files_changed_count']}",
+        f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
+        f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
         "",
     ]
     lines.extend(_format_command_timing(payload["command_timing"]))

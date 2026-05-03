@@ -334,14 +334,19 @@ and Markdown so a developer can quickly identify slow or failed commands and
 understand the file-level impact of edits without opening raw events first.
 Command timing rows should carry duration, status, exit code, cwd, and available
 start/end timestamps. Edit summary rows should carry file impact plus edit
-status, duration, and available start/end timestamps. If `duration_ms` is absent
-but both `started_at` and `ended_at` are present, report builders derive the row
-duration from that timestamp window. Derived durations should be used
-consistently in quick-inspection rows and the report-level
-`summary.total_duration_ms` so report timing does not undercount traces that
-record timestamp windows only. When command or diff artifacts are linked
-to those events, reports should also show the artifact kind and path beside the
-relevant command timing or edit row.
+status, duration, and available start/end timestamps. JSON reports should also
+include aggregate `command_timing_summary` totals (`count`,
+`total_duration_ms`, `failed_count`, and `slowest`) plus `edit_summary_totals`
+(`count`, changed files, total line delta, and total edit duration). Markdown
+reports should render the same aggregate command/edit totals near the top-level
+summary so reviewers can inspect the run impact before scanning individual
+rows. If `duration_ms` is absent but both `started_at` and `ended_at` are
+present, report builders derive the row duration from that timestamp window.
+Derived durations should be used consistently in quick-inspection rows,
+aggregate command/edit totals, and the report-level `summary.total_duration_ms`
+so report timing does not undercount traces that record timestamp windows only.
+When command or diff artifacts are linked to those events, reports should also
+show the artifact kind and path beside the relevant command timing or edit row.
 
 ## MVP acceptance rule
 A trace is MVP-useful if a developer can answer all of the following from one artifact bundle:

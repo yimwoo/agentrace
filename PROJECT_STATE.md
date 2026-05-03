@@ -11,7 +11,8 @@ Bootstrap moving into first concrete trace spec
 - AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
 - compact run-level summary extraction for JSON and Markdown reports
 - JSON and Markdown reports now surface command timing rows, file edit summaries, linked command-log/diff artifact references, and available start/end timestamp context
-- a rich Markdown report fixture demonstrates command timing with cwd, edit summaries, and test-result context
+- aggregate JSON and Markdown report totals now show command count/duration/failures/slowest command plus changed-file count, line delta, and total edit duration
+- a rich Markdown report fixture demonstrates command timing with cwd, edit summaries, aggregate report totals, and test-result context
 
 ## What is incomplete
 - event capture implementation

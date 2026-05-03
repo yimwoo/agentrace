@@ -298,6 +298,85 @@ def test_report_outputs_derive_duration_from_time_windows():
     assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12" in text
 
 
+def test_reports_include_aggregate_command_and_edit_totals():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "aggregate-1", "task": "review report totals", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_slow",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:02Z",
+                "command": {"value": "pytest -q"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_cmd_fast",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:03Z",
+                "duration_ms": 125,
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_one",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:04Z",
+                "duration_ms": 12,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 8, "removed_lines": 2, "summary": "Add report totals"},
+            },
+            {
+                "id": "evt_edit_two",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:05Z",
+                "duration_ms": 8,
+                "file": {"path": "src/report_markdown.py"},
+                "change": {"kind": "modify", "added_lines": 3, "removed_lines": 1, "summary": "Render report totals"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"] == {
+        "count": 2,
+        "total_duration_ms": 2125,
+        "failed_count": 1,
+        "slowest": {
+            "event": "evt_cmd_slow",
+            "command": "pytest -q",
+            "duration_ms": 2000,
+            "status": "failed",
+            "exit_code": 1,
+        },
+    }
+    assert payload["edit_summary_totals"] == {
+        "count": 2,
+        "files_changed": ["src/report_json.py", "src/report_markdown.py"],
+        "files_changed_count": 2,
+        "total_added_lines": 11,
+        "total_removed_lines": 3,
+        "total_duration_ms": 20,
+    }
+
+    text = build_markdown_summary(trace)
+    assert "command_count: 2" in text
+    assert "command_total_duration_ms: 2125" in text
+    assert "command_failed_count: 1" in text
+    assert "files_changed_count: 2" in text
+    assert "edit_total_lines: +11/-3" in text
+    assert "edit_total_duration_ms: 20" in text
+
+
 def test_example_write(tmp_path):
     out = tmp_path / "trace-example.json"
     out.write_text(json.dumps(build_sample_trace(), indent=2) + "\n")

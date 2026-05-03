@@ -4,6 +4,12 @@
 - event_count: 3
 - ok_events: 3
 - total_duration_ms: 3325
+- command_count: 1
+- command_total_duration_ms: 3200
+- command_failed_count: 1
+- files_changed_count: 1
+- edit_total_lines: +4/-1
+- edit_total_duration_ms: 125
 
 ## Command Timing
 

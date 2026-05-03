@@ -91,6 +91,47 @@ def build_edit_summary(events, artifacts=None):
     return rows
 
 
+def _numeric_value(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return 0
+    return value
+
+
+def build_command_timing_summary(rows):
+    """Build aggregate command timing metrics for quick report inspection."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    slowest = None
+    for row in normalized_rows:
+        if slowest is None or _numeric_value(row.get("duration_ms")) > _numeric_value(slowest.get("duration_ms")):
+            slowest = row
+    return {
+        "count": len(normalized_rows),
+        "total_duration_ms": sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows),
+        "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
+        "slowest": None if slowest is None else {
+            "event": slowest.get("event"),
+            "command": slowest.get("command"),
+            "duration_ms": _numeric_value(slowest.get("duration_ms")),
+            "status": slowest.get("status"),
+            "exit_code": slowest.get("exit_code"),
+        },
+    }
+
+
+def build_edit_summary_totals(rows):
+    """Build aggregate edit impact metrics for quick report inspection."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    files = [row.get("path") for row in normalized_rows if row.get("path")]
+    return {
+        "count": len(normalized_rows),
+        "files_changed": files,
+        "files_changed_count": len(set(files)),
+        "total_added_lines": sum(_numeric_value(row.get("added_lines")) for row in normalized_rows),
+        "total_removed_lines": sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows),
+        "total_duration_ms": sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows),
+    }
+
+
 def build_json_summary(trace):
     events = trace.get("events", [])
     summary = summarize_trace(events)
@@ -106,6 +147,8 @@ def build_json_summary(trace):
         "summary": summary,
         "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
+        "command_timing_summary": build_command_timing_summary(command_timing),
         "command_timing": command_timing,
+        "edit_summary_totals": build_edit_summary_totals(edit_summary),
         "edit_summary": edit_summary,
     }
