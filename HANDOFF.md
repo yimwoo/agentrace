@@ -1,6 +1,18 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate reports now include edit failure counts and edit status distributions alongside existing command status totals, making failed or partial edits visible before reading individual rows.
+
+## What was done
+- created AgentSpec task `T-015` for a report observability follow-up slice
+- added `failed_count` and `status_counts` to JSON `edit_summary_totals`
+- rendered edit failure count and edit status distribution in Markdown report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the expanded edit aggregate fields
+
+## Verification
+- `bash scripts/ci_check.sh` — 21 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate reports now include command status distributions plus average edit duration and largest-edit impact, making command outcomes and edit churn easier to inspect before reading individual rows.
 
 ## What was done

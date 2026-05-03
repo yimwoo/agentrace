@@ -141,6 +141,10 @@ def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
     files = [row.get("path") for row in normalized_rows if row.get("path")]
+    status_counts = {}
+    for row in normalized_rows:
+        status = row.get("status") or "unknown"
+        status_counts[status] = status_counts.get(status, 0) + 1
     total_added_lines = sum(_numeric_value(row.get("added_lines")) for row in normalized_rows)
     total_removed_lines = sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows)
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
@@ -149,6 +153,8 @@ def build_edit_summary_totals(rows):
         "count": len(normalized_rows),
         "files_changed": files,
         "files_changed_count": len(set(files)),
+        "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"}),
+        "status_counts": status_counts,
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,
         "net_line_delta": total_added_lines - total_removed_lines,

@@ -107,6 +107,8 @@ def build_markdown_summary(trace):
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
+        f"- edit_failed_count: {edit_totals['failed_count']}",
+        f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
         f"- edit_net_line_delta: {edit_totals['net_line_delta']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",

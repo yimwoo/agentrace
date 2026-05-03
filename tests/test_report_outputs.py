@@ -365,6 +365,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "count": 2,
         "files_changed": ["src/report_json.py", "src/report_markdown.py"],
         "files_changed_count": 2,
+        "failed_count": 0,
+        "status_counts": {"succeeded": 2},
         "total_added_lines": 11,
         "total_removed_lines": 3,
         "net_line_delta": 8,
@@ -390,6 +392,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
+    assert "edit_failed_count: 0" in text
+    assert "edit_status_counts: succeeded=2" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text

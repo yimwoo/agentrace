@@ -11,7 +11,7 @@ Bootstrap moving into first concrete trace spec
 - AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
 - compact run-level summary extraction for JSON and Markdown reports
 - JSON and Markdown reports now surface command timing rows, file edit summaries, linked command-log/diff artifact references, and available start/end timestamp context
-- aggregate JSON and Markdown report totals now show command count/total and average duration/failures/status counts/slowest command plus changed-file count/list, added/removed lines, net line delta, total/average edit duration, and largest edit by churn
+- aggregate JSON and Markdown report totals now show command count/total and average duration/failures/status counts/slowest command plus changed-file count/list, edit failure/status counts, added/removed lines, net line delta, total/average edit duration, and largest edit by churn
 - a rich Markdown report fixture demonstrates command timing with cwd, edit summaries, aggregate report totals, and test-result context
 
 ## What is incomplete
@@ -25,7 +25,7 @@ Bootstrap moving into first concrete trace spec
 - define the first Markdown summary/report shape
 - preserve narrow scope around practical debugging value
 - keep report summaries aligned with `TRACE_SCHEMA.md` quick-inspection fields
-- make command duration, command status distribution, slowest-command identity, start/end timestamp context, largest edit, and file-change impact visible without opening raw events first
+- make command duration, command status distribution, slowest-command identity, start/end timestamp context, edit status distribution/failures, largest edit, and file-change impact visible without opening raw events first
 
 ## Risks / blockers
 - risk of becoming too abstract or framework-heavy

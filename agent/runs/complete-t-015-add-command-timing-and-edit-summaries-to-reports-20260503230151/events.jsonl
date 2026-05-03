@@ -1,0 +1,1 @@
+{"schema": "agentspec.supervised_run.event.v0", "run_id": "complete-t-015-add-command-timing-and-edit-summaries-to-reports-20260503230151", "timestamp": "2026-05-03T23:01:51Z", "kind": "task_marked_complete", "context_pack": "agent/context-packs/T-015-add-command-timing-and-edit-summaries-to-reports.md", "reason": "Marked complete by user.", "test_summary": {"status": "passed"}}
