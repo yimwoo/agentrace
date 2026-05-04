@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0004",
+  "task": {
+    "selector": "T-020",
+    "context_pack": "agent/context-packs/T-020-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Report aggregate additions are covered by regression tests and ci_check.sh passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-04T23:02:34Z"
+}

@@ -51,6 +51,12 @@ def _format_changed_files(files):
     return ", ".join(files)
 
 
+def _format_repeated_commands(repeated_commands):
+    if not repeated_commands:
+        return "none"
+    return ", ".join(f"`{command}`={count}" for command, count in sorted(repeated_commands.items()))
+
+
 def _format_status_counts(status_counts):
     if not status_counts:
         return "none"
@@ -136,6 +142,9 @@ def build_markdown_summary(trace):
         f"- ok_events: {payload['summary']['ok_events']}",
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
         f"- command_count: {command_totals['count']}",
+        f"- unique_command_count: {command_totals['unique_command_count']}",
+        f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",
+        f"- repeated_commands: {_format_repeated_commands(command_totals['repeated_commands'])}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",

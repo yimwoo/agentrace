@@ -138,6 +138,28 @@ def _duration_source_counts(rows):
     return counts
 
 
+def _ordered_values(rows, field):
+    values = []
+    seen = set()
+    for row in rows:
+        value = row.get(field)
+        if not value or value in seen:
+            continue
+        seen.add(value)
+        values.append(value)
+    return values
+
+
+def _repeated_value_counts(rows, field):
+    counts = {}
+    for row in rows:
+        value = row.get(field)
+        if not value:
+            continue
+        counts[value] = counts.get(value, 0) + 1
+    return {value: count for value, count in counts.items() if count > 1}
+
+
 def build_command_timing_summary(rows):
     """Build aggregate command timing metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -149,8 +171,12 @@ def build_command_timing_summary(rows):
         status = row.get("status") or "unknown"
         status_counts[status] = status_counts.get(status, 0) + 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
+    commands_run = _ordered_values(normalized_rows, "command")
     return {
         "count": len(normalized_rows),
+        "unique_command_count": len(commands_run),
+        "commands_run": commands_run,
+        "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
@@ -186,7 +212,7 @@ def _largest_edit_row(rows):
 def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
-    files = [row.get("path") for row in normalized_rows if row.get("path")]
+    files = _ordered_values(normalized_rows, "path")
     status_counts = {}
     for row in normalized_rows:
         status = row.get("status") or "unknown"
@@ -198,7 +224,7 @@ def build_edit_summary_totals(rows):
     return {
         "count": len(normalized_rows),
         "files_changed": files,
-        "files_changed_count": len(set(files)),
+        "files_changed_count": len(files),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"}),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),

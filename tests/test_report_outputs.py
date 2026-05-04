@@ -352,6 +352,9 @@ def test_reports_include_aggregate_command_and_edit_totals():
     payload = build_json_summary(trace)
     assert payload["command_timing_summary"] == {
         "count": 2,
+        "unique_command_count": 2,
+        "commands_run": ["pytest -q", "ruff check"],
+        "repeated_commands": {},
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "failed_count": 1,
@@ -399,6 +402,9 @@ def test_reports_include_aggregate_command_and_edit_totals():
 
     text = build_markdown_summary(trace)
     assert "command_count: 2" in text
+    assert "unique_command_count: 2" in text
+    assert "commands_run: pytest -q, ruff check" in text
+    assert "repeated_commands: none" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
@@ -470,6 +476,75 @@ def test_report_aggregate_time_windows_use_full_row_ranges():
     text = build_markdown_summary(trace)
     assert "command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:06+00:00" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z" in text
+
+
+def test_report_totals_deduplicate_files_and_show_repeated_commands():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "repeat-1", "task": "inspect repeated work", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_first",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "duration_ms": 20,
+                "command": {"value": "pytest -q"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_cmd_retry",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 30,
+                "command": {"value": "pytest -q"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_lint",
+                "seq": 3,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_first",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 7,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0, "summary": "First change"},
+            },
+            {
+                "id": "evt_edit_second",
+                "seq": 5,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 8,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Second change"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["count"] == 3
+    assert payload["command_timing_summary"]["unique_command_count"] == 2
+    assert payload["command_timing_summary"]["commands_run"] == ["pytest -q", "ruff check"]
+    assert payload["command_timing_summary"]["repeated_commands"] == {"pytest -q": 2}
+    assert payload["edit_summary_totals"]["files_changed"] == ["src/report_json.py"]
+    assert payload["edit_summary_totals"]["files_changed_count"] == 1
+
+    text = build_markdown_summary(trace)
+    assert "unique_command_count: 2" in text
+    assert "commands_run: pytest -q, ruff check" in text
+    assert "repeated_commands: `pytest -q`=2" in text
+    assert "files_changed_count: 1" in text
+    assert "files_changed: src/report_json.py" in text
 
 
 def test_reports_expose_duration_source_for_timing_rows_and_totals():

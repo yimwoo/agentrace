@@ -5,6 +5,9 @@
 - ok_events: 3
 - total_duration_ms: 3325
 - command_count: 1
+- unique_command_count: 1
+- commands_run: pytest tests/test_auth.py -q
+- repeated_commands: none
 - command_total_duration_ms: 3200
 - command_average_duration_ms: 3200.0
 - command_failed_count: 1
