@@ -353,6 +353,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "average_duration_ms": 1062.5,
         "failed_count": 1,
         "status_counts": {"failed": 1, "succeeded": 1},
+        "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
         "slowest": {
             "event": "evt_cmd_slow",
             "command": "pytest -q",
@@ -367,6 +368,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "files_changed_count": 2,
         "failed_count": 0,
         "status_counts": {"succeeded": 2},
+        "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
         "total_added_lines": 11,
         "total_removed_lines": 3,
         "net_line_delta": 8,
@@ -389,16 +391,71 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
+    assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_failed_count: 0" in text
     assert "edit_status_counts: succeeded=2" in text
+    assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text
     assert "edit_average_duration_ms: 10.0" in text
     assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded)" in text
+
+
+def test_report_aggregate_time_windows_use_full_row_ranges():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "aggregate-window-1", "task": "inspect aggregate windows", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_late",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:05+00:00",
+                "ended_at": "2026-04-25T00:00:06+00:00",
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_early",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:02Z",
+                "command": {"value": "pytest -q"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_mid",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:03Z",
+                "ended_at": "2026-04-25T00:00:04Z",
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Expose aggregate windows"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["time_window"] == {
+        "started_at": "2026-04-25T00:00:01Z",
+        "ended_at": "2026-04-25T00:00:06+00:00",
+    }
+    assert payload["edit_summary_totals"]["time_window"] == {
+        "started_at": "2026-04-25T00:00:03Z",
+        "ended_at": "2026-04-25T00:00:04Z",
+    }
+
+    text = build_markdown_summary(trace)
+    assert "command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:06+00:00" in text
+    assert "edit_time_window: started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z" in text
 
 
 def test_example_write(tmp_path):

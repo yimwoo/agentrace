@@ -1,5 +1,7 @@
+from datetime import timezone
+
 from src.failure_summary import build_failure_summary
-from src.trace_schema import build_run_summary, summarize_trace, event_duration_ms
+from src.trace_schema import build_run_summary, summarize_trace, event_duration_ms, _parse_trace_timestamp
 
 
 def _event_ref(event):
@@ -97,6 +99,35 @@ def _numeric_value(value):
     return value
 
 
+def _normalized_timestamp(value):
+    parsed = _parse_trace_timestamp(value)
+    if parsed is None:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _timestamp_extreme(rows, field, pick_max=False):
+    candidates = []
+    for row in rows:
+        value = row.get(field)
+        parsed = _normalized_timestamp(value)
+        if parsed is not None:
+            candidates.append((parsed, value))
+    if not candidates:
+        return None
+    return max(candidates)[1] if pick_max else min(candidates)[1]
+
+
+def _time_window(rows):
+    started_at = _timestamp_extreme(rows, "started_at")
+    ended_at = _timestamp_extreme(rows, "ended_at", pick_max=True)
+    if started_at is None and ended_at is None:
+        return None
+    return {"started_at": started_at, "ended_at": ended_at}
+
+
 def build_command_timing_summary(rows):
     """Build aggregate command timing metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -114,6 +145,7 @@ def build_command_timing_summary(rows):
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
         "status_counts": status_counts,
+        "time_window": _time_window(normalized_rows),
         "slowest": None if slowest is None else {
             "event": slowest.get("event"),
             "command": slowest.get("command"),
@@ -155,6 +187,7 @@ def build_edit_summary_totals(rows):
         "files_changed_count": len(set(files)),
         "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"}),
         "status_counts": status_counts,
+        "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,
         "net_line_delta": total_added_lines - total_removed_lines,

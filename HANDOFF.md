@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate reports now include command and edit time-window ranges in JSON totals and Markdown top-level summaries, making the overall command/edit activity span visible before scanning individual rows.
+
+## What was done
+- created AgentSpec task `T-016` for a report observability follow-up slice
+- added `time_window` to JSON `command_timing_summary` using the earliest command start and latest command end
+- added `time_window` to JSON `edit_summary_totals` using the earliest edit start and latest edit end
+- rendered aggregate `command_time_window` and `edit_time_window` lines in Markdown report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the expanded aggregate time-window fields
+
+## Verification
+- `bash scripts/ci_check.sh` — 22 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate reports now include edit failure counts and edit status distributions alongside existing command status totals, making failed or partial edits visible before reading individual rows.
 
 ## What was done

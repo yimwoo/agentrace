@@ -41,6 +41,17 @@ def _format_status_counts(status_counts):
     return ", ".join(f"{status}={count}" for status, count in sorted(status_counts.items()))
 
 
+def _format_aggregate_time_window(time_window):
+    if not time_window:
+        return "none"
+    parts = []
+    if time_window.get("started_at"):
+        parts.append(f"started_at={time_window['started_at']}")
+    if time_window.get("ended_at"):
+        parts.append(f"ended_at={time_window['ended_at']}")
+    return ", ".join(parts) if parts else "none"
+
+
 def _format_largest_edit(largest_edit):
     if not largest_edit:
         return "none"
@@ -104,11 +115,13 @@ def build_markdown_summary(trace):
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
+        f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- edit_failed_count: {edit_totals['failed_count']}",
         f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
+        f"- edit_time_window: {_format_aggregate_time_window(edit_totals['time_window'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
         f"- edit_net_line_delta: {edit_totals['net_line_delta']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
