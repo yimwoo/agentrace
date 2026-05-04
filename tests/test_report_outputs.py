@@ -87,6 +87,7 @@ def test_report_includes_command_timing_and_edit_summary():
         "cwd": "/workspace/app",
         "status": "failed",
         "duration_ms": 3200,
+        "duration_source": "explicit",
         "exit_code": 1,
         "started_at": "2026-04-25T00:00:01Z",
     }]
@@ -96,6 +97,7 @@ def test_report_includes_command_timing_and_edit_summary():
         "kind": "modify",
         "status": "succeeded",
         "duration_ms": 500,
+        "duration_source": "explicit",
         "added_lines": 4,
         "removed_lines": 1,
         "summary": "Translate decoder errors into 401 responses",
@@ -353,6 +355,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "average_duration_ms": 1062.5,
         "failed_count": 1,
         "status_counts": {"failed": 1, "succeeded": 1},
+        "duration_source_counts": {"derived": 1, "explicit": 1},
         "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
         "slowest": {
             "event": "evt_cmd_slow",
@@ -368,6 +371,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "files_changed_count": 2,
         "failed_count": 0,
         "status_counts": {"succeeded": 2},
+        "duration_source_counts": {"explicit": 2},
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
         "total_added_lines": 11,
         "total_removed_lines": 3,
@@ -391,12 +395,14 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
+    assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_failed_count: 0" in text
     assert "edit_status_counts: succeeded=2" in text
+    assert "edit_duration_sources: explicit=2" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_net_line_delta: 8" in text
@@ -456,6 +462,65 @@ def test_report_aggregate_time_windows_use_full_row_ranges():
     text = build_markdown_summary(trace)
     assert "command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:06+00:00" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z" in text
+
+
+def test_reports_expose_duration_source_for_timing_rows_and_totals():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "duration-source-1", "task": "inspect duration sources", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_explicit",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:00Z",
+                "duration_ms": 10,
+                "command": {"value": "pytest -q"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_derived",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.025Z",
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_missing",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:02Z",
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0, "summary": "Show duration source"},
+            },
+            {
+                "id": "evt_edit_derived",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:03Z",
+                "ended_at": "2026-04-25T00:00:03.005Z",
+                "file": {"path": "src/report_markdown.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Render duration source"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert [row["duration_source"] for row in payload["command_timing"]] == ["explicit", "derived"]
+    assert [row["duration_source"] for row in payload["edit_summary"]] == ["missing", "derived"]
+    assert payload["command_timing_summary"]["duration_source_counts"] == {"explicit": 1, "derived": 1}
+    assert payload["edit_summary_totals"]["duration_source_counts"] == {"missing": 1, "derived": 1}
+    assert payload["summary"]["total_duration_ms"] == 40
+
+    text = build_markdown_summary(trace)
+    assert "command_duration_sources: derived=1, explicit=1" in text
+    assert "edit_duration_sources: derived=1, missing=1" in text
 
 
 def test_example_write(tmp_path):

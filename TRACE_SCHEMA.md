@@ -332,21 +332,23 @@ A compact run-level summary for quick inspection.
 Report builders should surface command timing and edit summaries in both JSON
 and Markdown so a developer can quickly identify slow or failed commands and
 understand the file-level impact of edits without opening raw events first.
-Command timing rows should carry duration, status, exit code, cwd, and available
-start/end timestamps. Edit summary rows should carry file impact plus edit
-status, duration, and available start/end timestamps. JSON reports should also
-include aggregate `command_timing_summary` totals (`count`,
-`total_duration_ms`, `average_duration_ms`, `failed_count`, `status_counts`,
+Command timing rows should carry duration, duration source (`explicit`, `derived`, or
+`missing`), status, exit code, cwd, and available start/end timestamps. Edit
+summary rows should carry file impact plus edit status, duration, duration
+source, and available start/end timestamps. JSON reports should also include
+aggregate `command_timing_summary` totals (`count`, `total_duration_ms`,
+`average_duration_ms`, `failed_count`, `status_counts`, `duration_source_counts`,
 aggregate `time_window`, and `slowest`) plus `edit_summary_totals` (`count`,
 changed files, total added/removed lines, edit `failed_count`, edit
-`status_counts`, aggregate `time_window`, `net_line_delta`, total/average edit
-duration, and `largest_edit`). Markdown reports should render the same
-aggregate command/edit totals near the top-level summary so reviewers can
-inspect the run impact before scanning individual rows, including command
-status counts, aggregate command time window, the average command duration,
-slowest command identity, changed-file list, net line delta, edit failure
-counts/status distribution, aggregate edit time window, average edit duration,
-and largest edit when present.
+`status_counts`, `duration_source_counts`, aggregate `time_window`,
+`net_line_delta`, total/average edit duration, and `largest_edit`). Markdown
+reports should render the same aggregate command/edit totals near the top-level
+summary so reviewers can inspect the run impact before scanning individual rows,
+including command status counts, command duration source counts, aggregate
+command time window, the average command duration, slowest command identity,
+changed-file list, net line delta, edit failure counts/status distribution, edit
+duration source counts, aggregate edit time window, average edit duration, and
+largest edit when present.
 If `duration_ms` is absent but both `started_at` and `ended_at` are
 present, report builders derive the row duration from that timestamp window.
 Derived durations should be used consistently in quick-inspection rows,

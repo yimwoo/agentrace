@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` reports now expose duration-source counts for command timing and edit summaries, making explicit, derived, and missing durations visible in JSON totals and Markdown summaries.
+
+## What was done
+- created AgentSpec task `T-017` for a report observability follow-up slice
+- added row-level `duration_source` (`explicit`, `derived`, or `missing`) to command timing and edit summary rows
+- added aggregate `duration_source_counts` to JSON `command_timing_summary` and `edit_summary_totals`
+- rendered `command_duration_sources` and `edit_duration_sources` in Markdown report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for duration-source visibility
+
+## Verification
+- `python -m pytest tests/test_report_outputs.py -q` — 16 passed, 1 warning
+- `bash scripts/ci_check.sh` — 23 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate reports now include command and edit time-window ranges in JSON totals and Markdown top-level summaries, making the overall command/edit activity span visible before scanning individual rows.
 
 ## What was done

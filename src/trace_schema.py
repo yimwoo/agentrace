@@ -58,20 +58,34 @@ def _parse_trace_timestamp(value):
         return None
 
 
-def event_duration_ms(event):
-    duration = event.get("duration_ms")
-    if duration is not None:
-        return duration
+def _derived_duration_ms(event):
     started_at = _parse_trace_timestamp(event.get("started_at"))
     ended_at = _parse_trace_timestamp(event.get("ended_at"))
     if not started_at or not ended_at:
-        return 0
+        return None
     if started_at.tzinfo is None and ended_at.tzinfo is not None:
         started_at = started_at.replace(tzinfo=timezone.utc)
     if ended_at.tzinfo is None and started_at.tzinfo is not None:
         ended_at = ended_at.replace(tzinfo=timezone.utc)
     elapsed_ms = int((ended_at - started_at).total_seconds() * 1000)
-    return elapsed_ms if elapsed_ms >= 0 else 0
+    return elapsed_ms if elapsed_ms >= 0 else None
+
+
+def event_duration_source(event):
+    """Describe whether an event duration was captured, derived, or missing."""
+    if event.get("duration_ms") is not None:
+        return "explicit"
+    if _derived_duration_ms(event) is not None:
+        return "derived"
+    return "missing"
+
+
+def event_duration_ms(event):
+    duration = event.get("duration_ms")
+    if duration is not None:
+        return duration
+    derived = _derived_duration_ms(event)
+    return 0 if derived is None else derived
 
 
 def summarize_trace(events):
@@ -135,6 +149,7 @@ def build_run_summary(trace):
                 "event": event_ref,
                 "command": command_value,
                 "duration_ms": event_duration_ms(event),
+                "duration_source": event_duration_source(event),
                 "status": event.get("status"),
                 "exit_code": event.get("exit_code", details.get("exit_code")),
             }
@@ -155,6 +170,7 @@ def build_run_summary(trace):
                 "kind": change.get("kind") or details.get("kind"),
                 "status": event.get("status"),
                 "duration_ms": event_duration_ms(event),
+                "duration_source": event_duration_source(event),
                 "added_lines": change.get("added_lines", details.get("added_lines")),
                 "removed_lines": change.get("removed_lines", details.get("removed_lines")),
                 "summary": change.get("summary") or details.get("summary"),

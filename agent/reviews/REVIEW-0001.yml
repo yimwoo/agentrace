@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0001",
+  "task": {
+    "selector": "T-017",
+    "context_pack": "agent/context-packs/T-017-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Duration-source reporting is covered by regression tests and CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-04T08:04:41Z"
+}

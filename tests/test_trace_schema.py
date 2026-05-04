@@ -79,6 +79,7 @@ def test_build_run_summary_carries_report_ready_timing_and_edit_fields():
         "event": "evt_cmd",
         "command": "pytest -q",
         "duration_ms": 2000,
+        "duration_source": "explicit",
         "status": "failed",
         "exit_code": 1,
         "cwd": "/workspace/app",
@@ -92,6 +93,7 @@ def test_build_run_summary_carries_report_ready_timing_and_edit_fields():
         "kind": "modify",
         "status": "succeeded",
         "duration_ms": 100,
+        "duration_source": "explicit",
         "added_lines": 2,
         "removed_lines": 1,
         "summary": "Tighten report rows",
@@ -131,4 +133,6 @@ def test_build_run_summary_derives_duration_from_time_window_when_missing():
     result = build_run_summary(trace)
 
     assert result["command_durations_ms"][0]["duration_ms"] == 1250
+    assert result["command_durations_ms"][0]["duration_source"] == "derived"
     assert result["edit_summaries"][0]["duration_ms"] == 75
+    assert result["edit_summaries"][0]["duration_source"] == "derived"
