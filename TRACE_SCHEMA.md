@@ -341,14 +341,17 @@ aggregate `command_timing_summary` totals (`count`, `total_duration_ms`,
 aggregate `time_window`, and `slowest`) plus `edit_summary_totals` (`count`,
 changed files, total added/removed lines, edit `failed_count`, edit
 `status_counts`, `duration_source_counts`, aggregate `time_window`,
-`net_line_delta`, total/average edit duration, and `largest_edit`). Markdown
+`net_line_delta`, total/average edit duration, and `largest_edit`). Aggregate
+`slowest` and `largest_edit` entries should preserve the same timing context as
+their source rows, including duration source and available start/end timestamps,
+so the top-level report can explain why each aggregate was selected. Markdown
 reports should render the same aggregate command/edit totals near the top-level
 summary so reviewers can inspect the run impact before scanning individual rows,
 including command status counts, command duration source counts, aggregate
-command time window, the average command duration, slowest command identity,
-changed-file list, net line delta, edit failure counts/status distribution, edit
-duration source counts, aggregate edit time window, average edit duration, and
-largest edit when present.
+command time window, the average command duration, slowest command identity with
+its timing context, changed-file list, net line delta, edit failure counts/status
+distribution, edit duration source counts, aggregate edit time window, average
+edit duration, and largest edit with its timing context when present.
 If `duration_ms` is absent but both `started_at` and `ended_at` are
 present, report builders derive the row duration from that timestamp window.
 Derived durations should be used consistently in quick-inspection rows,

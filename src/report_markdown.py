@@ -35,7 +35,14 @@ def _format_slowest_command(slowest):
     duration = slowest.get("duration_ms", 0)
     status = slowest.get("status") or "unknown"
     exit_code = "unknown" if slowest.get("exit_code") is None else slowest.get("exit_code")
-    return f"{event}: `{command}` ({duration}ms, status={status}, exit_code={exit_code})"
+    duration_source = _format_duration_source(slowest).removeprefix(", ")
+    timing = _format_time_window(slowest).removeprefix(", ")
+    details = [f"{duration}ms", f"status={status}", f"exit_code={exit_code}"]
+    if duration_source:
+        details.append(duration_source)
+    if timing:
+        details.append(timing)
+    return f"{event}: `{command}` ({', '.join(details)})"
 
 
 def _format_changed_files(files):
@@ -71,7 +78,14 @@ def _format_largest_edit(largest_edit):
     net = largest_edit.get("net_line_delta", 0)
     duration = largest_edit.get("duration_ms", 0)
     status = largest_edit.get("status") or "unknown"
-    return f"{event}: {path} (+{added}/-{removed}, net={net}, duration_ms={duration}, status={status})"
+    duration_source = _format_duration_source(largest_edit).removeprefix(", ")
+    timing = _format_time_window(largest_edit).removeprefix(", ")
+    details = [f"+{added}/-{removed}", f"net={net}", f"duration_ms={duration}", f"status={status}"]
+    if duration_source:
+        details.append(duration_source)
+    if timing:
+        details.append(timing)
+    return f"{event}: {path} ({', '.join(details)})"
 
 
 def _format_command_timing(rows):

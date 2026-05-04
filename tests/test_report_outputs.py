@@ -362,8 +362,11 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "event": "evt_cmd_slow",
             "command": "pytest -q",
             "duration_ms": 2000,
+            "duration_source": "derived",
             "status": "failed",
             "exit_code": 1,
+            "started_at": "2026-04-25T00:00:00Z",
+            "ended_at": "2026-04-25T00:00:02Z",
         },
     }
     assert payload["edit_summary_totals"] == {
@@ -382,11 +385,15 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "largest_edit": {
             "event": "evt_edit_one",
             "path": "src/report_json.py",
+            "kind": "modify",
             "added_lines": 8,
             "removed_lines": 2,
             "net_line_delta": 6,
             "duration_ms": 12,
+            "duration_source": "explicit",
             "status": "succeeded",
+            "started_at": "2026-04-25T00:00:04Z",
+            "ended_at": None,
         },
     }
 
@@ -398,7 +405,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
-    assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1)" in text
+    assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_failed_count: 0" in text
@@ -409,7 +416,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text
     assert "edit_average_duration_ms: 10.0" in text
-    assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded)" in text
+    assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
 
 
 def test_report_aggregate_time_windows_use_full_row_ranges():

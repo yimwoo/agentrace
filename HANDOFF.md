@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report highlights now preserve timing context for the selected slowest command and largest edit, so top-level JSON and Markdown summaries show duration source plus available start/end timestamps for those aggregate rows.
+
+## What was done
+- created AgentSpec task `T-019` for a report observability follow-up slice
+- expanded JSON `command_timing_summary.slowest` with `duration_source`, `started_at`, and `ended_at`
+- expanded JSON `edit_summary_totals.largest_edit` with edit kind, `duration_source`, `started_at`, and `ended_at`
+- updated Markdown aggregate formatting, regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for aggregate timing context
+
+## Verification
+- `python -m pytest tests/test_report_outputs.py -q` — 16 passed, 1 warning
+- `bash scripts/ci_check.sh` — 23 passed, 1 warning
+
+## Previous status
 `agentrace` Markdown report detail rows now render per-row `duration_source` for commands and edits, matching the duration-source visibility already present in JSON rows and aggregate Markdown totals.
 
 ## What was done

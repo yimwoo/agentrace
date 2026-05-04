@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0003",
+  "task": {
+    "selector": "T-019",
+    "context_pack": "agent/context-packs/T-019-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Aggregate slowest-command and largest-edit report entries now preserve duration source and timestamp context with regression coverage and CI passing.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-04T18:02:11Z"
+}

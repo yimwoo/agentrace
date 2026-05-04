@@ -11,7 +11,7 @@
 - command_status_counts: failed=1
 - command_duration_sources: explicit=1
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
-- slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1)
+- slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
 - files_changed_count: 1
 - files_changed: src/auth.py
 - edit_failed_count: 0
@@ -22,7 +22,7 @@
 - edit_net_line_delta: 3
 - edit_total_duration_ms: 125
 - edit_average_duration_ms: 125.0
-- largest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded)
+- largest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
 
 ## Command Timing
 

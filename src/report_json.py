@@ -161,8 +161,11 @@ def build_command_timing_summary(rows):
             "event": slowest.get("event"),
             "command": slowest.get("command"),
             "duration_ms": _numeric_value(slowest.get("duration_ms")),
+            "duration_source": slowest.get("duration_source"),
             "status": slowest.get("status"),
             "exit_code": slowest.get("exit_code"),
+            "started_at": slowest.get("started_at"),
+            "ended_at": slowest.get("ended_at"),
         },
     }
 
@@ -208,11 +211,15 @@ def build_edit_summary_totals(rows):
         "largest_edit": None if largest_edit is None else {
             "event": largest_edit.get("event"),
             "path": largest_edit.get("path"),
+            "kind": largest_edit.get("kind"),
             "added_lines": _numeric_value(largest_edit.get("added_lines")),
             "removed_lines": _numeric_value(largest_edit.get("removed_lines")),
             "net_line_delta": _numeric_value(largest_edit.get("added_lines")) - _numeric_value(largest_edit.get("removed_lines")),
             "duration_ms": _numeric_value(largest_edit.get("duration_ms")),
+            "duration_source": largest_edit.get("duration_source"),
             "status": largest_edit.get("status"),
+            "started_at": largest_edit.get("started_at"),
+            "ended_at": largest_edit.get("ended_at"),
         },
     }
 
