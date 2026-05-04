@@ -12,7 +12,7 @@ Bootstrap moving into first concrete trace spec
 - compact run-level summary extraction for JSON and Markdown reports
 - JSON and Markdown reports now surface command timing rows, file edit summaries, linked command-log/diff artifact references, row duration sources, and available start/end timestamp context
 - aggregate JSON and Markdown report totals now show command count/total and average duration/failures/status counts/duration source counts/time window/slowest command plus changed-file count/list, edit failure/status counts/duration source counts/time window, added/removed lines, net line delta, total/average edit duration, and largest edit by churn
-- a rich Markdown report fixture demonstrates command timing with cwd, edit summaries, aggregate report totals, and test-result context
+- a rich Markdown report fixture demonstrates command timing with cwd, per-row duration source, edit summaries, aggregate report totals, and test-result context
 
 ## What is incomplete
 - event capture implementation

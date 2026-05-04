@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0002",
+  "task": {
+    "selector": "T-018",
+    "context_pack": "agent/context-packs/T-018-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Verified Markdown per-row duration_source rendering with regression coverage and bash scripts/ci_check.sh (23 passed, 1 warning).",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-04T13:03:32Z"
+}

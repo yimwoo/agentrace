@@ -18,6 +18,15 @@ def _format_time_window(row):
     return f", {', '.join(parts)}" if parts else ""
 
 
+def _format_duration_source(row):
+    source = row.get("duration_source")
+    if not source and "duration_ms" in row:
+        source = "explicit"
+    if not source:
+        return ""
+    return f", duration_source={source}"
+
+
 def _format_slowest_command(slowest):
     if not slowest:
         return "none"
@@ -75,9 +84,10 @@ def _format_command_timing(rows):
         exit_code = "unknown" if row["exit_code"] is None else row["exit_code"]
         cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
         time_window = _format_time_window(row)
+        duration_source = _format_duration_source(row)
         artifacts = _format_artifacts(row)
         event = row.get("event", "summary")
-        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{cwd}{time_window}{artifacts}")
+        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{duration_source}{cwd}{time_window}{artifacts}")
     return lines
 
 
@@ -91,11 +101,12 @@ def _format_edit_summary(rows):
         summary = row["summary"] or "No edit summary recorded."
         status = f", status={row['status']}" if row.get("status") else ""
         duration = f", duration_ms={row['duration_ms']}" if "duration_ms" in row else ""
+        duration_source = _format_duration_source(row)
         time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
         path = row.get("path") or "<unknown file>"
         kind = row.get("kind") or "unknown"
-        lines.append(f"- {path}: {kind} (+{added}/-{removed}) — {summary}{status}{duration}{time_window}{artifacts}")
+        lines.append(f"- {path}: {kind} (+{added}/-{removed}) — {summary}{status}{duration}{duration_source}{time_window}{artifacts}")
     return lines
 
 

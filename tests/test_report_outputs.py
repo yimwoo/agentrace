@@ -120,9 +120,9 @@ def test_markdown_report_renders_command_timing_and_edit_summary():
     }
     text = build_markdown_summary(trace)
     assert "## Command Timing" in text
-    assert "`pytest -q` — 9ms, status=ok, exit_code=0" in text
+    assert "`pytest -q` — 9ms, status=ok, exit_code=0, duration_source=explicit" in text
     assert "## Edit Summary" in text
-    assert "src/report.py: modify (+2/-0) — Add timing section" in text
+    assert "src/report.py: modify (+2/-0) — Add timing section, status=ok, duration_ms=1, duration_source=explicit" in text
 
 
 def test_markdown_report_matches_rich_trace_fixture():
@@ -255,6 +255,7 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
 
     text = build_markdown_summary(trace)
     assert "evt_cmd: `pytest -q` — 50ms, status=failed, exit_code=1" in text
+    assert "duration_source=explicit" in text
     assert "started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.050Z" in text
     assert "artifacts: command_log=artifacts/evt_cmd.log" in text
     assert "src/report.py: modify (+1/-0) — Document existing summary rows" in text
@@ -296,8 +297,8 @@ def test_report_outputs_derive_duration_from_time_windows():
 
     text = build_markdown_summary(trace)
     assert "total_duration_ms: 345" in text
-    assert "`python -m pytest` — 333ms" in text
-    assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12" in text
+    assert "`python -m pytest` — 333ms, status=succeeded, exit_code=0, duration_source=derived" in text
+    assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12, duration_source=derived" in text
 
 
 def test_reports_include_aggregate_command_and_edit_totals():
@@ -521,6 +522,11 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     text = build_markdown_summary(trace)
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "edit_duration_sources: derived=1, missing=1" in text
+    assert "evt_cmd_explicit: `pytest -q` — 10ms, status=succeeded, exit_code=0, duration_source=explicit" in text
+    assert "evt_cmd_derived: `ruff check` — 25ms, status=succeeded, exit_code=0, duration_source=derived" in text
+    assert "evt_edit_missing" not in text
+    assert "src/report_json.py: modify (+1/-0) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing" in text
+    assert "src/report_markdown.py: modify (+2/-1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
 
 
 def test_example_write(tmp_path):

@@ -332,10 +332,10 @@ A compact run-level summary for quick inspection.
 Report builders should surface command timing and edit summaries in both JSON
 and Markdown so a developer can quickly identify slow or failed commands and
 understand the file-level impact of edits without opening raw events first.
-Command timing rows should carry duration, duration source (`explicit`, `derived`, or
-`missing`), status, exit code, cwd, and available start/end timestamps. Edit
-summary rows should carry file impact plus edit status, duration, duration
-source, and available start/end timestamps. JSON reports should also include
+Command timing rows should carry and Markdown reports should render duration, duration source (`explicit`, `derived`, or
+`missing`), status, exit code, cwd, and available start/end timestamps; summary-derived Markdown rows may treat a present legacy `duration_ms` without `duration_source` as `explicit`. Edit
+summary rows should carry and Markdown reports should render file impact plus edit status, duration, duration
+source, and available start/end timestamps; summary-derived Markdown rows may likewise treat a present legacy `duration_ms` without `duration_source` as `explicit`. JSON reports should also include
 aggregate `command_timing_summary` totals (`count`, `total_duration_ms`,
 `average_duration_ms`, `failed_count`, `status_counts`, `duration_source_counts`,
 aggregate `time_window`, and `slowest`) plus `edit_summary_totals` (`count`,

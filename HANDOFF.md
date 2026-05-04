@@ -1,6 +1,18 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` Markdown report detail rows now render per-row `duration_source` for commands and edits, matching the duration-source visibility already present in JSON rows and aggregate Markdown totals.
+
+## What was done
+- created AgentSpec task `T-018` for a report observability follow-up slice
+- added Markdown rendering of command timing `duration_source` values beside duration/status/exit-code details
+- added Markdown rendering of edit summary `duration_source` values beside duration/status/file-impact details
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-row Markdown duration-source visibility
+
+## Verification
+- `bash scripts/ci_check.sh` — 23 passed, 1 warning
+
+## Previous status
 `agentrace` reports now expose duration-source counts for command timing and edit summaries, making explicit, derived, and missing durations visible in JSON totals and Markdown summaries.
 
 ## What was done

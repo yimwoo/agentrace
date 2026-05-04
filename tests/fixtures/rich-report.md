@@ -26,8 +26,8 @@
 
 ## Command Timing
 
-- evt_cmd_1: `pytest tests/test_auth.py -q` — 3200ms, status=failed, exit_code=1, cwd=/workspace/app, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
+- evt_cmd_1: `pytest tests/test_auth.py -q` — 3200ms, status=failed, exit_code=1, duration_source=explicit, cwd=/workspace/app, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
 
 ## Edit Summary
 
-- src/auth.py: modify (+4/-1) — Translate decoder errors into 401 responses, status=succeeded, duration_ms=125, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z
+- src/auth.py: modify (+4/-1) — Translate decoder errors into 401 responses, status=succeeded, duration_ms=125, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z
