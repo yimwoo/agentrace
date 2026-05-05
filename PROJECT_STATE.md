@@ -11,7 +11,7 @@ Bootstrap moving into first concrete trace spec
 - AgentSpec artifacts bootstrapped under `.agentspec/`, `agent/`, `docs/`, and `reports/`
 - compact run-level summary extraction for JSON and Markdown reports
 - JSON and Markdown reports now surface command timing rows, file edit summaries, linked command-log/diff artifact references, row duration sources, and available start/end timestamp context
-- aggregate JSON and Markdown report totals now show command count/unique command count/command list/repeated commands/working-directory counts/total and average duration/failures/failed-command rows with timing and stderr context/status counts/duration source counts/time window/slowest command plus deduplicated changed-file count/list, edit failure/status counts/edit-kind counts, failed-edit rows with timing/error context, duration source counts/time window, added/removed lines, net line delta, total/average edit duration, largest edit by churn, and timing context for the selected slowest/largest aggregate entries
+- aggregate JSON and Markdown report totals now show command count/unique command count/command list/repeated commands/per-command attempt totals/working-directory counts/total and average duration/failures/failed-command rows with timing and stderr context/status counts/duration source counts/time window/slowest command plus deduplicated changed-file count/list/per-file change totals, edit failure/status counts/edit-kind counts, failed-edit rows with timing/error context, duration source counts/time window, added/removed lines, net line delta, total/average edit duration, largest edit by churn, and timing context for the selected slowest/largest aggregate entries
 - a rich Markdown report fixture demonstrates command timing with cwd, per-row duration source, edit summaries, aggregate report totals, and test-result context
 
 ## What is incomplete
@@ -25,7 +25,7 @@ Bootstrap moving into first concrete trace spec
 - define the first Markdown summary/report shape
 - preserve narrow scope around practical debugging value
 - keep report summaries aligned with `TRACE_SCHEMA.md` quick-inspection fields
-- make command duration, unique and repeated command activity, command working-directory distribution, failed command identities with timing/failure context, command status distribution, aggregate command/edit time windows, slowest-command identity and timing context, row-level duration source/start/end timestamp context, edit status distribution/failures, edit-kind distribution, failed edit identities with timing/error context, largest edit and timing context, and file-change impact visible without opening raw events first
+- make command duration, unique and repeated command activity, per-command attempt totals, command working-directory distribution, failed command identities with timing/failure context, command status distribution, aggregate command/edit time windows, slowest-command identity and timing context, row-level duration source/start/end timestamp context, edit status distribution/failures, edit-kind distribution, failed edit identities with timing/error context, per-file change totals, largest edit and timing context, and file-change impact visible without opening raw events first
 
 ## Risks / blockers
 - risk of becoming too abstract or framework-heavy

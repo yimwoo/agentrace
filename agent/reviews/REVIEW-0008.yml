@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0008",
+  "task": {
+    "selector": "T-025",
+    "context_pack": "agent/context-packs/T-025-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Report aggregates remain within allowed paths, preserve existing row output, and regression/CI checks pass.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-05T18:02:58Z"
+}

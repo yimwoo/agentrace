@@ -1,16 +1,30 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` aggregate report highlights now include command working-directory counts and edit-kind counts, so reviewers can spot where commands ran and what kinds of edits occurred before scanning detail rows.
+`agentrace` aggregate report highlights now include per-command attempt totals and per-file change totals, so reviewers can spot repeated command cost and cumulative file impact before scanning detail rows.
 
 ## What was done
+- created AgentSpec task `T-025` for a report observability follow-up slice
+- added JSON `command_timing_summary.command_attempts` with per-command count, total/average duration, failed count, status distribution, and first/last event refs
+- added JSON `edit_summary_totals.file_change_totals` with per-file edit count, failed count, line totals/net delta, total/average duration, status distribution, and kind distribution
+- rendered command attempts and file change totals in the Markdown top-level report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-command and per-file aggregate visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
+- `bash scripts/ci_check.sh` — 26 passed, 1 warning
+
+## Previous status
+`agentrace` aggregate report highlights now include command working-directory counts and edit-kind counts, so reviewers can spot where commands ran and what kinds of edits occurred before scanning detail rows.
+
+## Previous work
 - created AgentSpec task `T-023` for a report observability follow-up slice
 - added JSON `command_timing_summary.cwd_counts` with `unknown` for commands missing cwd context
 - added JSON `edit_summary_totals.kind_counts` with `unknown` for edits missing kind context
 - rendered command cwd counts and edit kind counts in the Markdown top-level report totals
 - updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for aggregate cwd/kind distribution visibility
 
-## Verification
+## Previous verification
 - `python -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
 - `bash scripts/ci_check.sh` — 26 passed, 1 warning
 

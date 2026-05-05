@@ -8,6 +8,7 @@
 - unique_command_count: 1
 - commands_run: pytest tests/test_auth.py -q
 - repeated_commands: none
+- command_attempts: `pytest tests/test_auth.py -q` (count=1, total_duration_ms=3200, average_duration_ms=3200.0, failed_count=1, statuses=failed=1, first_event=evt_cmd_1, last_event=evt_cmd_1)
 - command_cwd_counts: /workspace/app=1
 - command_total_duration_ms: 3200
 - command_average_duration_ms: 3200.0
@@ -19,6 +20,7 @@
 - slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
 - files_changed_count: 1
 - files_changed: src/auth.py
+- file_change_totals: src/auth.py (count=1, failed_count=0, +4/-1, net=3, total_duration_ms=125, average_duration_ms=125.0, statuses=succeeded=1, kinds=modify=1)
 - edit_failed_count: 0
 - failed_edits: none
 - edit_kind_counts: modify=1

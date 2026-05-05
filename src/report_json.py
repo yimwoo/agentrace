@@ -174,6 +174,37 @@ def _repeated_value_counts(rows, field):
     return {value: count for value, count in _value_counts(rows, field).items() if count > 1}
 
 
+def _command_attempt_rows(rows):
+    attempts_by_command = {}
+    for row in rows:
+        command = row.get("command") or "<unknown command>"
+        if command not in attempts_by_command:
+            attempts_by_command[command] = {
+                "command": command,
+                "count": 0,
+                "total_duration_ms": 0,
+                "average_duration_ms": 0,
+                "failed_count": 0,
+                "status_counts": {},
+                "first_event": row.get("event"),
+                "last_event": row.get("event"),
+            }
+        summary = attempts_by_command[command]
+        summary["count"] += 1
+        summary["total_duration_ms"] += _numeric_value(row.get("duration_ms"))
+        if _is_failed_command(row):
+            summary["failed_count"] += 1
+        status = row.get("status") or "unknown"
+        summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
+        summary["last_event"] = row.get("event")
+
+    summaries = []
+    for summary in attempts_by_command.values():
+        summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summaries.append(summary)
+    return summaries
+
+
 def _is_failed_command(row):
     return row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0
 
@@ -218,6 +249,7 @@ def build_command_timing_summary(rows):
         "unique_command_count": len(commands_run),
         "commands_run": commands_run,
         "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
+        "command_attempts": _command_attempt_rows(normalized_rows),
         "cwd_counts": _value_counts(normalized_rows, "cwd", missing_label="unknown"),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
@@ -281,6 +313,45 @@ def _failed_edit_rows(rows):
     return failed
 
 
+def _file_change_total_rows(rows):
+    totals_by_file = {}
+    for row in rows:
+        path = row.get("path") or "<unknown file>"
+        if path not in totals_by_file:
+            totals_by_file[path] = {
+                "path": path,
+                "count": 0,
+                "failed_count": 0,
+                "total_added_lines": 0,
+                "total_removed_lines": 0,
+                "net_line_delta": 0,
+                "total_duration_ms": 0,
+                "average_duration_ms": 0,
+                "status_counts": {},
+                "kind_counts": {},
+            }
+        summary = totals_by_file[path]
+        added = _numeric_value(row.get("added_lines"))
+        removed = _numeric_value(row.get("removed_lines"))
+        summary["count"] += 1
+        if _is_failed_edit(row):
+            summary["failed_count"] += 1
+        summary["total_added_lines"] += added
+        summary["total_removed_lines"] += removed
+        summary["net_line_delta"] += added - removed
+        summary["total_duration_ms"] += _numeric_value(row.get("duration_ms"))
+        status = row.get("status") or "unknown"
+        kind = row.get("kind") or "unknown"
+        summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
+        summary["kind_counts"][kind] = summary["kind_counts"].get(kind, 0) + 1
+
+    summaries = []
+    for summary in totals_by_file.values():
+        summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summaries.append(summary)
+    return summaries
+
+
 def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -297,6 +368,7 @@ def build_edit_summary_totals(rows):
         "count": len(normalized_rows),
         "files_changed": files,
         "files_changed_count": len(files),
+        "file_change_totals": _file_change_total_rows(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_edit(row)),
         "failed_edits": _failed_edit_rows(normalized_rows),
         "kind_counts": _value_counts(normalized_rows, "kind", missing_label="unknown"),

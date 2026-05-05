@@ -57,6 +57,46 @@ def _format_repeated_commands(repeated_commands):
     return ", ".join(f"`{command}`={count}" for command, count in sorted(repeated_commands.items()))
 
 
+def _format_command_attempts(command_attempts):
+    if not command_attempts:
+        return "none"
+    lines = []
+    for row in command_attempts:
+        details = [
+            f"count={row.get('count', 0)}",
+            f"total_duration_ms={row.get('total_duration_ms', 0)}",
+            f"average_duration_ms={row.get('average_duration_ms', 0)}",
+            f"failed_count={row.get('failed_count', 0)}",
+            f"statuses={_format_status_counts(row.get('status_counts'))}",
+        ]
+        if row.get("first_event"):
+            details.append(f"first_event={row['first_event']}")
+        if row.get("last_event"):
+            details.append(f"last_event={row['last_event']}")
+        lines.append(f"`{row.get('command') or '<unknown command>'}` ({', '.join(details)})")
+    return "; ".join(lines)
+
+
+def _format_file_change_totals(file_change_totals):
+    if not file_change_totals:
+        return "none"
+    lines = []
+    for row in file_change_totals:
+        path = row.get("path") or "<unknown file>"
+        details = [
+            f"count={row.get('count', 0)}",
+            f"failed_count={row.get('failed_count', 0)}",
+            f"+{row.get('total_added_lines', 0)}/-{row.get('total_removed_lines', 0)}",
+            f"net={row.get('net_line_delta', 0)}",
+            f"total_duration_ms={row.get('total_duration_ms', 0)}",
+            f"average_duration_ms={row.get('average_duration_ms', 0)}",
+            f"statuses={_format_status_counts(row.get('status_counts'))}",
+            f"kinds={_format_status_counts(row.get('kind_counts'))}",
+        ]
+        lines.append(f"{path} ({', '.join(details)})")
+    return "; ".join(lines)
+
+
 def _format_failed_commands(failed_commands):
     if not failed_commands:
         return "none"
@@ -197,6 +237,7 @@ def build_markdown_summary(trace):
         f"- unique_command_count: {command_totals['unique_command_count']}",
         f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",
         f"- repeated_commands: {_format_repeated_commands(command_totals['repeated_commands'])}",
+        f"- command_attempts: {_format_command_attempts(command_totals['command_attempts'])}",
         f"- command_cwd_counts: {_format_status_counts(command_totals['cwd_counts'])}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
@@ -208,6 +249,7 @@ def build_markdown_summary(trace):
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
+        f"- file_change_totals: {_format_file_change_totals(edit_totals['file_change_totals'])}",
         f"- edit_failed_count: {edit_totals['failed_count']}",
         f"- failed_edits: {_format_failed_edits(edit_totals['failed_edits'])}",
         f"- edit_kind_counts: {_format_status_counts(edit_totals['kind_counts'])}",

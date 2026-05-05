@@ -339,10 +339,12 @@ Command timing rows should carry and Markdown reports should render duration, du
 summary rows should carry and Markdown reports should render file impact plus edit status, duration, duration
 source, and available start/end timestamps; summary-derived Markdown rows may likewise treat a present legacy `duration_ms` without `duration_source` as `explicit`. JSON reports should also include
 aggregate `command_timing_summary` totals (`count`, `unique_command_count`,
-ordered `commands_run`, `repeated_commands`, `total_duration_ms`,
+ordered `commands_run`, `repeated_commands`, per-command `command_attempts` with attempt counts, total/average duration,
+failure counts, status distribution, and first/last event references, `total_duration_ms`,
 `average_duration_ms`, `failed_count`, `failed_commands`, `status_counts`, `duration_source_counts`,
 aggregate `time_window`, command working-directory distribution `cwd_counts`, and `slowest`) plus
-`edit_summary_totals` (`count`, deduplicated changed files, total added/removed lines, edit `failed_count`,
+`edit_summary_totals` (`count`, deduplicated changed files, per-file `file_change_totals` with edit counts,
+failure counts, total added/removed/net lines, total/average duration, status distribution, and kind distribution, total added/removed lines, edit `failed_count`,
 `failed_edits`, edit-kind distribution `kind_counts`, edit `status_counts`, `duration_source_counts`, aggregate `time_window`,
 `net_line_delta`, total/average edit duration, and `largest_edit`). Failed edit
 rows should retain path/kind, line impact, timing context, summary, and available
@@ -352,9 +354,9 @@ their source rows, including duration source and available start/end timestamps,
 so the top-level report can explain why each aggregate was selected. Markdown
 reports should render the same aggregate command/edit totals near the top-level
 summary so reviewers can inspect the run impact before scanning individual rows,
-including unique commands, repeated command retries, command working-directory counts, failed command identities with timing/failure context, command status counts,
+including unique commands, repeated command retries, per-command attempt totals, command working-directory counts, failed command identities with timing/failure context, command status counts,
 command duration source counts, aggregate command time window, the average command duration, slowest command identity with
-its timing context, changed-file list, net line delta, edit failure counts/status
+its timing context, changed-file list, per-file change totals, net line delta, edit failure counts/status
 distribution, edit-kind counts, failed edit identities with timing/error context, edit duration source counts, aggregate edit time window, average
 edit duration, and largest edit with its timing context when present.
 If `duration_ms` is absent but both `started_at` and `ended_at` are

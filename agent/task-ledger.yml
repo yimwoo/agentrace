@@ -272,6 +272,23 @@
         "status": "passed"
       },
       "updated_at": "2026-05-05T17:01:26Z"
+    },
+    "agent/context-packs/T-025-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-025-add-command-timing-and-edit-summaries-to-reports-20260505180301",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0008",
+        "verdict": "ready",
+        "summary": "No blocking findings. Report aggregates remain within allowed paths, preserve existing row output, and regression/CI checks pass.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0008.yml"
+      },
+      "updated_at": "2026-05-05T18:03:01Z"
     }
   }
 }
