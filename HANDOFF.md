@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report highlights now include duration-source distributions and time windows inside per-command attempt totals and per-file change totals, so reviewers can inspect timing quality and span for repeated commands or cumulative file edits without opening detail rows.
+
+## What was done
+- created AgentSpec task `T-026` for a report observability follow-up slice
+- added JSON `command_timing_summary.command_attempts[*].duration_source_counts` and `time_window`
+- added JSON `edit_summary_totals.file_change_totals[*].duration_source_counts` and `time_window`
+- rendered those nested timing/source details in Markdown `command_attempts` and `file_change_totals` lines
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested aggregate timing visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
+- `bash scripts/ci_check.sh` — 26 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report highlights now include per-command attempt totals and per-file change totals, so reviewers can spot repeated command cost and cumulative file impact before scanning detail rows.
 
 ## What was done

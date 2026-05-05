@@ -378,6 +378,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
                 "average_duration_ms": 2000.0,
                 "failed_count": 1,
                 "status_counts": {"failed": 1},
+                "duration_source_counts": {"derived": 1},
+                "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
                 "first_event": "evt_cmd_slow",
                 "last_event": "evt_cmd_slow",
             },
@@ -388,6 +390,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
                 "average_duration_ms": 125.0,
                 "failed_count": 0,
                 "status_counts": {"succeeded": 1},
+                "duration_source_counts": {"explicit": 1},
+                "time_window": {"started_at": "2026-04-25T00:00:03Z", "ended_at": None},
                 "first_event": "evt_cmd_fast",
                 "last_event": "evt_cmd_fast",
             },
@@ -436,6 +440,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
                 "average_duration_ms": 12.0,
                 "status_counts": {"succeeded": 1},
                 "kind_counts": {"modify": 1},
+                "duration_source_counts": {"explicit": 1},
+                "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
             },
             {
                 "path": "src/report_markdown.py",
@@ -448,6 +454,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
                 "average_duration_ms": 8.0,
                 "status_counts": {"succeeded": 1},
                 "kind_counts": {"modify": 1},
+                "duration_source_counts": {"explicit": 1},
+                "time_window": {"started_at": "2026-04-25T00:00:05Z", "ended_at": None},
             },
         ],
         "failed_count": 0,
@@ -481,7 +489,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "unique_command_count: 2" in text
     assert "commands_run: pytest -q, ruff check" in text
     assert "repeated_commands: none" in text
-    assert "command_attempts: `pytest -q` (count=1, total_duration_ms=2000, average_duration_ms=2000.0, failed_count=1, statuses=failed=1, first_event=evt_cmd_slow, last_event=evt_cmd_slow); `ruff check` (count=1, total_duration_ms=125, average_duration_ms=125.0, failed_count=0, statuses=succeeded=1, first_event=evt_cmd_fast, last_event=evt_cmd_fast)" in text
+    assert "command_attempts: `pytest -q` (count=1, total_duration_ms=2000, average_duration_ms=2000.0, failed_count=1, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_slow); `ruff check` (count=1, total_duration_ms=125, average_duration_ms=125.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:03Z, first_event=evt_cmd_fast, last_event=evt_cmd_fast)" in text
     assert "command_cwd_counts: unknown=2" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
@@ -493,7 +501,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
-    assert "file_change_totals: src/report_json.py (count=1, failed_count=0, +8/-2, net=6, total_duration_ms=12, average_duration_ms=12.0, statuses=succeeded=1, kinds=modify=1); src/report_markdown.py (count=1, failed_count=0, +3/-1, net=2, total_duration_ms=8, average_duration_ms=8.0, statuses=succeeded=1, kinds=modify=1)" in text
+    assert "file_change_totals: src/report_json.py (count=1, failed_count=0, +8/-2, net=6, total_duration_ms=12, average_duration_ms=12.0, statuses=succeeded=1, kinds=modify=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:04Z); src/report_markdown.py (count=1, failed_count=0, +3/-1, net=2, total_duration_ms=8, average_duration_ms=8.0, statuses=succeeded=1, kinds=modify=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:05Z)" in text
     assert "edit_failed_count: 0" in text
     assert "failed_edits: none" in text
     assert "edit_kind_counts: modify=2" in text
@@ -691,6 +699,8 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
         "average_duration_ms": 25.0,
         "failed_count": 1,
         "status_counts": {"failed": 1, "succeeded": 1},
+        "duration_source_counts": {"explicit": 2},
+        "time_window": None,
         "first_event": "evt_cmd_first",
         "last_event": "evt_cmd_retry",
     }
@@ -717,17 +727,19 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
         "average_duration_ms": 7.5,
         "status_counts": {"succeeded": 2},
         "kind_counts": {"modify": 2},
+        "duration_source_counts": {"explicit": 2},
+        "time_window": None,
     }]
 
     text = build_markdown_summary(trace)
     assert "unique_command_count: 2" in text
     assert "commands_run: pytest -q, ruff check" in text
     assert "repeated_commands: `pytest -q`=2" in text
-    assert "command_attempts: `pytest -q` (count=2, total_duration_ms=50, average_duration_ms=25.0, failed_count=1, statuses=failed=1, succeeded=1, first_event=evt_cmd_first, last_event=evt_cmd_retry); `ruff check` (count=1, total_duration_ms=5, average_duration_ms=5.0, failed_count=0, statuses=succeeded=1, first_event=evt_cmd_lint, last_event=evt_cmd_lint)" in text
+    assert "command_attempts: `pytest -q` (count=2, total_duration_ms=50, average_duration_ms=25.0, failed_count=1, statuses=failed=1, succeeded=1, duration_sources=explicit=2, first_event=evt_cmd_first, last_event=evt_cmd_retry); `ruff check` (count=1, total_duration_ms=5, average_duration_ms=5.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, first_event=evt_cmd_lint, last_event=evt_cmd_lint)" in text
     assert "failed_commands: evt_cmd_first: `pytest -q` (20ms, status=failed, exit_code=1, duration_source=explicit)" in text
     assert "files_changed_count: 1" in text
     assert "files_changed: src/report_json.py" in text
-    assert "file_change_totals: src/report_json.py (count=2, failed_count=0, +3/-1, net=2, total_duration_ms=15, average_duration_ms=7.5, statuses=succeeded=2, kinds=modify=2)" in text
+    assert "file_change_totals: src/report_json.py (count=2, failed_count=0, +3/-1, net=2, total_duration_ms=15, average_duration_ms=7.5, statuses=succeeded=2, kinds=modify=2, duration_sources=explicit=2)" in text
 
 
 def test_reports_expose_duration_source_for_timing_rows_and_totals():

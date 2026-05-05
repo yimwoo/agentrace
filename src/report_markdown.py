@@ -69,6 +69,10 @@ def _format_command_attempts(command_attempts):
             f"failed_count={row.get('failed_count', 0)}",
             f"statuses={_format_status_counts(row.get('status_counts'))}",
         ]
+        details.append(f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}")
+        time_window = _format_aggregate_time_window(row.get("time_window"))
+        if time_window != "none":
+            details.append(f"time_window={time_window}")
         if row.get("first_event"):
             details.append(f"first_event={row['first_event']}")
         if row.get("last_event"):
@@ -92,7 +96,11 @@ def _format_file_change_totals(file_change_totals):
             f"average_duration_ms={row.get('average_duration_ms', 0)}",
             f"statuses={_format_status_counts(row.get('status_counts'))}",
             f"kinds={_format_status_counts(row.get('kind_counts'))}",
+            f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
         ]
+        time_window = _format_aggregate_time_window(row.get("time_window"))
+        if time_window != "none":
+            details.append(f"time_window={time_window}")
         lines.append(f"{path} ({', '.join(details)})")
     return "; ".join(lines)
 

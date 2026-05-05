@@ -186,8 +186,11 @@ def _command_attempt_rows(rows):
                 "average_duration_ms": 0,
                 "failed_count": 0,
                 "status_counts": {},
+                "duration_source_counts": {},
+                "time_window": None,
                 "first_event": row.get("event"),
                 "last_event": row.get("event"),
+                "_rows": [],
             }
         summary = attempts_by_command[command]
         summary["count"] += 1
@@ -196,11 +199,15 @@ def _command_attempt_rows(rows):
             summary["failed_count"] += 1
         status = row.get("status") or "unknown"
         summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
+        source = row.get("duration_source") or "unknown"
+        summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
         summary["last_event"] = row.get("event")
+        summary["_rows"].append(row)
 
     summaries = []
     for summary in attempts_by_command.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summary["time_window"] = _time_window(summary.pop("_rows"))
         summaries.append(summary)
     return summaries
 
@@ -329,6 +336,9 @@ def _file_change_total_rows(rows):
                 "average_duration_ms": 0,
                 "status_counts": {},
                 "kind_counts": {},
+                "duration_source_counts": {},
+                "time_window": None,
+                "_rows": [],
             }
         summary = totals_by_file[path]
         added = _numeric_value(row.get("added_lines"))
@@ -342,12 +352,16 @@ def _file_change_total_rows(rows):
         summary["total_duration_ms"] += _numeric_value(row.get("duration_ms"))
         status = row.get("status") or "unknown"
         kind = row.get("kind") or "unknown"
+        source = row.get("duration_source") or "unknown"
         summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
         summary["kind_counts"][kind] = summary["kind_counts"].get(kind, 0) + 1
+        summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        summary["_rows"].append(row)
 
     summaries = []
     for summary in totals_by_file.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summary["time_window"] = _time_window(summary.pop("_rows"))
         summaries.append(summary)
     return summaries
 

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0009",
+  "task": {
+    "selector": "T-026",
+    "context_pack": "agent/context-packs/T-026-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Changes stay within allowed paths, add nested timing/source aggregates for command attempts and per-file change totals, and verification passed via ci_check.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-05T23:03:15Z"
+}
