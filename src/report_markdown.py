@@ -57,6 +57,58 @@ def _format_repeated_commands(repeated_commands):
     return ", ".join(f"`{command}`={count}" for command, count in sorted(repeated_commands.items()))
 
 
+def _format_failed_commands(failed_commands):
+    if not failed_commands:
+        return "none"
+    lines = []
+    for row in failed_commands:
+        event = row.get("event") or "summary"
+        command = row.get("command") or "<unknown command>"
+        duration = row.get("duration_ms", 0)
+        status = row.get("status") or "unknown"
+        exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
+        duration_source = _format_duration_source(row).removeprefix(", ")
+        timing = _format_time_window(row).removeprefix(", ")
+        details = [f"{duration}ms", f"status={status}", f"exit_code={exit_code}"]
+        if duration_source:
+            details.append(duration_source)
+        if timing:
+            details.append(timing)
+        if row.get("stdout_preview"):
+            details.append(f"stdout_preview={row['stdout_preview']}")
+        if row.get("stderr_preview"):
+            details.append(f"stderr_preview={row['stderr_preview']}")
+        lines.append(f"{event}: `{command}` ({', '.join(details)})")
+    return "; ".join(lines)
+
+
+def _format_failed_edits(failed_edits):
+    if not failed_edits:
+        return "none"
+    lines = []
+    for row in failed_edits:
+        event = row.get("event") or "summary"
+        path = row.get("path") or "<unknown file>"
+        kind = row.get("kind") or "unknown"
+        duration = row.get("duration_ms", 0)
+        status = row.get("status") or "unknown"
+        duration_source = _format_duration_source(row).removeprefix(", ")
+        timing = _format_time_window(row).removeprefix(", ")
+        added = row.get("added_lines", 0)
+        removed = row.get("removed_lines", 0)
+        details = [f"kind={kind}", f"+{added}/-{removed}", f"{duration}ms", f"status={status}"]
+        if duration_source:
+            details.append(duration_source)
+        if timing:
+            details.append(timing)
+        if row.get("summary"):
+            details.append(f"summary={row['summary']}")
+        if row.get("error_message"):
+            details.append(f"error_message={row['error_message']}")
+        lines.append(f"{event}: {path} ({', '.join(details)})")
+    return "; ".join(lines)
+
+
 def _format_status_counts(status_counts):
     if not status_counts:
         return "none"
@@ -148,6 +200,7 @@ def build_markdown_summary(trace):
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
+        f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
@@ -155,6 +208,7 @@ def build_markdown_summary(trace):
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- edit_failed_count: {edit_totals['failed_count']}",
+        f"- failed_edits: {_format_failed_edits(edit_totals['failed_edits'])}",
         f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
         f"- edit_duration_sources: {_format_status_counts(edit_totals['duration_source_counts'])}",
         f"- edit_time_window: {_format_aggregate_time_window(edit_totals['time_window'])}",

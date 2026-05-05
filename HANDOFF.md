@@ -1,19 +1,47 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` aggregate report highlights now show unique command counts, ordered command lists, repeated command retry counts, and deduplicated changed-file lists, so command repetition and file impact are clearer before scanning row details.
+`agentrace` aggregate report highlights now include failed edit rows with file identity, edit kind, line impact, timing context, summary, and error message when available, so failed write attempts are visible before scanning edit details.
 
 ## What was done
+- created AgentSpec task `T-022` for a report observability follow-up slice
+- preserved file-edit error messages in JSON edit summary rows
+- added JSON `edit_summary_totals.failed_edits` with per-failed-edit path, timing, line-impact, summary, and error context
+- rendered failed edit identities in the Markdown top-level report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for failed-edit aggregate visibility
+
+## Verification
+- `python -m pytest tests/test_report_outputs.py -q` — 18 passed, 1 warning
+- `bash scripts/ci_check.sh` — 25 passed, 1 warning
+
+## Previous status
+`agentrace` aggregate report highlights now include a `failed_commands` list with command identity, timing context, exit code, and stderr preview when available, so failed command output is visible before scanning row details.
+
+## Previous work
+- created AgentSpec task `T-021` for a report observability follow-up slice
+- preserved command stdout/stderr previews in JSON command timing rows
+- added JSON `command_timing_summary.failed_commands` with per-failed-command timing and failure context
+- rendered failed command identities in the Markdown top-level report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for failed-command aggregate visibility
+
+## Previous verification
+- `python -m pytest tests/test_report_outputs.py -q` — 17 passed, 1 warning
+- `bash scripts/ci_check.sh` — 24 passed, 1 warning
+
+## Previous status
+`agentrace` aggregate report highlights now show unique command counts, ordered command lists, repeated command retry counts, and deduplicated changed-file lists, so command repetition and file impact are clearer before scanning row details.
+
+## Previous work
 - created AgentSpec task `T-020` for a report observability follow-up slice
 - expanded JSON `command_timing_summary` with `unique_command_count`, ordered `commands_run`, and `repeated_commands`
 - deduplicated JSON `edit_summary_totals.files_changed` while preserving first-seen order
 - updated Markdown aggregate formatting, regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for unique/repeated command visibility and deduplicated changed-file totals
 
-## Verification
+## Previous verification
 - `python -m pytest tests/test_report_outputs.py -q` — 17 passed, 1 warning
 - `bash scripts/ci_check.sh` — 24 passed, 1 warning
 
-## Previous status
+## Older status
 `agentrace` aggregate report highlights now preserve timing context for the selected slowest command and largest edit, so top-level JSON and Markdown summaries show duration source plus available start/end timestamps for those aggregate rows.
 
 ## What was done

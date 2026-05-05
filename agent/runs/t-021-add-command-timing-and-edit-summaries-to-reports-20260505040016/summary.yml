@@ -1,0 +1,33 @@
+{
+  "schema": "agentspec.supervised_run.summary.v0",
+  "run_id": "t-021-add-command-timing-and-edit-summaries-to-reports-20260505040016",
+  "mode": "autonomous",
+  "context_pack": "agent/context-packs/T-021-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-021: Add command timing and edit summaries to reports",
+  "status": "halted",
+  "terminal": true,
+  "last_decision": "pause_for_human",
+  "iteration": 1,
+  "max_iterations": 3,
+  "verdict_counts": {
+    "pause_for_human": 1
+  },
+  "event_counts": {
+    "run_started": 1,
+    "executor_output": 1,
+    "reviewer_verdict": 1,
+    "autonomous_pause_to_finding": 1
+  },
+  "blocked_findings": [
+    {
+      "id": "Q-017",
+      "kind": "open-question",
+      "event": "autonomous_pause_to_finding",
+      "iteration": 1,
+      "severity": null,
+      "applied_decision": "halt"
+    }
+  ],
+  "created_at": "2026-05-05T04:00:16Z",
+  "updated_at": "2026-05-05T04:03:28Z"
+}

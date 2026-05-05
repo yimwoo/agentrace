@@ -331,27 +331,31 @@ A compact run-level summary for quick inspection.
 
 Report builders should surface command timing and edit summaries in both JSON
 and Markdown so a developer can quickly identify slow or failed commands and
-understand the file-level impact of edits without opening raw events first.
+understand the file-level impact of edits without opening raw events first. Failed
+command rows may also carry stdout/stderr previews so report-level failure lists
+can point directly at the actionable command output.
 Command timing rows should carry and Markdown reports should render duration, duration source (`explicit`, `derived`, or
 `missing`), status, exit code, cwd, and available start/end timestamps; summary-derived Markdown rows may treat a present legacy `duration_ms` without `duration_source` as `explicit`. Edit
 summary rows should carry and Markdown reports should render file impact plus edit status, duration, duration
 source, and available start/end timestamps; summary-derived Markdown rows may likewise treat a present legacy `duration_ms` without `duration_source` as `explicit`. JSON reports should also include
 aggregate `command_timing_summary` totals (`count`, `unique_command_count`,
 ordered `commands_run`, `repeated_commands`, `total_duration_ms`,
-`average_duration_ms`, `failed_count`, `status_counts`, `duration_source_counts`,
+`average_duration_ms`, `failed_count`, `failed_commands`, `status_counts`, `duration_source_counts`,
 aggregate `time_window`, and `slowest`) plus `edit_summary_totals` (`count`,
-deduplicated changed files, total added/removed lines, edit `failed_count`, edit
-`status_counts`, `duration_source_counts`, aggregate `time_window`,
-`net_line_delta`, total/average edit duration, and `largest_edit`). Aggregate
+deduplicated changed files, total added/removed lines, edit `failed_count`,
+`failed_edits`, edit `status_counts`, `duration_source_counts`, aggregate `time_window`,
+`net_line_delta`, total/average edit duration, and `largest_edit`). Failed edit
+rows should retain path/kind, line impact, timing context, summary, and available
+error message so failed write attempts are visible from aggregate report totals. Aggregate
 `slowest` and `largest_edit` entries should preserve the same timing context as
 their source rows, including duration source and available start/end timestamps,
 so the top-level report can explain why each aggregate was selected. Markdown
 reports should render the same aggregate command/edit totals near the top-level
 summary so reviewers can inspect the run impact before scanning individual rows,
-including unique commands, repeated command retries, command status counts,
+including unique commands, repeated command retries, failed command identities with timing/failure context, command status counts,
 command duration source counts, aggregate command time window, the average command duration, slowest command identity with
 its timing context, changed-file list, net line delta, edit failure counts/status
-distribution, edit duration source counts, aggregate edit time window, average
+distribution, failed edit identities with timing/error context, edit duration source counts, aggregate edit time window, average
 edit duration, and largest edit with its timing context when present.
 If `duration_ms` is absent but both `started_at` and `ended_at` are
 present, report builders derive the row duration from that timestamp window.

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0006",
+  "task": {
+    "selector": "T-022",
+    "context_pack": "agent/context-packs/T-022-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Failed-edit aggregate reporting is covered by regression tests and full CI.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-05T08:04:39Z"
+}

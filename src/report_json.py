@@ -57,6 +57,10 @@ def build_command_timing(events, artifacts=None):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
             row["ended_at"] = event["ended_at"]
+        if event.get("stdout_preview") or details.get("stdout_preview"):
+            row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")
+        if event.get("stderr_preview") or details.get("stderr_preview"):
+            row["stderr_preview"] = event.get("stderr_preview") or details.get("stderr_preview")
         if event_ref in artifact_refs:
             row["artifacts"] = artifact_refs[event_ref]
         rows.append(row)
@@ -89,6 +93,10 @@ def build_edit_summary(events, artifacts=None):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
             row["ended_at"] = event["ended_at"]
+        error = event.get("error") if isinstance(event.get("error"), dict) else {}
+        error_message = error.get("message") or details.get("error_message") or details.get("error")
+        if error_message:
+            row["error_message"] = error_message
         if event_ref in artifact_refs:
             row["artifacts"] = artifact_refs[event_ref]
         rows.append(row)
@@ -160,6 +168,33 @@ def _repeated_value_counts(rows, field):
     return {value: count for value, count in counts.items() if count > 1}
 
 
+def _is_failed_command(row):
+    return row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0
+
+
+def _failed_command_rows(rows):
+    failed = []
+    for row in rows:
+        if not _is_failed_command(row):
+            continue
+        failed_row = {
+            "event": row.get("event"),
+            "command": row.get("command"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "status": row.get("status"),
+            "exit_code": row.get("exit_code"),
+            "started_at": row.get("started_at"),
+            "ended_at": row.get("ended_at"),
+        }
+        if row.get("stdout_preview"):
+            failed_row["stdout_preview"] = row["stdout_preview"]
+        if row.get("stderr_preview"):
+            failed_row["stderr_preview"] = row["stderr_preview"]
+        failed.append(failed_row)
+    return failed
+
+
 def build_command_timing_summary(rows):
     """Build aggregate command timing metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -179,7 +214,8 @@ def build_command_timing_summary(rows):
         "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
-        "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0),
+        "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
+        "failed_commands": _failed_command_rows(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),
@@ -209,6 +245,35 @@ def _largest_edit_row(rows):
     return largest
 
 
+def _is_failed_edit(row):
+    return row.get("status") in {"failed", "error"}
+
+
+def _failed_edit_rows(rows):
+    failed = []
+    for row in rows:
+        if not _is_failed_edit(row):
+            continue
+        failed_row = {
+            "event": row.get("event"),
+            "path": row.get("path"),
+            "kind": row.get("kind"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "status": row.get("status"),
+            "started_at": row.get("started_at"),
+            "ended_at": row.get("ended_at"),
+            "added_lines": _numeric_value(row.get("added_lines")),
+            "removed_lines": _numeric_value(row.get("removed_lines")),
+        }
+        if row.get("summary"):
+            failed_row["summary"] = row["summary"]
+        if row.get("error_message"):
+            failed_row["error_message"] = row["error_message"]
+        failed.append(failed_row)
+    return failed
+
+
 def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -225,7 +290,8 @@ def build_edit_summary_totals(rows):
         "count": len(normalized_rows),
         "files_changed": files,
         "files_changed_count": len(files),
-        "failed_count": sum(1 for row in normalized_rows if row.get("status") in {"failed", "error"}),
+        "failed_count": sum(1 for row in normalized_rows if _is_failed_edit(row)),
+        "failed_edits": _failed_edit_rows(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),

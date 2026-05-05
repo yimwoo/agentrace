@@ -11,6 +11,7 @@
 - command_total_duration_ms: 3200
 - command_average_duration_ms: 3200.0
 - command_failed_count: 1
+- failed_commands: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
 - command_status_counts: failed=1
 - command_duration_sources: explicit=1
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
@@ -18,6 +19,7 @@
 - files_changed_count: 1
 - files_changed: src/auth.py
 - edit_failed_count: 0
+- failed_edits: none
 - edit_status_counts: succeeded=1
 - edit_duration_sources: explicit=1
 - edit_time_window: started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z

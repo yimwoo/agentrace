@@ -66,6 +66,7 @@ def test_report_includes_command_timing_and_edit_summary():
                 "duration_ms": 3200,
                 "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
                 "exit_code": 1,
+                "stdout_preview": "F",
                 "stderr_preview": "AssertionError: expected 401 but got 500",
             },
             {
@@ -90,6 +91,8 @@ def test_report_includes_command_timing_and_edit_summary():
         "duration_source": "explicit",
         "exit_code": 1,
         "started_at": "2026-04-25T00:00:01Z",
+        "stdout_preview": "F",
+        "stderr_preview": "AssertionError: expected 401 but got 500",
     }]
     assert payload["edit_summary"] == [{
         "event": "evt_edit",
@@ -104,6 +107,18 @@ def test_report_includes_command_timing_and_edit_summary():
         "started_at": "2026-04-25T00:00:05Z",
     }]
     assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
+    assert payload["command_timing_summary"]["failed_commands"] == [{
+        "event": "evt_cmd",
+        "command": "pytest tests/test_auth.py -q",
+        "duration_ms": 3200,
+        "duration_source": "explicit",
+        "status": "failed",
+        "exit_code": 1,
+        "started_at": "2026-04-25T00:00:01Z",
+        "ended_at": None,
+        "stdout_preview": "F",
+        "stderr_preview": "AssertionError: expected 401 but got 500",
+    }]
     assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
 
 
@@ -358,6 +373,16 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "failed_count": 1,
+        "failed_commands": [{
+            "event": "evt_cmd_slow",
+            "command": "pytest -q",
+            "duration_ms": 2000,
+            "duration_source": "derived",
+            "status": "failed",
+            "exit_code": 1,
+            "started_at": "2026-04-25T00:00:00Z",
+            "ended_at": "2026-04-25T00:00:02Z",
+        }],
         "status_counts": {"failed": 1, "succeeded": 1},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
@@ -377,6 +402,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "files_changed": ["src/report_json.py", "src/report_markdown.py"],
         "files_changed_count": 2,
         "failed_count": 0,
+        "failed_edits": [],
         "status_counts": {"succeeded": 2},
         "duration_source_counts": {"explicit": 2},
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
@@ -408,6 +434,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
+    assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
@@ -415,6 +442,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_failed_count: 0" in text
+    assert "failed_edits: none" in text
     assert "edit_status_counts: succeeded=2" in text
     assert "edit_duration_sources: explicit=2" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
@@ -536,6 +564,16 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
     assert payload["command_timing_summary"]["unique_command_count"] == 2
     assert payload["command_timing_summary"]["commands_run"] == ["pytest -q", "ruff check"]
     assert payload["command_timing_summary"]["repeated_commands"] == {"pytest -q": 2}
+    assert payload["command_timing_summary"]["failed_commands"] == [{
+        "event": "evt_cmd_first",
+        "command": "pytest -q",
+        "duration_ms": 20,
+        "duration_source": "explicit",
+        "status": "failed",
+        "exit_code": 1,
+        "started_at": None,
+        "ended_at": None,
+    }]
     assert payload["edit_summary_totals"]["files_changed"] == ["src/report_json.py"]
     assert payload["edit_summary_totals"]["files_changed_count"] == 1
 
@@ -543,6 +581,7 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
     assert "unique_command_count: 2" in text
     assert "commands_run: pytest -q, ruff check" in text
     assert "repeated_commands: `pytest -q`=2" in text
+    assert "failed_commands: evt_cmd_first: `pytest -q` (20ms, status=failed, exit_code=1, duration_source=explicit)" in text
     assert "files_changed_count: 1" in text
     assert "files_changed: src/report_json.py" in text
 
@@ -609,6 +648,57 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     assert "evt_edit_missing" not in text
     assert "src/report_json.py: modify (+1/-0) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing" in text
     assert "src/report_markdown.py: modify (+2/-1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
+
+
+def test_report_totals_include_failed_edit_details():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "failed-edit-1", "task": "inspect failed edits", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_edit_failed",
+                "seq": 1,
+                "type": "file_edit",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:04Z",
+                "ended_at": "2026-04-25T00:00:04.010Z",
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 0, "removed_lines": 0, "summary": "Patch failed to apply"},
+                "error": {"message": "target hunk not found"},
+            },
+            {
+                "id": "evt_edit_ok",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "file": {"path": "src/report_markdown.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Render failed edits"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["edit_summary"][0]["error_message"] == "target hunk not found"
+    assert payload["edit_summary_totals"]["failed_count"] == 1
+    assert payload["edit_summary_totals"]["failed_edits"] == [{
+        "event": "evt_edit_failed",
+        "path": "src/report_json.py",
+        "kind": "modify",
+        "duration_ms": 10,
+        "duration_source": "derived",
+        "status": "failed",
+        "started_at": "2026-04-25T00:00:04Z",
+        "ended_at": "2026-04-25T00:00:04.010Z",
+        "added_lines": 0,
+        "removed_lines": 0,
+        "summary": "Patch failed to apply",
+        "error_message": "target hunk not found",
+    }]
+
+    text = build_markdown_summary(trace)
+    assert "edit_failed_count: 1" in text
+    assert "failed_edits: evt_edit_failed: src/report_json.py (kind=modify, +0/-0, 10ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:04Z, ended_at=2026-04-25T00:00:04.010Z, summary=Patch failed to apply, error_message=target hunk not found)" in text
 
 
 def test_example_write(tmp_path):
