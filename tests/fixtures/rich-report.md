@@ -8,6 +8,7 @@
 - unique_command_count: 1
 - commands_run: pytest tests/test_auth.py -q
 - repeated_commands: none
+- command_cwd_counts: /workspace/app=1
 - command_total_duration_ms: 3200
 - command_average_duration_ms: 3200.0
 - command_failed_count: 1
@@ -20,6 +21,7 @@
 - files_changed: src/auth.py
 - edit_failed_count: 0
 - failed_edits: none
+- edit_kind_counts: modify=1
 - edit_status_counts: succeeded=1
 - edit_duration_sources: explicit=1
 - edit_time_window: started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z

@@ -158,14 +158,20 @@ def _ordered_values(rows, field):
     return values
 
 
-def _repeated_value_counts(rows, field):
+def _value_counts(rows, field, missing_label=None):
     counts = {}
     for row in rows:
         value = row.get(field)
-        if not value:
+        if not value and missing_label is None:
             continue
+        if not value:
+            value = missing_label
         counts[value] = counts.get(value, 0) + 1
-    return {value: count for value, count in counts.items() if count > 1}
+    return counts
+
+
+def _repeated_value_counts(rows, field):
+    return {value: count for value, count in _value_counts(rows, field).items() if count > 1}
 
 
 def _is_failed_command(row):
@@ -212,6 +218,7 @@ def build_command_timing_summary(rows):
         "unique_command_count": len(commands_run),
         "commands_run": commands_run,
         "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
+        "cwd_counts": _value_counts(normalized_rows, "cwd", missing_label="unknown"),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
@@ -292,6 +299,7 @@ def build_edit_summary_totals(rows):
         "files_changed_count": len(files),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_edit(row)),
         "failed_edits": _failed_edit_rows(normalized_rows),
+        "kind_counts": _value_counts(normalized_rows, "kind", missing_label="unknown"),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),

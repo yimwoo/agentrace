@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0007",
+  "task": {
+    "selector": "T-023",
+    "context_pack": "agent/context-packs/T-023-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Report aggregate cwd/kind counts are covered by regression tests and ci_check passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-05T13:02:05Z"
+}

@@ -370,6 +370,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "unique_command_count": 2,
         "commands_run": ["pytest -q", "ruff check"],
         "repeated_commands": {},
+        "cwd_counts": {"unknown": 2},
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "failed_count": 1,
@@ -403,6 +404,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "files_changed_count": 2,
         "failed_count": 0,
         "failed_edits": [],
+        "kind_counts": {"modify": 2},
         "status_counts": {"succeeded": 2},
         "duration_source_counts": {"explicit": 2},
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
@@ -431,6 +433,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "unique_command_count: 2" in text
     assert "commands_run: pytest -q, ruff check" in text
     assert "repeated_commands: none" in text
+    assert "command_cwd_counts: unknown=2" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
@@ -443,6 +446,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "edit_failed_count: 0" in text
     assert "failed_edits: none" in text
+    assert "edit_kind_counts: modify=2" in text
     assert "edit_status_counts: succeeded=2" in text
     assert "edit_duration_sources: explicit=2" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
@@ -504,6 +508,72 @@ def test_report_aggregate_time_windows_use_full_row_ranges():
     text = build_markdown_summary(trace)
     assert "command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:06+00:00" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z" in text
+
+
+def test_report_totals_include_command_cwd_and_edit_kind_distributions():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "distribution-1", "task": "inspect distributions", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_src",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 10,
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_docs",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "command": {"value": "mkdocs build", "cwd": "/workspace/app/docs"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_unknown_cwd",
+                "seq": 3,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 2,
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_modify",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 3,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Update report totals"},
+            },
+            {
+                "id": "evt_edit_create",
+                "seq": 5,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 4,
+                "file": {"path": "docs/report.md"},
+                "change": {"kind": "create", "added_lines": 8, "removed_lines": 0, "summary": "Document report totals"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["cwd_counts"] == {
+        "/workspace/app": 1,
+        "/workspace/app/docs": 1,
+        "unknown": 1,
+    }
+    assert payload["edit_summary_totals"]["kind_counts"] == {"modify": 1, "create": 1}
+
+    text = build_markdown_summary(trace)
+    assert "command_cwd_counts: /workspace/app=1, /workspace/app/docs=1, unknown=1" in text
+    assert "edit_kind_counts: create=1, modify=1" in text
 
 
 def test_report_totals_deduplicate_files_and_show_repeated_commands():

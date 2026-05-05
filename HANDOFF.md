@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report highlights now include command working-directory counts and edit-kind counts, so reviewers can spot where commands ran and what kinds of edits occurred before scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-023` for a report observability follow-up slice
+- added JSON `command_timing_summary.cwd_counts` with `unknown` for commands missing cwd context
+- added JSON `edit_summary_totals.kind_counts` with `unknown` for edits missing kind context
+- rendered command cwd counts and edit kind counts in the Markdown top-level report totals
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for aggregate cwd/kind distribution visibility
+
+## Verification
+- `python -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
+- `bash scripts/ci_check.sh` — 26 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report highlights now include failed edit rows with file identity, edit kind, line impact, timing context, summary, and error message when available, so failed write attempts are visible before scanning edit details.
 
 ## What was done
