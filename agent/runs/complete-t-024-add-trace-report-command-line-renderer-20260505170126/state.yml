@@ -1,0 +1,53 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-024-add-trace-report-command-line-renderer-20260505170126",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-024-add-trace-report-command-line-renderer.md",
+  "context_pack_title": "T-024: Add trace report command line renderer",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "scripts/**/*.sh",
+    "examples/**/*.json",
+    "agent/**",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "TRACE_SCHEMA.md"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-05T17:01:26Z",
+  "updated_at": "2026-05-05T17:01:26Z",
+  "last_decision": "complete",
+  "completion_reason": "Marked complete by user.",
+  "verification": {
+    "status": "passed"
+  }
+}

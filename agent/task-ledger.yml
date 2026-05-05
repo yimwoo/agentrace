@@ -263,6 +263,15 @@
         "path": "agent/reviews/REVIEW-0007.yml"
       },
       "updated_at": "2026-05-05T13:02:08Z"
+    },
+    "agent/context-packs/T-024-add-trace-report-command-line-renderer.md": {
+      "status": "complete",
+      "run_id": "complete-t-024-add-trace-report-command-line-renderer-20260505170126",
+      "reason": "Implemented a real source-code trace report CLI/library entrypoint with markdown/json rendering and file/stdin I/O; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-05T17:01:26Z"
     }
   }
 }
