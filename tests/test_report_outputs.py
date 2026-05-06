@@ -268,8 +268,14 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
     }
 
     payload = build_json_summary(trace)
-    assert payload["command_timing"] == trace["summary"]["command_durations_ms"]
-    assert payload["edit_summary"] == trace["summary"]["edit_summaries"]
+    assert payload["command_timing"] == [{
+        **trace["summary"]["command_durations_ms"][0],
+        "duration_source": "explicit",
+    }]
+    assert payload["edit_summary"] == [{
+        **trace["summary"]["edit_summaries"][0],
+        "duration_source": "explicit",
+    }]
 
     text = build_markdown_summary(trace)
     assert "evt_cmd: `pytest -q` — 50ms, status=failed, exit_code=1" in text
@@ -278,6 +284,54 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
     assert "artifacts: command_log=artifacts/evt_cmd.log" in text
     assert "src/report.py: modify (+1/-0, net=1) — Document existing summary rows" in text
     assert "artifacts: diff=artifacts/evt_edit.diff" in text
+
+
+def test_report_outputs_normalize_summary_only_timing_and_edit_fields():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-window", "task": "inspect summary timing", "status": "succeeded"},
+        "events": [],
+        "summary": {
+            "result": "succeeded",
+            "event_counts": {"command": 1, "file_edit": 1},
+            "files_changed": ["src/report_json.py"],
+            "commands_run": ["pytest -q"],
+            "command_durations_ms": [{
+                "event": "evt_cmd_summary_window",
+                "command": "pytest -q",
+                "status": "succeeded",
+                "exit_code": 0,
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.250Z",
+            }],
+            "edit_summaries": [{
+                "event": "evt_edit_summary_window",
+                "path": "src/report_json.py",
+                "kind": "modify",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.010Z",
+                "added_lines": 3,
+                "removed_lines": 1,
+                "summary": "Normalize summary-only rows",
+            }],
+            "next_inspection_targets": [],
+        },
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing"][0]["duration_ms"] == 250
+    assert payload["command_timing"][0]["duration_source"] == "derived"
+    assert payload["edit_summary"][0]["duration_ms"] == 10
+    assert payload["edit_summary"][0]["duration_source"] == "derived"
+    assert payload["edit_summary"][0]["net_line_delta"] == 2
+    assert payload["command_timing_summary"]["total_duration_ms"] == 250
+    assert payload["edit_summary_totals"]["total_duration_ms"] == 10
+    assert payload["edit_summary_totals"]["net_line_delta"] == 2
+
+    text = build_markdown_summary(trace)
+    assert "evt_cmd_summary_window: `pytest -q` — 250ms, status=succeeded, exit_code=0, duration_source=derived" in text
+    assert "src/report_json.py: modify (+3/-1, net=2) — Normalize summary-only rows, status=succeeded, duration_ms=10, duration_source=derived" in text
 
 
 def test_report_outputs_derive_duration_from_time_windows():

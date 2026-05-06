@@ -1,22 +1,36 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` compact run summaries now include per-row edit `net_line_delta`, so the summary-derived JSON and Markdown report path preserves the same added/removed/net impact context as raw file-edit event reports.
+`agentrace` report fallbacks now normalize summary-only command/edit rows before rendering JSON and Markdown reports, deriving durations from timestamp windows, filling missing duration sources, and computing omitted edit net line deltas for compact summaries.
 
 ## What was done
+- created AgentSpec task `T-029` for a report observability follow-up slice
+- normalized summary-derived command rows with `duration_ms` and `duration_source`
+- normalized summary-derived edit rows with `duration_ms`, `duration_source`, and fallback `net_line_delta`
+- added regression coverage for summary-only timestamp-window timing and edit net-delta normalization
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for summary-only row normalization
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 20 passed, 1 warning
+- `bash scripts/ci_check.sh` — 27 passed, 1 warning
+
+## Previous status
+`agentrace` compact run summaries now include per-row edit `net_line_delta`, so the summary-derived JSON and Markdown report path preserves the same added/removed/net impact context as raw file-edit event reports.
+
+## Previous work
 - created AgentSpec task `T-028` for a report observability follow-up slice
 - added run-summary edit `net_line_delta` generation in `build_run_summary`
 - added regression coverage for compact run-summary net line delta preservation
 - updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for run-summary edit net-delta visibility
 
-## Verification
+## Previous verification
 - `python3 -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
 - `bash scripts/ci_check.sh` — 26 passed, 1 warning
 
-## Previous status
+## Older status
 `agentrace` edit summary detail rows now include per-row net line deltas in JSON and Markdown reports, so reviewers can see added/removed/net impact for each edit without doing arithmetic from the detail section.
 
-## Previous work
+## Older work
 - created AgentSpec task `T-027` for a report observability follow-up slice
 - added JSON edit summary `net_line_delta` for raw file-edit event rows
 - rendered per-row net line delta in Markdown edit detail rows and failed-edit aggregate rows

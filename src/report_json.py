@@ -417,13 +417,43 @@ def build_edit_summary_totals(rows):
 
 
 
+def _normalize_summary_command_rows(rows):
+    normalized = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        normalized_row = dict(row)
+        if not normalized_row.get("duration_source"):
+            normalized_row["duration_source"] = event_duration_source(normalized_row)
+        if normalized_row.get("duration_ms") is None:
+            normalized_row["duration_ms"] = event_duration_ms(normalized_row)
+        normalized.append(normalized_row)
+    return normalized
+
+
+def _normalize_summary_edit_rows(rows):
+    normalized = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        normalized_row = dict(row)
+        if not normalized_row.get("duration_source"):
+            normalized_row["duration_source"] = event_duration_source(normalized_row)
+        if normalized_row.get("duration_ms") is None:
+            normalized_row["duration_ms"] = event_duration_ms(normalized_row)
+        if "net_line_delta" not in normalized_row:
+            normalized_row["net_line_delta"] = _net_line_delta(normalized_row)
+        normalized.append(normalized_row)
+    return normalized
+
+
 def build_json_summary(trace):
     events = trace.get("events", [])
     summary = summarize_trace(events)
     metadata = _run_metadata(trace)
     run_summary = trace.get("summary") or build_run_summary(trace)
-    command_timing = build_command_timing(events, trace.get("artifacts", [])) or run_summary.get("command_durations_ms", [])
-    edit_summary = build_edit_summary(events, trace.get("artifacts", [])) or run_summary.get("edit_summaries", [])
+    command_timing = build_command_timing(events, trace.get("artifacts", [])) or _normalize_summary_command_rows(run_summary.get("command_durations_ms", []))
+    edit_summary = build_edit_summary(events, trace.get("artifacts", [])) or _normalize_summary_edit_rows(run_summary.get("edit_summaries", []))
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
