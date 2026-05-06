@@ -323,6 +323,23 @@
         "path": "agent/reviews/REVIEW-0010.yml"
       },
       "updated_at": "2026-05-06T04:03:46Z"
+    },
+    "agent/context-packs/T-028-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-028-add-command-timing-and-edit-summaries-to-reports-20260506080334",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0011",
+        "verdict": "ready",
+        "summary": "No blocking findings. Run-summary edit rows now preserve net_line_delta with regression coverage; ci_check.sh passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0011.yml"
+      },
+      "updated_at": "2026-05-06T08:03:34Z"
     }
   }
 }

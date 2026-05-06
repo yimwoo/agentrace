@@ -319,6 +319,7 @@ A compact run-level summary for quick inspection.
       "ended_at": "2026-04-23T13:02:01Z",
       "added_lines": 4,
       "removed_lines": 1,
+      "net_line_delta": 3,
       "summary": "Return 401 for invalid tokens instead of re-raising decoder exception"
     }
   ],

@@ -122,6 +122,16 @@ def _copy_present(row, source, fields):
             row[field] = source[field]
 
 
+def _numeric_value(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return 0
+    return value
+
+
+def _net_line_delta(row):
+    return _numeric_value(row.get("added_lines")) - _numeric_value(row.get("removed_lines"))
+
+
 def build_run_summary(trace):
     """Build a compact R-007 summary from canonical event envelopes."""
     events = trace.get("events", [])
@@ -175,6 +185,7 @@ def build_run_summary(trace):
                 "removed_lines": change.get("removed_lines", details.get("removed_lines")),
                 "summary": change.get("summary") or details.get("summary"),
             }
+            row["net_line_delta"] = _net_line_delta(row)
             _copy_present(row, event, ["started_at", "ended_at"])
             if event_ref in artifact_refs:
                 row["artifacts"] = artifact_refs[event_ref]

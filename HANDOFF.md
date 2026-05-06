@@ -1,19 +1,32 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` edit summary detail rows now include per-row net line deltas in JSON and Markdown reports, so reviewers can see added/removed/net impact for each edit without doing arithmetic from the detail section.
+`agentrace` compact run summaries now include per-row edit `net_line_delta`, so the summary-derived JSON and Markdown report path preserves the same added/removed/net impact context as raw file-edit event reports.
 
 ## What was done
-- created AgentSpec task `T-027` for a report observability follow-up slice
-- added JSON edit summary `net_line_delta` for raw file-edit event rows
-- rendered per-row net line delta in Markdown edit detail rows and failed-edit aggregate rows
-- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-row edit net-delta visibility
+- created AgentSpec task `T-028` for a report observability follow-up slice
+- added run-summary edit `net_line_delta` generation in `build_run_summary`
+- added regression coverage for compact run-summary net line delta preservation
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for run-summary edit net-delta visibility
 
 ## Verification
 - `python3 -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
 - `bash scripts/ci_check.sh` — 26 passed, 1 warning
 
 ## Previous status
+`agentrace` edit summary detail rows now include per-row net line deltas in JSON and Markdown reports, so reviewers can see added/removed/net impact for each edit without doing arithmetic from the detail section.
+
+## Previous work
+- created AgentSpec task `T-027` for a report observability follow-up slice
+- added JSON edit summary `net_line_delta` for raw file-edit event rows
+- rendered per-row net line delta in Markdown edit detail rows and failed-edit aggregate rows
+- updated regression coverage, the rich Markdown report fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-row edit net-delta visibility
+
+## Previous verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 19 passed, 1 warning
+- `bash scripts/ci_check.sh` — 26 passed, 1 warning
+
+## Older status
 `agentrace` aggregate report highlights now include duration-source distributions and time windows inside per-command attempt totals and per-file change totals, so reviewers can inspect timing quality and span for repeated commands or cumulative file edits without opening detail rows.
 
 ## What was done

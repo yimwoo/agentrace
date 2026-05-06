@@ -96,6 +96,7 @@ def test_build_run_summary_carries_report_ready_timing_and_edit_fields():
         "duration_source": "explicit",
         "added_lines": 2,
         "removed_lines": 1,
+        "net_line_delta": 1,
         "summary": "Tighten report rows",
         "started_at": "2026-04-25T00:00:03Z",
         "ended_at": "2026-04-25T00:00:03.100Z",

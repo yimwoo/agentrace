@@ -121,6 +121,7 @@ def test_report_includes_command_timing_and_edit_summary():
         "stderr_preview": "AssertionError: expected 401 but got 500",
     }]
     assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
+    assert payload["run_summary"]["edit_summaries"][0]["net_line_delta"] == 3
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():
