@@ -357,6 +357,23 @@
         "path": "agent/reviews/REVIEW-0012.yml"
       },
       "updated_at": "2026-05-06T13:03:54Z"
+    },
+    "agent/context-packs/T-030-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-030-add-command-timing-and-edit-summaries-to-reports-20260506180306",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0013",
+        "verdict": "ready",
+        "summary": "No blocking findings. Changes stay within allowed paths, add regression coverage for command stdout/stderr and edit error context in report detail rows, and verification passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0013.yml"
+      },
+      "updated_at": "2026-05-06T18:03:06Z"
     }
   }
 }

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0013",
+  "task": {
+    "selector": "T-030",
+    "context_pack": "agent/context-packs/T-030-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Changes stay within allowed paths, add regression coverage for command stdout/stderr and edit error context in report detail rows, and verification passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-06T18:02:53Z"
+}

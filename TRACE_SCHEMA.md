@@ -336,9 +336,9 @@ understand the file-level impact of edits without opening raw events first. Fail
 command rows may also carry stdout/stderr previews so report-level failure lists
 can point directly at the actionable command output.
 Command timing rows should carry and Markdown reports should render duration, duration source (`explicit`, `derived`, or
-`missing`), status, exit code, cwd, and available start/end timestamps; summary-derived report rows normalize missing `duration_source` values from the available timing fields, treating a present legacy `duration_ms` as `explicit` and timestamp-window-only rows as `derived`. Edit
+`missing`), status, exit code, cwd, stdout/stderr previews when available, and available start/end timestamps; summary-derived report rows normalize missing `duration_source` values from the available timing fields, treating a present legacy `duration_ms` as `explicit` and timestamp-window-only rows as `derived`. Edit
 summary rows should carry and Markdown reports should render file impact plus edit status, duration, duration
-source, and available start/end timestamps; summary-derived report rows use the same duration-source normalization. Edit summary rows should also carry per-row `net_line_delta`; report builders fill it from `added_lines` and `removed_lines` when older summary rows omit it so report detail rows expose added/removed/net line impact without requiring mental arithmetic. JSON reports should also include
+source, available start/end timestamps, and error messages when available; summary-derived report rows use the same duration-source normalization. Edit summary rows should also carry per-row `net_line_delta`; report builders fill it from `added_lines` and `removed_lines` when older summary rows omit it so report detail rows expose added/removed/net line impact without requiring mental arithmetic. JSON reports should also include
 aggregate `command_timing_summary` totals (`count`, `unique_command_count`,
 ordered `commands_run`, `repeated_commands`, per-command `command_attempts` with attempt counts, total/average duration,
 failure counts, status distribution, duration source distribution, aggregate time window, and first/last event references, `total_duration_ms`,

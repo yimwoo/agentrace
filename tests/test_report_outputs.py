@@ -863,6 +863,85 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     assert "src/report_markdown.py: modify (+2/-1, net=1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
 
 
+def test_markdown_detail_rows_include_failure_output_and_edit_error_context():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "detail-context-1", "task": "inspect detail context", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_failed_context",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "duration_ms": 42,
+                "command": {"value": "pytest -q"},
+                "exit_code": 1,
+                "stdout_preview": "F",
+                "stderr_preview": "AssertionError: expected 401",
+            },
+            {
+                "id": "evt_edit_failed_context",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "failed",
+                "duration_ms": 3,
+                "file": {"path": "src/auth.py"},
+                "change": {"kind": "modify", "added_lines": 0, "removed_lines": 0, "summary": "Patch auth error handling"},
+                "error": {"message": "target hunk not found"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["run_summary"]["command_durations_ms"][0]["stdout_preview"] == "F"
+    assert payload["run_summary"]["command_durations_ms"][0]["stderr_preview"] == "AssertionError: expected 401"
+    assert payload["run_summary"]["edit_summaries"][0]["error_message"] == "target hunk not found"
+
+    text = build_markdown_summary(trace)
+    assert "evt_cmd_failed_context: `pytest -q` — 42ms, status=failed, exit_code=1, duration_source=explicit, stdout_preview=F, stderr_preview=AssertionError: expected 401" in text
+    assert "src/auth.py: modify (+0/-0, net=0) — Patch auth error handling, status=failed, duration_ms=3, duration_source=explicit, error_message=target hunk not found" in text
+
+
+def test_summary_only_markdown_detail_rows_include_preserved_failure_context():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-detail-context-1", "task": "inspect summary detail context", "status": "failed"},
+        "events": [],
+        "summary": {
+            "result": "failed",
+            "event_counts": {"command": 1, "file_edit": 1},
+            "files_changed": ["src/auth.py"],
+            "commands_run": ["pytest -q"],
+            "command_durations_ms": [{
+                "event": "evt_cmd_summary_context",
+                "command": "pytest -q",
+                "duration_ms": 42,
+                "status": "failed",
+                "exit_code": 1,
+                "stdout_preview": "F",
+                "stderr_preview": "AssertionError: expected 401",
+            }],
+            "edit_summaries": [{
+                "event": "evt_edit_summary_context",
+                "path": "src/auth.py",
+                "kind": "modify",
+                "status": "failed",
+                "duration_ms": 3,
+                "added_lines": 0,
+                "removed_lines": 0,
+                "net_line_delta": 0,
+                "summary": "Patch auth error handling",
+                "error_message": "target hunk not found",
+            }],
+            "next_inspection_targets": [],
+        },
+    }
+
+    text = build_markdown_summary(trace)
+    assert "evt_cmd_summary_context: `pytest -q` — 42ms, status=failed, exit_code=1, duration_source=explicit, stdout_preview=F, stderr_preview=AssertionError: expected 401" in text
+    assert "src/auth.py: modify (+0/-0, net=0) — Patch auth error handling, status=failed, duration_ms=3, duration_source=explicit, error_message=target hunk not found" in text
+
+
 def test_report_totals_include_failed_edit_details():
     trace = {
         "trace_version": "0.1",

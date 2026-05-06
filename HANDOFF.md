@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` Markdown detail report rows now include command stdout/stderr previews and edit error messages when present, and compact run summaries preserve those same failure-context fields for summary-derived reports.
+
+## What was done
+- created AgentSpec task `T-030` for a report observability follow-up slice
+- rendered command detail-row stdout/stderr previews in Markdown reports
+- rendered edit detail-row error messages in Markdown reports
+- preserved command stdout/stderr previews and edit error messages in compact run summaries
+- added regression coverage for raw-event and summary-only detail-row failure context
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for detail-row failure-context visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 22 passed, 1 warning
+- `bash scripts/ci_check.sh` — 29 passed, 1 warning
+
+## Previous status
 `agentrace` report fallbacks now normalize summary-only command/edit rows before rendering JSON and Markdown reports, deriving durations from timestamp windows, filling missing duration sources, and computing omitted edit net line deltas for compact summaries.
 
 ## What was done

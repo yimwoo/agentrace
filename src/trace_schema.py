@@ -166,6 +166,10 @@ def build_run_summary(trace):
             if command.get("cwd") or details.get("cwd"):
                 row["cwd"] = command.get("cwd") or details.get("cwd")
             _copy_present(row, event, ["started_at", "ended_at"])
+            if event.get("stdout_preview") or details.get("stdout_preview"):
+                row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")
+            if event.get("stderr_preview") or details.get("stderr_preview"):
+                row["stderr_preview"] = event.get("stderr_preview") or details.get("stderr_preview")
             if event_ref in artifact_refs:
                 row["artifacts"] = artifact_refs[event_ref]
             command_durations_ms.append(row)
@@ -187,6 +191,10 @@ def build_run_summary(trace):
             }
             row["net_line_delta"] = _net_line_delta(row)
             _copy_present(row, event, ["started_at", "ended_at"])
+            error = event.get("error") if isinstance(event.get("error"), dict) else {}
+            error_message = error.get("message") or details.get("error_message") or details.get("error")
+            if error_message:
+                row["error_message"] = error_message
             if event_ref in artifact_refs:
                 row["artifacts"] = artifact_refs[event_ref]
             edit_summaries.append(row)

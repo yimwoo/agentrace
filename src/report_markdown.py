@@ -207,8 +207,13 @@ def _format_command_timing(rows):
         time_window = _format_time_window(row)
         duration_source = _format_duration_source(row)
         artifacts = _format_artifacts(row)
+        output_context = ""
+        if row.get("stdout_preview"):
+            output_context += f", stdout_preview={row['stdout_preview']}"
+        if row.get("stderr_preview"):
+            output_context += f", stderr_preview={row['stderr_preview']}"
         event = row.get("event", "summary")
-        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{duration_source}{cwd}{time_window}{artifacts}")
+        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
     return lines
 
 
@@ -225,10 +230,11 @@ def _format_edit_summary(rows):
         net_delta = f", net={row['net_line_delta']}" if "net_line_delta" in row else ""
         duration_source = _format_duration_source(row)
         time_window = _format_time_window(row)
+        error_context = f", error_message={row['error_message']}" if row.get("error_message") else ""
         artifacts = _format_artifacts(row)
         path = row.get("path") or "<unknown file>"
         kind = row.get("kind") or "unknown"
-        lines.append(f"- {path}: {kind} (+{added}/-{removed}{net_delta}) — {summary}{status}{duration}{duration_source}{time_window}{artifacts}")
+        lines.append(f"- {path}: {kind} (+{added}/-{removed}{net_delta}) — {summary}{status}{duration}{duration_source}{time_window}{error_context}{artifacts}")
     return lines
 
 
