@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` summary-only report fallbacks now tolerate partial command timing and edit summary rows by padding missing identity/status/line fields before JSON aggregation or Markdown rendering.
+
+## What was done
+- created AgentSpec task `T-031` for a report observability robustness slice
+- normalized summary-derived command rows with default event/status/exit-code fields
+- normalized summary-derived edit rows with default event/path/kind/status/line/summary fields
+- hardened Markdown command/edit detail rendering to use safe accessors for partial rows
+- added regression coverage for partial summary-only command/edit rows
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for partial summary-row normalization
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 23 passed, 1 warning
+- `bash scripts/ci_check.sh` — 30 passed, 1 warning
+
+## Previous status
 `agentrace` Markdown detail report rows now include command stdout/stderr previews and edit error messages when present, and compact run summaries preserve those same failure-context fields for summary-derived reports.
 
 ## What was done

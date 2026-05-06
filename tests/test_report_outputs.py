@@ -942,6 +942,59 @@ def test_summary_only_markdown_detail_rows_include_preserved_failure_context():
     assert "src/auth.py: modify (+0/-0, net=0) — Patch auth error handling, status=failed, duration_ms=3, duration_source=explicit, error_message=target hunk not found" in text
 
 
+
+def test_summary_only_rows_with_partial_fields_are_report_safe():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-partial-1", "task": "inspect partial summary rows", "status": "succeeded"},
+        "events": [],
+        "summary": {
+            "result": "succeeded",
+            "event_counts": {"command": 1, "file_edit": 1},
+            "files_changed": ["src/report_json.py"],
+            "commands_run": ["python -m pytest"],
+            "command_durations_ms": [{
+                "command": "python -m pytest",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.125Z",
+            }],
+            "edit_summaries": [{
+                "path": "src/report_json.py",
+                "added_lines": 2,
+                "removed_lines": 1,
+            }],
+            "next_inspection_targets": [],
+        },
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing"] == [{
+        "command": "python -m pytest",
+        "started_at": "2026-04-25T00:00:00Z",
+        "ended_at": "2026-04-25T00:00:00.125Z",
+        "event": "summary",
+        "status": None,
+        "exit_code": None,
+        "duration_source": "derived",
+        "duration_ms": 125,
+    }]
+    assert payload["edit_summary"] == [{
+        "path": "src/report_json.py",
+        "added_lines": 2,
+        "removed_lines": 1,
+        "event": "summary",
+        "kind": None,
+        "status": None,
+        "summary": None,
+        "duration_source": "missing",
+        "duration_ms": 0,
+        "net_line_delta": 1,
+    }]
+
+    text = build_markdown_summary(trace)
+    assert "summary: `python -m pytest` — 125ms, status=None, exit_code=unknown, duration_source=derived" in text
+    assert "src/report_json.py: unknown (+2/-1, net=1) — No edit summary recorded., duration_ms=0, duration_source=missing" in text
+
 def test_report_totals_include_failed_edit_details():
     trace = {
         "trace_version": "0.1",

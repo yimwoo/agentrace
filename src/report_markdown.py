@@ -200,9 +200,9 @@ def _format_command_timing(rows):
         return ["## Command Timing", "", "No command events recorded."]
     lines = ["## Command Timing", ""]
     for row in rows:
-        command = row["command"] or "<unknown command>"
-        duration = row["duration_ms"]
-        exit_code = "unknown" if row["exit_code"] is None else row["exit_code"]
+        command = row.get("command") or "<unknown command>"
+        duration = row.get("duration_ms", 0)
+        exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
         cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
         time_window = _format_time_window(row)
         duration_source = _format_duration_source(row)
@@ -213,7 +213,7 @@ def _format_command_timing(rows):
         if row.get("stderr_preview"):
             output_context += f", stderr_preview={row['stderr_preview']}"
         event = row.get("event", "summary")
-        lines.append(f"- {event}: `{command}` — {duration}ms, status={row['status']}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
+        lines.append(f"- {event}: `{command}` — {duration}ms, status={row.get('status')}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
     return lines
 
 
@@ -222,9 +222,9 @@ def _format_edit_summary(rows):
         return ["## Edit Summary", "", "No file edit events recorded."]
     lines = ["## Edit Summary", ""]
     for row in rows:
-        added = 0 if row["added_lines"] is None else row["added_lines"]
-        removed = 0 if row["removed_lines"] is None else row["removed_lines"]
-        summary = row["summary"] or "No edit summary recorded."
+        added = 0 if row.get("added_lines") is None else row.get("added_lines", 0)
+        removed = 0 if row.get("removed_lines") is None else row.get("removed_lines", 0)
+        summary = row.get("summary") or "No edit summary recorded."
         status = f", status={row['status']}" if row.get("status") else ""
         duration = f", duration_ms={row['duration_ms']}" if "duration_ms" in row else ""
         net_delta = f", net={row['net_line_delta']}" if "net_line_delta" in row else ""

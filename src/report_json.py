@@ -423,6 +423,10 @@ def _normalize_summary_command_rows(rows):
         if not isinstance(row, dict):
             continue
         normalized_row = dict(row)
+        normalized_row.setdefault("event", "summary")
+        normalized_row.setdefault("command", None)
+        normalized_row.setdefault("status", None)
+        normalized_row.setdefault("exit_code", None)
         if not normalized_row.get("duration_source"):
             normalized_row["duration_source"] = event_duration_source(normalized_row)
         if normalized_row.get("duration_ms") is None:
@@ -437,6 +441,13 @@ def _normalize_summary_edit_rows(rows):
         if not isinstance(row, dict):
             continue
         normalized_row = dict(row)
+        normalized_row.setdefault("event", "summary")
+        normalized_row.setdefault("path", None)
+        normalized_row.setdefault("kind", None)
+        normalized_row.setdefault("status", None)
+        normalized_row.setdefault("added_lines", 0)
+        normalized_row.setdefault("removed_lines", 0)
+        normalized_row.setdefault("summary", None)
         if not normalized_row.get("duration_source"):
             normalized_row["duration_source"] = event_duration_source(normalized_row)
         if normalized_row.get("duration_ms") is None:

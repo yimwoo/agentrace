@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0014",
+  "task": {
+    "selector": "T-031",
+    "context_pack": "agent/context-packs/T-031-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Reviewed partial summary-only row normalization, Markdown safe accessors, regression coverage, and docs updates after passing ci_check.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-06T23:02:53Z"
+}
