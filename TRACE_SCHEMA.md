@@ -337,7 +337,7 @@ can point directly at the actionable command output.
 Command timing rows should carry and Markdown reports should render duration, duration source (`explicit`, `derived`, or
 `missing`), status, exit code, cwd, and available start/end timestamps; summary-derived Markdown rows may treat a present legacy `duration_ms` without `duration_source` as `explicit`. Edit
 summary rows should carry and Markdown reports should render file impact plus edit status, duration, duration
-source, and available start/end timestamps; summary-derived Markdown rows may likewise treat a present legacy `duration_ms` without `duration_source` as `explicit`. JSON reports should also include
+source, and available start/end timestamps; summary-derived Markdown rows may likewise treat a present legacy `duration_ms` without `duration_source` as `explicit`. Edit summary rows should also carry per-row `net_line_delta` so report detail rows expose added/removed/net line impact without requiring mental arithmetic. JSON reports should also include
 aggregate `command_timing_summary` totals (`count`, `unique_command_count`,
 ordered `commands_run`, `repeated_commands`, per-command `command_attempts` with attempt counts, total/average duration,
 failure counts, status distribution, duration source distribution, aggregate time window, and first/last event references, `total_duration_ms`,

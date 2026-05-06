@@ -39,4 +39,4 @@
 
 ## Edit Summary
 
-- src/auth.py: modify (+4/-1) — Translate decoder errors into 401 responses, status=succeeded, duration_ms=125, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z
+- src/auth.py: modify (+4/-1, net=3) — Translate decoder errors into 401 responses, status=succeeded, duration_ms=125, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z

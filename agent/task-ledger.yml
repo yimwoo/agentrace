@@ -306,6 +306,23 @@
         "path": "agent/reviews/REVIEW-0009.yml"
       },
       "updated_at": "2026-05-05T23:03:17Z"
+    },
+    "agent/context-packs/T-027-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-027-add-command-timing-and-edit-summaries-to-reports-20260506040346",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0010",
+        "verdict": "ready",
+        "summary": "No blocking findings. Per-row edit net-line deltas are additive, covered by report output tests, and ci_check passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0010.yml"
+      },
+      "updated_at": "2026-05-06T04:03:46Z"
     }
   }
 }

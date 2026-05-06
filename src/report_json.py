@@ -34,6 +34,16 @@ def _artifact_refs_by_event(artifacts):
     return refs
 
 
+def _numeric_value(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return 0
+    return value
+
+
+def _net_line_delta(row):
+    return _numeric_value(row.get("added_lines")) - _numeric_value(row.get("removed_lines"))
+
+
 def build_command_timing(events, artifacts=None):
     """Extract report-ready timing rows for command events."""
     rows = []
@@ -89,6 +99,7 @@ def build_edit_summary(events, artifacts=None):
             "removed_lines": change.get("removed_lines", details.get("removed_lines")),
             "summary": change.get("summary") or details.get("summary"),
         }
+        row["net_line_delta"] = _net_line_delta(row)
         if event.get("started_at"):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
@@ -101,12 +112,6 @@ def build_edit_summary(events, artifacts=None):
             row["artifacts"] = artifact_refs[event_ref]
         rows.append(row)
     return rows
-
-
-def _numeric_value(value):
-    if isinstance(value, bool) or not isinstance(value, (int, float)):
-        return 0
-    return value
 
 
 def _normalized_timestamp(value):
@@ -311,6 +316,7 @@ def _failed_edit_rows(rows):
             "ended_at": row.get("ended_at"),
             "added_lines": _numeric_value(row.get("added_lines")),
             "removed_lines": _numeric_value(row.get("removed_lines")),
+            "net_line_delta": _net_line_delta(row),
         }
         if row.get("summary"):
             failed_row["summary"] = row["summary"]
@@ -400,7 +406,7 @@ def build_edit_summary_totals(rows):
             "kind": largest_edit.get("kind"),
             "added_lines": _numeric_value(largest_edit.get("added_lines")),
             "removed_lines": _numeric_value(largest_edit.get("removed_lines")),
-            "net_line_delta": _numeric_value(largest_edit.get("added_lines")) - _numeric_value(largest_edit.get("removed_lines")),
+            "net_line_delta": _net_line_delta(largest_edit),
             "duration_ms": _numeric_value(largest_edit.get("duration_ms")),
             "duration_source": largest_edit.get("duration_source"),
             "status": largest_edit.get("status"),
@@ -408,6 +414,7 @@ def build_edit_summary_totals(rows):
             "ended_at": largest_edit.get("ended_at"),
         },
     }
+
 
 
 def build_json_summary(trace):

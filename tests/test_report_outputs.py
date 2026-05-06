@@ -104,6 +104,7 @@ def test_report_includes_command_timing_and_edit_summary():
         "added_lines": 4,
         "removed_lines": 1,
         "summary": "Translate decoder errors into 401 responses",
+        "net_line_delta": 3,
         "started_at": "2026-04-25T00:00:05Z",
     }]
     assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
@@ -137,7 +138,7 @@ def test_markdown_report_renders_command_timing_and_edit_summary():
     assert "## Command Timing" in text
     assert "`pytest -q` — 9ms, status=ok, exit_code=0, duration_source=explicit" in text
     assert "## Edit Summary" in text
-    assert "src/report.py: modify (+2/-0) — Add timing section, status=ok, duration_ms=1, duration_source=explicit" in text
+    assert "src/report.py: modify (+2/-0, net=2) — Add timing section, status=ok, duration_ms=1, duration_source=explicit" in text
 
 
 def test_markdown_report_matches_rich_trace_fixture():
@@ -255,6 +256,7 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
                 "duration_ms": 10,
                 "added_lines": 1,
                 "removed_lines": 0,
+                "net_line_delta": 1,
                 "summary": "Document existing summary rows",
                 "started_at": "2026-04-25T00:00:02Z",
                 "ended_at": "2026-04-25T00:00:02.010Z",
@@ -273,7 +275,7 @@ def test_report_outputs_fall_back_to_existing_run_summary_rows():
     assert "duration_source=explicit" in text
     assert "started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.050Z" in text
     assert "artifacts: command_log=artifacts/evt_cmd.log" in text
-    assert "src/report.py: modify (+1/-0) — Document existing summary rows" in text
+    assert "src/report.py: modify (+1/-0, net=1) — Document existing summary rows" in text
     assert "artifacts: diff=artifacts/evt_edit.diff" in text
 
 
@@ -313,7 +315,7 @@ def test_report_outputs_derive_duration_from_time_windows():
     text = build_markdown_summary(trace)
     assert "total_duration_ms: 345" in text
     assert "`python -m pytest` — 333ms, status=succeeded, exit_code=0, duration_source=derived" in text
-    assert "src/report_json.py: modify (+2/-1) — Derive report timing, status=succeeded, duration_ms=12, duration_source=derived" in text
+    assert "src/report_json.py: modify (+2/-1, net=1) — Derive report timing, status=succeeded, duration_ms=12, duration_source=derived" in text
 
 
 def test_reports_include_aggregate_command_and_edit_totals():
@@ -802,8 +804,8 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     assert "evt_cmd_explicit: `pytest -q` — 10ms, status=succeeded, exit_code=0, duration_source=explicit" in text
     assert "evt_cmd_derived: `ruff check` — 25ms, status=succeeded, exit_code=0, duration_source=derived" in text
     assert "evt_edit_missing" not in text
-    assert "src/report_json.py: modify (+1/-0) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing" in text
-    assert "src/report_markdown.py: modify (+2/-1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
+    assert "src/report_json.py: modify (+1/-0, net=1) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing" in text
+    assert "src/report_markdown.py: modify (+2/-1, net=1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
 
 
 def test_report_totals_include_failed_edit_details():
@@ -848,13 +850,14 @@ def test_report_totals_include_failed_edit_details():
         "ended_at": "2026-04-25T00:00:04.010Z",
         "added_lines": 0,
         "removed_lines": 0,
+        "net_line_delta": 0,
         "summary": "Patch failed to apply",
         "error_message": "target hunk not found",
     }]
 
     text = build_markdown_summary(trace)
     assert "edit_failed_count: 1" in text
-    assert "failed_edits: evt_edit_failed: src/report_json.py (kind=modify, +0/-0, 10ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:04Z, ended_at=2026-04-25T00:00:04.010Z, summary=Patch failed to apply, error_message=target hunk not found)" in text
+    assert "failed_edits: evt_edit_failed: src/report_json.py (kind=modify, +0/-0, net=0, 10ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:04Z, ended_at=2026-04-25T00:00:04.010Z, summary=Patch failed to apply, error_message=target hunk not found)" in text
 
 
 def test_example_write(tmp_path):

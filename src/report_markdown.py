@@ -144,7 +144,8 @@ def _format_failed_edits(failed_edits):
         timing = _format_time_window(row).removeprefix(", ")
         added = row.get("added_lines", 0)
         removed = row.get("removed_lines", 0)
-        details = [f"kind={kind}", f"+{added}/-{removed}", f"{duration}ms", f"status={status}"]
+        net = row.get("net_line_delta", added - removed)
+        details = [f"kind={kind}", f"+{added}/-{removed}", f"net={net}", f"{duration}ms", f"status={status}"]
         if duration_source:
             details.append(duration_source)
         if timing:
@@ -221,12 +222,13 @@ def _format_edit_summary(rows):
         summary = row["summary"] or "No edit summary recorded."
         status = f", status={row['status']}" if row.get("status") else ""
         duration = f", duration_ms={row['duration_ms']}" if "duration_ms" in row else ""
+        net_delta = f", net={row['net_line_delta']}" if "net_line_delta" in row else ""
         duration_source = _format_duration_source(row)
         time_window = _format_time_window(row)
         artifacts = _format_artifacts(row)
         path = row.get("path") or "<unknown file>"
         kind = row.get("kind") or "unknown"
-        lines.append(f"- {path}: {kind} (+{added}/-{removed}) — {summary}{status}{duration}{duration_source}{time_window}{artifacts}")
+        lines.append(f"- {path}: {kind} (+{added}/-{removed}{net_delta}) — {summary}{status}{duration}{duration_source}{time_window}{artifacts}")
     return lines
 
 
