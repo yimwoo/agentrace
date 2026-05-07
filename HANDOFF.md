@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` repeated nested aggregate report totals now preserve first/last event references for per-working-directory command groups, per-file edit groups, and per-edit-kind groups, so grouped totals show the source span without forcing reviewers into raw events.
+
+## What was done
+- created AgentSpec task `T-036` for a report observability follow-up slice
+- added first/last event references to repeated JSON `command_timing_summary.cwd_totals` rows
+- added first/last event references to repeated JSON `edit_summary_totals.file_change_totals` rows
+- added first/last event references to repeated JSON `edit_summary_totals.kind_totals` rows
+- rendered those first/last event references in Markdown nested aggregate totals
+- added regression coverage for repeated nested aggregate event references
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for repeated nested aggregate span visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 27 passed, 1 warning
+- `bash scripts/ci_check.sh` — 34 passed, 1 warning
+
+## Previous status
 `agentrace` nested aggregate command/edit report totals now preserve linked command-log and diff artifact references, so per-command attempt, per-working-directory, per-file, and per-edit-kind totals can point directly to supporting logs or diffs.
 
 ## What was done

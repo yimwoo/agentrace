@@ -343,14 +343,14 @@ aggregate `command_timing_summary` totals (`count`, `unique_command_count`,
 ordered `commands_run`, `repeated_commands`, per-command `command_attempts` with attempt counts, total/average duration,
 failure counts, status distribution, duration source distribution, aggregate time window, first/last event references, and linked artifacts, `total_duration_ms`,
 `average_duration_ms`, `failed_count`, `failed_commands`, `status_counts`, `duration_source_counts`,
-aggregate `time_window`, command working-directory distribution `cwd_counts`, per-working-directory `cwd_totals` with commands run, failure counts, timing totals, status/source distributions, time windows, and linked artifacts, and `slowest`) plus
+aggregate `time_window`, command working-directory distribution `cwd_counts`, per-working-directory `cwd_totals` with commands run, failure counts, timing totals, status/source distributions, time windows, first/last event references for repeated cwd groups, and linked artifacts, and `slowest`) plus
 `edit_summary_totals` (`count`, deduplicated changed files, per-file `file_change_totals` with edit counts,
-failure counts, total added/removed/net lines, total/average duration, status distribution, kind distribution, duration source distribution, aggregate time window, and linked artifacts, total added/removed lines, edit `failed_count`,
-`failed_edits`, edit-kind distribution `kind_counts`, per-kind `kind_totals` with changed files, failure counts, line impact, timing totals, status/source distributions, time windows, and linked artifacts, edit `status_counts`, `duration_source_counts`, aggregate `time_window`,
+failure counts, total added/removed/net lines, total/average duration, status distribution, kind distribution, duration source distribution, aggregate time window, first/last event references for repeated file groups, and linked artifacts, total added/removed lines, edit `failed_count`,
+`failed_edits`, edit-kind distribution `kind_counts`, per-kind `kind_totals` with changed files, failure counts, line impact, timing totals, status/source distributions, time windows, first/last event references for repeated edit-kind groups, and linked artifacts, edit `status_counts`, `duration_source_counts`, aggregate `time_window`,
 `net_line_delta`, total/average edit duration, and `largest_edit`). Failed command and failed edit aggregate rows should retain linked artifact references when available, so report totals can point at command logs or diff artifacts without requiring a detail-row scan. Failed edit
 rows should retain path/kind, line impact, timing context, summary, and available
 error message so failed write attempts are visible from aggregate report totals. Aggregate
-Nested `command_attempts`, `cwd_totals`, `file_change_totals`, and `kind_totals` rows plus `slowest` and `largest_edit` entries should preserve the same timing context as
+Nested `command_attempts`, repeated `cwd_totals`, repeated `file_change_totals`, and repeated `kind_totals` rows plus `slowest` and `largest_edit` entries should preserve first/last event references and the same timing context as
 their source rows, including duration source, available start/end timestamps, and
 linked artifact references, so the top-level report can explain why each aggregate
 was selected or grouped and point at its command log or diff. Markdown reports should render

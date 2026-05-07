@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0019",
+  "task": {
+    "selector": "T-036",
+    "context_pack": "agent/context-packs/T-036-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Repeated nested aggregate first/last event references are covered by regression tests and CI passed.",
+  "reviewer": "deterministic",
+  "range": "worktree",
+  "created_at": "2026-05-07T23:07:08Z"
+}
