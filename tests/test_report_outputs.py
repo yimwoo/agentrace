@@ -499,6 +499,17 @@ def test_reports_include_aggregate_command_and_edit_totals():
             },
         ],
         "cwd_counts": {"unknown": 2},
+        "cwd_totals": [{
+            "cwd": "unknown",
+            "count": 2,
+            "commands_run": ["pytest -q", "ruff check"],
+            "failed_count": 1,
+            "total_duration_ms": 2125,
+            "average_duration_ms": 1062.5,
+            "status_counts": {"failed": 1, "succeeded": 1},
+            "duration_source_counts": {"derived": 1, "explicit": 1},
+            "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
+        }],
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "failed_count": 1,
@@ -563,6 +574,20 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "failed_count": 0,
         "failed_edits": [],
         "kind_counts": {"modify": 2},
+        "kind_totals": [{
+            "kind": "modify",
+            "count": 2,
+            "files_changed": ["src/report_json.py", "src/report_markdown.py"],
+            "failed_count": 0,
+            "total_added_lines": 11,
+            "total_removed_lines": 3,
+            "net_line_delta": 8,
+            "total_duration_ms": 20,
+            "average_duration_ms": 10.0,
+            "status_counts": {"succeeded": 2},
+            "duration_source_counts": {"explicit": 2},
+            "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
+        }],
         "status_counts": {"succeeded": 2},
         "duration_source_counts": {"explicit": 2},
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
@@ -593,6 +618,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "repeated_commands: none" in text
     assert "command_attempts: `pytest -q` (count=1, total_duration_ms=2000, average_duration_ms=2000.0, failed_count=1, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_slow); `ruff check` (count=1, total_duration_ms=125, average_duration_ms=125.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:03Z, first_event=evt_cmd_fast, last_event=evt_cmd_fast)" in text
     assert "command_cwd_counts: unknown=2" in text
+    assert "command_cwd_totals: unknown (count=2, commands=pytest -q, ruff check, failed_count=1, total_duration_ms=2125, average_duration_ms=1062.5, statuses=failed=1, succeeded=1, duration_sources=derived=1, explicit=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
@@ -607,6 +633,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_failed_count: 0" in text
     assert "failed_edits: none" in text
     assert "edit_kind_counts: modify=2" in text
+    assert "edit_kind_totals: modify (count=2, files=src/report_json.py, src/report_markdown.py, failed_count=0, +11/-3, net=8, total_duration_ms=20, average_duration_ms=10.0, statuses=succeeded=2, duration_sources=explicit=2, time_window=started_at=2026-04-25T00:00:04Z)" in text
     assert "edit_status_counts: succeeded=2" in text
     assert "edit_duration_sources: explicit=2" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
@@ -1090,6 +1117,113 @@ def test_report_totals_include_failed_edit_details():
     text = build_markdown_summary(trace)
     assert "edit_failed_count: 1" in text
     assert "failed_edits: evt_edit_failed: src/report_json.py (kind=modify, +0/-0, net=0, 10ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:04Z, ended_at=2026-04-25T00:00:04.010Z, summary=Patch failed to apply, error_message=target hunk not found)" in text
+
+
+def test_report_totals_include_cwd_and_edit_kind_aggregate_rows():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "nested-distribution-1", "task": "inspect nested distribution totals", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_src_fail",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.010Z",
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_cmd_docs_ok",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "command": {"value": "mkdocs build", "cwd": "/workspace/app/docs"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_modify",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 7,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 3, "removed_lines": 1, "summary": "Add nested totals"},
+            },
+            {
+                "id": "evt_edit_create_failed",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.002Z",
+                "file": {"path": "docs/report.md"},
+                "change": {"kind": "create", "added_lines": 2, "removed_lines": 0, "summary": "Draft report docs"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["cwd_totals"] == [
+        {
+            "cwd": "/workspace/app",
+            "count": 1,
+            "commands_run": ["pytest -q"],
+            "failed_count": 1,
+            "total_duration_ms": 10,
+            "average_duration_ms": 10.0,
+            "status_counts": {"failed": 1},
+            "duration_source_counts": {"derived": 1},
+            "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:00.010Z"},
+        },
+        {
+            "cwd": "/workspace/app/docs",
+            "count": 1,
+            "commands_run": ["mkdocs build"],
+            "failed_count": 0,
+            "total_duration_ms": 5,
+            "average_duration_ms": 5.0,
+            "status_counts": {"succeeded": 1},
+            "duration_source_counts": {"explicit": 1},
+            "time_window": None,
+        },
+    ]
+    assert payload["edit_summary_totals"]["kind_totals"] == [
+        {
+            "kind": "modify",
+            "count": 1,
+            "files_changed": ["src/report_json.py"],
+            "failed_count": 0,
+            "total_added_lines": 3,
+            "total_removed_lines": 1,
+            "net_line_delta": 2,
+            "total_duration_ms": 7,
+            "average_duration_ms": 7.0,
+            "status_counts": {"succeeded": 1},
+            "duration_source_counts": {"explicit": 1},
+            "time_window": None,
+        },
+        {
+            "kind": "create",
+            "count": 1,
+            "files_changed": ["docs/report.md"],
+            "failed_count": 1,
+            "total_added_lines": 2,
+            "total_removed_lines": 0,
+            "net_line_delta": 2,
+            "total_duration_ms": 2,
+            "average_duration_ms": 2.0,
+            "status_counts": {"failed": 1},
+            "duration_source_counts": {"derived": 1},
+            "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.002Z"},
+        },
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "command_cwd_totals: /workspace/app (count=1, commands=pytest -q, failed_count=1, total_duration_ms=10, average_duration_ms=10.0, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:00.010Z); /workspace/app/docs (count=1, commands=mkdocs build, failed_count=0, total_duration_ms=5, average_duration_ms=5.0, statuses=succeeded=1, duration_sources=explicit=1)" in text
+    assert "edit_kind_totals: modify (count=1, files=src/report_json.py, failed_count=0, +3/-1, net=2, total_duration_ms=7, average_duration_ms=7.0, statuses=succeeded=1, duration_sources=explicit=1); create (count=1, files=docs/report.md, failed_count=1, +2/-0, net=2, total_duration_ms=2, average_duration_ms=2.0, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.002Z)" in text
 
 
 def test_example_write(tmp_path):

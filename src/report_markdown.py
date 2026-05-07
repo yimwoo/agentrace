@@ -113,6 +113,52 @@ def _format_file_change_totals(file_change_totals):
     return "; ".join(lines)
 
 
+
+def _format_command_cwd_totals(cwd_totals):
+    if not cwd_totals:
+        return "none"
+    lines = []
+    for row in cwd_totals:
+        cwd = row.get("cwd") or "unknown"
+        details = [
+            f"count={row.get('count', 0)}",
+            f"commands={_format_changed_files(row.get('commands_run'))}",
+            f"failed_count={row.get('failed_count', 0)}",
+            f"total_duration_ms={row.get('total_duration_ms', 0)}",
+            f"average_duration_ms={row.get('average_duration_ms', 0)}",
+            f"statuses={_format_status_counts(row.get('status_counts'))}",
+            f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
+        ]
+        time_window = _format_aggregate_time_window(row.get("time_window"))
+        if time_window != "none":
+            details.append(f"time_window={time_window}")
+        lines.append(f"{cwd} ({', '.join(details)})")
+    return "; ".join(lines)
+
+
+def _format_edit_kind_totals(kind_totals):
+    if not kind_totals:
+        return "none"
+    lines = []
+    for row in kind_totals:
+        kind = row.get("kind") or "unknown"
+        details = [
+            f"count={row.get('count', 0)}",
+            f"files={_format_changed_files(row.get('files_changed'))}",
+            f"failed_count={row.get('failed_count', 0)}",
+            f"+{row.get('total_added_lines', 0)}/-{row.get('total_removed_lines', 0)}",
+            f"net={row.get('net_line_delta', 0)}",
+            f"total_duration_ms={row.get('total_duration_ms', 0)}",
+            f"average_duration_ms={row.get('average_duration_ms', 0)}",
+            f"statuses={_format_status_counts(row.get('status_counts'))}",
+            f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
+        ]
+        time_window = _format_aggregate_time_window(row.get("time_window"))
+        if time_window != "none":
+            details.append(f"time_window={time_window}")
+        lines.append(f"{kind} ({', '.join(details)})")
+    return "; ".join(lines)
+
 def _format_failed_commands(failed_commands):
     if not failed_commands:
         return "none"
@@ -269,6 +315,7 @@ def build_markdown_summary(trace):
         f"- repeated_commands: {_format_repeated_commands(command_totals['repeated_commands'])}",
         f"- command_attempts: {_format_command_attempts(command_totals['command_attempts'])}",
         f"- command_cwd_counts: {_format_status_counts(command_totals['cwd_counts'])}",
+        f"- command_cwd_totals: {_format_command_cwd_totals(command_totals['cwd_totals'])}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
@@ -283,6 +330,7 @@ def build_markdown_summary(trace):
         f"- edit_failed_count: {edit_totals['failed_count']}",
         f"- failed_edits: {_format_failed_edits(edit_totals['failed_edits'])}",
         f"- edit_kind_counts: {_format_status_counts(edit_totals['kind_counts'])}",
+        f"- edit_kind_totals: {_format_edit_kind_totals(edit_totals['kind_totals'])}",
         f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
         f"- edit_duration_sources: {_format_status_counts(edit_totals['duration_source_counts'])}",
         f"- edit_time_window: {_format_aggregate_time_window(edit_totals['time_window'])}",

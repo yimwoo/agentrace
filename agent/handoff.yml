@@ -1,28 +1,28 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-07T04:03:33Z",
+  "updated_at": "2026-05-07T08:02:54Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-032",
-    "context_pack": "agent/context-packs/T-032-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-032: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-032-add-command-timing-and-edit-summaries-to-reports-20260507040333",
+    "id": "T-033",
+    "context_pack": "agent/context-packs/T-033-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-033: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-033-add-command-timing-and-edit-summaries-to-reports-20260507080254",
     "reason": "Marked complete by user.",
-    "updated_at": "2026-05-07T04:03:33Z",
+    "updated_at": "2026-05-07T08:02:54Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0015",
+      "id": "REVIEW-0016",
       "verdict": "ready",
-      "reviewer": "current-host",
+      "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0015.yml"
+      "path": "agent/reviews/REVIEW-0016.yml"
     }
   },
   "current_state": {
     "overall": "attention_needed",
-    "recommendation": "Inspect attention-needed run with `aspec run inspect t-032-add-command-timing-and-edit-summaries-to-reports-20260507040036`.",
+    "recommendation": "Inspect attention-needed run with `aspec run inspect t-033-add-command-timing-and-edit-summaries-to-reports-20260507080016`.",
     "readiness": {
       "score": 9,
       "mode": "discovery",
@@ -41,32 +41,32 @@
       }
     },
     "tasks": {
-      "total": 32,
+      "total": 33,
       "by_status": {
-        "complete": 30,
+        "complete": 31,
         "halted": 2
       },
       "by_type": {
-        "implementation": 29,
+        "implementation": 30,
         "scaffold": 3
       }
     },
     "runs": {
-      "total": 65,
+      "total": 67,
       "by_status": {
-        "complete": 35,
-        "halted": 30
+        "complete": 36,
+        "halted": 31
       },
       "by_mode": {
-        "autonomous": 32,
-        "supervised": 33
+        "autonomous": 33,
+        "supervised": 34
       }
     }
   },
   "next_action": {
     "kind": "inspect_attention_run",
-    "run_id": "t-032-add-command-timing-and-edit-summaries-to-reports-20260507040036",
-    "command": "aspec run inspect t-032-add-command-timing-and-edit-summaries-to-reports-20260507040036"
+    "run_id": "t-033-add-command-timing-and-edit-summaries-to-reports-20260507080016",
+    "command": "aspec run inspect t-033-add-command-timing-and-edit-summaries-to-reports-20260507080016"
   },
   "commands": {
     "status": "aspec status --json",
@@ -76,6 +76,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0015.yml"
+    "last_code_review": "agent/reviews/REVIEW-0016.yml"
   }
 }

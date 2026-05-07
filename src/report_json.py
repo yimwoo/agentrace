@@ -217,6 +217,45 @@ def _command_attempt_rows(rows):
     return summaries
 
 
+def _command_cwd_total_rows(rows):
+    totals_by_cwd = {}
+    for row in rows:
+        cwd = row.get("cwd") or "unknown"
+        if cwd not in totals_by_cwd:
+            totals_by_cwd[cwd] = {
+                "cwd": cwd,
+                "count": 0,
+                "commands_run": [],
+                "failed_count": 0,
+                "total_duration_ms": 0,
+                "average_duration_ms": 0,
+                "status_counts": {},
+                "duration_source_counts": {},
+                "time_window": None,
+                "_rows": [],
+            }
+        summary = totals_by_cwd[cwd]
+        summary["count"] += 1
+        command = row.get("command")
+        if command and command not in summary["commands_run"]:
+            summary["commands_run"].append(command)
+        if _is_failed_command(row):
+            summary["failed_count"] += 1
+        summary["total_duration_ms"] += _numeric_value(row.get("duration_ms"))
+        status = row.get("status") or "unknown"
+        source = row.get("duration_source") or "unknown"
+        summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
+        summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        summary["_rows"].append(row)
+
+    summaries = []
+    for summary in totals_by_cwd.values():
+        summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summary["time_window"] = _time_window(summary.pop("_rows"))
+        summaries.append(summary)
+    return summaries
+
+
 def _is_failed_command(row):
     return row.get("status") in {"failed", "error"} or _numeric_value(row.get("exit_code")) != 0
 
@@ -265,6 +304,7 @@ def build_command_timing_summary(rows):
         "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
         "command_attempts": _command_attempt_rows(normalized_rows),
         "cwd_counts": _value_counts(normalized_rows, "cwd", missing_label="unknown"),
+        "cwd_totals": _command_cwd_total_rows(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
@@ -376,6 +416,53 @@ def _file_change_total_rows(rows):
     return summaries
 
 
+def _edit_kind_total_rows(rows):
+    totals_by_kind = {}
+    for row in rows:
+        kind = row.get("kind") or "unknown"
+        if kind not in totals_by_kind:
+            totals_by_kind[kind] = {
+                "kind": kind,
+                "count": 0,
+                "files_changed": [],
+                "failed_count": 0,
+                "total_added_lines": 0,
+                "total_removed_lines": 0,
+                "net_line_delta": 0,
+                "total_duration_ms": 0,
+                "average_duration_ms": 0,
+                "status_counts": {},
+                "duration_source_counts": {},
+                "time_window": None,
+                "_rows": [],
+            }
+        summary = totals_by_kind[kind]
+        added = _numeric_value(row.get("added_lines"))
+        removed = _numeric_value(row.get("removed_lines"))
+        summary["count"] += 1
+        path = row.get("path")
+        if path and path not in summary["files_changed"]:
+            summary["files_changed"].append(path)
+        if _is_failed_edit(row):
+            summary["failed_count"] += 1
+        summary["total_added_lines"] += added
+        summary["total_removed_lines"] += removed
+        summary["net_line_delta"] += added - removed
+        summary["total_duration_ms"] += _numeric_value(row.get("duration_ms"))
+        status = row.get("status") or "unknown"
+        source = row.get("duration_source") or "unknown"
+        summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
+        summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        summary["_rows"].append(row)
+
+    summaries = []
+    for summary in totals_by_kind.values():
+        summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
+        summary["time_window"] = _time_window(summary.pop("_rows"))
+        summaries.append(summary)
+    return summaries
+
+
 def build_edit_summary_totals(rows):
     """Build aggregate edit impact metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -396,6 +483,7 @@ def build_edit_summary_totals(rows):
         "failed_count": sum(1 for row in normalized_rows if _is_failed_edit(row)),
         "failed_edits": _failed_edit_rows(normalized_rows),
         "kind_counts": _value_counts(normalized_rows, "kind", missing_label="unknown"),
+        "kind_totals": _edit_kind_total_rows(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),

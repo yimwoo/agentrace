@@ -408,6 +408,23 @@
         "path": "agent/reviews/REVIEW-0015.yml"
       },
       "updated_at": "2026-05-07T04:03:33Z"
+    },
+    "agent/context-packs/T-033-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-033-add-command-timing-and-edit-summaries-to-reports-20260507080254",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0016",
+        "verdict": "ready",
+        "summary": "No blocking findings. Verified nested command cwd totals and edit kind totals with regression coverage; ci_check passed (32 passed, 1 warning).",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0016.yml"
+      },
+      "updated_at": "2026-05-07T08:02:54Z"
     }
   }
 }

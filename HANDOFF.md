@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report totals now include nested per-working-directory command timing totals and per-edit-kind line/timing totals, so reviewers can see where command time was spent and which edit modes carried the most file impact before scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-033` for a report observability follow-up slice
+- added JSON `command_timing_summary.cwd_totals` with per-cwd command lists, failure counts, timing totals, status/source distributions, and time windows
+- added JSON `edit_summary_totals.kind_totals` with per-kind changed files, failure counts, line impact, timing totals, status/source distributions, and time windows
+- rendered `command_cwd_totals` and `edit_kind_totals` in Markdown report aggregate totals
+- added regression coverage for the new nested aggregate rows and refreshed the rich Markdown fixture
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for nested cwd/kind aggregate visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 25 passed, 1 warning
+- `bash scripts/ci_check.sh` — 32 passed, 1 warning
+
+## Previous status
 `agentrace` failed command/edit aggregate rows now preserve linked command-log and diff artifacts, so top-level report failure lists point directly to the supporting logs or diffs before reviewers scan detail rows.
 
 ## What was done
