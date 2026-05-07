@@ -351,11 +351,12 @@ failure counts, total added/removed/net lines, total/average duration, status di
 rows should retain path/kind, line impact, timing context, summary, and available
 error message so failed write attempts are visible from aggregate report totals. Aggregate
 `slowest` and `largest_edit` entries should preserve the same timing context as
-their source rows, including duration source and available start/end timestamps,
-so the top-level report can explain why each aggregate was selected. Markdown
-reports should render the same aggregate command/edit totals near the top-level
-summary so reviewers can inspect the run impact before scanning individual rows,
-including unique commands, repeated command retries, per-command attempt totals with attempt-level duration-source counts and time windows, command working-directory counts and per-cwd timing totals, failed command identities with timing/failure context, command status counts,
+their source rows, including duration source, available start/end timestamps, and
+linked artifact references, so the top-level report can explain why each aggregate
+was selected and point at its command log or diff. Markdown reports should render
+the same aggregate command/edit totals near the top-level summary so reviewers can
+inspect the run impact before scanning individual rows, including unique commands,
+repeated command retries, per-command attempt totals with attempt-level duration-source counts and time windows, command working-directory counts and per-cwd timing totals, failed command identities with timing/failure context, command status counts,
 command duration source counts, aggregate command time window, the average command duration, slowest command identity with
 its timing context, changed-file list, per-file change totals with file-level duration-source counts and time windows, net line delta, edit failure counts/status
 distribution, edit-kind counts and per-kind timing/line-impact totals, failed edit identities with timing/error context, edit duration source counts, aggregate edit time window, average

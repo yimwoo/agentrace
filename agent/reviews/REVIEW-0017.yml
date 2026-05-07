@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0017",
+  "task": {
+    "selector": "T-034",
+    "context_pack": "agent/context-packs/T-034-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Changes are scoped to preserving linked artifact references on selected slowest-command/largest-edit aggregate rows, with regression coverage and CI passing.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-07T13:02:00Z"
+}

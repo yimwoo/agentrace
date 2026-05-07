@@ -50,6 +50,9 @@ def _format_slowest_command(slowest):
         details.append(duration_source)
     if timing:
         details.append(timing)
+    artifact_details = _format_artifact_details(slowest)
+    if artifact_details:
+        details.append(artifact_details)
     return f"{event}: `{command}` ({', '.join(details)})"
 
 
@@ -252,6 +255,9 @@ def _format_largest_edit(largest_edit):
         details.append(duration_source)
     if timing:
         details.append(timing)
+    artifact_details = _format_artifact_details(largest_edit)
+    if artifact_details:
+        details.append(artifact_details)
     return f"{event}: {path} ({', '.join(details)})"
 
 

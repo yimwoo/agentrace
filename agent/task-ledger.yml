@@ -425,6 +425,23 @@
         "path": "agent/reviews/REVIEW-0016.yml"
       },
       "updated_at": "2026-05-07T08:02:54Z"
+    },
+    "agent/context-packs/T-034-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-034-add-command-timing-and-edit-summaries-to-reports-20260507130204",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0017",
+        "verdict": "ready",
+        "summary": "No blocking findings. Changes are scoped to preserving linked artifact references on selected slowest-command/largest-edit aggregate rows, with regression coverage and CI passing.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0017.yml"
+      },
+      "updated_at": "2026-05-07T13:02:04Z"
     }
   }
 }

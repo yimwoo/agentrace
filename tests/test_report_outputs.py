@@ -274,6 +274,67 @@ def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
     assert "failed_edits: evt_edit_failed_diff: src/auth.py (kind=modify, +0/-0, net=0, 5ms, status=failed, duration_source=explicit, summary=Patch auth handling, error_message=target hunk not found, artifacts=diff=artifacts/evt_edit_failed_diff.diff)" in text
 
 
+def test_slowest_command_and_largest_edit_preserve_artifact_refs():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "selected-artifacts-1", "task": "inspect selected artifacts", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_fast",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "command": {"value": "ruff check"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_slowest_log",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 75,
+                "command": {"value": "pytest -q"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_small",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 2,
+                "file": {"path": "src/small.py"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0, "summary": "Small edit"},
+            },
+            {
+                "id": "evt_edit_largest_diff",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 3,
+                "file": {"path": "src/large.py"},
+                "change": {"kind": "modify", "added_lines": 5, "removed_lines": 2, "summary": "Large edit"},
+            },
+        ],
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd_slowest_log.log", "event_id": "evt_cmd_slowest_log"},
+            {"kind": "diff", "path": "artifacts/evt_edit_largest_diff.diff", "event_id": "evt_edit_largest_diff"},
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["slowest"]["artifacts"] == [
+        {"kind": "command_log", "path": "artifacts/evt_cmd_slowest_log.log"}
+    ]
+    assert payload["edit_summary_totals"]["largest_edit"]["artifacts"] == [
+        {"kind": "diff", "path": "artifacts/evt_edit_largest_diff.diff"}
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "slowest_command: evt_cmd_slowest_log: `pytest -q` (75ms, status=succeeded, exit_code=0, duration_source=explicit, artifacts=command_log=artifacts/evt_cmd_slowest_log.log)" in text
+    assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
+
+
 def test_report_outputs_fall_back_to_existing_run_summary_rows():
     trace = {
         "trace_version": "0.1",

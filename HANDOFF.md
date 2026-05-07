@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report highlights now preserve linked command-log and diff artifact references on the selected slowest command and largest edit, so top-level report highlights can point directly to the supporting command output or diff.
+
+## What was done
+- created AgentSpec task `T-034` for a report observability follow-up slice
+- preserved linked artifacts in JSON `command_timing_summary.slowest` rows
+- preserved linked artifacts in JSON `edit_summary_totals.largest_edit` rows
+- rendered those artifact references in Markdown slowest-command and largest-edit aggregate lines
+- added regression coverage for selected aggregate artifact preservation
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for selected aggregate artifact visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 26 passed, 1 warning
+- `bash scripts/ci_check.sh` — 33 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report totals now include nested per-working-directory command timing totals and per-edit-kind line/timing totals, so reviewers can see where command time was spent and which edit modes carried the most file impact before scanning detail rows.
 
 ## What was done

@@ -285,6 +285,24 @@ def _failed_command_rows(rows):
     return failed
 
 
+def _slowest_command_row(row):
+    if row is None:
+        return None
+    summary = {
+        "event": row.get("event"),
+        "command": row.get("command"),
+        "duration_ms": _numeric_value(row.get("duration_ms")),
+        "duration_source": row.get("duration_source"),
+        "status": row.get("status"),
+        "exit_code": row.get("exit_code"),
+        "started_at": row.get("started_at"),
+        "ended_at": row.get("ended_at"),
+    }
+    if row.get("artifacts"):
+        summary["artifacts"] = row["artifacts"]
+    return summary
+
+
 def build_command_timing_summary(rows):
     """Build aggregate command timing metrics for quick report inspection."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -312,16 +330,7 @@ def build_command_timing_summary(rows):
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),
-        "slowest": None if slowest is None else {
-            "event": slowest.get("event"),
-            "command": slowest.get("command"),
-            "duration_ms": _numeric_value(slowest.get("duration_ms")),
-            "duration_source": slowest.get("duration_source"),
-            "status": slowest.get("status"),
-            "exit_code": slowest.get("exit_code"),
-            "started_at": slowest.get("started_at"),
-            "ended_at": slowest.get("ended_at"),
-        },
+        "slowest": _slowest_command_row(slowest),
     }
 
 
@@ -336,6 +345,27 @@ def _largest_edit_row(rows):
         if row_churn > largest_churn:
             largest = row
     return largest
+
+
+def _largest_edit_summary_row(row):
+    if row is None:
+        return None
+    summary = {
+        "event": row.get("event"),
+        "path": row.get("path"),
+        "kind": row.get("kind"),
+        "added_lines": _numeric_value(row.get("added_lines")),
+        "removed_lines": _numeric_value(row.get("removed_lines")),
+        "net_line_delta": _net_line_delta(row),
+        "duration_ms": _numeric_value(row.get("duration_ms")),
+        "duration_source": row.get("duration_source"),
+        "status": row.get("status"),
+        "started_at": row.get("started_at"),
+        "ended_at": row.get("ended_at"),
+    }
+    if row.get("artifacts"):
+        summary["artifacts"] = row["artifacts"]
+    return summary
 
 
 def _is_failed_edit(row):
@@ -492,19 +522,7 @@ def build_edit_summary_totals(rows):
         "net_line_delta": total_added_lines - total_removed_lines,
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
-        "largest_edit": None if largest_edit is None else {
-            "event": largest_edit.get("event"),
-            "path": largest_edit.get("path"),
-            "kind": largest_edit.get("kind"),
-            "added_lines": _numeric_value(largest_edit.get("added_lines")),
-            "removed_lines": _numeric_value(largest_edit.get("removed_lines")),
-            "net_line_delta": _net_line_delta(largest_edit),
-            "duration_ms": _numeric_value(largest_edit.get("duration_ms")),
-            "duration_source": largest_edit.get("duration_source"),
-            "status": largest_edit.get("status"),
-            "started_at": largest_edit.get("started_at"),
-            "ended_at": largest_edit.get("ended_at"),
-        },
+        "largest_edit": _largest_edit_summary_row(largest_edit),
     }
 
 
