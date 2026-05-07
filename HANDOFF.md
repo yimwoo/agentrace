@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` failed command/edit aggregate rows now preserve linked command-log and diff artifacts, so top-level report failure lists point directly to the supporting logs or diffs before reviewers scan detail rows.
+
+## What was done
+- created AgentSpec task `T-032` for a report observability follow-up slice
+- preserved linked artifacts in JSON `command_timing_summary.failed_commands` rows
+- preserved linked artifacts in JSON `edit_summary_totals.failed_edits` rows
+- rendered those artifact references in Markdown failed-command and failed-edit aggregate lines
+- added regression coverage for failed aggregate artifact preservation
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for failed aggregate artifact visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 24 passed, 1 warning
+- `bash scripts/ci_check.sh` — 31 passed, 1 warning
+
+## Previous status
 `agentrace` summary-only report fallbacks now tolerate partial command timing and edit summary rows by padding missing identity/status/line fields before JSON aggregation or Markdown rendering.
 
 ## What was done

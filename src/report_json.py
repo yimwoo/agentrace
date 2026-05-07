@@ -240,6 +240,8 @@ def _failed_command_rows(rows):
             failed_row["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
             failed_row["stderr_preview"] = row["stderr_preview"]
+        if row.get("artifacts"):
+            failed_row["artifacts"] = row["artifacts"]
         failed.append(failed_row)
     return failed
 
@@ -322,6 +324,8 @@ def _failed_edit_rows(rows):
             failed_row["summary"] = row["summary"]
         if row.get("error_message"):
             failed_row["error_message"] = row["error_message"]
+        if row.get("artifacts"):
+            failed_row["artifacts"] = row["artifacts"]
         failed.append(failed_row)
     return failed
 

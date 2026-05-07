@@ -9,6 +9,14 @@ def _format_artifacts(row):
     return f", artifacts: {refs}"
 
 
+def _format_artifact_details(row):
+    artifacts = row.get("artifacts") or []
+    if not artifacts:
+        return ""
+    refs = "; ".join(f"{artifact['kind']}={artifact['path']}" for artifact in artifacts)
+    return f"artifacts={refs}"
+
+
 def _format_time_window(row):
     parts = []
     if row.get("started_at"):
@@ -126,6 +134,9 @@ def _format_failed_commands(failed_commands):
             details.append(f"stdout_preview={row['stdout_preview']}")
         if row.get("stderr_preview"):
             details.append(f"stderr_preview={row['stderr_preview']}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"{event}: `{command}` ({', '.join(details)})")
     return "; ".join(lines)
 
@@ -154,6 +165,9 @@ def _format_failed_edits(failed_edits):
             details.append(f"summary={row['summary']}")
         if row.get("error_message"):
             details.append(f"error_message={row['error_message']}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"{event}: {path} ({', '.join(details)})")
     return "; ".join(lines)
 

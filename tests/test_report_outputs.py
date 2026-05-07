@@ -229,6 +229,51 @@ def test_reports_include_artifact_refs_for_commands_and_edits():
     assert "artifacts: diff=artifacts/evt_diff.diff" in text
 
 
+def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "failed-artifacts-1", "task": "inspect failed artifacts", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_failed_log",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "duration_ms": 80,
+                "command": {"value": "pytest -q"},
+                "exit_code": 1,
+                "stderr_preview": "AssertionError: expected 401",
+            },
+            {
+                "id": "evt_edit_failed_diff",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "failed",
+                "duration_ms": 5,
+                "file": {"path": "src/auth.py"},
+                "change": {"kind": "modify", "added_lines": 0, "removed_lines": 0, "summary": "Patch auth handling"},
+                "error": {"message": "target hunk not found"},
+            },
+        ],
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd_failed_log.log", "event_id": "evt_cmd_failed_log"},
+            {"kind": "diff", "path": "artifacts/evt_edit_failed_diff.diff", "event_id": "evt_edit_failed_diff"},
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["failed_commands"][0]["artifacts"] == [
+        {"kind": "command_log", "path": "artifacts/evt_cmd_failed_log.log"}
+    ]
+    assert payload["edit_summary_totals"]["failed_edits"][0]["artifacts"] == [
+        {"kind": "diff", "path": "artifacts/evt_edit_failed_diff.diff"}
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "failed_commands: evt_cmd_failed_log: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_failed_log.log)" in text
+    assert "failed_edits: evt_edit_failed_diff: src/auth.py (kind=modify, +0/-0, net=0, 5ms, status=failed, duration_source=explicit, summary=Patch auth handling, error_message=target hunk not found, artifacts=diff=artifacts/evt_edit_failed_diff.diff)" in text
+
+
 def test_report_outputs_fall_back_to_existing_run_summary_rows():
     trace = {
         "trace_version": "0.1",

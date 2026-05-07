@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "id": "REVIEW-0015",
+  "task": {
+    "selector": "T-032",
+    "context_pack": "agent/context-packs/T-032-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Failed aggregate artifact references are preserved in JSON and Markdown reports with regression coverage; ci_check passed.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-07T04:03:30Z"
+}

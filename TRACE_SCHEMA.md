@@ -347,7 +347,7 @@ aggregate `time_window`, command working-directory distribution `cwd_counts`, an
 `edit_summary_totals` (`count`, deduplicated changed files, per-file `file_change_totals` with edit counts,
 failure counts, total added/removed/net lines, total/average duration, status distribution, kind distribution, duration source distribution, and aggregate time window, total added/removed lines, edit `failed_count`,
 `failed_edits`, edit-kind distribution `kind_counts`, edit `status_counts`, `duration_source_counts`, aggregate `time_window`,
-`net_line_delta`, total/average edit duration, and `largest_edit`). Failed edit
+`net_line_delta`, total/average edit duration, and `largest_edit`). Failed command and failed edit aggregate rows should retain linked artifact references when available, so report totals can point at command logs or diff artifacts without requiring a detail-row scan. Failed edit
 rows should retain path/kind, line impact, timing context, summary, and available
 error message so failed write attempts are visible from aggregate report totals. Aggregate
 `slowest` and `largest_edit` entries should preserve the same timing context as
