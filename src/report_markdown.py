@@ -88,6 +88,9 @@ def _format_command_attempts(command_attempts):
             details.append(f"first_event={row['first_event']}")
         if row.get("last_event"):
             details.append(f"last_event={row['last_event']}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"`{row.get('command') or '<unknown command>'}` ({', '.join(details)})")
     return "; ".join(lines)
 
@@ -112,6 +115,9 @@ def _format_file_change_totals(file_change_totals):
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"{path} ({', '.join(details)})")
     return "; ".join(lines)
 
@@ -135,6 +141,9 @@ def _format_command_cwd_totals(cwd_totals):
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"{cwd} ({', '.join(details)})")
     return "; ".join(lines)
 
@@ -159,6 +168,9 @@ def _format_edit_kind_totals(kind_totals):
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         lines.append(f"{kind} ({', '.join(details)})")
     return "; ".join(lines)
 

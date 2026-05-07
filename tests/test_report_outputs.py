@@ -1301,3 +1301,54 @@ def test_script_main_writes_example(monkeypatch, tmp_path):
     assert out.exists()
     payload = json.loads(out.read_text())
     assert payload["events"][0]["tool"]["args"]["query"] == "agent trace"
+
+
+def test_nested_aggregate_totals_preserve_artifact_refs():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "nested-artifacts-1", "task": "inspect nested aggregate artifacts", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_with_log",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_with_diff",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 4,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 3, "removed_lines": 1, "summary": "Preserve nested aggregate artifacts"},
+            },
+        ],
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd_with_log.log", "event_id": "evt_cmd_with_log"},
+            {"kind": "diff", "path": "artifacts/evt_edit_with_diff.diff", "event_id": "evt_edit_with_diff"},
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["command_attempts"][0]["artifacts"] == [
+        {"kind": "command_log", "path": "artifacts/evt_cmd_with_log.log"}
+    ]
+    assert payload["command_timing_summary"]["cwd_totals"][0]["artifacts"] == [
+        {"kind": "command_log", "path": "artifacts/evt_cmd_with_log.log"}
+    ]
+    assert payload["edit_summary_totals"]["file_change_totals"][0]["artifacts"] == [
+        {"kind": "diff", "path": "artifacts/evt_edit_with_diff.diff"}
+    ]
+    assert payload["edit_summary_totals"]["kind_totals"][0]["artifacts"] == [
+        {"kind": "diff", "path": "artifacts/evt_edit_with_diff.diff"}
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "command_attempts: `pytest -q` (count=1, total_duration_ms=25, average_duration_ms=25.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, first_event=evt_cmd_with_log, last_event=evt_cmd_with_log, artifacts=command_log=artifacts/evt_cmd_with_log.log)" in text
+    assert "command_cwd_totals: /workspace/app (count=1, commands=pytest -q, failed_count=0, total_duration_ms=25, average_duration_ms=25.0, statuses=succeeded=1, duration_sources=explicit=1, artifacts=command_log=artifacts/evt_cmd_with_log.log)" in text
+    assert "file_change_totals: src/report_json.py (count=1, failed_count=0, +3/-1, net=2, total_duration_ms=4, average_duration_ms=4.0, statuses=succeeded=1, kinds=modify=1, duration_sources=explicit=1, artifacts=diff=artifacts/evt_edit_with_diff.diff)" in text
+    assert "edit_kind_totals: modify (count=1, files=src/report_json.py, failed_count=0, +3/-1, net=2, total_duration_ms=4, average_duration_ms=4.0, statuses=succeeded=1, duration_sources=explicit=1, artifacts=diff=artifacts/evt_edit_with_diff.diff)" in text

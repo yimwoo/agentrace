@@ -1,6 +1,23 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` nested aggregate command/edit report totals now preserve linked command-log and diff artifact references, so per-command attempt, per-working-directory, per-file, and per-edit-kind totals can point directly to supporting logs or diffs.
+
+## What was done
+- created AgentSpec task `T-035` for a report observability follow-up slice
+- preserved linked artifacts in JSON `command_timing_summary.command_attempts` rows
+- preserved linked artifacts in JSON `command_timing_summary.cwd_totals` rows
+- preserved linked artifacts in JSON `edit_summary_totals.file_change_totals` rows
+- preserved linked artifacts in JSON `edit_summary_totals.kind_totals` rows
+- rendered those artifact references in Markdown nested aggregate totals
+- added regression coverage for nested aggregate artifact preservation
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for nested aggregate artifact visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 27 passed, 1 warning
+- `bash scripts/ci_check.sh` — 34 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report highlights now preserve linked command-log and diff artifact references on the selected slowest command and largest edit, so top-level report highlights can point directly to the supporting command output or diff.
 
 ## What was done

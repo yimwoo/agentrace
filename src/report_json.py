@@ -195,6 +195,7 @@ def _command_attempt_rows(rows):
                 "time_window": None,
                 "first_event": row.get("event"),
                 "last_event": row.get("event"),
+                "artifacts": [],
                 "_rows": [],
             }
         summary = attempts_by_command[command]
@@ -207,12 +208,16 @@ def _command_attempt_rows(rows):
         source = row.get("duration_source") or "unknown"
         summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
         summary["last_event"] = row.get("event")
+        if row.get("artifacts"):
+            summary["artifacts"].extend(row["artifacts"])
         summary["_rows"].append(row)
 
     summaries = []
     for summary in attempts_by_command.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
         summary["time_window"] = _time_window(summary.pop("_rows"))
+        if not summary["artifacts"]:
+            summary.pop("artifacts")
         summaries.append(summary)
     return summaries
 
@@ -232,6 +237,7 @@ def _command_cwd_total_rows(rows):
                 "status_counts": {},
                 "duration_source_counts": {},
                 "time_window": None,
+                "artifacts": [],
                 "_rows": [],
             }
         summary = totals_by_cwd[cwd]
@@ -246,12 +252,16 @@ def _command_cwd_total_rows(rows):
         source = row.get("duration_source") or "unknown"
         summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
         summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        if row.get("artifacts"):
+            summary["artifacts"].extend(row["artifacts"])
         summary["_rows"].append(row)
 
     summaries = []
     for summary in totals_by_cwd.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
         summary["time_window"] = _time_window(summary.pop("_rows"))
+        if not summary["artifacts"]:
+            summary.pop("artifacts")
         summaries.append(summary)
     return summaries
 
@@ -418,6 +428,7 @@ def _file_change_total_rows(rows):
                 "kind_counts": {},
                 "duration_source_counts": {},
                 "time_window": None,
+                "artifacts": [],
                 "_rows": [],
             }
         summary = totals_by_file[path]
@@ -436,12 +447,16 @@ def _file_change_total_rows(rows):
         summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
         summary["kind_counts"][kind] = summary["kind_counts"].get(kind, 0) + 1
         summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        if row.get("artifacts"):
+            summary["artifacts"].extend(row["artifacts"])
         summary["_rows"].append(row)
 
     summaries = []
     for summary in totals_by_file.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
         summary["time_window"] = _time_window(summary.pop("_rows"))
+        if not summary["artifacts"]:
+            summary.pop("artifacts")
         summaries.append(summary)
     return summaries
 
@@ -464,6 +479,7 @@ def _edit_kind_total_rows(rows):
                 "status_counts": {},
                 "duration_source_counts": {},
                 "time_window": None,
+                "artifacts": [],
                 "_rows": [],
             }
         summary = totals_by_kind[kind]
@@ -483,12 +499,16 @@ def _edit_kind_total_rows(rows):
         source = row.get("duration_source") or "unknown"
         summary["status_counts"][status] = summary["status_counts"].get(status, 0) + 1
         summary["duration_source_counts"][source] = summary["duration_source_counts"].get(source, 0) + 1
+        if row.get("artifacts"):
+            summary["artifacts"].extend(row["artifacts"])
         summary["_rows"].append(row)
 
     summaries = []
     for summary in totals_by_kind.values():
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
         summary["time_window"] = _time_window(summary.pop("_rows"))
+        if not summary["artifacts"]:
+            summary.pop("artifacts")
         summaries.append(summary)
     return summaries
 
