@@ -997,7 +997,7 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     assert "edit_duration_sources: derived=1, missing=1" in text
     assert "evt_cmd_explicit: `pytest -q` — 10ms, status=succeeded, exit_code=0, duration_source=explicit" in text
     assert "evt_cmd_derived: `ruff check` — 25ms, status=succeeded, exit_code=0, duration_source=derived" in text
-    assert "evt_edit_missing:" not in text
+    assert "evt_edit_missing: edit src/report_json.py (modify, +1/-0, net=1) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing, started_at=2026-04-25T00:00:02Z" in text
     assert "src/report_json.py: modify (+1/-0, net=1) — Show duration source, status=succeeded, duration_ms=0, duration_source=missing" in text
     assert "src/report_markdown.py: modify (+2/-1, net=1) — Render duration source, status=succeeded, duration_ms=5, duration_source=derived" in text
 
@@ -1291,6 +1291,80 @@ def test_report_totals_include_cwd_and_edit_kind_aggregate_rows():
     text = build_markdown_summary(trace)
     assert "command_cwd_totals: /workspace/app (count=1, commands=pytest -q, failed_count=1, total_duration_ms=10, average_duration_ms=10.0, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:00.010Z); /workspace/app/docs (count=1, commands=mkdocs build, failed_count=0, total_duration_ms=5, average_duration_ms=5.0, statuses=succeeded=1, duration_sources=explicit=1)" in text
     assert "edit_kind_totals: modify (count=1, files=src/report_json.py, failed_count=0, +3/-1, net=2, total_duration_ms=7, average_duration_ms=7.0, statuses=succeeded=1, duration_sources=explicit=1); create (count=1, files=docs/report.md, failed_count=1, +2/-0, net=2, total_duration_ms=2, average_duration_ms=2.0, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.002Z)" in text
+
+
+def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "timeline-1", "task": "inspect activity timeline", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_edit_late_diff",
+                "seq": 2,
+                "type": "file_edit",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:03Z",
+                "duration_ms": 5,
+                "file": {"path": "src/report.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Edit report timeline"},
+                "error": {"message": "patch failed"},
+            },
+            {
+                "id": "evt_cmd_early_log",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.020Z",
+                "command": {"value": "pytest -q", "cwd": "/repo"},
+                "exit_code": 1,
+            },
+        ],
+        "artifacts": [
+            {"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff", "event_id": "evt_edit_late_diff"},
+            {"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log", "event_id": "evt_cmd_early_log"},
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["activity_timeline"] == [
+        {
+            "type": "command",
+            "event": "evt_cmd_early_log",
+            "status": "failed",
+            "duration_ms": 20,
+            "duration_source": "derived",
+            "started_at": "2026-04-25T00:00:01Z",
+            "ended_at": "2026-04-25T00:00:01.020Z",
+            "command": "pytest -q",
+            "cwd": "/repo",
+            "exit_code": 1,
+            "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
+        },
+        {
+            "type": "file_edit",
+            "event": "evt_edit_late_diff",
+            "status": "failed",
+            "duration_ms": 5,
+            "duration_source": "explicit",
+            "started_at": "2026-04-25T00:00:03Z",
+            "ended_at": None,
+            "path": "src/report.py",
+            "kind": "modify",
+            "added_lines": 2,
+            "removed_lines": 1,
+            "net_line_delta": 1,
+            "summary": "Edit report timeline",
+            "error_message": "patch failed",
+            "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
+        },
+    ]
+
+    text = build_markdown_summary(trace)
+    assert "## Activity Timeline" in text
+    assert text.index("evt_cmd_early_log: command `pytest -q`") < text.index("evt_edit_late_diff: edit src/report.py")
+    assert "evt_cmd_early_log: command `pytest -q` — 20ms, status=failed, exit_code=1, duration_source=derived, cwd=/repo, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, artifacts: command_log=artifacts/evt_cmd_early_log.log" in text
+    assert "evt_edit_late_diff: edit src/report.py (modify, +2/-1, net=1) — Edit report timeline, status=failed, duration_ms=5, duration_source=explicit, started_at=2026-04-25T00:00:03Z, error_message=patch failed, artifacts: diff=artifacts/evt_edit_late_diff.diff" in text
 
 
 def test_example_write(tmp_path):

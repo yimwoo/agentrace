@@ -328,6 +328,35 @@ def _format_edit_summary(rows):
     return lines
 
 
+def _format_activity_timeline(rows):
+    if not rows:
+        return ["## Activity Timeline", "", "No command or file edit activity recorded."]
+    lines = ["## Activity Timeline", ""]
+    for row in rows:
+        event = row.get("event") or "summary"
+        duration = row.get("duration_ms", 0)
+        duration_source = _format_duration_source(row)
+        time_window = _format_time_window(row)
+        artifacts = _format_artifacts(row)
+        status = row.get("status") or "unknown"
+        if row.get("type") == "command":
+            command = row.get("command") or "<unknown command>"
+            exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
+            cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
+            lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{artifacts}")
+            continue
+
+        path = row.get("path") or "<unknown file>"
+        kind = row.get("kind") or "unknown"
+        added = row.get("added_lines", 0)
+        removed = row.get("removed_lines", 0)
+        net = row.get("net_line_delta", added - removed)
+        summary = row.get("summary") or "No edit summary recorded."
+        error_context = f", error_message={row['error_message']}" if row.get("error_message") else ""
+        lines.append(f"- {event}: edit {path} ({kind}, +{added}/-{removed}, net={net}) — {summary}, status={status}, duration_ms={duration}{duration_source}{time_window}{error_context}{artifacts}")
+    return lines
+
+
 def build_markdown_summary(trace):
     payload = build_json_summary(trace)
     command_totals = payload["command_timing_summary"]
@@ -374,4 +403,6 @@ def build_markdown_summary(trace):
     lines.extend(_format_command_timing(payload["command_timing"]))
     lines.append("")
     lines.extend(_format_edit_summary(payload["edit_summary"]))
+    lines.append("")
+    lines.extend(_format_activity_timeline(payload["activity_timeline"]))
     return "\n".join(lines) + "\n"

@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown reports now include a combined command/edit activity timeline that interleaves command timing rows and file edit summaries in chronological order, making the run sequence easier to inspect without cross-reading separate sections.
+
+## What was done
+- created AgentSpec task `T-037` for a report observability follow-up slice
+- added JSON `activity_timeline` rows that combine command timing and edit summary context
+- rendered a Markdown `Activity Timeline` section after command and edit detail sections
+- preserved timing source, start/end context, status, command cwd/exit code, edit line impact, error messages, and artifact references in timeline rows
+- added regression coverage and refreshed the rich Markdown report fixture
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for timeline visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` repeated nested aggregate report totals now preserve first/last event references for per-working-directory command groups, per-file edit groups, and per-edit-kind groups, so grouped totals show the source span without forcing reviewers into raw events.
 
 ## What was done

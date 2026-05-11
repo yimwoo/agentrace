@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 
 from src.failure_summary import build_failure_summary
 from src.trace_schema import build_run_summary, summarize_trace, event_duration_ms, event_duration_source, _parse_trace_timestamp
@@ -149,6 +149,73 @@ def _duration_source_counts(rows):
         source = row.get("duration_source") or "unknown"
         counts[source] = counts.get(source, 0) + 1
     return counts
+
+
+def _timeline_sort_key(item):
+    started_at = _normalized_timestamp(item.get("started_at"))
+    ended_at = _normalized_timestamp(item.get("ended_at"))
+    timestamp = started_at or ended_at
+    # Keep rows with no timestamp after timestamped activity while preserving
+    # their source order. This makes partial traces readable without hiding
+    # summary-only command/edit rows that lack timing windows.
+    return (timestamp is None, timestamp or datetime.max.replace(tzinfo=timezone.utc), item["_source_order"])
+
+
+def build_activity_timeline(command_rows, edit_rows):
+    """Build a compact, chronological command/edit activity timeline."""
+    timeline = []
+    source_order = 0
+    for row in command_rows or []:
+        if not isinstance(row, dict):
+            continue
+        item = {
+            "type": "command",
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "started_at": row.get("started_at"),
+            "ended_at": row.get("ended_at"),
+            "command": row.get("command"),
+            "cwd": row.get("cwd"),
+            "exit_code": row.get("exit_code"),
+            "_source_order": source_order,
+        }
+        if row.get("artifacts"):
+            item["artifacts"] = row["artifacts"]
+        timeline.append(item)
+        source_order += 1
+
+    for row in edit_rows or []:
+        if not isinstance(row, dict):
+            continue
+        item = {
+            "type": "file_edit",
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "started_at": row.get("started_at"),
+            "ended_at": row.get("ended_at"),
+            "path": row.get("path"),
+            "kind": row.get("kind"),
+            "added_lines": _numeric_value(row.get("added_lines")),
+            "removed_lines": _numeric_value(row.get("removed_lines")),
+            "net_line_delta": _net_line_delta(row),
+            "summary": row.get("summary"),
+            "_source_order": source_order,
+        }
+        if row.get("error_message"):
+            item["error_message"] = row["error_message"]
+        if row.get("artifacts"):
+            item["artifacts"] = row["artifacts"]
+        timeline.append(item)
+        source_order += 1
+
+    return [
+        {key: value for key, value in item.items() if key != "_source_order"}
+        for item in sorted(timeline, key=_timeline_sort_key)
+    ]
 
 
 def _ordered_values(rows, field):
@@ -622,6 +689,7 @@ def build_json_summary(trace):
         "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
         "command_timing_summary": build_command_timing_summary(command_timing),
+        "activity_timeline": build_activity_timeline(command_timing, edit_summary),
         "command_timing": command_timing,
         "edit_summary_totals": build_edit_summary_totals(edit_summary),
         "edit_summary": edit_summary,
