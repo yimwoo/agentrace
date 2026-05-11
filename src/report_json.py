@@ -284,6 +284,7 @@ def build_activity_timeline_summary(rows):
         if _is_failed_activity(row):
             failed_count += 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
+    failed_activity = _failed_activity_rows(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -293,7 +294,8 @@ def build_activity_timeline_summary(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": failed_count,
-        "failed_activity": _failed_activity_rows(normalized_rows),
+        "first_failed_activity": failed_activity[0] if failed_activity else None,
+        "failed_activity": failed_activity,
     }
 
 

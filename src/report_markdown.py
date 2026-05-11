@@ -373,6 +373,12 @@ def _format_failed_activity(failed_activity):
     return "; ".join(lines)
 
 
+def _format_first_failed_activity(first_failed_activity):
+    if not first_failed_activity:
+        return "none"
+    return _format_failed_activity([first_failed_activity])
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -453,6 +459,7 @@ def build_markdown_summary(trace):
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- activity_timeline_summary: {_format_activity_timeline_summary(timeline_totals)}",
+        f"- first_failed_activity: {_format_first_failed_activity(timeline_totals.get('first_failed_activity'))}",
         f"- failed_activity: {_format_failed_activity(timeline_totals.get('failed_activity'))}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",

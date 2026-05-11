@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now identify the first failed command/edit activity separately from the full failed-activity list, making the earliest actionable failure visible at the top of JSON and Markdown reports.
+
+## What was done
+- created AgentSpec task `T-041` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.first_failed_activity` using the first chronological failed command/edit row
+- rendered `first_failed_activity` in Markdown top-level report totals
+- preserved the same command output, cwd, exit-code, edit path/kind/line-impact/error, timing, and artifact context as full failed-activity rows
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for first-failed-activity visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline summaries now include compact failed-activity identities in JSON and Markdown reports, so mixed command/edit failures can be inspected from the top-level timeline totals before scanning detail rows.
 
 ## What was done
