@@ -1,1 +1,48 @@
-[]
+[
+  {
+    "id": "SPEC-PRODUCT_CHARTER",
+    "title": "Product Charter",
+    "path": "docs/spec/product-charter.md",
+    "source_sections": [
+      "D-02",
+      "D-04",
+      "D-12"
+    ],
+    "status": "draft",
+    "confidence": "medium",
+    "content_hash": "sha256:d03eb0a9e92fa800b20937792cd2e7e97de33cc0b8ef9aa9a65d60123d862c04"
+  },
+  {
+    "id": "SPEC-RUNTIME_ARCHITECTURE",
+    "title": "Runtime Architecture",
+    "path": "docs/spec/runtime-architecture.md",
+    "source_sections": [
+      "D-07"
+    ],
+    "status": "draft",
+    "confidence": "medium",
+    "content_hash": "sha256:6d41703e93d5d6754155ec68ffc719babff7b41edb163b26a0245363a5807692"
+  },
+  {
+    "id": "SPEC-SECURITY_AND_GOVERNANCE",
+    "title": "Security And Governance",
+    "path": "docs/spec/security-and-governance.md",
+    "source_sections": [
+      "D-10"
+    ],
+    "status": "draft",
+    "confidence": "medium",
+    "content_hash": "sha256:d55f316790ef06f11fb683b37054dc688f41cf08c82c32bc2b09cbb4755edcd0"
+  },
+  {
+    "id": "SPEC-ROLLOUT_PLAN",
+    "title": "Rollout Plan",
+    "path": "docs/spec/rollout-plan.md",
+    "source_sections": [
+      "D-11"
+    ],
+    "status": "draft",
+    "confidence": "medium",
+    "content_hash": "sha256:62fc06f587b98f12ba6f4d0ff624328b82d76e0f93a2a4cb3f44bf66a9313bc0"
+  }
+]

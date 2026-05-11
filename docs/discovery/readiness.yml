@@ -1,38 +1,52 @@
 {
-  "score": 9,
-  "mode": "discovery",
+  "score": 82,
+  "mode": "normal-implementation",
   "dimensions": {
     "problem_definition": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "problem"
+      ]
     },
     "target_users": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "target users"
+      ]
     },
     "goals": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "goals"
+      ]
     },
     "non_goals": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "non-goals"
+      ]
     },
     "success_criteria": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "success criteria"
+      ]
     },
     "architecture_boundaries": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "architecture"
+      ]
     },
     "data_model": {
       "score": 0,
       "signals": []
     },
     "integrations": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "cli"
+      ]
     },
     "security_model": {
       "score": 0,
@@ -41,13 +55,16 @@
     "test_strategy": {
       "score": 10,
       "signals": [
-        "test"
+        "test",
+        "success criteria"
       ]
     },
     "rollout_plan": {
-      "score": 0,
-      "signals": []
+      "score": 10,
+      "signals": [
+        "rollout"
+      ]
     }
   },
-  "summary": "Readiness is 9/100 (discovery)."
+  "summary": "Readiness is 82/100 (normal-implementation)."
 }

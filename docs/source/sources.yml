@@ -22,5 +22,17 @@
     "fetched_at": "2026-04-29T03:51:38Z",
     "classification": "internal",
     "storage_mode": "committed"
+  },
+  {
+    "id": "SRC-0003",
+    "kind": "markdown",
+    "uri": "docs/source/src-0003-design.md",
+    "original_uri": "/Users/jc/Workspace/Apps/agentrace/docs/source/design.md",
+    "title": "agentrace design source",
+    "version": null,
+    "content_hash": "sha256:2c671191954ce61c17b8e5814af378a5d45d6200ccd967ba23eaea56788be65b",
+    "fetched_at": "2026-05-11T05:29:24Z",
+    "classification": "internal",
+    "storage_mode": "committed"
   }
 ]

@@ -1,16 +1,16 @@
 [
   {
     "id": "R-001",
-    "title": "capture what a developer needs to answer: what happened, in what order, why did it fail, what ch",
-    "description": "capture what a developer needs to answer: what happened, in what order, why did it fail, what changed, and what should I inspect next.",
+    "title": "Coding agents can modify files, run shell commands, call tools, retry after failures, and produc",
+    "description": "Coding agents can modify files, run shell commands, call tools, retry after failures, and produce commits, but developers often cannot reconstruct what happened when a run succeeds partially, fails late, or lands a suspicious change. Existing logs are verbose, model-specific, and difficult to compare across runs. agentrace exists to make code-agent workflows inspectable, failure-oriented, and reproducible enough for debugging.",
     "source_sections": [
-      "D-02"
+      "D-01"
     ],
-    "priority": "P1",
+    "priority": "P0",
     "status": "accepted",
     "confidence": "medium",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: capture what a developer needs to answer: what happened, in what order, why did it fail, what changed, and what should I inspect next.",
+      "Generated artifacts or implementation demonstrate: Coding agents can modify files, run shell commands, call tools, retry after failures, and produce commits, but developers often cannot reconstruct what happened when a run succeeds partially, fails late, or lands a suspicious change. Existing logs are verbose, model-specific, and difficult to compare across runs. agentrace exists to make code-agent workflows inspectable, failure-oriented, and reproducible enough for debugging.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -25,16 +25,16 @@
   },
   {
     "id": "R-002",
-    "title": "separate top-level run summary from per-event details",
-    "description": "separate top-level run summary from per-event details.",
+    "title": "Portfolio automation that must distinguish useful code work from documentation churn",
+    "description": "Portfolio automation that must distinguish useful code work from documentation churn.",
     "source_sections": [
       "D-02"
     ],
-    "priority": "P2",
+    "priority": "P0",
     "status": "accepted",
-    "confidence": "medium",
+    "confidence": "high",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: separate top-level run summary from per-event details.",
+      "Generated artifacts or implementation demonstrate: Portfolio automation that must distinguish useful code work from documentation churn.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -49,16 +49,16 @@
   },
   {
     "id": "R-003",
-    "title": "support partial traces from incomplete or crashed runs",
-    "description": "support partial traces from incomplete or crashed runs.",
+    "title": "agentrace should provide an executable local workflow that ingests a structured agent trace, val",
+    "description": "agentrace should provide an executable local workflow that ingests a structured agent trace, validates its events, builds a run timeline, highlights failures and retries, and emits readable JSON and Markdown inspection reports.",
     "source_sections": [
-      "D-02"
+      "D-03"
     ],
-    "priority": "P2",
+    "priority": "P1",
     "status": "accepted",
     "confidence": "medium",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: support partial traces from incomplete or crashed runs.",
+      "Generated artifacts or implementation demonstrate: agentrace should provide an executable local workflow that ingests a structured agent trace, validates its events, builds a run timeline, highlights failures and retries, and emits readable JSON and Markdown inspection reports.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -73,16 +73,16 @@
   },
   {
     "id": "R-004",
-    "title": "\"run\": {},",
-    "description": "\"run\": {},.",
+    "title": "The CLI normalizes the trace into a run model containing task metadata, tool calls, commands, ed",
+    "description": "The CLI normalizes the trace into a run model containing task metadata, tool calls, commands, edits, tests, retries, artifacts, and final outcome.",
     "source_sections": [
-      "D-03"
+      "D-05"
     ],
-    "priority": "P2",
+    "priority": "P1",
     "status": "accepted",
     "confidence": "medium",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: \"run\": {},.",
+      "Generated artifacts or implementation demonstrate: The CLI normalizes the trace into a run model containing task metadata, tool calls, commands, edits, tests, retries, artifacts, and final outcome.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -92,13 +92,14 @@
       "tests/**/*.py"
     ],
     "owner_roles": [
-      "coordinator"
+      "coordinator",
+      "test-eval-reviewer"
     ]
   },
   {
     "id": "R-005",
-    "title": "Each event should share a small common envelope",
-    "description": "Each event should share a small common envelope.",
+    "title": "The CLI emits JSON and Markdown reports that can be reviewed in a pull request or attached to a ",
+    "description": "The CLI emits JSON and Markdown reports that can be reviewed in a pull request or attached to a scheduled run summary.",
     "source_sections": [
       "D-05"
     ],
@@ -106,7 +107,7 @@
     "status": "accepted",
     "confidence": "medium",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: Each event should share a small common envelope.",
+      "Generated artifacts or implementation demonstrate: The CLI emits JSON and Markdown reports that can be reviewed in a pull request or attached to a scheduled run summary.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -121,16 +122,16 @@
   },
   {
     "id": "R-006",
-    "title": "Optional references to larger payloads that should not be inlined in every event",
-    "description": "Optional references to larger payloads that should not be inlined in every event.",
+    "title": "The project must expose a trace validation API that accepts a trace object or JSONL event stream",
+    "description": "The project must expose a trace validation API that accepts a trace object or JSONL event stream and returns structured validation errors.",
     "source_sections": [
-      "D-07"
+      "D-06"
     ],
-    "priority": "P1",
+    "priority": "P0",
     "status": "accepted",
-    "confidence": "medium",
+    "confidence": "high",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: Optional references to larger payloads that should not be inlined in every event.",
+      "Generated artifacts or implementation demonstrate: The project must expose a trace validation API that accepts a trace object or JSONL event stream and returns structured validation errors.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -145,16 +146,16 @@
   },
   {
     "id": "R-007",
-    "title": "A compact run-level summary for quick inspection",
-    "description": "A compact run-level summary for quick inspection.",
+    "title": "The project must define a stable event envelope with event id, timestamp, event type, status, ac",
+    "description": "The project must define a stable event envelope with event id, timestamp, event type, status, actor, summary, and optional artifact references.",
     "source_sections": [
-      "D-08"
+      "D-06"
     ],
-    "priority": "P2",
+    "priority": "P0",
     "status": "accepted",
-    "confidence": "medium",
+    "confidence": "high",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: A compact run-level summary for quick inspection.",
+      "Generated artifacts or implementation demonstrate: The project must define a stable event envelope with event id, timestamp, event type, status, actor, summary, and optional artifact references.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -169,16 +170,41 @@
   },
   {
     "id": "R-008",
-    "title": "JSON summary should include event_count, ok_events, and total_duration_ms",
-    "description": "JSON summary should include event_count, ok_events, and total_duration_ms.",
+    "title": "The project must support at least these event families: model call, tool call, shell command, fi",
+    "description": "The project must support at least these event families: model call, tool call, shell command, file edit, test run, retry, artifact, and final outcome.",
     "source_sections": [
-      "D-13"
+      "D-06"
     ],
-    "priority": "P1",
+    "priority": "P0",
     "status": "accepted",
-    "confidence": "medium",
+    "confidence": "high",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: JSON summary should include event_count, ok_events, and total_duration_ms.",
+      "Generated artifacts or implementation demonstrate: The project must support at least these event families: model call, tool call, shell command, file edit, test run, retry, artifact, and final outcome.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-009",
+    "title": "The project must normalize partial or crashed traces without discarding valid earlier events",
+    "description": "The project must normalize partial or crashed traces without discarding valid earlier events.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must normalize partial or crashed traces without discarding valid earlier events.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [
@@ -192,9 +218,422 @@
     ]
   },
   {
-    "id": "R-009",
-    "title": "Markdown summary should include task, run_id, status, and timing overview",
-    "description": "Markdown summary should include task, run_id, status, and timing overview.",
+    "id": "R-010",
+    "title": "The project must compute a chronological run timeline from normalized events",
+    "description": "The project must compute a chronological run timeline from normalized events.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must compute a chronological run timeline from normalized events.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-011",
+    "title": "The project must identify failed commands, failed tests, failed edits, retry chains, and missing",
+    "description": "The project must identify failed commands, failed tests, failed edits, retry chains, and missing final outcomes.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must identify failed commands, failed tests, failed edits, retry chains, and missing final outcomes.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-012",
+    "title": "The project must expose a CLI command that reads an example trace file and writes JSON and Markd",
+    "description": "The project must expose a CLI command that reads an example trace file and writes JSON and Markdown reports.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must expose a CLI command that reads an example trace file and writes JSON and Markdown reports.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-013",
+    "title": "The project must include at least one realistic example trace fixture that exercises commands, e",
+    "description": "The project must include at least one realistic example trace fixture that exercises commands, edits, tests, retry, and failure context.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must include at least one realistic example trace fixture that exercises commands, edits, tests, retry, and failure context.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-014",
+    "title": "The project must include tests for validation errors, timeline ordering, failure extraction, ret",
+    "description": "The project must include tests for validation errors, timeline ordering, failure extraction, retry extraction, and report generation.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must include tests for validation errors, timeline ordering, failure extraction, retry extraction, and report generation.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-015",
+    "title": "The project must treat documentation-only or agent-ledger-only changes as TARGET_MISS for automa",
+    "description": "The project must treat documentation-only or agent-ledger-only changes as TARGET_MISS for automated repo-improvement runs.",
+    "source_sections": [
+      "D-06"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The project must treat documentation-only or agent-ledger-only changes as TARGET_MISS for automated repo-improvement runs.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-016",
+    "title": "The code should prefer plain data structures and deterministic rendering so scheduled agents can",
+    "description": "The code should prefer plain data structures and deterministic rendering so scheduled agents can verify behavior without external services.",
+    "source_sections": [
+      "D-07"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The code should prefer plain data structures and deterministic rendering so scheduled agents can verify behavior without external services.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-017",
+    "title": "A trace has a top-level run record and an ordered event list. The run record includes run id, ta",
+    "description": "A trace has a top-level run record and an ordered event list. The run record includes run id, task title, repository, branch, start time, end time, status, agent identity, model identity when available, and source commit when available. Events include a common envelope plus type-specific payloads. Artifact references point to larger files rather than embedding all content in every event.",
+    "source_sections": [
+      "D-08"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: A trace has a top-level run record and an ordered event list. The run record includes run id, task title, repository, branch, start time, end time, status, agent identity, model identity when available, and source commit when available. Events include a common envelope plus type-specific payloads. Artifact references point to larger files rather than embedding all content in every event.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-018",
+    "title": "The CLI must accept a trace path and output format flags",
+    "description": "The CLI must accept a trace path and output format flags.",
+    "source_sections": [
+      "D-09"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The CLI must accept a trace path and output format flags.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-019",
+    "title": "The CLI should fail with a non-zero status when validation fails unless an explicit partial-mode",
+    "description": "The CLI should fail with a non-zero status when validation fails unless an explicit partial-mode flag is used.",
+    "source_sections": [
+      "D-09"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The CLI should fail with a non-zero status when validation fails unless an explicit partial-mode flag is used.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-020",
+    "title": "The CLI should support writing reports to paths so CI or cron jobs can attach artifacts",
+    "description": "The CLI should support writing reports to paths so CI or cron jobs can attach artifacts.",
+    "source_sections": [
+      "D-09"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The CLI should support writing reports to paths so CI or cron jobs can attach artifacts.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-021",
+    "title": "The CLI should provide a smoke-testable path using only files committed in the repository",
+    "description": "The CLI should provide a smoke-testable path using only files committed in the repository.",
+    "source_sections": [
+      "D-09"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: The CLI should provide a smoke-testable path using only files committed in the repository.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-022",
+    "title": "Scheduled AgentSpec runs for this repo must start from a bounded context pack. A successful impl",
+    "description": "Scheduled AgentSpec runs for this repo must start from a bounded context pack. A successful implementation run must change at least one of src/, tests/, examples/**, or TRACE_SCHEMA.md. Supporting docs may be updated, but docs alone are not success.",
+    "source_sections": [
+      "D-10"
+    ],
+    "priority": "P0",
+    "status": "accepted",
+    "confidence": "high",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Scheduled AgentSpec runs for this repo must start from a bounded context pack. A successful implementation run must change at least one of src/, tests/, examples/**, or TRACE_SCHEMA.md. Supporting docs may be updated, but docs alone are not success.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator",
+      "test-eval-reviewer"
+    ]
+  },
+  {
+    "id": "R-023",
+    "title": "Stabilize the trace validation API and failure-oriented run model",
+    "description": "Stabilize the trace validation API and failure-oriented run model.",
+    "source_sections": [
+      "D-11"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Stabilize the trace validation API and failure-oriented run model.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-024",
+    "title": "Add comparison helpers for multiple runs after single-run inspection is reliable",
+    "description": "Add comparison helpers for multiple runs after single-run inspection is reliable.",
+    "source_sections": [
+      "D-11"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Add comparison helpers for multiple runs after single-run inspection is reliable.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-025",
+    "title": "A developer can run one command against a trace fixture and understand what the agent did, where",
+    "description": "A developer can run one command against a trace fixture and understand what the agent did, where it failed, and what changed.",
+    "source_sections": [
+      "D-12"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: A developer can run one command against a trace fixture and understand what the agent did, where it failed, and what changed.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-026",
+    "title": "A scheduled agent run can attach an agentrace report that reviewers can inspect without reading ",
+    "description": "A scheduled agent run can attach an agentrace report that reviewers can inspect without reading raw logs.",
+    "source_sections": [
+      "D-12"
+    ],
+    "priority": "P2",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: A scheduled agent run can attach an agentrace report that reviewers can inspect without reading raw logs.",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-027",
+    "title": "JSONL event streams or top-level JSON trace objects be the default interchange format?",
+    "description": "Should JSONL event streams or top-level JSON trace objects be the default interchange format?",
     "source_sections": [
       "D-13"
     ],
@@ -202,7 +641,79 @@
     "status": "accepted",
     "confidence": "medium",
     "acceptance": [
-      "Generated artifacts or implementation demonstrate: Markdown summary should include task, run_id, status, and timing overview.",
+      "Generated artifacts or implementation demonstrate: Should JSONL event streams or top-level JSON trace objects be the default interchange format?",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-028",
+    "title": "Which external agent log format should be adapted first?",
+    "description": "Which external agent log format should be adapted first?",
+    "source_sections": [
+      "D-13"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: Which external agent log format should be adapted first?",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-029",
+    "title": "How strict should partial trace validation be when a run crashes before writing a final outcome?",
+    "description": "How strict should partial trace validation be when a run crashes before writing a final outcome?",
+    "source_sections": [
+      "D-13"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: How strict should partial trace validation be when a run crashes before writing a final outcome?",
+      "Evidence cites the source section listed on this requirement."
+    ],
+    "code_targets": [
+      "src/**/*.py"
+    ],
+    "test_targets": [
+      "tests/**/*.py"
+    ],
+    "owner_roles": [
+      "coordinator"
+    ]
+  },
+  {
+    "id": "R-030",
+    "title": "CLI behavior",
+    "description": "CLI behavior.",
+    "source_sections": [
+      "D-09"
+    ],
+    "priority": "P1",
+    "status": "accepted",
+    "confidence": "medium",
+    "acceptance": [
+      "Generated artifacts or implementation demonstrate: CLI behavior.",
       "Evidence cites the source section listed on this requirement."
     ],
     "code_targets": [

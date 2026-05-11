@@ -1327,6 +1327,16 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     }
 
     payload = build_json_summary(trace)
+    assert payload["activity_timeline_summary"] == {
+        "count": 2,
+        "type_counts": {"command": 1, "file_edit": 1},
+        "status_counts": {"failed": 2},
+        "duration_source_counts": {"derived": 1, "explicit": 1},
+        "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
+        "total_duration_ms": 25,
+        "average_duration_ms": 12.5,
+        "failed_count": 2,
+    }
     assert payload["activity_timeline"] == [
         {
             "type": "command",
@@ -1361,6 +1371,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     ]
 
     text = build_markdown_summary(trace)
+    assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, total_duration_ms=25, average_duration_ms=12.5, failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
     assert "## Activity Timeline" in text
     assert text.index("evt_cmd_early_log: command `pytest -q`") < text.index("evt_edit_late_diff: edit src/report.py")
     assert "evt_cmd_early_log: command `pytest -q` — 20ms, status=failed, exit_code=1, duration_source=derived, cwd=/repo, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, artifacts: command_log=artifacts/evt_cmd_early_log.log" in text

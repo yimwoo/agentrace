@@ -218,6 +218,34 @@ def build_activity_timeline(command_rows, edit_rows):
     ]
 
 
+
+
+def build_activity_timeline_summary(rows):
+    """Build aggregate metrics for the combined command/edit activity timeline."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    status_counts = {}
+    type_counts = {}
+    failed_count = 0
+    for row in normalized_rows:
+        row_type = row.get("type") or "unknown"
+        type_counts[row_type] = type_counts.get(row_type, 0) + 1
+        status = row.get("status") or "unknown"
+        status_counts[status] = status_counts.get(status, 0) + 1
+        if status in {"failed", "error"} or (row_type == "command" and _numeric_value(row.get("exit_code")) != 0):
+            failed_count += 1
+    total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
+    return {
+        "count": len(normalized_rows),
+        "type_counts": type_counts,
+        "status_counts": status_counts,
+        "duration_source_counts": _duration_source_counts(normalized_rows),
+        "time_window": _time_window(normalized_rows),
+        "total_duration_ms": total_duration_ms,
+        "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "failed_count": failed_count,
+    }
+
+
 def _ordered_values(rows, field):
     values = []
     seen = set()
@@ -680,6 +708,7 @@ def build_json_summary(trace):
     run_summary = trace.get("summary") or build_run_summary(trace)
     command_timing = build_command_timing(events, trace.get("artifacts", [])) or _normalize_summary_command_rows(run_summary.get("command_durations_ms", []))
     edit_summary = build_edit_summary(events, trace.get("artifacts", [])) or _normalize_summary_edit_rows(run_summary.get("edit_summaries", []))
+    activity_timeline = build_activity_timeline(command_timing, edit_summary)
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
@@ -689,7 +718,8 @@ def build_json_summary(trace):
         "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
         "command_timing_summary": build_command_timing_summary(command_timing),
-        "activity_timeline": build_activity_timeline(command_timing, edit_summary),
+        "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
+        "activity_timeline": activity_timeline,
         "command_timing": command_timing,
         "edit_summary_totals": build_edit_summary_totals(edit_summary),
         "edit_summary": edit_summary,

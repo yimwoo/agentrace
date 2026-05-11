@@ -398,5 +398,174 @@
     "content_hash": "sha256:88da31a13d2fa1b15f1c983b84596e7ce87f2c85f944bd10c22e5b751da8de15",
     "parent": null,
     "children": []
+  },
+  {
+    "id": "D-01",
+    "source_id": "SRC-0003",
+    "title": "Problem",
+    "heading_path": [
+      "Problem"
+    ],
+    "start_line": 3,
+    "end_line": 6,
+    "content_hash": "sha256:f3b76e1e35074818cd38827ef4f938bd7607c1fc80dd3b748143274ffe9b37d0",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-02",
+    "source_id": "SRC-0003",
+    "title": "Target users",
+    "heading_path": [
+      "Target users"
+    ],
+    "start_line": 7,
+    "end_line": 13,
+    "content_hash": "sha256:22869216069f702b21d36b04822e79aa930a9e99c187296e80b3e1e90b87c6e4",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-03",
+    "source_id": "SRC-0003",
+    "title": "Product goal",
+    "heading_path": [
+      "Product goal"
+    ],
+    "start_line": 14,
+    "end_line": 17,
+    "content_hash": "sha256:9ae618069cfec9b7535411b468411a2dfdcc7c5a63d2528702443229e2c1fd07",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-04",
+    "source_id": "SRC-0003",
+    "title": "Non-goals",
+    "heading_path": [
+      "Non-goals"
+    ],
+    "start_line": 18,
+    "end_line": 24,
+    "content_hash": "sha256:dabde83b74359a993a908e40617261fb01142fb6d3b9dfed9ec3d89e9ab96757",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-05",
+    "source_id": "SRC-0003",
+    "title": "MVP workflow",
+    "heading_path": [
+      "MVP workflow"
+    ],
+    "start_line": 25,
+    "end_line": 34,
+    "content_hash": "sha256:cd6eccf0c00dfdd3f9535ba7f98c0c2f0f940df7589221b87baa459b797b1499",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-06",
+    "source_id": "SRC-0003",
+    "title": "Requirements",
+    "heading_path": [
+      "Requirements"
+    ],
+    "start_line": 35,
+    "end_line": 47,
+    "content_hash": "sha256:f6a69980ee200f718f313b843f24c4a7566e11f5c2a6e53bda65ec295ff66813",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-07",
+    "source_id": "SRC-0003",
+    "title": "Architecture",
+    "heading_path": [
+      "Architecture"
+    ],
+    "start_line": 48,
+    "end_line": 60,
+    "content_hash": "sha256:a86473e7522622fa5ed5825a7aae7dedf5d293158b106fd64c8b8aaec1500b3d",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-08",
+    "source_id": "SRC-0003",
+    "title": "Data model",
+    "heading_path": [
+      "Data model"
+    ],
+    "start_line": 61,
+    "end_line": 64,
+    "content_hash": "sha256:2998d6cf5c8ee772e10ef36e8b351492d3c7439e45d024c1e25f313439adf2bb",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-09",
+    "source_id": "SRC-0003",
+    "title": "CLI behavior",
+    "heading_path": [
+      "CLI behavior"
+    ],
+    "start_line": 65,
+    "end_line": 71,
+    "content_hash": "sha256:8dd88b97f31321e7dbfd695d8635133d7aad453ce56a6c20ac60ffde0f73b9ab",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-10",
+    "source_id": "SRC-0003",
+    "title": "Automation policy",
+    "heading_path": [
+      "Automation policy"
+    ],
+    "start_line": 72,
+    "end_line": 75,
+    "content_hash": "sha256:34ce14516986fc1eda9aef1d94092cf9f7d3120f53ec903189f0361b6a31dafd",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-11",
+    "source_id": "SRC-0003",
+    "title": "Rollout plan",
+    "heading_path": [
+      "Rollout plan"
+    ],
+    "start_line": 76,
+    "end_line": 83,
+    "content_hash": "sha256:81103560e873fdf1cd01034e75466dbcf288b3475d02cbf5b8ed13f0d4b9c153",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-12",
+    "source_id": "SRC-0003",
+    "title": "Success criteria",
+    "heading_path": [
+      "Success criteria"
+    ],
+    "start_line": 84,
+    "end_line": 90,
+    "content_hash": "sha256:a68973bdcb88d1fd931c028cf80be8f1f6fa20333a9cc45126747f1f6640538f",
+    "parent": null,
+    "children": []
+  },
+  {
+    "id": "D-13",
+    "source_id": "SRC-0003",
+    "title": "Open questions",
+    "heading_path": [
+      "Open questions"
+    ],
+    "start_line": 91,
+    "end_line": 95,
+    "content_hash": "sha256:975cd8acc1348e421dfd5ddab84b15c35a1ea7541e9717a4033ba808d3744c3e",
+    "parent": null,
+    "children": []
   }
 ]

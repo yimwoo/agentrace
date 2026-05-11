@@ -328,6 +328,26 @@ def _format_edit_summary(rows):
     return lines
 
 
+
+
+def _format_activity_timeline_summary(timeline_totals):
+    if not timeline_totals:
+        return "none"
+    details = [
+        f"count={timeline_totals.get('count', 0)}",
+        f"types={_format_status_counts(timeline_totals.get('type_counts'))}",
+        f"statuses={_format_status_counts(timeline_totals.get('status_counts'))}",
+        f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
+        f"total_duration_ms={timeline_totals.get('total_duration_ms', 0)}",
+        f"average_duration_ms={timeline_totals.get('average_duration_ms', 0)}",
+        f"failed_count={timeline_totals.get('failed_count', 0)}",
+    ]
+    time_window = _format_aggregate_time_window(timeline_totals.get("time_window"))
+    if time_window != "none":
+        details.append(f"time_window={time_window}")
+    return ", ".join(details)
+
+
 def _format_activity_timeline(rows):
     if not rows:
         return ["## Activity Timeline", "", "No command or file edit activity recorded."]
@@ -361,6 +381,7 @@ def build_markdown_summary(trace):
     payload = build_json_summary(trace)
     command_totals = payload["command_timing_summary"]
     edit_totals = payload["edit_summary_totals"]
+    timeline_totals = payload["activity_timeline_summary"]
     lines = [
         f"# Trace Summary: {payload['task']}",
         f"- run_id: {payload['run_id']}",
@@ -383,6 +404,7 @@ def build_markdown_summary(trace):
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
+        f"- activity_timeline_summary: {_format_activity_timeline_summary(timeline_totals)}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- file_change_totals: {_format_file_change_totals(edit_totals['file_change_totals'])}",

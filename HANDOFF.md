@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown reports now include aggregate totals for the combined command/edit activity timeline, making mixed activity count, type/status/source distribution, failure count, total/average duration, and overall time window visible before scanning timeline rows.
+
+## What was done
+- created AgentSpec task `T-038` for a report observability follow-up slice
+- added JSON `activity_timeline_summary` totals derived from the chronological command/edit timeline
+- rendered the activity timeline summary in the Markdown top-level totals
+- preserved type counts, status counts, duration-source counts, failure count, total/average duration, and aggregate timeline time window
+- refreshed regression coverage and the rich Markdown report fixture
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for activity timeline aggregate visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+
+## Previous status
 `agentrace` JSON and Markdown reports now include a combined command/edit activity timeline that interleaves command timing rows and file edit summaries in chronological order, making the run sequence easier to inspect without cross-reading separate sections.
 
 ## What was done

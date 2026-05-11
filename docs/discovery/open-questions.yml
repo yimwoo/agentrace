@@ -1,6 +1,39 @@
 [
   {
     "id": "Q-001",
+    "question": "Should JSONL event streams or top-level JSON trace objects be the default interchange format?",
+    "status": "open",
+    "impact": [
+      "product"
+    ],
+    "source_sections": [
+      "D-13"
+    ]
+  },
+  {
+    "id": "Q-002",
+    "question": "Which external agent log format should be adapted first?",
+    "status": "open",
+    "impact": [
+      "product"
+    ],
+    "source_sections": [
+      "D-13"
+    ]
+  },
+  {
+    "id": "Q-003",
+    "question": "How strict should partial trace validation be when a run crashes before writing a final outcome?",
+    "status": "open",
+    "impact": [
+      "product"
+    ],
+    "source_sections": [
+      "D-13"
+    ]
+  },
+  {
+    "id": "Q-901",
     "question": "Blocked finding from autonomous run t-005-add-command-timing-and-edit-summaries-to-reports-20260501230028: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -14,7 +47,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-002",
+    "id": "Q-902",
     "question": "Blocked finding from autonomous run t-006-add-command-timing-and-edit-summaries-to-reports-20260502040022: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -28,7 +61,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-003",
+    "id": "Q-903",
     "question": "Blocked finding from autonomous run t-007-add-command-timing-and-edit-summaries-to-reports-20260502080016: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -42,7 +75,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-004",
+    "id": "Q-904",
     "question": "Blocked finding from autonomous run t-008-add-command-timing-and-edit-summaries-to-reports-20260502130104: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -56,7 +89,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-005",
+    "id": "Q-905",
     "question": "Blocked finding from autonomous run t-009-add-command-timing-and-edit-summaries-to-reports-20260502180035: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -70,7 +103,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-006",
+    "id": "Q-906",
     "question": "Blocked finding from autonomous run t-010-add-command-timing-and-edit-summaries-to-reports-20260502230045: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -84,7 +117,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-007",
+    "id": "Q-907",
     "question": "Blocked finding from autonomous run t-011-add-command-timing-and-edit-summaries-to-reports-20260503040019: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -98,7 +131,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-008",
+    "id": "Q-908",
     "question": "Blocked finding from autonomous run t-012-add-command-timing-and-edit-summaries-to-reports-20260503080019: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -112,7 +145,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-009",
+    "id": "Q-909",
     "question": "Blocked finding from autonomous run t-013-add-command-timing-and-edit-summaries-to-reports-20260503130101: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -126,7 +159,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-010",
+    "id": "Q-910",
     "question": "Blocked finding from autonomous run t-014-add-command-timing-and-edit-summaries-to-reports-20260503180023: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -140,7 +173,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-011",
+    "id": "Q-911",
     "question": "Blocked finding from autonomous run t-015-add-command-timing-and-edit-summaries-to-reports-20260503230006: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -154,7 +187,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-012",
+    "id": "Q-912",
     "question": "Blocked finding from autonomous run t-016-add-command-timing-and-edit-summaries-to-reports-20260504040018: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -168,7 +201,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-013",
+    "id": "Q-913",
     "question": "Blocked finding from autonomous run t-017-add-command-timing-and-edit-summaries-to-reports-20260504080049: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -182,7 +215,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-014",
+    "id": "Q-914",
     "question": "Blocked finding from autonomous run t-018-add-command-timing-and-edit-summaries-to-reports-20260504130104: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -196,7 +229,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-015",
+    "id": "Q-915",
     "question": "Blocked finding from autonomous run t-019-add-command-timing-and-edit-summaries-to-reports-20260504180014: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -210,7 +243,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-016",
+    "id": "Q-916",
     "question": "Blocked finding from autonomous run t-020-add-command-timing-and-edit-summaries-to-reports-20260504230027: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -224,7 +257,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-017",
+    "id": "Q-917",
     "question": "Blocked finding from autonomous run t-021-add-command-timing-and-edit-summaries-to-reports-20260505040016: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -238,7 +271,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-018",
+    "id": "Q-918",
     "question": "Blocked finding from autonomous run t-022-add-command-timing-and-edit-summaries-to-reports-20260505080109: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -252,7 +285,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-019",
+    "id": "Q-919",
     "question": "Blocked finding from autonomous run t-023-add-command-timing-and-edit-summaries-to-reports-20260505130018: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -266,7 +299,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-020",
+    "id": "Q-920",
     "question": "Blocked finding from autonomous run t-024-add-trace-report-command-line-renderer-20260505165855: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -280,7 +313,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-021",
+    "id": "Q-921",
     "question": "Blocked finding from autonomous run t-025-add-command-timing-and-edit-summaries-to-reports-20260505180010: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -294,7 +327,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-022",
+    "id": "Q-922",
     "question": "Blocked finding from autonomous run t-026-add-command-timing-and-edit-summaries-to-reports-20260505230050: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -308,7 +341,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-023",
+    "id": "Q-923",
     "question": "Blocked finding from autonomous run t-027-add-command-timing-and-edit-summaries-to-reports-20260506040034: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -322,7 +355,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-024",
+    "id": "Q-924",
     "question": "Blocked finding from autonomous run t-028-add-command-timing-and-edit-summaries-to-reports-20260506080100: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -336,7 +369,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-025",
+    "id": "Q-925",
     "question": "Blocked finding from autonomous run t-029-add-command-timing-and-edit-summaries-to-reports-20260506130029: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -350,7 +383,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-026",
+    "id": "Q-926",
     "question": "Blocked finding from autonomous run t-030-add-command-timing-and-edit-summaries-to-reports-20260506180027: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -364,7 +397,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-027",
+    "id": "Q-927",
     "question": "Blocked finding from autonomous run t-031-add-command-timing-and-edit-summaries-to-reports-20260506230054: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -378,7 +411,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-028",
+    "id": "Q-928",
     "question": "Blocked finding from autonomous run t-032-add-command-timing-and-edit-summaries-to-reports-20260507040036: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -392,7 +425,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-029",
+    "id": "Q-929",
     "question": "Blocked finding from autonomous run t-033-add-command-timing-and-edit-summaries-to-reports-20260507080016: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -406,7 +439,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-030",
+    "id": "Q-930",
     "question": "Blocked finding from autonomous run t-034-add-command-timing-and-edit-summaries-to-reports-20260507130023: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -420,7 +453,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-031",
+    "id": "Q-931",
     "question": "Blocked finding from autonomous run t-035-add-command-timing-and-edit-summaries-to-reports-20260507180013: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -434,7 +467,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-032",
+    "id": "Q-932",
     "question": "Blocked finding from autonomous run t-036-add-command-timing-and-edit-summaries-to-reports-20260507230100: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -448,7 +481,7 @@
     "iteration": 1
   },
   {
-    "id": "Q-033",
+    "id": "Q-933",
     "question": "Blocked finding from autonomous run t-037-add-command-timing-and-edit-summaries-to-reports-20260511050804: No deterministic auto-continue rule matched the executor output.",
     "status": "open",
     "impact": [
@@ -459,6 +492,20 @@
     "raised_by": "t-037-add-command-timing-and-edit-summaries-to-reports-20260511050804",
     "preserve": "autonomous-finding",
     "context_pack": "agent/context-packs/T-037-add-command-timing-and-edit-summaries-to-reports.md",
+    "iteration": 1
+  },
+  {
+    "id": "Q-934",
+    "question": "Blocked finding from autonomous run t-038-add-command-timing-and-edit-summaries-to-reports-20260511080015: No deterministic auto-continue rule matched the executor output.",
+    "status": "open",
+    "impact": [
+      "autonomous-mode",
+      "blocked-finding"
+    ],
+    "source_sections": [],
+    "raised_by": "t-038-add-command-timing-and-edit-summaries-to-reports-20260511080015",
+    "preserve": "autonomous-finding",
+    "context_pack": "agent/context-packs/T-038-add-command-timing-and-edit-summaries-to-reports.md",
     "iteration": 1
   }
 ]

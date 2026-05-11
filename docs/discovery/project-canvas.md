@@ -2,7 +2,7 @@
 
 ## Canonical Sources
 
-- 29 source sections compiled.
+- 42 source sections compiled.
 
 ## Problem
 
@@ -14,8 +14,10 @@ See source sections matching Product Goals and Success Criteria.
 
 ## Readiness
 
-Readiness is 9/100 (discovery).
+Readiness is 82/100 (normal-implementation).
 
 ## Important Sections
 
-- No important sections detected yet.
+- `D-04` Non-goals
+- `D-12` Success criteria
+- `D-11` Rollout plan
