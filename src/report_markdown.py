@@ -330,6 +330,49 @@ def _format_edit_summary(rows):
 
 
 
+def _format_failed_activity(failed_activity):
+    if not failed_activity:
+        return "none"
+    lines = []
+    for row in failed_activity:
+        event = row.get("event") or "summary"
+        duration = row.get("duration_ms", 0)
+        status = row.get("status") or "unknown"
+        duration_source = _format_duration_source(row).removeprefix(", ")
+        timing = _format_time_window(row).removeprefix(", ")
+        details = [f"type={row.get('type') or 'unknown'}", f"{duration}ms", f"status={status}"]
+        if duration_source:
+            details.append(duration_source)
+        if timing:
+            details.append(timing)
+        if row.get("type") == "command":
+            identity = f"`{row.get('command') or '<unknown command>'}`"
+            exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
+            details.append(f"exit_code={exit_code}")
+            if row.get("cwd"):
+                details.append(f"cwd={row['cwd']}")
+            if row.get("stdout_preview"):
+                details.append(f"stdout_preview={row['stdout_preview']}")
+            if row.get("stderr_preview"):
+                details.append(f"stderr_preview={row['stderr_preview']}")
+        else:
+            identity = row.get("path") or "<unknown file>"
+            kind = row.get("kind") or "unknown"
+            added = row.get("added_lines", 0)
+            removed = row.get("removed_lines", 0)
+            net = row.get("net_line_delta", added - removed)
+            details.extend([f"kind={kind}", f"+{added}/-{removed}", f"net={net}"])
+            if row.get("summary"):
+                details.append(f"summary={row['summary']}")
+            if row.get("error_message"):
+                details.append(f"error_message={row['error_message']}")
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
+        lines.append(f"{event}: {identity} ({', '.join(details)})")
+    return "; ".join(lines)
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -410,6 +453,7 @@ def build_markdown_summary(trace):
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- activity_timeline_summary: {_format_activity_timeline_summary(timeline_totals)}",
+        f"- failed_activity: {_format_failed_activity(timeline_totals.get('failed_activity'))}",
         f"- files_changed_count: {edit_totals['files_changed_count']}",
         f"- files_changed: {_format_changed_files(edit_totals['files_changed'])}",
         f"- file_change_totals: {_format_file_change_totals(edit_totals['file_change_totals'])}",

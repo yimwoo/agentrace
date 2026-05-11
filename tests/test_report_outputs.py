@@ -1337,6 +1337,39 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "total_duration_ms": 25,
         "average_duration_ms": 12.5,
         "failed_count": 2,
+        "failed_activity": [
+            {
+                "type": "command",
+                "event": "evt_cmd_early_log",
+                "status": "failed",
+                "duration_ms": 20,
+                "duration_source": "derived",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.020Z",
+                "command": "pytest -q",
+                "cwd": "/repo",
+                "exit_code": 1,
+                "stderr_preview": "AssertionError: expected 401",
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
+            },
+            {
+                "type": "file_edit",
+                "event": "evt_edit_late_diff",
+                "status": "failed",
+                "duration_ms": 5,
+                "duration_source": "explicit",
+                "started_at": "2026-04-25T00:00:03Z",
+                "ended_at": None,
+                "path": "src/report.py",
+                "kind": "modify",
+                "added_lines": 2,
+                "removed_lines": 1,
+                "net_line_delta": 1,
+                "summary": "Edit report timeline",
+                "error_message": "patch failed",
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
+            },
+        ],
     }
     assert payload["activity_timeline"] == [
         {
@@ -1374,6 +1407,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
 
     text = build_markdown_summary(trace)
     assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, total_duration_ms=25, average_duration_ms=12.5, failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
+    assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text
     assert text.index("evt_cmd_early_log: command `pytest -q`") < text.index("evt_edit_late_diff: edit src/report.py")
     assert "evt_cmd_early_log: command `pytest -q` — 20ms, status=failed, exit_code=1, duration_source=derived, cwd=/repo, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, stderr_preview=AssertionError: expected 401, artifacts: command_log=artifacts/evt_cmd_early_log.log" in text

@@ -1,28 +1,21 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-11T13:04:07Z",
+  "updated_at": "2026-05-11T18:04:06Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-039",
-    "context_pack": "agent/context-packs/T-039-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-039: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-039-add-command-timing-and-edit-summaries-to-reports-20260511130407",
+    "id": "T-040",
+    "context_pack": "agent/context-packs/T-040-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-040: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-040-add-command-timing-and-edit-summaries-to-reports-20260511180406",
     "reason": "Marked complete by user.",
-    "updated_at": "2026-05-11T13:04:07Z",
+    "updated_at": "2026-05-11T18:04:06Z",
     "verification": {
       "status": "passed"
-    },
-    "code_review": {
-      "id": "REVIEW-0022",
-      "verdict": "ready",
-      "reviewer": "human",
-      "range": "worktree",
-      "path": "agent/reviews/REVIEW-0022.yml"
     }
   },
   "current_state": {
     "overall": "attention_needed",
-    "recommendation": "Inspect attention-needed run with `aspec run inspect t-039-add-command-timing-and-edit-summaries-to-reports-20260511130054`.",
+    "recommendation": "Inspect attention-needed run with `aspec run inspect t-040-add-command-timing-and-edit-summaries-to-reports-20260511180017`.",
     "readiness": {
       "score": 82,
       "mode": "normal-implementation",
@@ -41,21 +34,21 @@
       }
     },
     "tasks": {
-      "total": 39,
+      "total": 40,
       "by_status": {
-        "complete": 37,
+        "complete": 38,
         "halted": 2
       },
       "by_type": {
-        "implementation": 36,
+        "implementation": 37,
         "scaffold": 3
       }
     }
   },
   "next_action": {
     "kind": "inspect_attention_run",
-    "run_id": "t-039-add-command-timing-and-edit-summaries-to-reports-20260511130054",
-    "command": "aspec run inspect t-039-add-command-timing-and-edit-summaries-to-reports-20260511130054"
+    "run_id": "t-040-add-command-timing-and-edit-summaries-to-reports-20260511180017",
+    "command": "aspec run inspect t-040-add-command-timing-and-edit-summaries-to-reports-20260511180017"
   },
   "commands": {
     "status": "aspec status --json",
@@ -64,7 +57,6 @@
   },
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
-    "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0022.yml"
+    "handoff": "agent/handoff.yml"
   }
 }

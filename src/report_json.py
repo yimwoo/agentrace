@@ -222,6 +222,52 @@ def build_activity_timeline(command_rows, edit_rows):
     ]
 
 
+def _is_failed_activity(row):
+    row_type = row.get("type")
+    status = row.get("status")
+    return status in {"failed", "error"} or (row_type == "command" and _numeric_value(row.get("exit_code")) != 0)
+
+
+def _failed_activity_rows(rows):
+    failed = []
+    for row in rows:
+        if not _is_failed_activity(row):
+            continue
+        failed_row = {
+            "type": row.get("type"),
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "started_at": row.get("started_at"),
+            "ended_at": row.get("ended_at"),
+        }
+        if row.get("type") == "command":
+            failed_row.update({
+                "command": row.get("command"),
+                "cwd": row.get("cwd"),
+                "exit_code": row.get("exit_code"),
+            })
+            if row.get("stdout_preview"):
+                failed_row["stdout_preview"] = row["stdout_preview"]
+            if row.get("stderr_preview"):
+                failed_row["stderr_preview"] = row["stderr_preview"]
+        elif row.get("type") == "file_edit":
+            failed_row.update({
+                "path": row.get("path"),
+                "kind": row.get("kind"),
+                "added_lines": _numeric_value(row.get("added_lines")),
+                "removed_lines": _numeric_value(row.get("removed_lines")),
+                "net_line_delta": _net_line_delta(row),
+            })
+            if row.get("summary"):
+                failed_row["summary"] = row["summary"]
+            if row.get("error_message"):
+                failed_row["error_message"] = row["error_message"]
+        if row.get("artifacts"):
+            failed_row["artifacts"] = row["artifacts"]
+        failed.append(failed_row)
+    return failed
 
 
 def build_activity_timeline_summary(rows):
@@ -235,7 +281,7 @@ def build_activity_timeline_summary(rows):
         type_counts[row_type] = type_counts.get(row_type, 0) + 1
         status = row.get("status") or "unknown"
         status_counts[status] = status_counts.get(status, 0) + 1
-        if status in {"failed", "error"} or (row_type == "command" and _numeric_value(row.get("exit_code")) != 0):
+        if _is_failed_activity(row):
             failed_count += 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     return {
@@ -247,6 +293,7 @@ def build_activity_timeline_summary(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "failed_count": failed_count,
+        "failed_activity": _failed_activity_rows(normalized_rows),
     }
 
 

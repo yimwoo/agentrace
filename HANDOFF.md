@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include compact failed-activity identities in JSON and Markdown reports, so mixed command/edit failures can be inspected from the top-level timeline totals before scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-040` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.failed_activity` rows for failed commands and edits
+- preserved failed command output/cwd/exit-code context and failed edit path/kind/line-impact/error context in timeline failure rows
+- rendered `failed_activity` in Markdown top-level report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for failed-activity visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline rows now preserve command stdout/stderr previews in both JSON and Markdown reports, so chronological command/edit inspection keeps the same failure-output context as command detail rows.
 
 ## What was done
