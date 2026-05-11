@@ -1318,6 +1318,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "ended_at": "2026-04-25T00:00:01.020Z",
                 "command": {"value": "pytest -q", "cwd": "/repo"},
                 "exit_code": 1,
+                "stderr_preview": "AssertionError: expected 401",
             },
         ],
         "artifacts": [
@@ -1349,6 +1350,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
             "command": "pytest -q",
             "cwd": "/repo",
             "exit_code": 1,
+            "stderr_preview": "AssertionError: expected 401",
             "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
         },
         {
@@ -1374,7 +1376,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, total_duration_ms=25, average_duration_ms=12.5, failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
     assert "## Activity Timeline" in text
     assert text.index("evt_cmd_early_log: command `pytest -q`") < text.index("evt_edit_late_diff: edit src/report.py")
-    assert "evt_cmd_early_log: command `pytest -q` — 20ms, status=failed, exit_code=1, duration_source=derived, cwd=/repo, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, artifacts: command_log=artifacts/evt_cmd_early_log.log" in text
+    assert "evt_cmd_early_log: command `pytest -q` — 20ms, status=failed, exit_code=1, duration_source=derived, cwd=/repo, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, stderr_preview=AssertionError: expected 401, artifacts: command_log=artifacts/evt_cmd_early_log.log" in text
     assert "evt_edit_late_diff: edit src/report.py (modify, +2/-1, net=1) — Edit report timeline, status=failed, duration_ms=5, duration_source=explicit, started_at=2026-04-25T00:00:03Z, error_message=patch failed, artifacts: diff=artifacts/evt_edit_late_diff.diff" in text
 
 

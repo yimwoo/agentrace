@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline rows now preserve command stdout/stderr previews in both JSON and Markdown reports, so chronological command/edit inspection keeps the same failure-output context as command detail rows.
+
+## What was done
+- created AgentSpec task `T-039` for a report observability follow-up slice
+- carried command `stdout_preview` and `stderr_preview` into JSON `activity_timeline` command rows
+- rendered command stdout/stderr previews in Markdown `Activity Timeline` command rows
+- added regression coverage for activity timeline command output-preview context
+- updated `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff for timeline output-preview visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` JSON and Markdown reports now include aggregate totals for the combined command/edit activity timeline, making mixed activity count, type/status/source distribution, failure count, total/average duration, and overall time window visible before scanning timeline rows.
 
 ## What was done

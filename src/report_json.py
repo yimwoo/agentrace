@@ -181,6 +181,10 @@ def build_activity_timeline(command_rows, edit_rows):
             "exit_code": row.get("exit_code"),
             "_source_order": source_order,
         }
+        if row.get("stdout_preview"):
+            item["stdout_preview"] = row["stdout_preview"]
+        if row.get("stderr_preview"):
+            item["stderr_preview"] = row["stderr_preview"]
         if row.get("artifacts"):
             item["artifacts"] = row["artifacts"]
         timeline.append(item)

@@ -363,7 +363,12 @@ def _format_activity_timeline(rows):
             command = row.get("command") or "<unknown command>"
             exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
             cwd = f", cwd={row['cwd']}" if row.get("cwd") else ""
-            lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{artifacts}")
+            output_context = ""
+            if row.get("stdout_preview"):
+                output_context += f", stdout_preview={row['stdout_preview']}"
+            if row.get("stderr_preview"):
+                output_context += f", stderr_preview={row['stderr_preview']}"
+            lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
             continue
 
         path = row.get("path") or "<unknown file>"
