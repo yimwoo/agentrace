@@ -274,6 +274,12 @@ def _failed_activity_rows(rows):
     return failed
 
 
+def _first_activity_row(rows):
+    if not rows:
+        return None
+    return _activity_identity_row(rows[0])
+
+
 def _slowest_activity_row(rows):
     slowest = None
     for row in rows:
@@ -311,6 +317,7 @@ def build_activity_timeline_summary(rows):
         "time_window": _time_window(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "first_activity": _first_activity_row(normalized_rows),
         "slowest_activity": _slowest_activity_row(normalized_rows),
         "last_activity": _last_activity_row(normalized_rows),
         "failed_count": failed_count,
