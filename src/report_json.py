@@ -151,6 +151,16 @@ def _duration_source_counts(rows):
     return counts
 
 
+def _median_duration_ms(rows):
+    durations = sorted(_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict))
+    if not durations:
+        return 0
+    middle = len(durations) // 2
+    if len(durations) % 2:
+        return durations[middle]
+    return round((durations[middle - 1] + durations[middle]) / 2, 2)
+
+
 def _timeline_sort_key(item):
     started_at = _normalized_timestamp(item.get("started_at"))
     ended_at = _normalized_timestamp(item.get("ended_at"))
@@ -325,6 +335,7 @@ def build_activity_timeline_summary(rows):
         "time_window": _time_window(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "median_duration_ms": _median_duration_ms(normalized_rows),
         "first_activity": _first_activity_row(normalized_rows),
         "slowest_activity": _slowest_activity_row(normalized_rows),
         "fastest_activity": _fastest_activity_row(normalized_rows),
@@ -525,6 +536,7 @@ def build_command_timing_summary(rows):
         "cwd_totals": _command_cwd_total_rows(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "median_duration_ms": _median_duration_ms(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
         "failed_commands": _failed_command_rows(normalized_rows),
         "status_counts": status_counts,
@@ -744,6 +756,7 @@ def build_edit_summary_totals(rows):
         "net_line_delta": total_added_lines - total_removed_lines,
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "median_duration_ms": _median_duration_ms(normalized_rows),
         "largest_edit": _largest_edit_summary_row(largest_edit),
     }
 

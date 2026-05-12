@@ -1,6 +1,18 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown report totals now include median duration metrics for command timing, edit summaries, and the combined command/edit activity timeline, giving reviewers a more outlier-resistant timing signal alongside existing total and average duration fields.
+
+## What was done
+- created AgentSpec task `T-046` for a report observability follow-up slice
+- added JSON `median_duration_ms` to `command_timing_summary`, `edit_summary_totals`, and `activity_timeline_summary`
+- rendered command, edit, and activity median duration metrics in Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for median-duration visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline summaries now identify the fastest command/edit activity in the mixed timeline, giving reviewers the shortest activity highlight alongside first, slowest, last, and failure highlights.
 
 ## What was done

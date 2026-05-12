@@ -581,6 +581,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-12T18:04:50Z"
+    },
+    "agent/context-packs/T-046-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-046-add-command-timing-and-edit-summaries-to-reports-20260512230241",
+      "reason": "Implemented median duration metrics for command timing, edit summary, and activity timeline report totals; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-12T23:02:41Z"
     }
   }
 }

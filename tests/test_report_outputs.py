@@ -575,6 +575,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         }],
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
+        "median_duration_ms": 1062.5,
         "failed_count": 1,
         "failed_commands": [{
             "event": "evt_cmd_slow",
@@ -661,6 +662,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "net_line_delta": 8,
         "total_duration_ms": 20,
         "average_duration_ms": 10.0,
+        "median_duration_ms": 10.0,
         "largest_edit": {
             "event": "evt_edit_one",
             "path": "src/report_json.py",
@@ -686,6 +688,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_cwd_totals: unknown (count=2, commands=pytest -q, ruff check, failed_count=1, total_duration_ms=2125, average_duration_ms=1062.5, statuses=failed=1, succeeded=1, duration_sources=derived=1, explicit=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_fast)" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
+    assert "command_median_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
     assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
@@ -706,6 +709,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text
     assert "edit_average_duration_ms: 10.0" in text
+    assert "edit_median_duration_ms: 10.0" in text
     assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
 
 
@@ -1336,6 +1340,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
         "total_duration_ms": 25,
         "average_duration_ms": 12.5,
+        "median_duration_ms": 12.5,
         "first_activity": {
             "type": "command",
             "event": "evt_cmd_early_log",
@@ -1482,7 +1487,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     ]
 
     text = build_markdown_summary(trace)
-    assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, total_duration_ms=25, average_duration_ms=12.5, first_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), slowest_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), fastest_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), last_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
+    assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, total_duration_ms=25, average_duration_ms=12.5, median_duration_ms=12.5, first_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), slowest_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), fastest_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), last_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text

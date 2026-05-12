@@ -413,6 +413,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
         f"total_duration_ms={timeline_totals.get('total_duration_ms', 0)}",
         f"average_duration_ms={timeline_totals.get('average_duration_ms', 0)}",
+        f"median_duration_ms={timeline_totals.get('median_duration_ms', 0)}",
         f"first_activity={_format_first_activity(timeline_totals.get('first_activity'))}",
         f"slowest_activity={_format_slowest_activity(timeline_totals.get('slowest_activity'))}",
         f"fastest_activity={_format_fastest_activity(timeline_totals.get('fastest_activity'))}",
@@ -480,6 +481,7 @@ def build_markdown_summary(trace):
         f"- command_cwd_totals: {_format_command_cwd_totals(command_totals['cwd_totals'])}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
+        f"- command_median_duration_ms: {command_totals['median_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
@@ -503,6 +505,7 @@ def build_markdown_summary(trace):
         f"- edit_net_line_delta: {edit_totals['net_line_delta']}",
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
         f"- edit_average_duration_ms: {edit_totals['average_duration_ms']}",
+        f"- edit_median_duration_ms: {edit_totals['median_duration_ms']}",
         f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
         "",
     ]
