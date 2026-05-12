@@ -282,6 +282,12 @@ def _slowest_activity_row(rows):
     return _activity_identity_row(slowest) if slowest is not None else None
 
 
+def _last_activity_row(rows):
+    if not rows:
+        return None
+    return _activity_identity_row(rows[-1])
+
+
 def build_activity_timeline_summary(rows):
     """Build aggregate metrics for the combined command/edit activity timeline."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -306,6 +312,7 @@ def build_activity_timeline_summary(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "slowest_activity": _slowest_activity_row(normalized_rows),
+        "last_activity": _last_activity_row(normalized_rows),
         "failed_count": failed_count,
         "first_failed_activity": failed_activity[0] if failed_activity else None,
         "failed_activity": failed_activity,

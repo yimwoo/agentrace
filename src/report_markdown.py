@@ -385,6 +385,12 @@ def _format_slowest_activity(slowest_activity):
     return _format_failed_activity([slowest_activity])
 
 
+def _format_last_activity(last_activity):
+    if not last_activity:
+        return "none"
+    return _format_failed_activity([last_activity])
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -396,6 +402,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"total_duration_ms={timeline_totals.get('total_duration_ms', 0)}",
         f"average_duration_ms={timeline_totals.get('average_duration_ms', 0)}",
         f"slowest_activity={_format_slowest_activity(timeline_totals.get('slowest_activity'))}",
+        f"last_activity={_format_last_activity(timeline_totals.get('last_activity'))}",
         f"failed_count={timeline_totals.get('failed_count', 0)}",
     ]
     time_window = _format_aggregate_time_window(timeline_totals.get("time_window"))
