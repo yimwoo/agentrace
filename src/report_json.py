@@ -228,46 +228,58 @@ def _is_failed_activity(row):
     return status in {"failed", "error"} or (row_type == "command" and _numeric_value(row.get("exit_code")) != 0)
 
 
+def _activity_identity_row(row):
+    activity_row = {
+        "type": row.get("type"),
+        "event": row.get("event"),
+        "status": row.get("status"),
+        "duration_ms": _numeric_value(row.get("duration_ms")),
+        "duration_source": row.get("duration_source"),
+        "started_at": row.get("started_at"),
+        "ended_at": row.get("ended_at"),
+    }
+    if row.get("type") == "command":
+        activity_row.update({
+            "command": row.get("command"),
+            "cwd": row.get("cwd"),
+            "exit_code": row.get("exit_code"),
+        })
+        if row.get("stdout_preview"):
+            activity_row["stdout_preview"] = row["stdout_preview"]
+        if row.get("stderr_preview"):
+            activity_row["stderr_preview"] = row["stderr_preview"]
+    elif row.get("type") == "file_edit":
+        activity_row.update({
+            "path": row.get("path"),
+            "kind": row.get("kind"),
+            "added_lines": _numeric_value(row.get("added_lines")),
+            "removed_lines": _numeric_value(row.get("removed_lines")),
+            "net_line_delta": _net_line_delta(row),
+        })
+        if row.get("summary"):
+            activity_row["summary"] = row["summary"]
+        if row.get("error_message"):
+            activity_row["error_message"] = row["error_message"]
+    if row.get("artifacts"):
+        activity_row["artifacts"] = row["artifacts"]
+    return activity_row
+
+
 def _failed_activity_rows(rows):
     failed = []
     for row in rows:
         if not _is_failed_activity(row):
             continue
-        failed_row = {
-            "type": row.get("type"),
-            "event": row.get("event"),
-            "status": row.get("status"),
-            "duration_ms": _numeric_value(row.get("duration_ms")),
-            "duration_source": row.get("duration_source"),
-            "started_at": row.get("started_at"),
-            "ended_at": row.get("ended_at"),
-        }
-        if row.get("type") == "command":
-            failed_row.update({
-                "command": row.get("command"),
-                "cwd": row.get("cwd"),
-                "exit_code": row.get("exit_code"),
-            })
-            if row.get("stdout_preview"):
-                failed_row["stdout_preview"] = row["stdout_preview"]
-            if row.get("stderr_preview"):
-                failed_row["stderr_preview"] = row["stderr_preview"]
-        elif row.get("type") == "file_edit":
-            failed_row.update({
-                "path": row.get("path"),
-                "kind": row.get("kind"),
-                "added_lines": _numeric_value(row.get("added_lines")),
-                "removed_lines": _numeric_value(row.get("removed_lines")),
-                "net_line_delta": _net_line_delta(row),
-            })
-            if row.get("summary"):
-                failed_row["summary"] = row["summary"]
-            if row.get("error_message"):
-                failed_row["error_message"] = row["error_message"]
-        if row.get("artifacts"):
-            failed_row["artifacts"] = row["artifacts"]
-        failed.append(failed_row)
+        failed.append(_activity_identity_row(row))
     return failed
+
+
+def _slowest_activity_row(rows):
+    slowest = None
+    for row in rows:
+        if slowest is None or _numeric_value(row.get("duration_ms")) > _numeric_value(slowest.get("duration_ms")):
+            slowest = row
+    return _activity_identity_row(slowest) if slowest is not None else None
 
 
 def build_activity_timeline_summary(rows):
@@ -293,6 +305,7 @@ def build_activity_timeline_summary(rows):
         "time_window": _time_window(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "slowest_activity": _slowest_activity_row(normalized_rows),
         "failed_count": failed_count,
         "first_failed_activity": failed_activity[0] if failed_activity else None,
         "failed_activity": failed_activity,

@@ -19,7 +19,7 @@
 - command_duration_sources: explicit=1
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
 - slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
-- activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=1, succeeded=1, duration_sources=explicit=2, total_duration_ms=3325, average_duration_ms=1662.5, failed_count=1, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:05.125Z
+- activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=1, succeeded=1, duration_sources=explicit=2, total_duration_ms=3325, average_duration_ms=1662.5, slowest_activity=evt_cmd_1: `pytest tests/test_auth.py -q` (type=command, 3200ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, exit_code=1, cwd=/workspace/app), failed_count=1, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:05.125Z
 - first_failed_activity: evt_cmd_1: `pytest tests/test_auth.py -q` (type=command, 3200ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, exit_code=1, cwd=/workspace/app)
 - failed_activity: evt_cmd_1: `pytest tests/test_auth.py -q` (type=command, 3200ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, exit_code=1, cwd=/workspace/app)
 - files_changed_count: 1

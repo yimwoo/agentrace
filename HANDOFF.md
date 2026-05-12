@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now identify the slowest command/edit activity in the mixed timeline, giving reviewers a top-level pointer to the longest activity before they scan chronological rows.
+
+## What was done
+- created AgentSpec task `T-042` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.slowest_activity` using the longest command/edit timeline row
+- reused the same compact command/edit identity shape as failed activity rows, including timing, command output, edit impact, error, and artifact context
+- rendered `slowest_activity` inside the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for slowest-activity visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline summaries now identify the first failed command/edit activity separately from the full failed-activity list, making the earliest actionable failure visible at the top of JSON and Markdown reports.
 
 ## What was done
