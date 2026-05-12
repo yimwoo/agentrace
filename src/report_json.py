@@ -288,6 +288,14 @@ def _slowest_activity_row(rows):
     return _activity_identity_row(slowest) if slowest is not None else None
 
 
+def _fastest_activity_row(rows):
+    fastest = None
+    for row in rows:
+        if fastest is None or _numeric_value(row.get("duration_ms")) < _numeric_value(fastest.get("duration_ms")):
+            fastest = row
+    return _activity_identity_row(fastest) if fastest is not None else None
+
+
 def _last_activity_row(rows):
     if not rows:
         return None
@@ -319,6 +327,7 @@ def build_activity_timeline_summary(rows):
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "first_activity": _first_activity_row(normalized_rows),
         "slowest_activity": _slowest_activity_row(normalized_rows),
+        "fastest_activity": _fastest_activity_row(normalized_rows),
         "last_activity": _last_activity_row(normalized_rows),
         "failed_count": failed_count,
         "first_failed_activity": failed_activity[0] if failed_activity else None,

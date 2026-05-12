@@ -391,6 +391,12 @@ def _format_slowest_activity(slowest_activity):
     return _format_failed_activity([slowest_activity])
 
 
+def _format_fastest_activity(fastest_activity):
+    if not fastest_activity:
+        return "none"
+    return _format_failed_activity([fastest_activity])
+
+
 def _format_last_activity(last_activity):
     if not last_activity:
         return "none"
@@ -409,6 +415,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"average_duration_ms={timeline_totals.get('average_duration_ms', 0)}",
         f"first_activity={_format_first_activity(timeline_totals.get('first_activity'))}",
         f"slowest_activity={_format_slowest_activity(timeline_totals.get('slowest_activity'))}",
+        f"fastest_activity={_format_fastest_activity(timeline_totals.get('fastest_activity'))}",
         f"last_activity={_format_last_activity(timeline_totals.get('last_activity'))}",
         f"failed_count={timeline_totals.get('failed_count', 0)}",
     ]

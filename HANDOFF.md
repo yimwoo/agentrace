@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now identify the fastest command/edit activity in the mixed timeline, giving reviewers the shortest activity highlight alongside first, slowest, last, and failure highlights.
+
+## What was done
+- created AgentSpec task `T-045` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.fastest_activity` using the shortest-duration command/edit timeline row
+- reused the compact command/edit identity shape, including timing, command output, edit impact, error, and artifact context
+- rendered `fastest_activity` inside the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for fastest-activity visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline summaries now identify the first command/edit activity in the mixed timeline, giving reviewers an explicit starting point alongside the existing slowest, last, and failure highlights.
 
 ## What was done

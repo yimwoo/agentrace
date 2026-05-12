@@ -1,21 +1,21 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-12T13:02:41Z",
+  "updated_at": "2026-05-12T18:04:50Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-044",
-    "context_pack": "agent/context-packs/T-044-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-044: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-044-add-command-timing-and-edit-summaries-to-reports-20260512130241",
-    "reason": "Implemented first activity highlight for activity timeline summaries and verified with CI.",
-    "updated_at": "2026-05-12T13:02:41Z",
+    "id": "T-045",
+    "context_pack": "agent/context-packs/T-045-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-045: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-045-add-command-timing-and-edit-summaries-to-reports-20260512180450",
+    "reason": "Marked complete by user.",
+    "updated_at": "2026-05-12T18:04:50Z",
     "verification": {
       "status": "passed"
     }
   },
   "current_state": {
     "overall": "attention_needed",
-    "recommendation": "Inspect attention-needed run with `aspec run inspect t-044-add-command-timing-and-edit-summaries-to-reports-20260512130046`.",
+    "recommendation": "Inspect attention-needed run with `aspec run inspect t-024-add-trace-report-command-line-renderer-20260505165855`.",
     "readiness": {
       "score": 82,
       "mode": "normal-implementation",
@@ -34,21 +34,21 @@
       }
     },
     "tasks": {
-      "total": 44,
+      "total": 45,
       "by_status": {
-        "complete": 42,
+        "complete": 43,
         "halted": 2
       },
       "by_type": {
-        "implementation": 41,
+        "implementation": 42,
         "scaffold": 3
       }
     }
   },
   "next_action": {
     "kind": "inspect_attention_run",
-    "run_id": "t-044-add-command-timing-and-edit-summaries-to-reports-20260512130046",
-    "command": "aspec run inspect t-044-add-command-timing-and-edit-summaries-to-reports-20260512130046"
+    "run_id": "t-024-add-trace-report-command-line-renderer-20260505165855",
+    "command": "aspec run inspect t-024-add-trace-report-command-line-renderer-20260505165855"
   },
   "commands": {
     "status": "aspec status --json",
