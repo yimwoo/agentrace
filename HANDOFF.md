@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report totals now identify the fastest command and shortest edit alongside existing slowest-command and largest-edit highlights, so reviewers can compare command/edit duration extremes from JSON and Markdown summaries before scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-047` for a report observability follow-up slice
+- added JSON `command_timing_summary.fastest` using the shortest command timing row
+- added JSON `edit_summary_totals.shortest_edit` using the shortest edit summary row while preserving timing and artifact context
+- rendered `fastest_command` and `shortest_edit` in Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for fastest/shortest aggregate visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` JSON and Markdown report totals now include median duration metrics for command timing, edit summaries, and the combined command/edit activity timeline, giving reviewers a more outlier-resistant timing signal alongside existing total and average duration fields.
 
 ## What was done

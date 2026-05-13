@@ -600,6 +600,16 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "started_at": "2026-04-25T00:00:00Z",
             "ended_at": "2026-04-25T00:00:02Z",
         },
+        "fastest": {
+            "event": "evt_cmd_fast",
+            "command": "ruff check",
+            "duration_ms": 125,
+            "duration_source": "explicit",
+            "status": "succeeded",
+            "exit_code": 0,
+            "started_at": "2026-04-25T00:00:03Z",
+            "ended_at": None,
+        },
     }
     assert payload["edit_summary_totals"] == {
         "count": 2,
@@ -676,6 +686,19 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "started_at": "2026-04-25T00:00:04Z",
             "ended_at": None,
         },
+        "shortest_edit": {
+            "event": "evt_edit_two",
+            "path": "src/report_markdown.py",
+            "kind": "modify",
+            "added_lines": 3,
+            "removed_lines": 1,
+            "net_line_delta": 2,
+            "duration_ms": 8,
+            "duration_source": "explicit",
+            "status": "succeeded",
+            "started_at": "2026-04-25T00:00:05Z",
+            "ended_at": None,
+        },
     }
 
     text = build_markdown_summary(trace)
@@ -695,6 +718,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
+    assert "fastest_command: evt_cmd_fast: `ruff check` (125ms, status=succeeded, exit_code=0, duration_source=explicit, started_at=2026-04-25T00:00:03Z)" in text
     assert "files_changed_count: 2" in text
     assert "files_changed: src/report_json.py, src/report_markdown.py" in text
     assert "file_change_totals: src/report_json.py (count=1, failed_count=0, +8/-2, net=6, total_duration_ms=12, average_duration_ms=12.0, statuses=succeeded=1, kinds=modify=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:04Z); src/report_markdown.py (count=1, failed_count=0, +3/-1, net=2, total_duration_ms=8, average_duration_ms=8.0, statuses=succeeded=1, kinds=modify=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:05Z)" in text
@@ -711,6 +735,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_average_duration_ms: 10.0" in text
     assert "edit_median_duration_ms: 10.0" in text
     assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
+    assert "shortest_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
 
 
 def test_report_aggregate_time_windows_use_full_row_ranges():

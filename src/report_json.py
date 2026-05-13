@@ -496,7 +496,7 @@ def _failed_command_rows(rows):
     return failed
 
 
-def _slowest_command_row(row):
+def _command_identity_row(row):
     if row is None:
         return None
     summary = {
@@ -512,6 +512,18 @@ def _slowest_command_row(row):
     if row.get("artifacts"):
         summary["artifacts"] = row["artifacts"]
     return summary
+
+
+def _slowest_command_row(row):
+    return _command_identity_row(row)
+
+
+def _fastest_command_row(rows):
+    fastest = None
+    for row in rows:
+        if fastest is None or _numeric_value(row.get("duration_ms")) < _numeric_value(fastest.get("duration_ms")):
+            fastest = row
+    return _command_identity_row(fastest)
 
 
 def build_command_timing_summary(rows):
@@ -543,6 +555,7 @@ def build_command_timing_summary(rows):
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),
         "slowest": _slowest_command_row(slowest),
+        "fastest": _fastest_command_row(normalized_rows),
     }
 
 
@@ -557,6 +570,14 @@ def _largest_edit_row(rows):
         if row_churn > largest_churn:
             largest = row
     return largest
+
+
+def _shortest_edit_row(rows):
+    shortest = None
+    for row in rows:
+        if shortest is None or _numeric_value(row.get("duration_ms")) < _numeric_value(shortest.get("duration_ms")):
+            shortest = row
+    return shortest
 
 
 def _largest_edit_summary_row(row):
@@ -739,6 +760,7 @@ def build_edit_summary_totals(rows):
     total_removed_lines = sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows)
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     largest_edit = _largest_edit_row(normalized_rows)
+    shortest_edit = _shortest_edit_row(normalized_rows)
     return {
         "count": len(normalized_rows),
         "files_changed": files,
@@ -758,6 +780,7 @@ def build_edit_summary_totals(rows):
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "largest_edit": _largest_edit_summary_row(largest_edit),
+        "shortest_edit": _largest_edit_summary_row(shortest_edit),
     }
 
 

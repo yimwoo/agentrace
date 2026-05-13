@@ -35,25 +35,33 @@ def _format_duration_source(row):
     return f", duration_source={source}"
 
 
-def _format_slowest_command(slowest):
-    if not slowest:
+def _format_command_highlight(row):
+    if not row:
         return "none"
-    event = slowest.get("event") or "summary"
-    command = slowest.get("command") or "<unknown command>"
-    duration = slowest.get("duration_ms", 0)
-    status = slowest.get("status") or "unknown"
-    exit_code = "unknown" if slowest.get("exit_code") is None else slowest.get("exit_code")
-    duration_source = _format_duration_source(slowest).removeprefix(", ")
-    timing = _format_time_window(slowest).removeprefix(", ")
+    event = row.get("event") or "summary"
+    command = row.get("command") or "<unknown command>"
+    duration = row.get("duration_ms", 0)
+    status = row.get("status") or "unknown"
+    exit_code = "unknown" if row.get("exit_code") is None else row.get("exit_code")
+    duration_source = _format_duration_source(row).removeprefix(", ")
+    timing = _format_time_window(row).removeprefix(", ")
     details = [f"{duration}ms", f"status={status}", f"exit_code={exit_code}"]
     if duration_source:
         details.append(duration_source)
     if timing:
         details.append(timing)
-    artifact_details = _format_artifact_details(slowest)
+    artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
     return f"{event}: `{command}` ({', '.join(details)})"
+
+
+def _format_slowest_command(slowest):
+    return _format_command_highlight(slowest)
+
+
+def _format_fastest_command(fastest):
+    return _format_command_highlight(fastest)
 
 
 def _format_changed_files(files):
@@ -262,27 +270,35 @@ def _format_aggregate_time_window(time_window):
     return ", ".join(parts) if parts else "none"
 
 
-def _format_largest_edit(largest_edit):
-    if not largest_edit:
+def _format_edit_highlight(row):
+    if not row:
         return "none"
-    event = largest_edit.get("event") or "summary"
-    path = largest_edit.get("path") or "<unknown file>"
-    added = largest_edit.get("added_lines", 0)
-    removed = largest_edit.get("removed_lines", 0)
-    net = largest_edit.get("net_line_delta", 0)
-    duration = largest_edit.get("duration_ms", 0)
-    status = largest_edit.get("status") or "unknown"
-    duration_source = _format_duration_source(largest_edit).removeprefix(", ")
-    timing = _format_time_window(largest_edit).removeprefix(", ")
+    event = row.get("event") or "summary"
+    path = row.get("path") or "<unknown file>"
+    added = row.get("added_lines", 0)
+    removed = row.get("removed_lines", 0)
+    net = row.get("net_line_delta", 0)
+    duration = row.get("duration_ms", 0)
+    status = row.get("status") or "unknown"
+    duration_source = _format_duration_source(row).removeprefix(", ")
+    timing = _format_time_window(row).removeprefix(", ")
     details = [f"+{added}/-{removed}", f"net={net}", f"duration_ms={duration}", f"status={status}"]
     if duration_source:
         details.append(duration_source)
     if timing:
         details.append(timing)
-    artifact_details = _format_artifact_details(largest_edit)
+    artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
     return f"{event}: {path} ({', '.join(details)})"
+
+
+def _format_largest_edit(largest_edit):
+    return _format_edit_highlight(largest_edit)
+
+
+def _format_shortest_edit(shortest_edit):
+    return _format_edit_highlight(shortest_edit)
 
 
 def _format_command_timing(rows):
@@ -488,6 +504,7 @@ def build_markdown_summary(trace):
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
+        f"- fastest_command: {_format_fastest_command(command_totals['fastest'])}",
         f"- activity_timeline_summary: {_format_activity_timeline_summary(timeline_totals)}",
         f"- first_failed_activity: {_format_first_failed_activity(timeline_totals.get('first_failed_activity'))}",
         f"- failed_activity: {_format_failed_activity(timeline_totals.get('failed_activity'))}",
@@ -507,6 +524,7 @@ def build_markdown_summary(trace):
         f"- edit_average_duration_ms: {edit_totals['average_duration_ms']}",
         f"- edit_median_duration_ms: {edit_totals['median_duration_ms']}",
         f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
+        f"- shortest_edit: {_format_shortest_edit(edit_totals['shortest_edit'])}",
         "",
     ]
     lines.extend(_format_command_timing(payload["command_timing"]))
