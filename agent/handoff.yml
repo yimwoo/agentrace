@@ -1,21 +1,28 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-13T04:03:44Z",
+  "updated_at": "2026-05-13T08:04:32Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-047",
-    "context_pack": "agent/context-packs/T-047-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-047: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-047-add-command-timing-and-edit-summaries-to-reports-20260513040344",
-    "reason": "Marked complete by user.",
-    "updated_at": "2026-05-13T04:03:44Z",
+    "id": "T-048",
+    "context_pack": "agent/context-packs/T-048-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-048: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-048-add-command-timing-and-edit-summaries-to-reports-20260513080432932791",
+    "reason": "T-048 implemented and reviewed; verification passed.",
+    "updated_at": "2026-05-13T08:04:32Z",
     "verification": {
       "status": "passed"
+    },
+    "code_review": {
+      "id": "REVIEW-0023",
+      "verdict": "ready",
+      "reviewer": "cron-agent",
+      "range": "worktree",
+      "path": "agent/reviews/REVIEW-0023.yml"
     }
   },
   "current_state": {
     "overall": "attention_needed",
-    "recommendation": "Inspect attention-needed run with `aspec run inspect t-024-add-trace-report-command-line-renderer-20260505165855`.",
+    "recommendation": "Resolve lifecycle warning: Completed task lacks linked code review evidence..",
     "readiness": {
       "score": 82,
       "mode": "normal-implementation",
@@ -34,21 +41,20 @@
       }
     },
     "tasks": {
-      "total": 47,
+      "total": 48,
       "by_status": {
-        "complete": 45,
+        "complete": 46,
         "halted": 2
       },
       "by_type": {
-        "implementation": 44,
+        "implementation": 45,
         "scaffold": 3
       }
     }
   },
   "next_action": {
-    "kind": "inspect_attention_run",
-    "run_id": "t-024-add-trace-report-command-line-renderer-20260505165855",
-    "command": "aspec run inspect t-024-add-trace-report-command-line-renderer-20260505165855"
+    "kind": "idle",
+    "command": "aspec status --json"
   },
   "commands": {
     "status": "aspec status --json",
@@ -57,6 +63,7 @@
   },
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
-    "handoff": "agent/handoff.yml"
+    "handoff": "agent/handoff.yml",
+    "last_code_review": "agent/reviews/REVIEW-0023.yml"
   }
 }

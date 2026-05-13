@@ -1,0 +1,68 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-048-add-command-timing-and-edit-summaries-to-reports-20260513080432932791",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-048-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-048: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-13T08:04:32Z",
+  "updated_at": "2026-05-13T08:04:32Z",
+  "last_decision": "complete",
+  "completion_reason": "T-048 implemented and reviewed; verification passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0023",
+    "verdict": "ready",
+    "summary": "Reviewed T-048 exit-code distribution reporting changes. Implementation is additive, covered by report regression tests and full ci_check; ready.",
+    "reviewer": "cron-agent",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0023.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

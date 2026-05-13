@@ -599,6 +599,23 @@
         "status": "passed"
       },
       "updated_at": "2026-05-13T04:03:44Z"
+    },
+    "agent/context-packs/T-048-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-048-add-command-timing-and-edit-summaries-to-reports-20260513080432932791",
+      "reason": "T-048 implemented and reviewed; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0023",
+        "verdict": "ready",
+        "summary": "Reviewed T-048 exit-code distribution reporting changes. Implementation is additive, covered by report regression tests and full ci_check; ready.",
+        "reviewer": "cron-agent",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0023.yml"
+      },
+      "updated_at": "2026-05-13T08:04:32Z"
     }
   }
 }

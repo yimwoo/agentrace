@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-048-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-048-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-048 exit-code distribution reporting changes. Implementation is additive, covered by report regression tests and full ci_check; ready.",
+  "reviewer": "cron-agent",
+  "range": "worktree",
+  "created_at": "2026-05-13T08:03:56Z",
+  "id": "REVIEW-0023"
+}

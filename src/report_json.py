@@ -370,6 +370,15 @@ def _value_counts(rows, field, missing_label=None):
     return counts
 
 
+def _exit_code_counts(rows):
+    counts = {}
+    for row in rows:
+        exit_code = row.get("exit_code")
+        label = "unknown" if exit_code is None else str(exit_code)
+        counts[label] = counts.get(label, 0) + 1
+    return counts
+
+
 def _repeated_value_counts(rows, field):
     return {value: count for value, count in _value_counts(rows, field).items() if count > 1}
 
@@ -551,6 +560,7 @@ def build_command_timing_summary(rows):
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
         "failed_commands": _failed_command_rows(normalized_rows),
+        "exit_code_counts": _exit_code_counts(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),

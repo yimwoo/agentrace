@@ -16,6 +16,7 @@
 - command_median_duration_ms: 3200
 - command_failed_count: 1
 - failed_commands: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
+- command_exit_code_counts: 1=1
 - command_status_counts: failed=1
 - command_duration_sources: explicit=1
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z

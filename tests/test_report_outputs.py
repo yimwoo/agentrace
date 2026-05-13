@@ -587,6 +587,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "started_at": "2026-04-25T00:00:00Z",
             "ended_at": "2026-04-25T00:00:02Z",
         }],
+        "exit_code_counts": {"1": 1, "0": 1},
         "status_counts": {"failed": 1, "succeeded": 1},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
@@ -714,6 +715,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_median_duration_ms: 1062.5" in text
     assert "command_failed_count: 1" in text
     assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
+    assert "command_exit_code_counts: 0=1, 1=1" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text

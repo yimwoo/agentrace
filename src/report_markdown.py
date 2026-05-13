@@ -500,6 +500,7 @@ def build_markdown_summary(trace):
         f"- command_median_duration_ms: {command_totals['median_duration_ms']}",
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
+        f"- command_exit_code_counts: {_format_status_counts(command_totals['exit_code_counts'])}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",

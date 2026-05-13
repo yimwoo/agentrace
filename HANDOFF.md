@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` command timing report totals now include command exit-code distributions in JSON and Markdown, so reviewers can see success/failure exit-code patterns before scanning individual command rows.
+
+## What was done
+- created AgentSpec task `T-048` for a report observability follow-up slice
+- added JSON `command_timing_summary.exit_code_counts` with `unknown` for missing exit-code context
+- rendered `command_exit_code_counts` near the top of Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for exit-code distribution visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report totals now identify the fastest command and shortest edit alongside existing slowest-command and largest-edit highlights, so reviewers can compare command/edit duration extremes from JSON and Markdown summaries before scanning detail rows.
 
 ## What was done
