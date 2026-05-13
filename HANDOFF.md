@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include idle-gap metrics between adjacent command/edit activities, exposing total idle time and the largest gap in JSON and Markdown reports so reviewers can spot pauses in the run sequence.
+
+## What was done
+- created AgentSpec task `T-050` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.inter_activity_gaps`, `total_idle_gap_ms`, and `largest_idle_gap` derived from adjacent chronological command/edit rows
+- rendered total idle gap and largest idle gap in Markdown activity timeline totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for activity idle-gap visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` aggregate report totals now identify first and last command/edit rows alongside existing slowest/fastest command and largest/shortest edit highlights, so reviewers can see sequence boundaries for each report section before scanning detail rows.
 
 ## What was done

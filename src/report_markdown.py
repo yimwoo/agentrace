@@ -419,6 +419,21 @@ def _format_last_activity(last_activity):
     return _format_failed_activity([last_activity])
 
 
+def _format_activity_gap(gap):
+    if not gap:
+        return "none"
+    details = [
+        f"from_event={gap.get('from_event') or 'unknown'}",
+        f"to_event={gap.get('to_event') or 'unknown'}",
+        f"gap_ms={gap.get('gap_ms', 0)}",
+    ]
+    if gap.get("from_ended_at"):
+        details.append(f"from_ended_at={gap['from_ended_at']}")
+    if gap.get("to_started_at"):
+        details.append(f"to_started_at={gap['to_started_at']}")
+    return "(" + ", ".join(details) + ")"
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -434,6 +449,8 @@ def _format_activity_timeline_summary(timeline_totals):
         f"slowest_activity={_format_slowest_activity(timeline_totals.get('slowest_activity'))}",
         f"fastest_activity={_format_fastest_activity(timeline_totals.get('fastest_activity'))}",
         f"last_activity={_format_last_activity(timeline_totals.get('last_activity'))}",
+        f"total_idle_gap_ms={timeline_totals.get('total_idle_gap_ms', 0)}",
+        f"largest_idle_gap={_format_activity_gap(timeline_totals.get('largest_idle_gap'))}",
         f"failed_count={timeline_totals.get('failed_count', 0)}",
     ]
     time_window = _format_aggregate_time_window(timeline_totals.get("time_window"))

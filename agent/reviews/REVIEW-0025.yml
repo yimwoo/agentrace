@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "T-050",
+    "context_pack": "agent/context-packs/T-050-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-050 worktree changes: activity timeline idle-gap metrics are covered by JSON and Markdown regression assertions, fixture updates, and schema/project docs. Verification passed with tests/test_report_outputs.py and scripts/ci_check.sh.",
+  "reviewer": "cron-agent",
+  "range": "worktree",
+  "created_at": "2026-05-13T18:02:52Z",
+  "id": "REVIEW-0025"
+}

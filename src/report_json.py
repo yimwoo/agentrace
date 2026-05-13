@@ -312,6 +312,32 @@ def _last_activity_row(rows):
     return _activity_identity_row(rows[-1])
 
 
+def _duration_between_ms(start_value, end_value):
+    start = _normalized_timestamp(start_value)
+    end = _normalized_timestamp(end_value)
+    if start is None or end is None:
+        return None
+    return max(0, round((end - start).total_seconds() * 1000))
+
+
+def _activity_gap_rows(rows):
+    gaps = []
+    for previous, current in zip(rows, rows[1:]):
+        previous_boundary = previous.get("ended_at") or previous.get("started_at")
+        current_boundary = current.get("started_at") or current.get("ended_at")
+        gap_ms = _duration_between_ms(previous_boundary, current_boundary)
+        if gap_ms is None:
+            continue
+        gaps.append({
+            "from_event": previous.get("event"),
+            "to_event": current.get("event"),
+            "gap_ms": gap_ms,
+            "from_ended_at": previous.get("ended_at"),
+            "to_started_at": current.get("started_at"),
+        })
+    return gaps
+
+
 def build_activity_timeline_summary(rows):
     """Build aggregate metrics for the combined command/edit activity timeline."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -327,6 +353,11 @@ def build_activity_timeline_summary(rows):
             failed_count += 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     failed_activity = _failed_activity_rows(normalized_rows)
+    inter_activity_gaps = _activity_gap_rows(normalized_rows)
+    largest_idle_gap = None
+    for gap in inter_activity_gaps:
+        if largest_idle_gap is None or gap.get("gap_ms", 0) > largest_idle_gap.get("gap_ms", 0):
+            largest_idle_gap = gap
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -340,6 +371,9 @@ def build_activity_timeline_summary(rows):
         "slowest_activity": _slowest_activity_row(normalized_rows),
         "fastest_activity": _fastest_activity_row(normalized_rows),
         "last_activity": _last_activity_row(normalized_rows),
+        "inter_activity_gaps": inter_activity_gaps,
+        "total_idle_gap_ms": sum(gap.get("gap_ms", 0) for gap in inter_activity_gaps),
+        "largest_idle_gap": largest_idle_gap,
         "failed_count": failed_count,
         "first_failed_activity": failed_activity[0] if failed_activity else None,
         "failed_activity": failed_activity,
