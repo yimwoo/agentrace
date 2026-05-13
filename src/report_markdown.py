@@ -434,6 +434,21 @@ def _format_activity_gap(gap):
     return "(" + ", ".join(details) + ")"
 
 
+def _format_activity_overlap(overlap):
+    if not overlap:
+        return "none"
+    details = [
+        f"from_event={overlap.get('from_event') or 'unknown'}",
+        f"to_event={overlap.get('to_event') or 'unknown'}",
+        f"overlap_ms={overlap.get('overlap_ms', 0)}",
+    ]
+    if overlap.get("from_ended_at"):
+        details.append(f"from_ended_at={overlap['from_ended_at']}")
+    if overlap.get("to_started_at"):
+        details.append(f"to_started_at={overlap['to_started_at']}")
+    return "(" + ", ".join(details) + ")"
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -451,6 +466,8 @@ def _format_activity_timeline_summary(timeline_totals):
         f"last_activity={_format_last_activity(timeline_totals.get('last_activity'))}",
         f"total_idle_gap_ms={timeline_totals.get('total_idle_gap_ms', 0)}",
         f"largest_idle_gap={_format_activity_gap(timeline_totals.get('largest_idle_gap'))}",
+        f"total_overlap_ms={timeline_totals.get('total_overlap_ms', 0)}",
+        f"largest_overlap={_format_activity_overlap(timeline_totals.get('largest_overlap'))}",
         f"failed_count={timeline_totals.get('failed_count', 0)}",
     ]
     time_window = _format_aggregate_time_window(timeline_totals.get("time_window"))

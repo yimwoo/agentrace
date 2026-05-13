@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include overlap metrics between adjacent command/edit activities, exposing total overlap time and the largest overlap in JSON and Markdown reports so reviewers can spot concurrent or interleaved work in the run sequence.
+
+## What was done
+- created AgentSpec task `T-051` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.inter_activity_overlaps`, `total_overlap_ms`, and `largest_overlap` derived from adjacent chronological command/edit rows whose timestamp windows overlap
+- rendered total overlap and largest overlap in Markdown activity timeline totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for activity overlap visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 29 passed, 1 warning
+- `bash scripts/ci_check.sh` — 36 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include idle-gap metrics between adjacent command/edit activities, exposing total idle time and the largest gap in JSON and Markdown reports so reviewers can spot pauses in the run sequence.
 
 ## What was done

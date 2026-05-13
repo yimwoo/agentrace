@@ -338,6 +338,25 @@ def _activity_gap_rows(rows):
     return gaps
 
 
+def _activity_overlap_rows(rows):
+    overlaps = []
+    for previous, current in zip(rows, rows[1:]):
+        previous_end = previous.get("ended_at")
+        current_start = current.get("started_at")
+        previous_end_at = _normalized_timestamp(previous_end)
+        current_start_at = _normalized_timestamp(current_start)
+        if previous_end_at is None or current_start_at is None or current_start_at >= previous_end_at:
+            continue
+        overlaps.append({
+            "from_event": previous.get("event"),
+            "to_event": current.get("event"),
+            "overlap_ms": round((previous_end_at - current_start_at).total_seconds() * 1000),
+            "from_ended_at": previous_end,
+            "to_started_at": current_start,
+        })
+    return overlaps
+
+
 def build_activity_timeline_summary(rows):
     """Build aggregate metrics for the combined command/edit activity timeline."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -358,6 +377,11 @@ def build_activity_timeline_summary(rows):
     for gap in inter_activity_gaps:
         if largest_idle_gap is None or gap.get("gap_ms", 0) > largest_idle_gap.get("gap_ms", 0):
             largest_idle_gap = gap
+    inter_activity_overlaps = _activity_overlap_rows(normalized_rows)
+    largest_overlap = None
+    for overlap in inter_activity_overlaps:
+        if largest_overlap is None or overlap.get("overlap_ms", 0) > largest_overlap.get("overlap_ms", 0):
+            largest_overlap = overlap
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -374,6 +398,9 @@ def build_activity_timeline_summary(rows):
         "inter_activity_gaps": inter_activity_gaps,
         "total_idle_gap_ms": sum(gap.get("gap_ms", 0) for gap in inter_activity_gaps),
         "largest_idle_gap": largest_idle_gap,
+        "inter_activity_overlaps": inter_activity_overlaps,
+        "total_overlap_ms": sum(overlap.get("overlap_ms", 0) for overlap in inter_activity_overlaps),
+        "largest_overlap": largest_overlap,
         "failed_count": failed_count,
         "first_failed_activity": failed_activity[0] if failed_activity else None,
         "failed_activity": failed_activity,
