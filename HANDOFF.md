@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` aggregate report totals now identify first and last command/edit rows alongside existing slowest/fastest command and largest/shortest edit highlights, so reviewers can see sequence boundaries for each report section before scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-049` for a report observability follow-up slice
+- added JSON `command_timing_summary.first` and `command_timing_summary.last` using command timing source order while preserving timing, status, exit-code, and artifact context
+- added JSON `edit_summary_totals.first_edit` and `edit_summary_totals.last_edit` using edit summary source order while preserving line impact, timing, status, and artifact context
+- rendered `first_command`, `last_command`, `first_edit`, and `last_edit` near existing aggregate highlights in Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for command/edit boundary highlight visibility
+
+## Verification
+- `python3 -m pytest tests/test_report_outputs.py -q` — 28 passed, 1 warning
+- `bash scripts/ci_check.sh` — 35 passed, 1 warning
+
+## Previous status
 `agentrace` command timing report totals now include command exit-code distributions in JSON and Markdown, so reviewers can see success/failure exit-code patterns before scanning individual command rows.
 
 ## What was done

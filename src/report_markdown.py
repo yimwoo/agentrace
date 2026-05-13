@@ -504,8 +504,10 @@ def build_markdown_summary(trace):
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
+        f"- first_command: {_format_command_highlight(command_totals['first'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
         f"- fastest_command: {_format_fastest_command(command_totals['fastest'])}",
+        f"- last_command: {_format_command_highlight(command_totals['last'])}",
         f"- activity_timeline_summary: {_format_activity_timeline_summary(timeline_totals)}",
         f"- first_failed_activity: {_format_first_failed_activity(timeline_totals.get('first_failed_activity'))}",
         f"- failed_activity: {_format_failed_activity(timeline_totals.get('failed_activity'))}",
@@ -524,8 +526,10 @@ def build_markdown_summary(trace):
         f"- edit_total_duration_ms: {edit_totals['total_duration_ms']}",
         f"- edit_average_duration_ms: {edit_totals['average_duration_ms']}",
         f"- edit_median_duration_ms: {edit_totals['median_duration_ms']}",
+        f"- first_edit: {_format_edit_highlight(edit_totals['first_edit'])}",
         f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
         f"- shortest_edit: {_format_shortest_edit(edit_totals['shortest_edit'])}",
+        f"- last_edit: {_format_edit_highlight(edit_totals['last_edit'])}",
         "",
     ]
     lines.extend(_format_command_timing(payload["command_timing"]))

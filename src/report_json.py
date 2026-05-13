@@ -527,12 +527,20 @@ def _slowest_command_row(row):
     return _command_identity_row(row)
 
 
+def _first_command_row(rows):
+    return _command_identity_row(rows[0]) if rows else None
+
+
 def _fastest_command_row(rows):
     fastest = None
     for row in rows:
         if fastest is None or _numeric_value(row.get("duration_ms")) < _numeric_value(fastest.get("duration_ms")):
             fastest = row
     return _command_identity_row(fastest)
+
+
+def _last_command_row(rows):
+    return _command_identity_row(rows[-1]) if rows else None
 
 
 def build_command_timing_summary(rows):
@@ -564,8 +572,10 @@ def build_command_timing_summary(rows):
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": _time_window(normalized_rows),
+        "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
         "fastest": _fastest_command_row(normalized_rows),
+        "last": _last_command_row(normalized_rows),
     }
 
 
@@ -588,6 +598,14 @@ def _shortest_edit_row(rows):
         if shortest is None or _numeric_value(row.get("duration_ms")) < _numeric_value(shortest.get("duration_ms")):
             shortest = row
     return shortest
+
+
+def _first_edit_row(rows):
+    return rows[0] if rows else None
+
+
+def _last_edit_row(rows):
+    return rows[-1] if rows else None
 
 
 def _largest_edit_summary_row(row):
@@ -789,8 +807,10 @@ def build_edit_summary_totals(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
+        "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),
         "largest_edit": _largest_edit_summary_row(largest_edit),
         "shortest_edit": _largest_edit_summary_row(shortest_edit),
+        "last_edit": _largest_edit_summary_row(_last_edit_row(normalized_rows)),
     }
 
 

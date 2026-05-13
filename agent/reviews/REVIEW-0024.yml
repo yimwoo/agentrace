@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-049-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-049-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-049 changes: first/last command and edit aggregate highlights are covered by JSON/Markdown regression tests and full CI passed.",
+  "reviewer": "cron-agent",
+  "range": "worktree",
+  "created_at": "2026-05-13T13:04:27Z",
+  "id": "REVIEW-0024"
+}
