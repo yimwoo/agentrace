@@ -684,6 +684,23 @@
         "path": "agent/reviews/REVIEW-0027.yml"
       },
       "updated_at": "2026-05-14T04:03:25Z"
+    },
+    "agent/context-packs/T-053-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-053-add-command-timing-and-edit-summaries-to-reports-20260514080524685081",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0028",
+        "verdict": "ready",
+        "summary": "Activity timeline coverage metrics implementation reviewed: JSON/Markdown report updates, docs, fixture, and regression coverage are scoped to allowed paths and verification passed via pytest and ci_check.",
+        "reviewer": "cron-agent",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0028.yml"
+      },
+      "updated_at": "2026-05-14T08:05:24Z"
     }
   }
 }

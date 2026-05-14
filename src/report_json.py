@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from src.failure_summary import build_failure_summary
 from src.trace_schema import build_run_summary, summarize_trace, event_duration_ms, event_duration_source, _parse_trace_timestamp
@@ -326,6 +326,45 @@ def _time_window_span_ms(time_window):
     return _duration_between_ms(time_window.get("started_at"), time_window.get("ended_at")) or 0
 
 
+def _activity_interval(row):
+    start = _normalized_timestamp(row.get("started_at"))
+    end = _normalized_timestamp(row.get("ended_at"))
+    duration = _numeric_value(row.get("duration_ms"))
+    if start is None and end is None:
+        return None
+    if start is None and end is not None and duration:
+        start = end - timedelta(milliseconds=duration)
+    if end is None and start is not None and duration:
+        end = start + timedelta(milliseconds=duration)
+    if start is None or end is None or end < start:
+        return None
+    return start, end
+
+
+def _activity_coverage(rows):
+    intervals = []
+    for row in rows:
+        interval = _activity_interval(row)
+        if interval is not None:
+            intervals.append(interval)
+    if not intervals:
+        return {"covered_duration_ms": 0, "covered_interval_count": 0}
+
+    merged = []
+    for start, end in sorted(intervals):
+        if not merged or start > merged[-1][1]:
+            merged.append([start, end])
+            continue
+        if end > merged[-1][1]:
+            merged[-1][1] = end
+
+    covered_duration_ms = sum(round((end - start).total_seconds() * 1000) for start, end in merged)
+    return {
+        "covered_duration_ms": covered_duration_ms,
+        "covered_interval_count": len(intervals),
+    }
+
+
 def _activity_gap_rows(rows):
     gaps = []
     for previous, current in zip(rows, rows[1:]):
@@ -389,6 +428,7 @@ def build_activity_timeline_summary(rows):
         if largest_overlap is None or overlap.get("overlap_ms", 0) > largest_overlap.get("overlap_ms", 0):
             largest_overlap = overlap
     time_window = _time_window(normalized_rows)
+    coverage = _activity_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -396,6 +436,8 @@ def build_activity_timeline_summary(rows):
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,
         "span_duration_ms": _time_window_span_ms(time_window),
+        "covered_duration_ms": coverage["covered_duration_ms"],
+        "covered_interval_count": coverage["covered_interval_count"],
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),

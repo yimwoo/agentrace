@@ -1,6 +1,23 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include merged coverage metrics, exposing `covered_duration_ms` and `covered_interval_count` alongside span, idle-gap, overlap, and cumulative duration totals in JSON and Markdown reports.
+
+## What was done
+- created AgentSpec task `T-053` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.covered_duration_ms` and `covered_interval_count` derived from merge-normalized activity intervals
+- derived partial activity intervals from `started_at`/`ended_at` plus `duration_ms` when one timestamp boundary is missing
+- rendered the coverage metrics in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include `span_duration_ms`, exposing elapsed wall-clock span across the combined command/edit timeline in JSON and Markdown reports alongside cumulative activity, idle-gap, and overlap timings.
 
 ## What was done
