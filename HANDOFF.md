@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include `span_duration_ms`, exposing elapsed wall-clock span across the combined command/edit timeline in JSON and Markdown reports alongside cumulative activity, idle-gap, and overlap timings.
+
+## What was done
+- created AgentSpec task `T-052` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.span_duration_ms` derived from the aggregate activity timeline `time_window`
+- rendered `span_duration_ms` in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for activity span visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 29 passed, 1 warning
+- `bash scripts/ci_check.sh` — 36 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include overlap metrics between adjacent command/edit activities, exposing total overlap time and the largest overlap in JSON and Markdown reports so reviewers can spot concurrent or interleaved work in the run sequence.
 
 ## What was done

@@ -320,6 +320,12 @@ def _duration_between_ms(start_value, end_value):
     return max(0, round((end - start).total_seconds() * 1000))
 
 
+def _time_window_span_ms(time_window):
+    if not time_window:
+        return 0
+    return _duration_between_ms(time_window.get("started_at"), time_window.get("ended_at")) or 0
+
+
 def _activity_gap_rows(rows):
     gaps = []
     for previous, current in zip(rows, rows[1:]):
@@ -382,12 +388,14 @@ def build_activity_timeline_summary(rows):
     for overlap in inter_activity_overlaps:
         if largest_overlap is None or overlap.get("overlap_ms", 0) > largest_overlap.get("overlap_ms", 0):
             largest_overlap = overlap
+    time_window = _time_window(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
-        "time_window": _time_window(normalized_rows),
+        "time_window": time_window,
+        "span_duration_ms": _time_window_span_ms(time_window),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),

@@ -667,6 +667,23 @@
         "path": "agent/reviews/REVIEW-0026.yml"
       },
       "updated_at": "2026-05-13T23:04:11Z"
+    },
+    "agent/context-packs/T-052-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-052-add-command-timing-and-edit-summaries-to-reports-20260514040325593148",
+      "reason": "Implemented activity timeline span duration in JSON and Markdown reports; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0027",
+        "verdict": "ready",
+        "summary": "Self-review: implementation is scoped to allowed report/docs/tests/AgentSpec paths; activity_timeline_summary.span_duration_ms is derived from aggregate time_window and rendered in Markdown; regression coverage and CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0027.yml"
+      },
+      "updated_at": "2026-05-14T04:03:25Z"
     }
   }
 }
