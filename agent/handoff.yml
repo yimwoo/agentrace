@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-14T18:03:27Z",
+  "updated_at": "2026-05-14T23:05:33Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-055",
-    "context_pack": "agent/context-packs/T-055-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-055: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-055-add-command-timing-and-edit-summaries-to-reports-20260514180327110262",
-    "reason": "Marked complete by user.",
-    "updated_at": "2026-05-14T18:03:27Z",
+    "id": "T-056",
+    "context_pack": "agent/context-packs/T-056-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-056: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-056-add-command-timing-and-edit-summaries-to-reports-20260514230533887523",
+    "reason": "Implemented and reviewed idle_ratio activity timeline metric; verification passed.",
+    "updated_at": "2026-05-14T23:05:33Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0030",
+      "id": "REVIEW-0031",
       "verdict": "ready",
-      "reviewer": "codex",
-      "range": "HEAD",
-      "path": "agent/reviews/REVIEW-0030.yml"
+      "reviewer": "human",
+      "range": "worktree",
+      "path": "agent/reviews/REVIEW-0031.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 55,
+      "total": 56,
       "by_status": {
-        "complete": 53,
+        "complete": 54,
         "halted": 2
       },
       "by_type": {
-        "implementation": 52,
+        "implementation": 53,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0030.yml"
+    "last_code_review": "agent/reviews/REVIEW-0031.yml"
   }
 }

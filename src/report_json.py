@@ -432,6 +432,7 @@ def build_activity_timeline_summary(rows):
     coverage = _activity_coverage(normalized_rows)
     uncovered_duration_ms = max(0, span_duration_ms - coverage["covered_duration_ms"])
     coverage_ratio = 0 if not span_duration_ms else round(min(coverage["covered_duration_ms"], span_duration_ms) / span_duration_ms, 4)
+    idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -442,6 +443,7 @@ def build_activity_timeline_summary(rows):
         "covered_duration_ms": coverage["covered_duration_ms"],
         "uncovered_duration_ms": uncovered_duration_ms,
         "coverage_ratio": coverage_ratio,
+        "idle_ratio": idle_ratio,
         "covered_interval_count": coverage["covered_interval_count"],
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),

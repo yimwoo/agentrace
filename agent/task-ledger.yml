@@ -735,6 +735,23 @@
         "path": "agent/reviews/REVIEW-0030.yml"
       },
       "updated_at": "2026-05-14T18:03:27Z"
+    },
+    "agent/context-packs/T-056-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-056-add-command-timing-and-edit-summaries-to-reports-20260514230533887523",
+      "reason": "Implemented and reviewed idle_ratio activity timeline metric; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0031",
+        "verdict": "ready",
+        "summary": "Reviewed T-056 idle_ratio report slice after passing ci_check; changes are scoped to report summary generation, docs, fixtures, and AgentSpec artifacts.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0031.yml"
+      },
+      "updated_at": "2026-05-14T23:05:33Z"
     }
   }
 }

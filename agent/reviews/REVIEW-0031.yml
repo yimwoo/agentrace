@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-056-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-056-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-056 idle_ratio report slice after passing ci_check; changes are scoped to report summary generation, docs, fixtures, and AgentSpec artifacts.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-14T23:05:06Z",
+  "id": "REVIEW-0031"
+}
