@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include `uncovered_duration_ms`, exposing the portion of the observed command/edit timeline span that is not covered by merged timestamp/duration-backed activity intervals.
+
+## What was done
+- created AgentSpec task `T-054` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.uncovered_duration_ms` derived from `span_duration_ms - covered_duration_ms` with a zero floor
+- rendered `uncovered_duration_ms` in the Markdown activity timeline summary next to span and covered-duration metrics
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for uncovered timeline visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include merged coverage metrics, exposing `covered_duration_ms` and `covered_interval_count` alongside span, idle-gap, overlap, and cumulative duration totals in JSON and Markdown reports.
 
 ## What was done

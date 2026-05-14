@@ -459,6 +459,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
+        f"uncovered_duration_ms={timeline_totals.get('uncovered_duration_ms', 0)}",
         f"covered_interval_count={timeline_totals.get('covered_interval_count', 0)}",
         f"total_duration_ms={timeline_totals.get('total_duration_ms', 0)}",
         f"average_duration_ms={timeline_totals.get('average_duration_ms', 0)}",

@@ -701,6 +701,23 @@
         "path": "agent/reviews/REVIEW-0028.yml"
       },
       "updated_at": "2026-05-14T08:05:24Z"
+    },
+    "agent/context-packs/T-054-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-054-add-command-timing-and-edit-summaries-to-reports-20260514130224035548",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0029",
+        "verdict": "ready",
+        "summary": "Reviewed T-054 implementation: uncovered_duration_ms is derived from span minus covered duration with a zero floor, rendered in Markdown, covered by regression assertions and rich fixture updates. Verification passed via bash scripts/ci_check.sh (37 passed, 1 warning).",
+        "reviewer": "codex",
+        "range": "HEAD",
+        "path": "agent/reviews/REVIEW-0029.yml"
+      },
+      "updated_at": "2026-05-14T13:02:24Z"
     }
   }
 }

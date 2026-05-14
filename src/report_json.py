@@ -428,15 +428,18 @@ def build_activity_timeline_summary(rows):
         if largest_overlap is None or overlap.get("overlap_ms", 0) > largest_overlap.get("overlap_ms", 0):
             largest_overlap = overlap
     time_window = _time_window(normalized_rows)
+    span_duration_ms = _time_window_span_ms(time_window)
     coverage = _activity_coverage(normalized_rows)
+    uncovered_duration_ms = max(0, span_duration_ms - coverage["covered_duration_ms"])
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,
-        "span_duration_ms": _time_window_span_ms(time_window),
+        "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
+        "uncovered_duration_ms": uncovered_duration_ms,
         "covered_interval_count": coverage["covered_interval_count"],
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
