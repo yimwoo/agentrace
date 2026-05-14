@@ -1418,6 +1418,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "span_duration_ms": 20,
         "covered_duration_ms": 25,
         "uncovered_duration_ms": 0,
+        "coverage_ratio": 1.0,
         "covered_interval_count": 2,
         "total_duration_ms": 25,
         "average_duration_ms": 12.5,
@@ -1586,7 +1587,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     ]
 
     text = build_markdown_summary(trace)
-    assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, span_duration_ms=20, covered_duration_ms=25, uncovered_duration_ms=0, covered_interval_count=2, total_duration_ms=25, average_duration_ms=12.5, median_duration_ms=12.5, first_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), slowest_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), fastest_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), last_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), total_idle_gap_ms=1980, largest_idle_gap=(from_event=evt_cmd_early_log, to_event=evt_edit_late_diff, gap_ms=1980, from_ended_at=2026-04-25T00:00:01.020Z, to_started_at=2026-04-25T00:00:03Z), total_overlap_ms=0, largest_overlap=none, failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
+    assert "activity_timeline_summary: count=2, types=command=1, file_edit=1, statuses=failed=2, duration_sources=derived=1, explicit=1, span_duration_ms=20, covered_duration_ms=25, uncovered_duration_ms=0, coverage_ratio=1.0, covered_interval_count=2, total_duration_ms=25, average_duration_ms=12.5, median_duration_ms=12.5, first_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), slowest_activity=evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log), fastest_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), last_activity=evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff), total_idle_gap_ms=1980, largest_idle_gap=(from_event=evt_cmd_early_log, to_event=evt_edit_late_diff, gap_ms=1980, from_ended_at=2026-04-25T00:00:01.020Z, to_started_at=2026-04-25T00:00:03Z), total_overlap_ms=0, largest_overlap=none, failed_count=2, time_window=started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text
@@ -1649,12 +1650,14 @@ def test_activity_timeline_summary_reports_overlapping_activity():
     assert timeline_totals["span_duration_ms"] == 7000
     assert timeline_totals["covered_duration_ms"] == 6000
     assert timeline_totals["uncovered_duration_ms"] == 1000
+    assert timeline_totals["coverage_ratio"] == 0.8571
     assert timeline_totals["covered_interval_count"] == 3
 
     text = build_markdown_summary(trace)
     assert "span_duration_ms=7000" in text
     assert "covered_duration_ms=6000" in text
     assert "uncovered_duration_ms=1000" in text
+    assert "coverage_ratio=0.8571" in text
     assert "covered_interval_count=3" in text
     assert "total_overlap_ms=2000" in text
     assert "largest_overlap=(from_event=evt_cmd_long, to_event=evt_edit_overlap, overlap_ms=2000, from_ended_at=2026-04-25T00:00:05Z, to_started_at=2026-04-25T00:00:03Z)" in text
@@ -1697,11 +1700,13 @@ def test_activity_timeline_summary_derives_coverage_for_partial_windows():
     assert timeline_totals["span_duration_ms"] == 5000
     assert timeline_totals["covered_duration_ms"] == 4000
     assert timeline_totals["uncovered_duration_ms"] == 1000
+    assert timeline_totals["coverage_ratio"] == 0.8
     assert timeline_totals["covered_interval_count"] == 2
 
     text = build_markdown_summary(trace)
     assert "covered_duration_ms=4000" in text
     assert "uncovered_duration_ms=1000" in text
+    assert "coverage_ratio=0.8" in text
     assert "covered_interval_count=2" in text
 
 

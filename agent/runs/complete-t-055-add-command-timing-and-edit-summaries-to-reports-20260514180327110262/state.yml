@@ -1,0 +1,85 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-055-add-command-timing-and-edit-summaries-to-reports-20260514180327110262",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-055-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-055: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-14T18:03:27Z",
+  "updated_at": "2026-05-14T18:03:27Z",
+  "last_decision": "complete",
+  "completion_reason": "Marked complete by user.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0030",
+    "verdict": "ready",
+    "summary": "Reviewed T-055 changes: coverage_ratio is derived from merged activity coverage with a span cap, rendered in Markdown, and covered by updated report tests/fixture/docs. Verification passed via bash scripts/ci_check.sh (37 passed, 1 warning).",
+    "reviewer": "codex",
+    "range": "HEAD",
+    "path": "agent/reviews/REVIEW-0030.yml"
+  },
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-055-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-055",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-055 --owner <owner> --branch codex/t-055-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

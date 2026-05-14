@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include `coverage_ratio`, exposing the covered share of the observed command/edit timeline span alongside covered and uncovered duration totals in JSON and Markdown reports.
+
+## What was done
+- created AgentSpec task `T-055` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.coverage_ratio` derived from merged coverage divided by observed span with a cap at full coverage
+- rendered `coverage_ratio` in the Markdown activity timeline summary next to covered/uncovered timeline metrics
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for coverage-ratio visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include `uncovered_duration_ms`, exposing the portion of the observed command/edit timeline span that is not covered by merged timestamp/duration-backed activity intervals.
 
 ## What was done
