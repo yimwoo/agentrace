@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include `uncovered_intervals`, listing the exact uncovered/idle windows inside the observed command/edit timeline span in JSON and Markdown reports.
+
+## What was done
+- created AgentSpec task `T-057` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.uncovered_intervals` derived from merged timestamp/duration-backed activity intervals
+- rendered uncovered interval windows in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for uncovered-window visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include `idle_ratio`, exposing the uncovered/idle share of the observed command/edit timeline span alongside coverage metrics in JSON and Markdown reports.
 
 ## What was done

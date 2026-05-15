@@ -449,6 +449,20 @@ def _format_activity_overlap(overlap):
     return "(" + ", ".join(details) + ")"
 
 
+def _format_activity_uncovered_intervals(intervals):
+    if not intervals:
+        return "none"
+    formatted = []
+    for interval in intervals:
+        details = [
+            f"started_at={interval.get('started_at') or 'unknown'}",
+            f"ended_at={interval.get('ended_at') or 'unknown'}",
+            f"duration_ms={interval.get('duration_ms', 0)}",
+        ]
+        formatted.append("(" + ", ".join(details) + ")")
+    return "; ".join(formatted)
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -460,6 +474,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
         f"uncovered_duration_ms={timeline_totals.get('uncovered_duration_ms', 0)}",
+        f"uncovered_intervals={_format_activity_uncovered_intervals(timeline_totals.get('uncovered_intervals'))}",
         f"coverage_ratio={timeline_totals.get('coverage_ratio', 0)}",
         f"idle_ratio={timeline_totals.get('idle_ratio', 0)}",
         f"covered_interval_count={timeline_totals.get('covered_interval_count', 0)}",

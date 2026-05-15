@@ -341,14 +341,60 @@ def _activity_interval(row):
     return start, end
 
 
-def _activity_coverage(rows):
+def _timestamp_label(value):
+    if value is None:
+        return None
+    text = value.astimezone(timezone.utc).isoformat()
+    if text.endswith("+00:00"):
+        text = text[:-6] + "Z"
+    if "." in text:
+        prefix, suffix = text.split(".", 1)
+        fraction = suffix[:-1] if suffix.endswith("Z") else suffix
+        fraction = fraction.rstrip("0")
+        text = f"{prefix}.{fraction}Z" if fraction else f"{prefix}Z"
+    return text
+
+
+def _uncovered_activity_intervals(time_window, merged_intervals):
+    if not time_window or not merged_intervals:
+        return []
+    window_start = _normalized_timestamp(time_window.get("started_at"))
+    window_end = _normalized_timestamp(time_window.get("ended_at"))
+    if window_start is None or window_end is None or window_end <= window_start:
+        return []
+
+    gaps = []
+    cursor = window_start
+    for start, end in merged_intervals:
+        if end <= window_start or start >= window_end:
+            continue
+        clipped_start = max(start, window_start)
+        clipped_end = min(end, window_end)
+        if clipped_start > cursor:
+            gaps.append({
+                "started_at": _timestamp_label(cursor),
+                "ended_at": _timestamp_label(clipped_start),
+                "duration_ms": round((clipped_start - cursor).total_seconds() * 1000),
+            })
+        if clipped_end > cursor:
+            cursor = clipped_end
+    if cursor < window_end:
+        gaps.append({
+            "started_at": _timestamp_label(cursor),
+            "ended_at": _timestamp_label(window_end),
+            "duration_ms": round((window_end - cursor).total_seconds() * 1000),
+        })
+    return gaps
+
+
+def _activity_coverage(rows, time_window=None):
     intervals = []
     for row in rows:
         interval = _activity_interval(row)
         if interval is not None:
             intervals.append(interval)
     if not intervals:
-        return {"covered_duration_ms": 0, "covered_interval_count": 0}
+        return {"covered_duration_ms": 0, "covered_interval_count": 0, "uncovered_intervals": []}
 
     merged = []
     for start, end in sorted(intervals):
@@ -362,6 +408,7 @@ def _activity_coverage(rows):
     return {
         "covered_duration_ms": covered_duration_ms,
         "covered_interval_count": len(intervals),
+        "uncovered_intervals": _uncovered_activity_intervals(time_window, merged),
     }
 
 
@@ -429,7 +476,7 @@ def build_activity_timeline_summary(rows):
             largest_overlap = overlap
     time_window = _time_window(normalized_rows)
     span_duration_ms = _time_window_span_ms(time_window)
-    coverage = _activity_coverage(normalized_rows)
+    coverage = _activity_coverage(normalized_rows, time_window)
     uncovered_duration_ms = max(0, span_duration_ms - coverage["covered_duration_ms"])
     coverage_ratio = 0 if not span_duration_ms else round(min(coverage["covered_duration_ms"], span_duration_ms) / span_duration_ms, 4)
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
@@ -442,6 +489,7 @@ def build_activity_timeline_summary(rows):
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
         "uncovered_duration_ms": uncovered_duration_ms,
+        "uncovered_intervals": coverage["uncovered_intervals"],
         "coverage_ratio": coverage_ratio,
         "idle_ratio": idle_ratio,
         "covered_interval_count": coverage["covered_interval_count"],

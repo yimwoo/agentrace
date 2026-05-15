@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-057-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-057-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-057 uncovered interval reporting implementation and fixture/schema/test updates; verification passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-15T04:04:04Z",
+  "id": "REVIEW-0032"
+}
