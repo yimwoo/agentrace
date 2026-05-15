@@ -803,6 +803,23 @@
         "path": "agent/reviews/REVIEW-0034.yml"
       },
       "updated_at": "2026-05-15T13:04:35Z"
+    },
+    "agent/context-packs/T-060-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-060-add-command-timing-and-edit-summaries-to-reports-20260515180049986596",
+      "reason": "Implemented per-type duration totals for activity timeline summaries and verified with tests.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0035",
+        "verdict": "ready",
+        "summary": "Reviewed T-060 implementation: activity timeline summaries now include per-type duration totals in JSON and Markdown, regression coverage and rich fixture were updated, schema/project/handoff docs are aligned, and verification passed via PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q plus bash scripts/ci_check.sh.",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0035.yml"
+      },
+      "updated_at": "2026-05-15T18:04:24Z"
     }
   }
 }

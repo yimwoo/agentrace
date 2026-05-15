@@ -151,6 +151,14 @@ def _duration_source_counts(rows):
     return counts
 
 
+def _duration_totals_by_type(rows):
+    totals = {}
+    for row in rows:
+        row_type = row.get("type") or "unknown"
+        totals[row_type] = totals.get(row_type, 0) + _numeric_value(row.get("duration_ms"))
+    return totals
+
+
 def _median_duration_ms(rows):
     durations = sorted(_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict))
     if not durations:
@@ -485,6 +493,7 @@ def build_activity_timeline_summary(rows):
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
+        "type_duration_ms": _duration_totals_by_type(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,

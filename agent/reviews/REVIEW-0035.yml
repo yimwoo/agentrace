@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-060-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-060-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-060 implementation: activity timeline summaries now include per-type duration totals in JSON and Markdown, regression coverage and rich fixture were updated, schema/project/handoff docs are aligned, and verification passed via PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q plus bash scripts/ci_check.sh.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-15T18:04:04Z",
+  "id": "REVIEW-0035"
+}

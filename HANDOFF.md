@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include per-type duration totals in JSON and Markdown reports, so reviewers can compare total command time against file-edit time before scanning chronological activity rows.
+
+## What was done
+- created AgentSpec task `T-060` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.type_duration_ms` totals keyed by timeline row type
+- rendered `type_duration_ms` in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-type timeline duration visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline summaries now include average idle-gap and average overlap durations in JSON and Markdown reports, making timeline pause/concurrency patterns easier to compare with existing total and largest-gap/overlap signals.
 
 ## What was done
