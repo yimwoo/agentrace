@@ -820,6 +820,23 @@
         "path": "agent/reviews/REVIEW-0035.yml"
       },
       "updated_at": "2026-05-15T18:04:24Z"
+    },
+    "agent/context-packs/T-061-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-061-add-command-timing-and-edit-summaries-to-reports-20260515230339133013",
+      "reason": "Implemented dominant duration type/share for activity timeline summaries and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0036",
+        "verdict": "ready",
+        "summary": "Self-review: dominant duration type/share implementation is additive, covered by regression tests, docs/fixture updated, and ci_check passed.",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0036.yml"
+      },
+      "updated_at": "2026-05-15T23:03:39Z"
     }
   }
 }

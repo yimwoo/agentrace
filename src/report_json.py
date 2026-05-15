@@ -159,6 +159,22 @@ def _duration_totals_by_type(rows):
     return totals
 
 
+def _dominant_duration_type(type_duration_ms, total_duration_ms):
+    if not type_duration_ms:
+        return None
+    dominant_type = None
+    dominant_duration = 0
+    for row_type, duration_ms in type_duration_ms.items():
+        if dominant_type is None or duration_ms > dominant_duration:
+            dominant_type = row_type
+            dominant_duration = duration_ms
+    return {
+        "type": dominant_type,
+        "duration_ms": dominant_duration,
+        "duration_share": 0 if not total_duration_ms else round(dominant_duration / total_duration_ms, 4),
+    }
+
+
 def _median_duration_ms(rows):
     durations = sorted(_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict))
     if not durations:
@@ -490,10 +506,12 @@ def build_activity_timeline_summary(rows):
     uncovered_duration_ms = max(0, span_duration_ms - coverage["covered_duration_ms"])
     coverage_ratio = 0 if not span_duration_ms else round(min(coverage["covered_duration_ms"], span_duration_ms) / span_duration_ms, 4)
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
+    type_duration_ms = _duration_totals_by_type(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
-        "type_duration_ms": _duration_totals_by_type(normalized_rows),
+        "type_duration_ms": type_duration_ms,
+        "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,

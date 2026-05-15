@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now identify the dominant command/edit duration type in JSON and Markdown reports, making it clear whether command execution or file editing consumed the largest share of recorded activity time.
+
+## What was done
+- created AgentSpec task `T-061` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.dominant_duration_type` with the winning activity type, duration, and share of total command/edit activity duration
+- rendered `dominant_duration_type` in the Markdown activity timeline summary beside per-type duration totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for dominant-duration visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline summaries now include per-type duration totals in JSON and Markdown reports, so reviewers can compare total command time against file-edit time before scanning chronological activity rows.
 
 ## What was done

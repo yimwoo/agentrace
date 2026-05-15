@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-15T18:04:24Z",
+  "updated_at": "2026-05-15T23:03:39Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-060",
-    "context_pack": "agent/context-packs/T-060-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-060: Add command timing and edit summaries to reports",
-    "run_id": "t-060-add-command-timing-and-edit-summaries-to-reports-20260515180049986596",
-    "reason": "Implemented per-type duration totals for activity timeline summaries and verified with tests.",
-    "updated_at": "2026-05-15T18:04:24Z",
+    "id": "T-061",
+    "context_pack": "agent/context-packs/T-061-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-061: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-061-add-command-timing-and-edit-summaries-to-reports-20260515230339133013",
+    "reason": "Implemented dominant duration type/share for activity timeline summaries and verified with ci_check.",
+    "updated_at": "2026-05-15T23:03:39Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0035",
+      "id": "REVIEW-0036",
       "verdict": "ready",
       "reviewer": "current-host",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0035.yml"
+      "path": "agent/reviews/REVIEW-0036.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 60,
+      "total": 61,
       "by_status": {
-        "complete": 58,
+        "complete": 59,
         "halted": 2
       },
       "by_type": {
-        "implementation": 57,
+        "implementation": 58,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0035.yml"
+    "last_code_review": "agent/reviews/REVIEW-0036.yml"
   }
 }
