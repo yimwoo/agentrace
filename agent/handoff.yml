@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-15T04:04:07Z",
+  "updated_at": "2026-05-15T08:02:00Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-057",
-    "context_pack": "agent/context-packs/T-057-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-057: Add command timing and edit summaries to reports",
-    "run_id": "t-057-add-command-timing-and-edit-summaries-to-reports-20260515040055966258",
-    "reason": "Implemented and reviewed uncovered interval windows in activity timeline reports; verification passed.",
-    "updated_at": "2026-05-15T04:04:07Z",
+    "id": "T-058",
+    "context_pack": "agent/context-packs/T-058-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-058: Add command timing and edit summaries to reports",
+    "run_id": "t-058-add-command-timing-and-edit-summaries-to-reports-20260515080013860255",
+    "reason": "Implemented overlap_ratio in activity timeline reports; verification passed.",
+    "updated_at": "2026-05-15T08:02:00Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0032",
+      "id": "REVIEW-0033",
       "verdict": "ready",
       "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0032.yml"
+      "path": "agent/reviews/REVIEW-0033.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 57,
+      "total": 58,
       "by_status": {
-        "complete": 55,
+        "complete": 56,
         "halted": 2
       },
       "by_type": {
-        "implementation": 54,
+        "implementation": 55,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0032.yml"
+    "last_code_review": "agent/reviews/REVIEW-0033.yml"
   }
 }

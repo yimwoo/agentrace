@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include `overlap_ratio`, exposing adjacent-overlap time as a share of the observed command/edit timeline span in JSON and Markdown reports.
+
+## What was done
+- created AgentSpec task `T-058` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.overlap_ratio` derived from `total_overlap_ms / span_duration_ms`
+- rendered `overlap_ratio` in the Markdown activity timeline summary beside overlap totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for overlap-ratio visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include `uncovered_intervals`, listing the exact uncovered/idle windows inside the observed command/edit timeline span in JSON and Markdown reports.
 
 ## What was done

@@ -488,6 +488,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"total_idle_gap_ms={timeline_totals.get('total_idle_gap_ms', 0)}",
         f"largest_idle_gap={_format_activity_gap(timeline_totals.get('largest_idle_gap'))}",
         f"total_overlap_ms={timeline_totals.get('total_overlap_ms', 0)}",
+        f"overlap_ratio={timeline_totals.get('overlap_ratio', 0)}",
         f"largest_overlap={_format_activity_overlap(timeline_totals.get('largest_overlap'))}",
         f"failed_count={timeline_totals.get('failed_count', 0)}",
     ]

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-058-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-058-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed overlap_ratio report slice: JSON summary computes overlap_ratio from total_overlap_ms/span_duration_ms, Markdown renders it, regression assertions and fixture updated, docs/handoff aligned, ci_check passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-15T08:01:56Z",
+  "id": "REVIEW-0033"
+}
