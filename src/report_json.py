@@ -465,6 +465,7 @@ def build_activity_timeline_summary(rows):
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     failed_activity = _failed_activity_rows(normalized_rows)
     inter_activity_gaps = _activity_gap_rows(normalized_rows)
+    total_idle_gap_ms = sum(gap.get("gap_ms", 0) for gap in inter_activity_gaps)
     largest_idle_gap = None
     for gap in inter_activity_gaps:
         if largest_idle_gap is None or gap.get("gap_ms", 0) > largest_idle_gap.get("gap_ms", 0):
@@ -502,10 +503,12 @@ def build_activity_timeline_summary(rows):
         "fastest_activity": _fastest_activity_row(normalized_rows),
         "last_activity": _last_activity_row(normalized_rows),
         "inter_activity_gaps": inter_activity_gaps,
-        "total_idle_gap_ms": sum(gap.get("gap_ms", 0) for gap in inter_activity_gaps),
+        "total_idle_gap_ms": total_idle_gap_ms,
+        "average_idle_gap_ms": 0 if not inter_activity_gaps else round(total_idle_gap_ms / len(inter_activity_gaps), 2),
         "largest_idle_gap": largest_idle_gap,
         "inter_activity_overlaps": inter_activity_overlaps,
         "total_overlap_ms": total_overlap_ms,
+        "average_overlap_ms": 0 if not inter_activity_overlaps else round(total_overlap_ms / len(inter_activity_overlaps), 2),
         "overlap_ratio": 0 if not span_duration_ms else round(total_overlap_ms / span_duration_ms, 4),
         "largest_overlap": largest_overlap,
         "failed_count": failed_count,

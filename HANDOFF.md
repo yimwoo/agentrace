@@ -1,6 +1,23 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now include average idle-gap and average overlap durations in JSON and Markdown reports, making timeline pause/concurrency patterns easier to compare with existing total and largest-gap/overlap signals.
+
+## What was done
+- created AgentSpec task `T-059` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.average_idle_gap_ms` derived from total idle gap duration divided by gap count
+- added JSON `activity_timeline_summary.average_overlap_ms` derived from total adjacent overlap duration divided by overlap count
+- rendered both averages in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for average gap/overlap visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now include `overlap_ratio`, exposing adjacent-overlap time as a share of the observed command/edit timeline span in JSON and Markdown reports.
 
 ## What was done

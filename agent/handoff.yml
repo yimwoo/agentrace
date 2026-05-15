@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-15T08:02:00Z",
+  "updated_at": "2026-05-15T13:04:35Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-058",
-    "context_pack": "agent/context-packs/T-058-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-058: Add command timing and edit summaries to reports",
-    "run_id": "t-058-add-command-timing-and-edit-summaries-to-reports-20260515080013860255",
-    "reason": "Implemented overlap_ratio in activity timeline reports; verification passed.",
-    "updated_at": "2026-05-15T08:02:00Z",
+    "id": "T-059",
+    "context_pack": "agent/context-packs/T-059-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-059: Add command timing and edit summaries to reports",
+    "run_id": "t-059-add-command-timing-and-edit-summaries-to-reports-20260515130106382822",
+    "reason": "Marked complete by user.",
+    "updated_at": "2026-05-15T13:04:35Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0033",
+      "id": "REVIEW-0034",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "current-host",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0033.yml"
+      "path": "agent/reviews/REVIEW-0034.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 58,
+      "total": 59,
       "by_status": {
-        "complete": 56,
+        "complete": 57,
         "halted": 2
       },
       "by_type": {
-        "implementation": 55,
+        "implementation": 56,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0033.yml"
+    "last_code_review": "agent/reviews/REVIEW-0034.yml"
   }
 }

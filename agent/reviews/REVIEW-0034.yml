@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-059-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-059-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-059 changes: average idle-gap and overlap metrics are additive, covered by report output tests and full ci_check, and documentation/fixtures are aligned.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-15T13:04:30Z",
+  "id": "REVIEW-0034"
+}
