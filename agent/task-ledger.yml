@@ -887,6 +887,23 @@
         "path": "agent/reviews/REVIEW-0039.yml"
       },
       "updated_at": "2026-05-16T13:04:14Z"
+    },
+    "agent/context-packs/T-065-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-065-add-command-timing-and-edit-summaries-to-reports-20260516180100723866",
+      "reason": "Implemented per-status activity timeline duration totals/shares in reports; verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0040",
+        "verdict": "ready",
+        "summary": "Reviewed worktree changes for T-065: per-status activity timeline durations/shares are implemented in JSON and Markdown reports, with tests, fixture, schema, project state, and handoff updated. Verification passed via bash scripts/ci_check.sh (37 passed, 1 warning).",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0040.yml"
+      },
+      "updated_at": "2026-05-16T18:03:57Z"
     }
   }
 }

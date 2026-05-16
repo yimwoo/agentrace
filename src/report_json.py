@@ -151,23 +151,39 @@ def _duration_source_counts(rows):
     return counts
 
 
-def _duration_totals_by_type(rows):
+def _duration_totals_by_field(rows, field):
     totals = {}
     for row in rows:
-        row_type = row.get("type") or "unknown"
-        totals[row_type] = totals.get(row_type, 0) + _numeric_value(row.get("duration_ms"))
+        label = row.get(field) or "unknown"
+        totals[label] = totals.get(label, 0) + _numeric_value(row.get("duration_ms"))
     return totals
 
 
-def _duration_shares_by_type(type_duration_ms, total_duration_ms):
-    if not type_duration_ms:
+def _duration_totals_by_type(rows):
+    return _duration_totals_by_field(rows, "type")
+
+
+def _duration_totals_by_status(rows):
+    return _duration_totals_by_field(rows, "status")
+
+
+def _duration_shares(duration_totals, total_duration_ms):
+    if not duration_totals:
         return {}
     if not total_duration_ms:
-        return {row_type: 0 for row_type in type_duration_ms}
+        return {label: 0 for label in duration_totals}
     return {
-        row_type: round(duration_ms / total_duration_ms, 4)
-        for row_type, duration_ms in type_duration_ms.items()
+        label: round(duration_ms / total_duration_ms, 4)
+        for label, duration_ms in duration_totals.items()
     }
+
+
+def _duration_shares_by_type(type_duration_ms, total_duration_ms):
+    return _duration_shares(type_duration_ms, total_duration_ms)
+
+
+def _duration_shares_by_status(status_duration_ms, total_duration_ms):
+    return _duration_shares(status_duration_ms, total_duration_ms)
 
 
 def _dominant_duration_type(type_duration_ms, total_duration_ms):
@@ -542,6 +558,7 @@ def build_activity_timeline_summary(rows):
     coverage_ratio = 0 if not span_duration_ms else round(min(coverage["covered_duration_ms"], span_duration_ms) / span_duration_ms, 4)
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
     type_duration_ms = _duration_totals_by_type(normalized_rows)
+    status_duration_ms = _duration_totals_by_status(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -549,6 +566,8 @@ def build_activity_timeline_summary(rows):
         "type_duration_share": _duration_shares_by_type(type_duration_ms, total_duration_ms),
         "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,
+        "status_duration_ms": status_duration_ms,
+        "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,

@@ -1,14 +1,13 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` activity timeline summaries now expose merged covered interval windows plus a merged covered interval count in JSON and Markdown reports, so reviewers can see exactly which command/edit windows account for covered timeline duration.
+`agentrace` activity timeline summaries now expose per-status duration totals and shares in JSON and Markdown reports, making it clear how much command/edit activity time was spent in failed, succeeded, or unknown states.
 
 ## What was done
-- created AgentSpec task `T-064` for a report observability follow-up slice
-- added JSON `activity_timeline_summary.covered_intervals` from merged timestamp/duration-backed activity intervals
-- added JSON/Markdown `merged_covered_interval_count` while preserving the existing raw `covered_interval_count`
-- rendered covered interval windows in the Markdown activity timeline summary
-- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for covered interval visibility
+- created AgentSpec task `T-065` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.status_duration_ms` and `status_duration_share` derived from chronological command/edit activity rows
+- rendered per-status duration totals and shares in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for status-duration visibility
 
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
