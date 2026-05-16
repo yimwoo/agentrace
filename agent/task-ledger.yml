@@ -837,6 +837,23 @@
         "path": "agent/reviews/REVIEW-0036.yml"
       },
       "updated_at": "2026-05-15T23:03:39Z"
+    },
+    "agent/context-packs/T-062-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-062-add-command-timing-and-edit-summaries-to-reports-20260516040346153107",
+      "reason": "Implemented per-type activity duration shares for activity timeline summaries and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0037",
+        "verdict": "ready",
+        "summary": "Reviewed T-062 changes: per-type activity duration shares are computed from existing type duration totals, rendered in Markdown, covered by regression assertions/fixture updates, and documented in schema/state. Verification passed via tests/test_report_outputs.py and scripts/ci_check.sh.",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0037.yml"
+      },
+      "updated_at": "2026-05-16T04:04:16Z"
     }
   }
 }

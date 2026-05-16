@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now expose per-type command/edit duration shares in JSON and Markdown reports, making command-vs-edit time proportions visible for every activity type instead of only the dominant one.
+
+## What was done
+- created AgentSpec task `T-062` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.type_duration_share` values derived from per-type durations divided by total command/edit activity duration
+- rendered `type_duration_share` in the Markdown activity timeline summary beside per-type duration totals and dominant duration type
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-type duration-share visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline summaries now identify the dominant command/edit duration type in JSON and Markdown reports, making it clear whether command execution or file editing consumed the largest share of recorded activity time.
 
 ## What was done

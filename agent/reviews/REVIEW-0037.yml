@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-062-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-062-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-062 changes: per-type activity duration shares are computed from existing type duration totals, rendered in Markdown, covered by regression assertions/fixture updates, and documented in schema/state. Verification passed via tests/test_report_outputs.py and scripts/ci_check.sh.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-16T04:04:16Z",
+  "id": "REVIEW-0037"
+}

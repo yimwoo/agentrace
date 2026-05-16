@@ -476,6 +476,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"count={timeline_totals.get('count', 0)}",
         f"types={_format_status_counts(timeline_totals.get('type_counts'))}",
         f"type_duration_ms={_format_status_counts(timeline_totals.get('type_duration_ms'))}",
+        f"type_duration_share={_format_status_counts(timeline_totals.get('type_duration_share'))}",
         f"dominant_duration_type={_format_dominant_duration_type(timeline_totals.get('dominant_duration_type'))}",
         f"statuses={_format_status_counts(timeline_totals.get('status_counts'))}",
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",

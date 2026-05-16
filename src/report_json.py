@@ -159,6 +159,17 @@ def _duration_totals_by_type(rows):
     return totals
 
 
+def _duration_shares_by_type(type_duration_ms, total_duration_ms):
+    if not type_duration_ms:
+        return {}
+    if not total_duration_ms:
+        return {row_type: 0 for row_type in type_duration_ms}
+    return {
+        row_type: round(duration_ms / total_duration_ms, 4)
+        for row_type, duration_ms in type_duration_ms.items()
+    }
+
+
 def _dominant_duration_type(type_duration_ms, total_duration_ms):
     if not type_duration_ms:
         return None
@@ -511,6 +522,7 @@ def build_activity_timeline_summary(rows):
         "count": len(normalized_rows),
         "type_counts": type_counts,
         "type_duration_ms": type_duration_ms,
+        "type_duration_share": _duration_shares_by_type(type_duration_ms, total_duration_ms),
         "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
