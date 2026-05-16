@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-064-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-064-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Covered interval report summary changes reviewed; implementation and tests are ready.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-16T13:04:10Z",
+  "id": "REVIEW-0039"
+}

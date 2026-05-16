@@ -422,6 +422,17 @@ def _uncovered_activity_intervals(time_window, merged_intervals):
     return gaps
 
 
+def _covered_activity_intervals(merged_intervals):
+    intervals = []
+    for start, end in merged_intervals:
+        intervals.append({
+            "started_at": _timestamp_label(start),
+            "ended_at": _timestamp_label(end),
+            "duration_ms": round((end - start).total_seconds() * 1000),
+        })
+    return intervals
+
+
 def _activity_coverage(rows, time_window=None):
     intervals = []
     for row in rows:
@@ -429,7 +440,13 @@ def _activity_coverage(rows, time_window=None):
         if interval is not None:
             intervals.append(interval)
     if not intervals:
-        return {"covered_duration_ms": 0, "covered_interval_count": 0, "uncovered_intervals": []}
+        return {
+            "covered_duration_ms": 0,
+            "covered_intervals": [],
+            "covered_interval_count": 0,
+            "merged_covered_interval_count": 0,
+            "uncovered_intervals": [],
+        }
 
     merged = []
     for start, end in sorted(intervals):
@@ -442,7 +459,9 @@ def _activity_coverage(rows, time_window=None):
     covered_duration_ms = sum(round((end - start).total_seconds() * 1000) for start, end in merged)
     return {
         "covered_duration_ms": covered_duration_ms,
+        "covered_intervals": _covered_activity_intervals(merged),
         "covered_interval_count": len(intervals),
+        "merged_covered_interval_count": len(merged),
         "uncovered_intervals": _uncovered_activity_intervals(time_window, merged),
     }
 
@@ -534,6 +553,7 @@ def build_activity_timeline_summary(rows):
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
+        "covered_intervals": coverage["covered_intervals"],
         "uncovered_duration_ms": uncovered_duration_ms,
         "uncovered_intervals": uncovered_intervals,
         "uncovered_interval_count": len(uncovered_intervals),
@@ -542,6 +562,7 @@ def build_activity_timeline_summary(rows):
         "coverage_ratio": coverage_ratio,
         "idle_ratio": idle_ratio,
         "covered_interval_count": coverage["covered_interval_count"],
+        "merged_covered_interval_count": coverage["merged_covered_interval_count"],
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
