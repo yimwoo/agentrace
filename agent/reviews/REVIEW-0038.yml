@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-063-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-063-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-063 uncovered interval aggregate metrics and regression updates; implementation is scoped to report summary fields, Markdown rendering, docs, and tests.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-16T08:04:44Z",
+  "id": "REVIEW-0038"
+}

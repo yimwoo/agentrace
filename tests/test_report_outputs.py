@@ -1422,6 +1422,9 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "covered_duration_ms": 25,
         "uncovered_duration_ms": 0,
         "uncovered_intervals": [],
+        "uncovered_interval_count": 0,
+        "average_uncovered_interval_ms": 0,
+        "largest_uncovered_interval": None,
         "coverage_ratio": 1.0,
         "idle_ratio": 0.0,
         "covered_interval_count": 2,
@@ -1666,6 +1669,9 @@ def test_activity_timeline_summary_reports_overlapping_activity():
         "ended_at": "2026-04-25T00:00:06Z",
         "duration_ms": 1000,
     }]
+    assert timeline_totals["uncovered_interval_count"] == 1
+    assert timeline_totals["average_uncovered_interval_ms"] == 1000.0
+    assert timeline_totals["largest_uncovered_interval"] == timeline_totals["uncovered_intervals"][0]
     assert timeline_totals["coverage_ratio"] == 0.8571
     assert timeline_totals["idle_ratio"] == 0.1429
     assert timeline_totals["covered_interval_count"] == 3
@@ -1675,6 +1681,9 @@ def test_activity_timeline_summary_reports_overlapping_activity():
     assert "covered_duration_ms=6000" in text
     assert "uncovered_duration_ms=1000" in text
     assert "uncovered_intervals=(started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:06Z, duration_ms=1000)" in text
+    assert "uncovered_interval_count=1" in text
+    assert "average_uncovered_interval_ms=1000.0" in text
+    assert "largest_uncovered_interval=(started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:06Z, duration_ms=1000)" in text
     assert "coverage_ratio=0.8571" in text
     assert "idle_ratio=0.1429" in text
     assert "covered_interval_count=3" in text
@@ -1727,6 +1736,9 @@ def test_activity_timeline_summary_derives_coverage_for_partial_windows():
         "ended_at": "2026-04-25T00:00:04Z",
         "duration_ms": 1000,
     }]
+    assert timeline_totals["uncovered_interval_count"] == 1
+    assert timeline_totals["average_uncovered_interval_ms"] == 1000.0
+    assert timeline_totals["largest_uncovered_interval"] == timeline_totals["uncovered_intervals"][0]
     assert timeline_totals["coverage_ratio"] == 0.8
     assert timeline_totals["idle_ratio"] == 0.2
     assert timeline_totals["covered_interval_count"] == 2
@@ -1735,6 +1747,9 @@ def test_activity_timeline_summary_derives_coverage_for_partial_windows():
     assert "covered_duration_ms=4000" in text
     assert "uncovered_duration_ms=1000" in text
     assert "uncovered_intervals=(started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z, duration_ms=1000)" in text
+    assert "uncovered_interval_count=1" in text
+    assert "average_uncovered_interval_ms=1000.0" in text
+    assert "largest_uncovered_interval=(started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z, duration_ms=1000)" in text
     assert "coverage_ratio=0.8" in text
     assert "idle_ratio=0.2" in text
     assert "covered_interval_count=2" in text

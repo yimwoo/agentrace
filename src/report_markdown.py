@@ -463,6 +463,12 @@ def _format_activity_uncovered_intervals(intervals):
     return "; ".join(formatted)
 
 
+def _format_activity_uncovered_interval(interval):
+    if not interval:
+        return "none"
+    return _format_activity_uncovered_intervals([interval])
+
+
 def _format_dominant_duration_type(row):
     if not row:
         return "none"
@@ -484,6 +490,9 @@ def _format_activity_timeline_summary(timeline_totals):
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
         f"uncovered_duration_ms={timeline_totals.get('uncovered_duration_ms', 0)}",
         f"uncovered_intervals={_format_activity_uncovered_intervals(timeline_totals.get('uncovered_intervals'))}",
+        f"uncovered_interval_count={timeline_totals.get('uncovered_interval_count', 0)}",
+        f"average_uncovered_interval_ms={timeline_totals.get('average_uncovered_interval_ms', 0)}",
+        f"largest_uncovered_interval={_format_activity_uncovered_interval(timeline_totals.get('largest_uncovered_interval'))}",
         f"coverage_ratio={timeline_totals.get('coverage_ratio', 0)}",
         f"idle_ratio={timeline_totals.get('idle_ratio', 0)}",
         f"covered_interval_count={timeline_totals.get('covered_interval_count', 0)}",

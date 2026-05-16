@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now expose uncovered interval count, average uncovered interval duration, and the largest uncovered interval in JSON and Markdown reports, making idle-window severity visible without scanning every uncovered window.
+
+## What was done
+- created AgentSpec task `T-063` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.uncovered_interval_count`, `average_uncovered_interval_ms`, and `largest_uncovered_interval` derived from uncovered timeline windows
+- rendered the new uncovered interval metrics in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for uncovered interval aggregate visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline summaries now expose per-type command/edit duration shares in JSON and Markdown reports, making command-vs-edit time proportions visible for every activity type instead of only the dominant one.
 
 ## What was done

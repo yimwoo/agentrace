@@ -514,7 +514,12 @@ def build_activity_timeline_summary(rows):
     time_window = _time_window(normalized_rows)
     span_duration_ms = _time_window_span_ms(time_window)
     coverage = _activity_coverage(normalized_rows, time_window)
+    uncovered_intervals = coverage["uncovered_intervals"]
     uncovered_duration_ms = max(0, span_duration_ms - coverage["covered_duration_ms"])
+    largest_uncovered_interval = None
+    for interval in uncovered_intervals:
+        if largest_uncovered_interval is None or interval.get("duration_ms", 0) > largest_uncovered_interval.get("duration_ms", 0):
+            largest_uncovered_interval = interval
     coverage_ratio = 0 if not span_duration_ms else round(min(coverage["covered_duration_ms"], span_duration_ms) / span_duration_ms, 4)
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
     type_duration_ms = _duration_totals_by_type(normalized_rows)
@@ -530,7 +535,10 @@ def build_activity_timeline_summary(rows):
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
         "uncovered_duration_ms": uncovered_duration_ms,
-        "uncovered_intervals": coverage["uncovered_intervals"],
+        "uncovered_intervals": uncovered_intervals,
+        "uncovered_interval_count": len(uncovered_intervals),
+        "average_uncovered_interval_ms": 0 if not uncovered_intervals else round(uncovered_duration_ms / len(uncovered_intervals), 2),
+        "largest_uncovered_interval": largest_uncovered_interval,
         "coverage_ratio": coverage_ratio,
         "idle_ratio": idle_ratio,
         "covered_interval_count": coverage["covered_interval_count"],
