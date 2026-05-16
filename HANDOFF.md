@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline summaries now expose a `dominant_duration_status` highlight in JSON and Markdown reports, making the status that consumed the largest share of command/edit activity duration visible beside per-status duration totals.
+
+## What was done
+- created AgentSpec task `T-066` for a report observability follow-up slice
+- added JSON `activity_timeline_summary.dominant_duration_status` derived from per-status command/edit duration totals
+- rendered the dominant duration status/share in the Markdown activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for dominant-status visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` activity timeline summaries now expose per-status duration totals and shares in JSON and Markdown reports, making it clear how much command/edit activity time was spent in failed, succeeded, or unknown states.
 
 ## What was done

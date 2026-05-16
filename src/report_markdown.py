@@ -489,6 +489,12 @@ def _format_dominant_duration_type(row):
     return f"{row.get('type') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
 
 
+def _format_dominant_duration_status(row):
+    if not row:
+        return "none"
+    return f"{row.get('status') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -501,6 +507,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"statuses={_format_status_counts(timeline_totals.get('status_counts'))}",
         f"status_duration_ms={_format_status_counts(timeline_totals.get('status_duration_ms'))}",
         f"status_duration_share={_format_status_counts(timeline_totals.get('status_duration_share'))}",
+        f"dominant_duration_status={_format_dominant_duration_status(timeline_totals.get('dominant_duration_status'))}",
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",

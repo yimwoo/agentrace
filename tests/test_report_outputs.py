@@ -1418,6 +1418,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "status_counts": {"failed": 2},
         "status_duration_ms": {"failed": 25},
         "status_duration_share": {"failed": 1.0},
+        "dominant_duration_status": {"status": "failed", "duration_ms": 25, "duration_share": 1.0},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
         "span_duration_ms": 20,
@@ -1608,6 +1609,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "type_duration_share=command=0.8, file_edit=0.2" in text
     assert "status_duration_ms=failed=25" in text
     assert "status_duration_share=failed=1.0" in text
+    assert "dominant_duration_status=failed (25ms, share=1.0)" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text
@@ -1699,6 +1701,7 @@ def test_activity_timeline_summary_reports_overlapping_activity():
     assert timeline_totals["merged_covered_interval_count"] == 2
     assert timeline_totals["status_duration_ms"] == {"succeeded": 7000}
     assert timeline_totals["status_duration_share"] == {"succeeded": 1.0}
+    assert timeline_totals["dominant_duration_status"] == {"status": "succeeded", "duration_ms": 7000, "duration_share": 1.0}
 
     text = build_markdown_summary(trace)
     assert "span_duration_ms=7000" in text
@@ -1783,6 +1786,7 @@ def test_activity_timeline_summary_derives_coverage_for_partial_windows():
     assert timeline_totals["merged_covered_interval_count"] == 2
     assert timeline_totals["status_duration_ms"] == {"succeeded": 4000}
     assert timeline_totals["status_duration_share"] == {"succeeded": 1.0}
+    assert timeline_totals["dominant_duration_status"] == {"status": "succeeded", "duration_ms": 4000, "duration_share": 1.0}
 
     text = build_markdown_summary(trace)
     assert "covered_duration_ms=4000" in text

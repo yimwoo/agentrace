@@ -186,20 +186,28 @@ def _duration_shares_by_status(status_duration_ms, total_duration_ms):
     return _duration_shares(status_duration_ms, total_duration_ms)
 
 
-def _dominant_duration_type(type_duration_ms, total_duration_ms):
-    if not type_duration_ms:
+def _dominant_duration_label(duration_totals, total_duration_ms, label_field):
+    if not duration_totals:
         return None
-    dominant_type = None
+    dominant_label = None
     dominant_duration = 0
-    for row_type, duration_ms in type_duration_ms.items():
-        if dominant_type is None or duration_ms > dominant_duration:
-            dominant_type = row_type
+    for label, duration_ms in duration_totals.items():
+        if dominant_label is None or duration_ms > dominant_duration:
+            dominant_label = label
             dominant_duration = duration_ms
     return {
-        "type": dominant_type,
+        label_field: dominant_label,
         "duration_ms": dominant_duration,
         "duration_share": 0 if not total_duration_ms else round(dominant_duration / total_duration_ms, 4),
     }
+
+
+def _dominant_duration_type(type_duration_ms, total_duration_ms):
+    return _dominant_duration_label(type_duration_ms, total_duration_ms, "type")
+
+
+def _dominant_duration_status(status_duration_ms, total_duration_ms):
+    return _dominant_duration_label(status_duration_ms, total_duration_ms, "status")
 
 
 def _median_duration_ms(rows):
@@ -568,6 +576,7 @@ def build_activity_timeline_summary(rows):
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
+        "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,

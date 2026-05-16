@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-066-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-066-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed dominant duration status report changes, regression coverage, schema/state docs, and fixture refresh. Verification passed with scripts/ci_check.sh.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-16T23:03:22Z",
+  "id": "REVIEW-0041"
+}
