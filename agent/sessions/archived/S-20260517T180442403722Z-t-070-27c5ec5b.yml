@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260517T180442403722Z-t-070-27c5ec5b",
+  "status": "finished",
+  "terminal": true,
+  "owner": "cron-agent",
+  "mode": "owner",
+  "created_at": "2026-05-17T18:04:42Z",
+  "updated_at": "2026-05-17T18:05:23Z",
+  "context_pack": "agent/context-packs/T-070-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:720ca789daa64071b67adae5108531e4860ac6041147a7d34d7af66940e5509e",
+  "task_id": "T-070",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-070-add-command-timing-and-edit-summaries-to-reports-20260517180038162841",
+  "note": "Host worktree execution by scheduled AgentSpec-only cron; context pack declares explicit host worktree execution.",
+  "history": [
+    {
+      "at": "2026-05-17T18:04:42Z",
+      "action": "started",
+      "by": "cron-agent",
+      "note": "Host worktree execution by scheduled AgentSpec-only cron; context pack declares explicit host worktree execution."
+    },
+    {
+      "at": "2026-05-17T18:05:23Z",
+      "action": "finished",
+      "note": "Task T-070 completed with REVIEW-0045; host worktree retained.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "not_run",
+  "finish_note": "Task T-070 completed with REVIEW-0045; host worktree retained.",
+  "finished_at": "2026-05-17T18:05:23Z"
+}

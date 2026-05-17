@@ -20,6 +20,7 @@
 - failed_commands: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z)
 - command_exit_code_counts: 1=1
 - command_status_counts: failed=1
+- command_status_duration_summary: status_duration_ms=failed=3200, status_duration_share=failed=1.0, dominant_duration_status=failed (3200ms, share=1.0)
 - command_duration_sources: explicit=1
 - command_duration_recorded_count: 1
 - command_duration_missing_count: 0
@@ -40,6 +41,7 @@
 - edit_kind_counts: modify=1
 - edit_kind_totals: modify (count=1, files=src/auth.py, failed_count=0, +4/-1, net=3, total_duration_ms=125, average_duration_ms=125.0, statuses=succeeded=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
 - edit_status_counts: succeeded=1
+- edit_status_duration_summary: status_duration_ms=succeeded=125, status_duration_share=succeeded=1.0, dominant_duration_status=succeeded (125ms, share=1.0)
 - edit_duration_sources: explicit=1
 - edit_duration_recorded_count: 1
 - edit_duration_missing_count: 0

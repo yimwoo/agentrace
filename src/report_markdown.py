@@ -495,6 +495,16 @@ def _format_dominant_duration_status(row):
     return f"{row.get('status') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
 
 
+def _format_status_duration_summary(row):
+    if not row:
+        return "none"
+    return ", ".join([
+        f"status_duration_ms={_format_status_counts(row.get('status_duration_ms'))}",
+        f"status_duration_share={_format_status_counts(row.get('status_duration_share'))}",
+        f"dominant_duration_status={_format_dominant_duration_status(row.get('dominant_duration_status'))}",
+    ])
+
+
 def _format_activity_timeline_summary(timeline_totals):
     if not timeline_totals:
         return "none"
@@ -610,6 +620,7 @@ def build_markdown_summary(trace):
         f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
         f"- command_exit_code_counts: {_format_status_counts(command_totals['exit_code_counts'])}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
+        f"- command_status_duration_summary: {_format_status_duration_summary(command_totals)}",
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_duration_recorded_count: {command_totals['duration_recorded_count']}",
         f"- command_duration_missing_count: {command_totals['duration_missing_count']}",
@@ -630,6 +641,7 @@ def build_markdown_summary(trace):
         f"- edit_kind_counts: {_format_status_counts(edit_totals['kind_counts'])}",
         f"- edit_kind_totals: {_format_edit_kind_totals(edit_totals['kind_totals'])}",
         f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
+        f"- edit_status_duration_summary: {_format_status_duration_summary(edit_totals)}",
         f"- edit_duration_sources: {_format_status_counts(edit_totals['duration_source_counts'])}",
         f"- edit_duration_recorded_count: {edit_totals['duration_recorded_count']}",
         f"- edit_duration_missing_count: {edit_totals['duration_missing_count']}",
