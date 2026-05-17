@@ -151,6 +151,21 @@ def _duration_source_counts(rows):
     return counts
 
 
+def _duration_coverage(rows):
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    recorded_count = sum(
+        1
+        for row in normalized_rows
+        if (row.get("duration_source") or "unknown") != "missing"
+    )
+    missing_count = len(normalized_rows) - recorded_count
+    return {
+        "duration_recorded_count": recorded_count,
+        "duration_missing_count": missing_count,
+        "duration_coverage_ratio": 0 if not normalized_rows else round(recorded_count / len(normalized_rows), 4),
+    }
+
+
 def _duration_totals_by_field(rows, field):
     totals = {}
     for row in rows:
@@ -574,6 +589,7 @@ def build_activity_timeline_summary(rows):
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
     type_duration_ms = _duration_totals_by_type(normalized_rows)
     status_duration_ms = _duration_totals_by_status(normalized_rows)
+    duration_coverage = _duration_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -585,6 +601,9 @@ def build_activity_timeline_summary(rows):
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_recorded_count": duration_coverage["duration_recorded_count"],
+        "duration_missing_count": duration_coverage["duration_missing_count"],
+        "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
@@ -830,6 +849,7 @@ def build_command_timing_summary(rows):
         status_counts[status] = status_counts.get(status, 0) + 1
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     commands_run = _ordered_values(normalized_rows, "command")
+    duration_coverage = _duration_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
         "unique_command_count": len(commands_run),
@@ -847,6 +867,9 @@ def build_command_timing_summary(rows):
         "exit_code_counts": _exit_code_counts(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_recorded_count": duration_coverage["duration_recorded_count"],
+        "duration_missing_count": duration_coverage["duration_missing_count"],
+        "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
         "time_window": _time_window(normalized_rows),
         "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
@@ -1065,6 +1088,7 @@ def build_edit_summary_totals(rows):
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     largest_edit = _largest_edit_row(normalized_rows)
     shortest_edit = _shortest_edit_row(normalized_rows)
+    duration_coverage = _duration_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
         "files_changed": files,
@@ -1076,6 +1100,9 @@ def build_edit_summary_totals(rows):
         "kind_totals": _edit_kind_total_rows(normalized_rows),
         "status_counts": status_counts,
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_recorded_count": duration_coverage["duration_recorded_count"],
+        "duration_missing_count": duration_coverage["duration_missing_count"],
+        "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
         "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,

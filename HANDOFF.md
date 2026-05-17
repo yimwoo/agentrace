@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown report totals now include duration recorded/missing counts and coverage ratios for command timing, edit summaries, and the combined command/edit activity timeline, making timing-data completeness visible next to duration-source distributions.
+
+## What was done
+- created AgentSpec task `T-068` for a report observability follow-up slice
+- added JSON `duration_recorded_count`, `duration_missing_count`, and `duration_coverage_ratio` to `command_timing_summary`, `edit_summary_totals`, and `activity_timeline_summary`
+- rendered command, edit, and activity duration coverage metrics in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for duration coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` JSON and Markdown report totals now include duration-range metrics for command timing, edit summaries, and the combined command/edit activity timeline, exposing the spread between shortest and longest recorded activities alongside average and median durations.
 
 ## What was done

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-068-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-068-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed duration coverage report updates, regression expectations, fixture, schema, project state, and handoff. Verification passed with pytest report tests and full ci_check.",
+  "reviewer": "autonomous-cron",
+  "range": "worktree",
+  "created_at": "2026-05-17T08:07:14Z",
+  "id": "REVIEW-0043"
+}
