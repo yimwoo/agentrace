@@ -166,6 +166,18 @@ def _duration_coverage(rows):
     }
 
 
+def _average_recorded_duration_ms(rows):
+    """Average duration across rows that actually recorded or derived timing."""
+    recorded_durations = [
+        _numeric_value(row.get("duration_ms"))
+        for row in rows or []
+        if isinstance(row, dict) and (row.get("duration_source") or "unknown") != "missing"
+    ]
+    if not recorded_durations:
+        return 0
+    return round(sum(recorded_durations) / len(recorded_durations), 2)
+
+
 def _duration_totals_by_field(rows, field):
     totals = {}
     for row in rows:
@@ -619,6 +631,7 @@ def build_activity_timeline_summary(rows):
         "merged_covered_interval_count": coverage["merged_covered_interval_count"],
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
         "first_activity": _first_activity_row(normalized_rows),
@@ -860,6 +873,7 @@ def build_command_timing_summary(rows):
         "cwd_totals": _command_cwd_total_rows(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
@@ -1109,6 +1123,7 @@ def build_edit_summary_totals(rows):
         "net_line_delta": total_added_lines - total_removed_lines,
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
+        "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
         "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),

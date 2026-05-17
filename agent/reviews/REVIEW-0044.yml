@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-069-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-069-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed implementation and tests for average_recorded_duration_ms report metrics; changes are scoped to allowed report, docs, tests, and AgentSpec paths. Verification passed with bash scripts/ci_check.sh.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-17T13:04:11Z",
+  "id": "REVIEW-0044"
+}

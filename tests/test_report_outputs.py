@@ -575,6 +575,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         }],
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
+        "average_recorded_duration_ms": 1062.5,
         "median_duration_ms": 1062.5,
         "duration_range_ms": 1875,
         "failed_count": 1,
@@ -700,6 +701,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "net_line_delta": 8,
         "total_duration_ms": 20,
         "average_duration_ms": 10.0,
+        "average_recorded_duration_ms": 10.0,
         "median_duration_ms": 10.0,
         "duration_range_ms": 4,
         "first_edit": {
@@ -766,6 +768,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_cwd_totals: unknown (count=2, commands=pytest -q, ruff check, failed_count=1, total_duration_ms=2125, average_duration_ms=1062.5, statuses=failed=1, succeeded=1, duration_sources=derived=1, explicit=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_fast)" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
+    assert "command_average_recorded_duration_ms: 1062.5" in text
     assert "command_median_duration_ms: 1062.5" in text
     assert "command_duration_range_ms: 1875" in text
     assert "command_failed_count: 1" in text
@@ -792,6 +795,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_net_line_delta: 8" in text
     assert "edit_total_duration_ms: 20" in text
     assert "edit_average_duration_ms: 10.0" in text
+    assert "edit_average_recorded_duration_ms: 10.0" in text
     assert "edit_median_duration_ms: 10.0" in text
     assert "edit_duration_range_ms: 4" in text
     assert "first_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
@@ -1451,6 +1455,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "merged_covered_interval_count": 2,
         "total_duration_ms": 25,
         "average_duration_ms": 12.5,
+        "average_recorded_duration_ms": 12.5,
         "median_duration_ms": 12.5,
         "duration_range_ms": 15,
         "first_activity": {
