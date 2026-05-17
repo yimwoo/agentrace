@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-17T18:05:20Z",
+  "updated_at": "2026-05-17T23:03:40Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-070",
-    "context_pack": "agent/context-packs/T-070-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-070: Add command timing and edit summaries to reports",
-    "run_id": "t-070-add-command-timing-and-edit-summaries-to-reports-20260517180450968658",
-    "reason": "Implemented command/edit status-duration report summaries; CI passed and review evidence linked.",
-    "updated_at": "2026-05-17T18:05:20Z",
+    "id": "T-071",
+    "context_pack": "agent/context-packs/T-071-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-071: Add command timing and edit summaries to reports",
+    "run_id": "t-071-add-command-timing-and-edit-summaries-to-reports-20260517230048000704",
+    "reason": "Implemented duration_extremes_ms min/max report aggregates for command timing, edit summaries, and activity timeline; CI passed and review evidence linked.",
+    "updated_at": "2026-05-17T23:03:40Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0045",
+      "id": "REVIEW-0046",
       "verdict": "ready",
       "reviewer": "cron-agent",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0045.yml"
+      "path": "agent/reviews/REVIEW-0046.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 70,
+      "total": 71,
       "by_status": {
-        "complete": 68,
+        "complete": 69,
         "halted": 2
       },
       "by_type": {
-        "implementation": 67,
+        "implementation": 68,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0045.yml"
+    "last_code_review": "agent/reviews/REVIEW-0046.yml"
   }
 }

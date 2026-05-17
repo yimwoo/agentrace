@@ -254,6 +254,14 @@ def _duration_range_ms(rows):
     return max(durations) - min(durations)
 
 
+def _duration_extremes_ms(rows):
+    """Return compact min/max duration bounds for aggregate report blocks."""
+    durations = [_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict)]
+    if not durations:
+        return {"min": 0, "max": 0}
+    return {"min": min(durations), "max": max(durations)}
+
+
 def _timeline_sort_key(item):
     started_at = _normalized_timestamp(item.get("started_at"))
     ended_at = _normalized_timestamp(item.get("ended_at"))
@@ -634,6 +642,7 @@ def build_activity_timeline_summary(rows):
         "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
+        "duration_extremes_ms": _duration_extremes_ms(normalized_rows),
         "first_activity": _first_activity_row(normalized_rows),
         "slowest_activity": _slowest_activity_row(normalized_rows),
         "fastest_activity": _fastest_activity_row(normalized_rows),
@@ -877,6 +886,7 @@ def build_command_timing_summary(rows):
         "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
+        "duration_extremes_ms": _duration_extremes_ms(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
         "failed_commands": _failed_command_rows(normalized_rows),
         "exit_code_counts": _exit_code_counts(normalized_rows),
@@ -1134,6 +1144,7 @@ def build_edit_summary_totals(rows):
         "average_recorded_duration_ms": _average_recorded_duration_ms(normalized_rows),
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
+        "duration_extremes_ms": _duration_extremes_ms(normalized_rows),
         "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),
         "largest_edit": _largest_edit_summary_row(largest_edit),
         "shortest_edit": _largest_edit_summary_row(shortest_edit),

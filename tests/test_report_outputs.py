@@ -578,6 +578,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "average_recorded_duration_ms": 1062.5,
         "median_duration_ms": 1062.5,
         "duration_range_ms": 1875,
+        "duration_extremes_ms": {"min": 125, "max": 2000},
         "failed_count": 1,
         "failed_commands": [{
             "event": "evt_cmd_slow",
@@ -710,6 +711,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "average_recorded_duration_ms": 10.0,
         "median_duration_ms": 10.0,
         "duration_range_ms": 4,
+        "duration_extremes_ms": {"min": 8, "max": 12},
         "first_edit": {
             "event": "evt_edit_one",
             "path": "src/report_json.py",
@@ -1464,6 +1466,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "average_recorded_duration_ms": 12.5,
         "median_duration_ms": 12.5,
         "duration_range_ms": 15,
+        "duration_extremes_ms": {"min": 5, "max": 20},
         "first_activity": {
             "type": "command",
             "event": "evt_cmd_early_log",

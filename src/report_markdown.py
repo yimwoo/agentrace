@@ -259,6 +259,12 @@ def _format_status_counts(status_counts):
     return ", ".join(f"{status}={count}" for status, count in sorted(status_counts.items()))
 
 
+def _format_duration_extremes(extremes):
+    if not extremes:
+        return "none"
+    return f"min={extremes.get('min', 0)}, max={extremes.get('max', 0)}"
+
+
 def _format_aggregate_time_window(time_window):
     if not time_window:
         return "none"
@@ -539,6 +545,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"average_recorded_duration_ms={timeline_totals.get('average_recorded_duration_ms', 0)}",
         f"median_duration_ms={timeline_totals.get('median_duration_ms', 0)}",
         f"duration_range_ms={timeline_totals.get('duration_range_ms', 0)}",
+        f"duration_extremes_ms={_format_duration_extremes(timeline_totals.get('duration_extremes_ms'))}",
         f"first_activity={_format_first_activity(timeline_totals.get('first_activity'))}",
         f"slowest_activity={_format_slowest_activity(timeline_totals.get('slowest_activity'))}",
         f"fastest_activity={_format_fastest_activity(timeline_totals.get('fastest_activity'))}",
@@ -616,6 +623,7 @@ def build_markdown_summary(trace):
         f"- command_average_recorded_duration_ms: {command_totals['average_recorded_duration_ms']}",
         f"- command_median_duration_ms: {command_totals['median_duration_ms']}",
         f"- command_duration_range_ms: {command_totals['duration_range_ms']}",
+        f"- command_duration_extremes_ms: {_format_duration_extremes(command_totals['duration_extremes_ms'])}",
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
         f"- command_exit_code_counts: {_format_status_counts(command_totals['exit_code_counts'])}",
@@ -654,6 +662,7 @@ def build_markdown_summary(trace):
         f"- edit_average_recorded_duration_ms: {edit_totals['average_recorded_duration_ms']}",
         f"- edit_median_duration_ms: {edit_totals['median_duration_ms']}",
         f"- edit_duration_range_ms: {edit_totals['duration_range_ms']}",
+        f"- edit_duration_extremes_ms: {_format_duration_extremes(edit_totals['duration_extremes_ms'])}",
         f"- first_edit: {_format_edit_highlight(edit_totals['first_edit'])}",
         f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
         f"- shortest_edit: {_format_shortest_edit(edit_totals['shortest_edit'])}",
