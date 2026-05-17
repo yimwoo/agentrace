@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "T-067",
+    "context_pack": "agent/context-packs/T-067-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Duration-range report metrics implemented for command, edit, and activity summaries; regression and CI checks passed.",
+  "reviewer": "autonomous-cron",
+  "range": "worktree",
+  "created_at": "2026-05-17T04:05:00Z",
+  "id": "REVIEW-0042"
+}

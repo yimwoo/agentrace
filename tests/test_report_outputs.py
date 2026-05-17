@@ -576,6 +576,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "total_duration_ms": 2125,
         "average_duration_ms": 1062.5,
         "median_duration_ms": 1062.5,
+        "duration_range_ms": 1875,
         "failed_count": 1,
         "failed_commands": [{
             "event": "evt_cmd_slow",
@@ -694,6 +695,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "total_duration_ms": 20,
         "average_duration_ms": 10.0,
         "median_duration_ms": 10.0,
+        "duration_range_ms": 4,
         "first_edit": {
             "event": "evt_edit_one",
             "path": "src/report_json.py",
@@ -759,6 +761,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_median_duration_ms: 1062.5" in text
+    assert "command_duration_range_ms: 1875" in text
     assert "command_failed_count: 1" in text
     assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
     assert "command_exit_code_counts: 0=1, 1=1" in text
@@ -784,6 +787,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_total_duration_ms: 20" in text
     assert "edit_average_duration_ms: 10.0" in text
     assert "edit_median_duration_ms: 10.0" in text
+    assert "edit_duration_range_ms: 4" in text
     assert "first_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
     assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
     assert "shortest_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
@@ -1439,6 +1443,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "total_duration_ms": 25,
         "average_duration_ms": 12.5,
         "median_duration_ms": 12.5,
+        "duration_range_ms": 15,
         "first_activity": {
             "type": "command",
             "event": "evt_cmd_early_log",
@@ -1610,6 +1615,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "status_duration_ms=failed=25" in text
     assert "status_duration_share=failed=1.0" in text
     assert "dominant_duration_status=failed (25ms, share=1.0)" in text
+    assert "duration_range_ms=15" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text

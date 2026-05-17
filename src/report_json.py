@@ -220,6 +220,13 @@ def _median_duration_ms(rows):
     return round((durations[middle - 1] + durations[middle]) / 2, 2)
 
 
+def _duration_range_ms(rows):
+    durations = [_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict)]
+    if not durations:
+        return 0
+    return max(durations) - min(durations)
+
+
 def _timeline_sort_key(item):
     started_at = _normalized_timestamp(item.get("started_at"))
     ended_at = _normalized_timestamp(item.get("ended_at"))
@@ -594,6 +601,7 @@ def build_activity_timeline_summary(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
+        "duration_range_ms": _duration_range_ms(normalized_rows),
         "first_activity": _first_activity_row(normalized_rows),
         "slowest_activity": _slowest_activity_row(normalized_rows),
         "fastest_activity": _fastest_activity_row(normalized_rows),
@@ -833,6 +841,7 @@ def build_command_timing_summary(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
+        "duration_range_ms": _duration_range_ms(normalized_rows),
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
         "failed_commands": _failed_command_rows(normalized_rows),
         "exit_code_counts": _exit_code_counts(normalized_rows),
@@ -1074,6 +1083,7 @@ def build_edit_summary_totals(rows):
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
         "median_duration_ms": _median_duration_ms(normalized_rows),
+        "duration_range_ms": _duration_range_ms(normalized_rows),
         "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),
         "largest_edit": _largest_edit_summary_row(largest_edit),
         "shortest_edit": _largest_edit_summary_row(shortest_edit),
