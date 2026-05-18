@@ -1006,6 +1006,23 @@
         "path": "agent/reviews/REVIEW-0046.yml"
       },
       "updated_at": "2026-05-17T23:03:40Z"
+    },
+    "agent/context-packs/T-072-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-072-add-command-timing-and-edit-summaries-to-reports-20260518040023147379",
+      "reason": "Implemented duration-source duration totals/shares for command, edit, and activity report aggregates; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0047",
+        "verdict": "ready",
+        "summary": "Reviewed T-072 report summary changes: duration_source_duration_ms and duration_source_share are added consistently to command, edit, and activity aggregates; Markdown rendering, regression assertions, rich fixture, schema, state, and handoff docs are updated; tests and ci_check passed.",
+        "reviewer": "codex",
+        "range": "HEAD",
+        "path": "agent/reviews/REVIEW-0047.yml"
+      },
+      "updated_at": "2026-05-18T04:03:26Z"
     }
   }
 }

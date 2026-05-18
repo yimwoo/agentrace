@@ -194,6 +194,10 @@ def _duration_totals_by_status(rows):
     return _duration_totals_by_field(rows, "status")
 
 
+def _duration_totals_by_source(rows):
+    return _duration_totals_by_field(rows, "duration_source")
+
+
 def _duration_shares(duration_totals, total_duration_ms):
     if not duration_totals:
         return {}
@@ -609,6 +613,7 @@ def build_activity_timeline_summary(rows):
     idle_ratio = 0 if not span_duration_ms else round(uncovered_duration_ms / span_duration_ms, 4)
     type_duration_ms = _duration_totals_by_type(normalized_rows)
     status_duration_ms = _duration_totals_by_status(normalized_rows)
+    duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
@@ -621,6 +626,8 @@ def build_activity_timeline_summary(rows):
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
@@ -873,6 +880,7 @@ def build_command_timing_summary(rows):
     commands_run = _ordered_values(normalized_rows, "command")
     duration_coverage = _duration_coverage(normalized_rows)
     status_duration_ms = _duration_totals_by_status(normalized_rows)
+    duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     return {
         "count": len(normalized_rows),
         "unique_command_count": len(commands_run),
@@ -895,6 +903,8 @@ def build_command_timing_summary(rows):
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
@@ -1118,6 +1128,7 @@ def build_edit_summary_totals(rows):
     shortest_edit = _shortest_edit_row(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
     status_duration_ms = _duration_totals_by_status(normalized_rows)
+    duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     return {
         "count": len(normalized_rows),
         "files_changed": files,
@@ -1132,6 +1143,8 @@ def build_edit_summary_totals(rows):
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
+        "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],

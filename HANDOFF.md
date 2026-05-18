@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown report totals now include duration totals and shares grouped by duration source for command timing, edit summaries, and the combined activity timeline. These source-duration summaries sit beside existing duration-source counts and coverage metrics, so report readers can tell how much recorded time came from explicit durations, derived timestamp windows, or missing-duration fallbacks.
+
+## What was done
+- created AgentSpec task `T-072` for a report observability follow-up slice
+- added JSON `duration_source_duration_ms` and `duration_source_share` to `command_timing_summary`, `edit_summary_totals`, and `activity_timeline_summary`
+- rendered command, edit, and activity duration-source duration/share metrics in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for duration-source duration visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+
+## Previous status
+
 `agentrace` JSON and Markdown report totals now include duration min/max extremes for command timing, edit summaries, and the combined activity timeline. These compact bounds sit beside existing average/median/range metrics so report readers can see absolute shortest/longest recorded durations without recomputing them from detail rows.
 
 ## What was done
