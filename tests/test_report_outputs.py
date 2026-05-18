@@ -597,6 +597,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "dominant_duration_status": {"status": "failed", "duration_ms": 2000, "duration_share": 0.9412},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "duration_source_duration_ms": {"derived": 2000, "explicit": 125},
+        "duration_source_average_ms": {"derived": 2000.0, "explicit": 125.0},
         "duration_source_share": {"derived": 0.9412, "explicit": 0.0588},
         "duration_recorded_count": 2,
         "duration_missing_count": 0,
@@ -702,6 +703,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "dominant_duration_status": {"status": "succeeded", "duration_ms": 20, "duration_share": 1.0},
         "duration_source_counts": {"explicit": 2},
         "duration_source_duration_ms": {"explicit": 20},
+        "duration_source_average_ms": {"explicit": 10.0},
         "duration_source_share": {"explicit": 1.0},
         "duration_recorded_count": 2,
         "duration_missing_count": 0,
@@ -789,6 +791,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_duration_source_duration_ms: derived=2000, explicit=125" in text
+    assert "command_duration_source_average_ms: derived=2000.0, explicit=125.0" in text
     assert "command_duration_source_share: derived=0.9412, explicit=0.0588" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
     assert "first_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
@@ -805,6 +808,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_status_counts: succeeded=2" in text
     assert "edit_duration_sources: explicit=2" in text
     assert "edit_duration_source_duration_ms: explicit=20" in text
+    assert "edit_duration_source_average_ms: explicit=10.0" in text
     assert "edit_duration_source_share: explicit=1.0" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
     assert "edit_total_lines: +11/-3" in text
@@ -1106,9 +1110,11 @@ def test_reports_expose_duration_source_for_timing_rows_and_totals():
     text = build_markdown_summary(trace)
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_duration_source_duration_ms: derived=25, explicit=10" in text
+    assert "command_duration_source_average_ms: derived=25.0, explicit=10.0" in text
     assert "command_duration_source_share: derived=0.7143, explicit=0.2857" in text
     assert "edit_duration_sources: derived=1, missing=1" in text
     assert "edit_duration_source_duration_ms: derived=5, missing=0" in text
+    assert "edit_duration_source_average_ms: derived=5.0, missing=0.0" in text
     assert "edit_duration_source_share: derived=1.0, missing=0.0" in text
     assert "evt_cmd_explicit: `pytest -q` — 10ms, status=succeeded, exit_code=0, duration_source=explicit" in text
     assert "evt_cmd_derived: `ruff check` — 25ms, status=succeeded, exit_code=0, duration_source=derived" in text
@@ -1455,6 +1461,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "dominant_duration_status": {"status": "failed", "duration_ms": 25, "duration_share": 1.0},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "duration_source_duration_ms": {"derived": 20, "explicit": 5},
+        "duration_source_average_ms": {"derived": 20.0, "explicit": 5.0},
         "duration_source_share": {"derived": 0.8, "explicit": 0.2},
         "duration_recorded_count": 2,
         "duration_missing_count": 0,
@@ -1654,6 +1661,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "dominant_duration_status=failed (25ms, share=1.0)" in text
     assert "duration_range_ms=15" in text
     assert "duration_source_duration_ms=derived=20, explicit=5" in text
+    assert "duration_source_average_ms=derived=20.0, explicit=5.0" in text
     assert "duration_source_share=derived=0.8, explicit=0.2" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text

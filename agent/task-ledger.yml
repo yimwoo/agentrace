@@ -1023,6 +1023,23 @@
         "path": "agent/reviews/REVIEW-0047.yml"
       },
       "updated_at": "2026-05-18T04:03:26Z"
+    },
+    "agent/context-packs/T-073-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-073-add-command-timing-and-edit-summaries-to-reports-20260518080048380368",
+      "reason": "Implemented duration-source average metrics for command, edit, and activity report aggregates; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0048",
+        "verdict": "ready",
+        "summary": "Self-review: duration_source_average_ms added consistently to command, edit, and activity report aggregates; Markdown output, regression expectations, rich fixture, TRACE_SCHEMA.md, PROJECT_STATE.md, and HANDOFF.md updated; bash scripts/ci_check.sh passed (37 passed, 1 warning).",
+        "reviewer": "codex",
+        "range": "HEAD",
+        "path": "agent/reviews/REVIEW-0048.yml"
+      },
+      "updated_at": "2026-05-18T08:03:50Z"
     }
   }
 }

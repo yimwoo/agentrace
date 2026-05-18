@@ -198,6 +198,15 @@ def _duration_totals_by_source(rows):
     return _duration_totals_by_field(rows, "duration_source")
 
 
+def _duration_averages_by_source(rows):
+    counts = _duration_source_counts(rows)
+    totals = _duration_totals_by_source(rows)
+    return {
+        source: round(totals.get(source, 0) / count, 2) if count else 0
+        for source, count in counts.items()
+    }
+
+
 def _duration_shares(duration_totals, total_duration_ms):
     if not duration_totals:
         return {}
@@ -627,6 +636,7 @@ def build_activity_timeline_summary(rows):
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_average_ms": _duration_averages_by_source(normalized_rows),
         "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
@@ -904,6 +914,7 @@ def build_command_timing_summary(rows):
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_average_ms": _duration_averages_by_source(normalized_rows),
         "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
@@ -1144,6 +1155,7 @@ def build_edit_summary_totals(rows):
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
         "duration_source_duration_ms": duration_source_duration_ms,
+        "duration_source_average_ms": _duration_averages_by_source(normalized_rows),
         "duration_source_share": _duration_shares(duration_source_duration_ms, total_duration_ms),
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
