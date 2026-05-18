@@ -194,6 +194,15 @@ def _duration_totals_by_status(rows):
     return _duration_totals_by_field(rows, "status")
 
 
+def _duration_averages_by_status(rows):
+    counts = _value_counts(rows, "status", missing_label="unknown")
+    totals = _duration_totals_by_status(rows)
+    return {
+        status: round(totals.get(status, 0) / count, 2) if count else 0
+        for status, count in counts.items()
+    }
+
+
 def _duration_totals_by_source(rows):
     return _duration_totals_by_field(rows, "duration_source")
 
@@ -646,6 +655,7 @@ def build_activity_timeline_summary(rows):
         "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
+        "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -925,6 +935,7 @@ def build_command_timing_summary(rows):
         "exit_code_counts": _exit_code_counts(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
+        "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -1167,6 +1178,7 @@ def build_edit_summary_totals(rows):
         "kind_totals": _edit_kind_total_rows(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
+        "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),

@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-18T13:05:29Z",
+  "updated_at": "2026-05-18T18:05:24Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-074",
-    "context_pack": "agent/context-packs/T-074-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-074: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-074-add-command-timing-and-edit-summaries-to-reports-20260518130444112879",
-    "reason": "Implemented duration-source min/max extremes for command, edit, and activity report aggregates; verification passed.",
-    "updated_at": "2026-05-18T13:05:29Z",
+    "id": "T-075",
+    "context_pack": "agent/context-packs/T-075-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-075: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-075-add-command-timing-and-edit-summaries-to-reports-20260518180524740824",
+    "reason": "Implemented per-status average duration aggregates for command, edit, and activity reports; verification passed.",
+    "updated_at": "2026-05-18T18:05:24Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0049",
+      "id": "REVIEW-0050",
       "verdict": "ready",
-      "reviewer": "codex",
-      "range": "HEAD",
-      "path": "agent/reviews/REVIEW-0049.yml"
+      "reviewer": "human",
+      "range": "worktree",
+      "path": "agent/reviews/REVIEW-0050.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 74,
+      "total": 75,
       "by_status": {
-        "complete": 72,
+        "complete": 73,
         "halted": 2
       },
       "by_type": {
-        "implementation": 71,
+        "implementation": 72,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0049.yml"
+    "last_code_review": "agent/reviews/REVIEW-0050.yml"
   }
 }

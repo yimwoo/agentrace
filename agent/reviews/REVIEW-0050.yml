@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-075-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-075-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-075 changes: per-status average duration aggregates are implemented for command, edit, and activity summaries; Markdown rendering, regression assertions, fixture, and docs are aligned; ci_check passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-05-18T18:04:01Z",
+  "id": "REVIEW-0050"
+}
