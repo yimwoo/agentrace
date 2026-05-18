@@ -265,6 +265,15 @@ def _format_duration_extremes(extremes):
     return f"min={extremes.get('min', 0)}, max={extremes.get('max', 0)}"
 
 
+def _format_duration_source_extremes(extremes_by_source):
+    if not extremes_by_source:
+        return "none"
+    return ", ".join(
+        f"{source}=min={extremes.get('min', 0)}/max={extremes.get('max', 0)}"
+        for source, extremes in sorted(extremes_by_source.items())
+    )
+
+
 def _format_aggregate_time_window(time_window):
     if not time_window:
         return "none"
@@ -527,6 +536,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
         f"duration_source_duration_ms={_format_status_counts(timeline_totals.get('duration_source_duration_ms'))}",
         f"duration_source_average_ms={_format_status_counts(timeline_totals.get('duration_source_average_ms'))}",
+        f"duration_source_extremes_ms={_format_duration_source_extremes(timeline_totals.get('duration_source_extremes_ms'))}",
         f"duration_source_share={_format_status_counts(timeline_totals.get('duration_source_share'))}",
         f"duration_recorded_count={timeline_totals.get('duration_recorded_count', 0)}",
         f"duration_missing_count={timeline_totals.get('duration_missing_count', 0)}",
@@ -635,6 +645,7 @@ def build_markdown_summary(trace):
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",
         f"- command_duration_source_duration_ms: {_format_status_counts(command_totals['duration_source_duration_ms'])}",
         f"- command_duration_source_average_ms: {_format_status_counts(command_totals['duration_source_average_ms'])}",
+        f"- command_duration_source_extremes_ms: {_format_duration_source_extremes(command_totals['duration_source_extremes_ms'])}",
         f"- command_duration_source_share: {_format_status_counts(command_totals['duration_source_share'])}",
         f"- command_duration_recorded_count: {command_totals['duration_recorded_count']}",
         f"- command_duration_missing_count: {command_totals['duration_missing_count']}",
@@ -659,6 +670,7 @@ def build_markdown_summary(trace):
         f"- edit_duration_sources: {_format_status_counts(edit_totals['duration_source_counts'])}",
         f"- edit_duration_source_duration_ms: {_format_status_counts(edit_totals['duration_source_duration_ms'])}",
         f"- edit_duration_source_average_ms: {_format_status_counts(edit_totals['duration_source_average_ms'])}",
+        f"- edit_duration_source_extremes_ms: {_format_duration_source_extremes(edit_totals['duration_source_extremes_ms'])}",
         f"- edit_duration_source_share: {_format_status_counts(edit_totals['duration_source_share'])}",
         f"- edit_duration_recorded_count: {edit_totals['duration_recorded_count']}",
         f"- edit_duration_missing_count: {edit_totals['duration_missing_count']}",

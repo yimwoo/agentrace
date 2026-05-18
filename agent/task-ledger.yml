@@ -1040,6 +1040,23 @@
         "path": "agent/reviews/REVIEW-0048.yml"
       },
       "updated_at": "2026-05-18T08:03:50Z"
+    },
+    "agent/context-packs/T-074-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-074-add-command-timing-and-edit-summaries-to-reports-20260518130444112879",
+      "reason": "Implemented duration-source min/max extremes for command, edit, and activity report aggregates; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0049",
+        "verdict": "ready",
+        "summary": "Reviewed duration-source min/max report aggregate changes, Markdown rendering, docs, and regression coverage; CI passed.",
+        "reviewer": "codex",
+        "range": "HEAD",
+        "path": "agent/reviews/REVIEW-0049.yml"
+      },
+      "updated_at": "2026-05-18T13:05:29Z"
     }
   }
 }
