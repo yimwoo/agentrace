@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown report totals now include per-status min/max duration extremes for command timing, edit summaries, and the combined activity timeline. These bounds sit beside per-status duration totals, averages, shares, and dominant-status highlights so readers can see duration spread for failed/succeeded/unknown rows without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-076` for a report observability follow-up slice
+- added JSON `status_duration_extremes_ms` to `command_timing_summary`, `edit_summary_totals`, and `activity_timeline_summary`
+- rendered command, edit, and activity status-duration min/max metrics in Markdown report aggregate summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-status duration extremes visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+
+## Previous status
+
 `agentrace` JSON and Markdown report totals now include per-status average durations for command timing, edit summaries, and the combined activity timeline. These averages sit beside per-status duration totals, shares, and dominant-status highlights so readers can compare typical failed/succeeded/unknown row cost without recalculating from raw rows.
 
 ## What was done

@@ -218,15 +218,24 @@ def _duration_averages_by_source(rows):
 
 def _duration_extremes_by_source(rows):
     """Return per-duration-source min/max duration bounds for aggregate report blocks."""
-    durations_by_source = {}
+    return _duration_extremes_by_field(rows, "duration_source")
+
+
+def _duration_extremes_by_status(rows):
+    """Return per-status min/max duration bounds for aggregate report blocks."""
+    return _duration_extremes_by_field(rows, "status")
+
+
+def _duration_extremes_by_field(rows, field):
+    durations_by_label = {}
     for row in rows or []:
         if not isinstance(row, dict):
             continue
-        source = row.get("duration_source") or "unknown"
-        durations_by_source.setdefault(source, []).append(_numeric_value(row.get("duration_ms")))
+        label = row.get(field) or "unknown"
+        durations_by_label.setdefault(label, []).append(_numeric_value(row.get("duration_ms")))
     return {
-        source: {"min": min(durations), "max": max(durations)}
-        for source, durations in durations_by_source.items()
+        label: {"min": min(durations), "max": max(durations)}
+        for label, durations in durations_by_label.items()
     }
 
 
@@ -656,6 +665,7 @@ def build_activity_timeline_summary(rows):
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
+        "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -936,6 +946,7 @@ def build_command_timing_summary(rows):
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
+        "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -1179,6 +1190,7 @@ def build_edit_summary_totals(rows):
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
+        "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),

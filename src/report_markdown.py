@@ -516,6 +516,7 @@ def _format_status_duration_summary(row):
     return ", ".join([
         f"status_duration_ms={_format_status_counts(row.get('status_duration_ms'))}",
         f"status_average_duration_ms={_format_status_counts(row.get('status_average_duration_ms'))}",
+        f"status_duration_extremes_ms={_format_duration_source_extremes(row.get('status_duration_extremes_ms'))}",
         f"status_duration_share={_format_status_counts(row.get('status_duration_share'))}",
         f"dominant_duration_status={_format_dominant_duration_status(row.get('dominant_duration_status'))}",
     ])
@@ -533,6 +534,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"statuses={_format_status_counts(timeline_totals.get('status_counts'))}",
         f"status_duration_ms={_format_status_counts(timeline_totals.get('status_duration_ms'))}",
         f"status_average_duration_ms={_format_status_counts(timeline_totals.get('status_average_duration_ms'))}",
+        f"status_duration_extremes_ms={_format_duration_source_extremes(timeline_totals.get('status_duration_extremes_ms'))}",
         f"status_duration_share={_format_status_counts(timeline_totals.get('status_duration_share'))}",
         f"dominant_duration_status={_format_dominant_duration_status(timeline_totals.get('dominant_duration_status'))}",
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
