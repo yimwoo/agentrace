@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-077-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-077-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-077 changes: activity timeline summaries now expose per-type average duration and min/max extremes in JSON/Markdown with regression coverage and updated docs. Verification passed via pytest report outputs and full ci_check.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-19T04:03:43Z",
+  "id": "REVIEW-0052"
+}

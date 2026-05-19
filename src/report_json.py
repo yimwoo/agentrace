@@ -194,13 +194,21 @@ def _duration_totals_by_status(rows):
     return _duration_totals_by_field(rows, "status")
 
 
-def _duration_averages_by_status(rows):
-    counts = _value_counts(rows, "status", missing_label="unknown")
-    totals = _duration_totals_by_status(rows)
+def _duration_averages_by_field(rows, field):
+    counts = _value_counts(rows, field, missing_label="unknown")
+    totals = _duration_totals_by_field(rows, field)
     return {
-        status: round(totals.get(status, 0) / count, 2) if count else 0
-        for status, count in counts.items()
+        label: round(totals.get(label, 0) / count, 2) if count else 0
+        for label, count in counts.items()
     }
+
+
+def _duration_averages_by_type(rows):
+    return _duration_averages_by_field(rows, "type")
+
+
+def _duration_averages_by_status(rows):
+    return _duration_averages_by_field(rows, "status")
 
 
 def _duration_totals_by_source(rows):
@@ -224,6 +232,11 @@ def _duration_extremes_by_source(rows):
 def _duration_extremes_by_status(rows):
     """Return per-status min/max duration bounds for aggregate report blocks."""
     return _duration_extremes_by_field(rows, "status")
+
+
+def _duration_extremes_by_type(rows):
+    """Return per-activity-type min/max duration bounds for aggregate report blocks."""
+    return _duration_extremes_by_field(rows, "type")
 
 
 def _duration_extremes_by_field(rows, field):
@@ -660,6 +673,8 @@ def build_activity_timeline_summary(rows):
         "count": len(normalized_rows),
         "type_counts": type_counts,
         "type_duration_ms": type_duration_ms,
+        "type_average_duration_ms": _duration_averages_by_type(normalized_rows),
+        "type_duration_extremes_ms": _duration_extremes_by_type(normalized_rows),
         "type_duration_share": _duration_shares_by_type(type_duration_ms, total_duration_ms),
         "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,

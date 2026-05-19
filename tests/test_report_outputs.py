@@ -1463,6 +1463,8 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "count": 2,
         "type_counts": {"command": 1, "file_edit": 1},
         "type_duration_ms": {"command": 20, "file_edit": 5},
+        "type_average_duration_ms": {"command": 20.0, "file_edit": 5.0},
+        "type_duration_extremes_ms": {"command": {"min": 20, "max": 20}, "file_edit": {"min": 5, "max": 5}},
         "type_duration_share": {"command": 0.8, "file_edit": 0.2},
         "dominant_duration_type": {"type": "command", "duration_ms": 20, "duration_share": 0.8},
         "status_counts": {"failed": 2},
@@ -1668,6 +1670,8 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     ]
 
     text = build_markdown_summary(trace)
+    assert "type_average_duration_ms=command=20.0, file_edit=5.0" in text
+    assert "type_duration_extremes_ms=command=min=20/max=20, file_edit=min=5/max=5" in text
     assert "type_duration_share=command=0.8, file_edit=0.2" in text
     assert "status_duration_ms=failed=25" in text
     assert "status_duration_share=failed=1.0" in text

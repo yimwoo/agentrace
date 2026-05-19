@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown activity timeline summaries now include per-activity-type average durations and min/max duration extremes. These metrics sit beside per-type totals/shares and the dominant type highlight so readers can compare command vs file-edit duration spread without scanning the chronological rows.
+
+## What was done
+- created AgentSpec task `T-077` for a report observability follow-up slice
+- added JSON `type_average_duration_ms` and `type_duration_extremes_ms` to `activity_timeline_summary`
+- rendered activity type-duration average and min/max metrics in Markdown report aggregate summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for per-type duration spread visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+
+## Latest status
 `agentrace` JSON and Markdown report totals now include per-status min/max duration extremes for command timing, edit summaries, and the combined activity timeline. These bounds sit beside per-status duration totals, averages, shares, and dominant-status highlights so readers can see duration spread for failed/succeeded/unknown rows without scanning detail rows.
 
 ## What was done
