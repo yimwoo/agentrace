@@ -88,6 +88,7 @@ def _format_command_attempts(command_attempts):
             f"failed_count={row.get('failed_count', 0)}",
             f"statuses={_format_status_counts(row.get('status_counts'))}",
         ]
+        _append_duration_spread_details(details, row)
         details.append(f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}")
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
@@ -101,6 +102,19 @@ def _format_command_attempts(command_attempts):
             details.append(artifact_details)
         lines.append(f"`{row.get('command') or '<unknown command>'}` ({', '.join(details)})")
     return "; ".join(lines)
+
+
+def _append_duration_spread_details(details, row):
+    """Render nested aggregate spread metrics when the JSON row includes them."""
+    if "median_duration_ms" not in row:
+        return
+    details.extend([
+        f"median_duration_ms={row.get('median_duration_ms', 0)}",
+        f"duration_range_ms={row.get('duration_range_ms', 0)}",
+        f"duration_extremes_ms={_format_duration_extremes(row.get('duration_extremes_ms'))}",
+        f"duration_source_duration_ms={_format_status_counts(row.get('duration_source_duration_ms'))}",
+        f"duration_source_share={_format_status_counts(row.get('duration_source_share'))}",
+    ])
 
 
 def _format_file_change_totals(file_change_totals):
@@ -120,6 +134,7 @@ def _format_file_change_totals(file_change_totals):
             f"kinds={_format_status_counts(row.get('kind_counts'))}",
             f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
         ]
+        _append_duration_spread_details(details, row)
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")
@@ -150,6 +165,7 @@ def _format_command_cwd_totals(cwd_totals):
             f"statuses={_format_status_counts(row.get('status_counts'))}",
             f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
         ]
+        _append_duration_spread_details(details, row)
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")
@@ -181,6 +197,7 @@ def _format_edit_kind_totals(kind_totals):
             f"statuses={_format_status_counts(row.get('status_counts'))}",
             f"duration_sources={_format_status_counts(row.get('duration_source_counts'))}",
         ]
+        _append_duration_spread_details(details, row)
         time_window = _format_aggregate_time_window(row.get("time_window"))
         if time_window != "none":
             details.append(f"time_window={time_window}")

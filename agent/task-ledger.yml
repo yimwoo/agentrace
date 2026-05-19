@@ -1100,6 +1100,40 @@
         "path": "agent/reviews/REVIEW-0052.yml"
       },
       "updated_at": "2026-05-19T04:04:25Z"
+    },
+    "agent/context-packs/T-078-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-078-add-command-timing-and-edit-summaries-to-reports-20260519130432497297",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0054",
+        "verdict": "ready",
+        "summary": "Retrospective review for T-078: repeated nested aggregate rows include median/range/min-max duration spread with regression coverage; subsequent ci_check passes.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0054.yml"
+      },
+      "updated_at": "2026-05-19T13:04:32Z"
+    },
+    "agent/context-packs/T-079-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-079-add-command-timing-and-edit-summaries-to-reports-20260519130432847859",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0053",
+        "verdict": "ready",
+        "summary": "Self-review: repeated nested aggregate rows now include duration-source duration totals and shares in JSON/Markdown with regression coverage; ci_check passes.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0053.yml"
+      },
+      "updated_at": "2026-05-19T13:04:32Z"
     }
   }
 }

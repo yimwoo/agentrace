@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-079-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-079-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Self-review: repeated nested aggregate rows now include duration-source duration totals and shares in JSON/Markdown with regression coverage; ci_check passes.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-19T13:03:35Z",
+  "id": "REVIEW-0053"
+}

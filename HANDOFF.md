@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown nested aggregate rows now include duration-source duration totals and shares for repeated command attempts, repeated command cwd groups, repeated file-change groups, and repeated edit-kind groups. These nested rows already exposed count, total/average duration, median duration, duration range, and min/max duration extremes; the new per-source totals/shares make it clear how much of each repeated group came from explicit, derived, or missing-duration rows without scanning raw events.
+
+## What was done
+- created AgentSpec task `T-079` for a report observability follow-up slice
+- added repeated-group `duration_source_duration_ms` and `duration_source_share` fields to command attempts, command cwd totals, file change totals, and edit kind totals
+- rendered those nested duration-source totals/shares in Markdown reports when repeated-group spread metrics are present
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested aggregate duration-source total/share visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+
+## Latest status
 `agentrace` JSON and Markdown activity timeline summaries now include per-activity-type average durations and min/max duration extremes. These metrics sit beside per-type totals/shares and the dominant type highlight so readers can compare command vs file-edit duration spread without scanning the chronological rows.
 
 ## What was done

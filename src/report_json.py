@@ -320,6 +320,18 @@ def _duration_extremes_ms(rows):
     return {"min": min(durations), "max": max(durations)}
 
 
+def _add_duration_spread(summary, rows):
+    """Attach compact duration spread and source-share metrics for repeated aggregate groups."""
+    if summary.get("count", 0) <= 1:
+        return
+    source_duration_ms = _duration_totals_by_source(rows)
+    summary["median_duration_ms"] = _median_duration_ms(rows)
+    summary["duration_range_ms"] = _duration_range_ms(rows)
+    summary["duration_extremes_ms"] = _duration_extremes_ms(rows)
+    summary["duration_source_duration_ms"] = source_duration_ms
+    summary["duration_source_share"] = _duration_shares(source_duration_ms, summary.get("total_duration_ms", 0))
+
+
 def _timeline_sort_key(item):
     started_at = _normalized_timestamp(item.get("started_at"))
     ended_at = _normalized_timestamp(item.get("ended_at"))
@@ -801,8 +813,10 @@ def _command_attempt_rows(rows):
 
     summaries = []
     for summary in attempts_by_command.values():
+        group_rows = summary.pop("_rows")
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
-        summary["time_window"] = _time_window(summary.pop("_rows"))
+        _add_duration_spread(summary, group_rows)
+        summary["time_window"] = _time_window(group_rows)
         if not summary["artifacts"]:
             summary.pop("artifacts")
         summaries.append(summary)
@@ -848,8 +862,10 @@ def _command_cwd_total_rows(rows):
 
     summaries = []
     for summary in totals_by_cwd.values():
+        group_rows = summary.pop("_rows")
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
-        summary["time_window"] = _time_window(summary.pop("_rows"))
+        _add_duration_spread(summary, group_rows)
+        summary["time_window"] = _time_window(group_rows)
         if summary["count"] <= 1:
             summary.pop("first_event")
             summary.pop("last_event")
@@ -1108,8 +1124,10 @@ def _file_change_total_rows(rows):
 
     summaries = []
     for summary in totals_by_file.values():
+        group_rows = summary.pop("_rows")
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
-        summary["time_window"] = _time_window(summary.pop("_rows"))
+        _add_duration_spread(summary, group_rows)
+        summary["time_window"] = _time_window(group_rows)
         if summary["count"] <= 1:
             summary.pop("first_event")
             summary.pop("last_event")
@@ -1166,8 +1184,10 @@ def _edit_kind_total_rows(rows):
 
     summaries = []
     for summary in totals_by_kind.values():
+        group_rows = summary.pop("_rows")
         summary["average_duration_ms"] = round(summary["total_duration_ms"] / summary["count"], 2)
-        summary["time_window"] = _time_window(summary.pop("_rows"))
+        _add_duration_spread(summary, group_rows)
+        summary["time_window"] = _time_window(group_rows)
         if summary["count"] <= 1:
             summary.pop("first_event")
             summary.pop("last_event")

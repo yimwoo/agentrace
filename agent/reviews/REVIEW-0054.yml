@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-078-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-078-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Retrospective review for T-078: repeated nested aggregate rows include median/range/min-max duration spread with regression coverage; subsequent ci_check passes.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-19T13:04:32Z",
+  "id": "REVIEW-0054"
+}
