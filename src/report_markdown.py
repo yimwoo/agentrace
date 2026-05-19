@@ -112,6 +112,9 @@ def _append_duration_spread_details(details, row):
         f"median_duration_ms={row.get('median_duration_ms', 0)}",
         f"duration_range_ms={row.get('duration_range_ms', 0)}",
         f"duration_extremes_ms={_format_duration_extremes(row.get('duration_extremes_ms'))}",
+        f"duration_recorded_count={row.get('duration_recorded_count', 0)}",
+        f"duration_missing_count={row.get('duration_missing_count', 0)}",
+        f"duration_coverage_ratio={row.get('duration_coverage_ratio', 0)}",
         f"duration_source_duration_ms={_format_status_counts(row.get('duration_source_duration_ms'))}",
         f"duration_source_share={_format_status_counts(row.get('duration_source_share'))}",
     ])

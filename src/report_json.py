@@ -321,13 +321,17 @@ def _duration_extremes_ms(rows):
 
 
 def _add_duration_spread(summary, rows):
-    """Attach compact duration spread and source-share metrics for repeated aggregate groups."""
+    """Attach compact duration spread, coverage, and source-share metrics for repeated aggregate groups."""
     if summary.get("count", 0) <= 1:
         return
     source_duration_ms = _duration_totals_by_source(rows)
+    duration_coverage = _duration_coverage(rows)
     summary["median_duration_ms"] = _median_duration_ms(rows)
     summary["duration_range_ms"] = _duration_range_ms(rows)
     summary["duration_extremes_ms"] = _duration_extremes_ms(rows)
+    summary["duration_recorded_count"] = duration_coverage["duration_recorded_count"]
+    summary["duration_missing_count"] = duration_coverage["duration_missing_count"]
+    summary["duration_coverage_ratio"] = duration_coverage["duration_coverage_ratio"]
     summary["duration_source_duration_ms"] = source_duration_ms
     summary["duration_source_share"] = _duration_shares(source_duration_ms, summary.get("total_duration_ms", 0))
 

@@ -1134,6 +1134,23 @@
         "path": "agent/reviews/REVIEW-0053.yml"
       },
       "updated_at": "2026-05-19T13:04:32Z"
+    },
+    "agent/context-packs/T-080-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-080-add-command-timing-and-edit-summaries-to-reports-20260519180026661131",
+      "reason": "Implemented repeated aggregate duration coverage fields and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0055",
+        "verdict": "ready",
+        "summary": "Reviewed T-080 changes: repeated command/edit aggregate rows now include duration coverage metadata, Markdown renders the fields, docs and tests updated, and CI passed.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0055.yml"
+      },
+      "updated_at": "2026-05-19T18:04:25Z"
     }
   }
 }

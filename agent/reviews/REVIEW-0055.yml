@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-080-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-080-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-080 changes: repeated command/edit aggregate rows now include duration coverage metadata, Markdown renders the fields, docs and tests updated, and CI passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-19T18:04:21Z",
+  "id": "REVIEW-0055"
+}

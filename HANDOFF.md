@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` repeated command/edit aggregate rows now include duration coverage metadata. JSON report rows for repeated command attempts, command cwd totals, per-file change totals, and edit-kind totals expose `duration_recorded_count`, `duration_missing_count`, and `duration_coverage_ratio`, and Markdown renders those fields next to existing repeated-group median/range/extreme and duration-source totals.
+
+## What was done
+- created AgentSpec task `T-080` for a report observability follow-up slice
+- added repeated-group duration coverage fields to command attempts, command cwd totals, file change totals, and edit kind totals
+- rendered nested duration recorded/missing counts and coverage ratios in Markdown repeated-group summaries
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for repeated aggregate duration coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+
+
+## Latest status
 `agentrace` JSON and Markdown nested aggregate rows now include duration-source duration totals and shares for repeated command attempts, repeated command cwd groups, repeated file-change groups, and repeated edit-kind groups. These nested rows already exposed count, total/average duration, median duration, duration range, and min/max duration extremes; the new per-source totals/shares make it clear how much of each repeated group came from explicit, derived, or missing-duration rows without scanning raw events.
 
 ## What was done
