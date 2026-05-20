@@ -115,6 +115,12 @@ def _append_duration_spread_details(details, row):
         f"duration_recorded_count={row.get('duration_recorded_count', 0)}",
         f"duration_missing_count={row.get('duration_missing_count', 0)}",
         f"duration_coverage_ratio={row.get('duration_coverage_ratio', 0)}",
+        f"status_duration_ms={_format_status_counts(row.get('status_duration_ms'))}",
+        f"status_average_duration_ms={_format_status_counts(row.get('status_average_duration_ms'))}",
+        f"status_duration_extremes_ms={_format_duration_source_extremes(row.get('status_duration_extremes_ms'))}",
+        f"status_duration_coverage={_format_duration_coverage_by_label(row.get('status_duration_coverage'))}",
+        f"status_duration_share={_format_status_counts(row.get('status_duration_share'))}",
+        f"dominant_duration_status={_format_dominant_duration_status(row.get('dominant_duration_status'))}",
         f"duration_source_duration_ms={_format_status_counts(row.get('duration_source_duration_ms'))}",
         f"duration_source_share={_format_status_counts(row.get('duration_source_share'))}",
     ])
@@ -291,6 +297,15 @@ def _format_duration_source_extremes(extremes_by_source):
     return ", ".join(
         f"{source}=min={extremes.get('min', 0)}/max={extremes.get('max', 0)}"
         for source, extremes in sorted(extremes_by_source.items())
+    )
+
+
+def _format_duration_coverage_by_label(coverage_by_label):
+    if not coverage_by_label:
+        return "none"
+    return ", ".join(
+        f"{label}=recorded={coverage.get('duration_recorded_count', 0)}/missing={coverage.get('duration_missing_count', 0)}/ratio={coverage.get('duration_coverage_ratio', 0)}"
+        for label, coverage in sorted(coverage_by_label.items())
     )
 
 
@@ -524,6 +539,18 @@ def _format_dominant_duration_type(row):
     return f"{row.get('type') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
 
 
+def _format_dominant_duration_cwd(row):
+    if not row:
+        return "none"
+    return f"{row.get('cwd') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
+
+
+def _format_dominant_duration_kind(row):
+    if not row:
+        return "none"
+    return f"{row.get('kind') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
+
+
 def _format_dominant_duration_status(row):
     if not row:
         return "none"
@@ -537,8 +564,35 @@ def _format_status_duration_summary(row):
         f"status_duration_ms={_format_status_counts(row.get('status_duration_ms'))}",
         f"status_average_duration_ms={_format_status_counts(row.get('status_average_duration_ms'))}",
         f"status_duration_extremes_ms={_format_duration_source_extremes(row.get('status_duration_extremes_ms'))}",
+        f"status_duration_coverage={_format_duration_coverage_by_label(row.get('status_duration_coverage'))}",
         f"status_duration_share={_format_status_counts(row.get('status_duration_share'))}",
         f"dominant_duration_status={_format_dominant_duration_status(row.get('dominant_duration_status'))}",
+    ])
+
+
+def _format_cwd_duration_summary(row):
+    if not row:
+        return "none"
+    return ", ".join([
+        f"cwd_duration_ms={_format_status_counts(row.get('cwd_duration_ms'))}",
+        f"cwd_average_duration_ms={_format_status_counts(row.get('cwd_average_duration_ms'))}",
+        f"cwd_duration_extremes_ms={_format_duration_source_extremes(row.get('cwd_duration_extremes_ms'))}",
+        f"cwd_duration_coverage={_format_duration_coverage_by_label(row.get('cwd_duration_coverage'))}",
+        f"cwd_duration_share={_format_status_counts(row.get('cwd_duration_share'))}",
+        f"dominant_duration_cwd={_format_dominant_duration_cwd(row.get('dominant_duration_cwd'))}",
+    ])
+
+
+def _format_kind_duration_summary(row):
+    if not row:
+        return "none"
+    return ", ".join([
+        f"kind_duration_ms={_format_status_counts(row.get('kind_duration_ms'))}",
+        f"kind_average_duration_ms={_format_status_counts(row.get('kind_average_duration_ms'))}",
+        f"kind_duration_extremes_ms={_format_duration_source_extremes(row.get('kind_duration_extremes_ms'))}",
+        f"kind_duration_coverage={_format_duration_coverage_by_label(row.get('kind_duration_coverage'))}",
+        f"kind_duration_share={_format_status_counts(row.get('kind_duration_share'))}",
+        f"dominant_duration_kind={_format_dominant_duration_kind(row.get('dominant_duration_kind'))}",
     ])
 
 
@@ -551,12 +605,14 @@ def _format_activity_timeline_summary(timeline_totals):
         f"type_duration_ms={_format_status_counts(timeline_totals.get('type_duration_ms'))}",
         f"type_average_duration_ms={_format_status_counts(timeline_totals.get('type_average_duration_ms'))}",
         f"type_duration_extremes_ms={_format_duration_source_extremes(timeline_totals.get('type_duration_extremes_ms'))}",
+        f"type_duration_coverage={_format_duration_coverage_by_label(timeline_totals.get('type_duration_coverage'))}",
         f"type_duration_share={_format_status_counts(timeline_totals.get('type_duration_share'))}",
         f"dominant_duration_type={_format_dominant_duration_type(timeline_totals.get('dominant_duration_type'))}",
         f"statuses={_format_status_counts(timeline_totals.get('status_counts'))}",
         f"status_duration_ms={_format_status_counts(timeline_totals.get('status_duration_ms'))}",
         f"status_average_duration_ms={_format_status_counts(timeline_totals.get('status_average_duration_ms'))}",
         f"status_duration_extremes_ms={_format_duration_source_extremes(timeline_totals.get('status_duration_extremes_ms'))}",
+        f"status_duration_coverage={_format_duration_coverage_by_label(timeline_totals.get('status_duration_coverage'))}",
         f"status_duration_share={_format_status_counts(timeline_totals.get('status_duration_share'))}",
         f"dominant_duration_status={_format_dominant_duration_status(timeline_totals.get('dominant_duration_status'))}",
         f"duration_sources={_format_status_counts(timeline_totals.get('duration_source_counts'))}",
@@ -656,6 +712,7 @@ def build_markdown_summary(trace):
         f"- repeated_commands: {_format_repeated_commands(command_totals['repeated_commands'])}",
         f"- command_attempts: {_format_command_attempts(command_totals['command_attempts'])}",
         f"- command_cwd_counts: {_format_status_counts(command_totals['cwd_counts'])}",
+        f"- command_cwd_duration_summary: {_format_cwd_duration_summary(command_totals)}",
         f"- command_cwd_totals: {_format_command_cwd_totals(command_totals['cwd_totals'])}",
         f"- command_total_duration_ms: {command_totals['total_duration_ms']}",
         f"- command_average_duration_ms: {command_totals['average_duration_ms']}",
@@ -690,6 +747,7 @@ def build_markdown_summary(trace):
         f"- edit_failed_count: {edit_totals['failed_count']}",
         f"- failed_edits: {_format_failed_edits(edit_totals['failed_edits'])}",
         f"- edit_kind_counts: {_format_status_counts(edit_totals['kind_counts'])}",
+        f"- edit_kind_duration_summary: {_format_kind_duration_summary(edit_totals)}",
         f"- edit_kind_totals: {_format_edit_kind_totals(edit_totals['kind_totals'])}",
         f"- edit_status_counts: {_format_status_counts(edit_totals['status_counts'])}",
         f"- edit_status_duration_summary: {_format_status_duration_summary(edit_totals)}",

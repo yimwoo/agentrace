@@ -1151,6 +1151,57 @@
         "path": "agent/reviews/REVIEW-0055.yml"
       },
       "updated_at": "2026-05-19T18:04:25Z"
+    },
+    "agent/context-packs/T-081-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-081-add-command-timing-and-edit-summaries-to-reports-20260519230047522555",
+      "reason": "Implemented grouped duration coverage in report summaries and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0056",
+        "verdict": "ready",
+        "summary": "Grouped duration coverage implementation reviewed via regression tests and ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0056.yml"
+      },
+      "updated_at": "2026-05-19T23:06:51Z"
+    },
+    "agent/context-packs/T-082-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-082-add-command-timing-and-edit-summaries-to-reports-20260520040101832462",
+      "reason": "Implemented grouped command-cwd and edit-kind duration summaries in reports and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0057",
+        "verdict": "ready",
+        "summary": "Grouped command-cwd and edit-kind duration summaries reviewed via report regression tests and full ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0057.yml"
+      },
+      "updated_at": "2026-05-20T04:06:52Z"
+    },
+    "agent/context-packs/T-083-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-083-add-command-timing-and-edit-summaries-to-reports-20260520080354820567",
+      "reason": "Implemented nested status-duration summaries for repeated command/edit aggregate groups and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0059",
+        "verdict": "ready",
+        "summary": "Nested repeated-group status-duration summaries reviewed via report regression tests and full ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0059.yml"
+      },
+      "updated_at": "2026-05-20T08:05:53Z"
     }
   }
 }

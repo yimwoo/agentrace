@@ -166,6 +166,17 @@ def _duration_coverage(rows):
     }
 
 
+def _duration_coverage_by_field(rows, field):
+    """Return duration recorded/missing coverage grouped by a row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {label: _duration_coverage(group_rows) for label, group_rows in rows_by_label.items()}
+
+
 def _average_recorded_duration_ms(rows):
     """Average duration across rows that actually recorded or derived timing."""
     recorded_durations = [
@@ -291,6 +302,14 @@ def _dominant_duration_type(type_duration_ms, total_duration_ms):
     return _dominant_duration_label(type_duration_ms, total_duration_ms, "type")
 
 
+def _dominant_duration_cwd(cwd_duration_ms, total_duration_ms):
+    return _dominant_duration_label(cwd_duration_ms, total_duration_ms, "cwd")
+
+
+def _dominant_duration_kind(kind_duration_ms, total_duration_ms):
+    return _dominant_duration_label(kind_duration_ms, total_duration_ms, "kind")
+
+
 def _dominant_duration_status(status_duration_ms, total_duration_ms):
     return _dominant_duration_label(status_duration_ms, total_duration_ms, "status")
 
@@ -324,7 +343,9 @@ def _add_duration_spread(summary, rows):
     """Attach compact duration spread, coverage, and source-share metrics for repeated aggregate groups."""
     if summary.get("count", 0) <= 1:
         return
+    total_duration_ms = summary.get("total_duration_ms", 0)
     source_duration_ms = _duration_totals_by_source(rows)
+    status_duration_ms = _duration_totals_by_status(rows)
     duration_coverage = _duration_coverage(rows)
     summary["median_duration_ms"] = _median_duration_ms(rows)
     summary["duration_range_ms"] = _duration_range_ms(rows)
@@ -332,8 +353,14 @@ def _add_duration_spread(summary, rows):
     summary["duration_recorded_count"] = duration_coverage["duration_recorded_count"]
     summary["duration_missing_count"] = duration_coverage["duration_missing_count"]
     summary["duration_coverage_ratio"] = duration_coverage["duration_coverage_ratio"]
+    summary["status_duration_ms"] = status_duration_ms
+    summary["status_average_duration_ms"] = _duration_averages_by_status(rows)
+    summary["status_duration_extremes_ms"] = _duration_extremes_by_status(rows)
+    summary["status_duration_coverage"] = _duration_coverage_by_field(rows, "status")
+    summary["status_duration_share"] = _duration_shares_by_status(status_duration_ms, total_duration_ms)
+    summary["dominant_duration_status"] = _dominant_duration_status(status_duration_ms, total_duration_ms)
     summary["duration_source_duration_ms"] = source_duration_ms
-    summary["duration_source_share"] = _duration_shares(source_duration_ms, summary.get("total_duration_ms", 0))
+    summary["duration_source_share"] = _duration_shares(source_duration_ms, total_duration_ms)
 
 
 def _timeline_sort_key(item):
@@ -691,12 +718,14 @@ def build_activity_timeline_summary(rows):
         "type_duration_ms": type_duration_ms,
         "type_average_duration_ms": _duration_averages_by_type(normalized_rows),
         "type_duration_extremes_ms": _duration_extremes_by_type(normalized_rows),
+        "type_duration_coverage": _duration_coverage_by_field(normalized_rows, "type"),
         "type_duration_share": _duration_shares_by_type(type_duration_ms, total_duration_ms),
         "dominant_duration_type": _dominant_duration_type(type_duration_ms, total_duration_ms),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
+        "status_duration_coverage": _duration_coverage_by_field(normalized_rows, "status"),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -959,6 +988,7 @@ def build_command_timing_summary(rows):
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     commands_run = _ordered_values(normalized_rows, "command")
     duration_coverage = _duration_coverage(normalized_rows)
+    cwd_duration_ms = _duration_totals_by_field(normalized_rows, "cwd")
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     return {
@@ -968,6 +998,12 @@ def build_command_timing_summary(rows):
         "repeated_commands": _repeated_value_counts(normalized_rows, "command"),
         "command_attempts": _command_attempt_rows(normalized_rows),
         "cwd_counts": _value_counts(normalized_rows, "cwd", missing_label="unknown"),
+        "cwd_duration_ms": cwd_duration_ms,
+        "cwd_average_duration_ms": _duration_averages_by_field(normalized_rows, "cwd"),
+        "cwd_duration_extremes_ms": _duration_extremes_by_field(normalized_rows, "cwd"),
+        "cwd_duration_coverage": _duration_coverage_by_field(normalized_rows, "cwd"),
+        "cwd_duration_share": _duration_shares(cwd_duration_ms, total_duration_ms),
+        "dominant_duration_cwd": _dominant_duration_cwd(cwd_duration_ms, total_duration_ms),
         "cwd_totals": _command_cwd_total_rows(normalized_rows),
         "total_duration_ms": total_duration_ms,
         "average_duration_ms": 0 if not normalized_rows else round(total_duration_ms / len(normalized_rows), 2),
@@ -982,6 +1018,7 @@ def build_command_timing_summary(rows):
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
+        "status_duration_coverage": _duration_coverage_by_field(normalized_rows, "status"),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),
@@ -1215,6 +1252,7 @@ def build_edit_summary_totals(rows):
     largest_edit = _largest_edit_row(normalized_rows)
     shortest_edit = _shortest_edit_row(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
+    kind_duration_ms = _duration_totals_by_field(normalized_rows, "kind")
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     return {
@@ -1225,11 +1263,18 @@ def build_edit_summary_totals(rows):
         "failed_count": sum(1 for row in normalized_rows if _is_failed_edit(row)),
         "failed_edits": _failed_edit_rows(normalized_rows),
         "kind_counts": _value_counts(normalized_rows, "kind", missing_label="unknown"),
+        "kind_duration_ms": kind_duration_ms,
+        "kind_average_duration_ms": _duration_averages_by_field(normalized_rows, "kind"),
+        "kind_duration_extremes_ms": _duration_extremes_by_field(normalized_rows, "kind"),
+        "kind_duration_coverage": _duration_coverage_by_field(normalized_rows, "kind"),
+        "kind_duration_share": _duration_shares(kind_duration_ms, total_duration_ms),
+        "dominant_duration_kind": _dominant_duration_kind(kind_duration_ms, total_duration_ms),
         "kind_totals": _edit_kind_total_rows(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
         "status_duration_extremes_ms": _duration_extremes_by_status(normalized_rows),
+        "status_duration_coverage": _duration_coverage_by_field(normalized_rows, "status"),
         "status_duration_share": _duration_shares_by_status(status_duration_ms, total_duration_ms),
         "dominant_duration_status": _dominant_duration_status(status_duration_ms, total_duration_ms),
         "duration_source_counts": _duration_source_counts(normalized_rows),

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "T-083",
+    "context_pack": "agent/context-packs/T-083-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Nested repeated-group status-duration summaries reviewed via report regression tests and full ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-20T08:05:06Z",
+  "id": "REVIEW-0059"
+}

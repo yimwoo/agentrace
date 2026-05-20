@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-082-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-082-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Grouped command-cwd and edit-kind duration summaries reviewed via report regression tests and full ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-20T04:06:44Z",
+  "id": "REVIEW-0057"
+}

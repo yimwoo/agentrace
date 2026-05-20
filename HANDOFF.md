@@ -1,13 +1,27 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` repeated command/edit aggregate rows now include duration coverage metadata. JSON report rows for repeated command attempts, command cwd totals, per-file change totals, and edit-kind totals expose `duration_recorded_count`, `duration_missing_count`, and `duration_coverage_ratio`, and Markdown renders those fields next to existing repeated-group median/range/extreme and duration-source totals.
+`agentrace` repeated command/edit aggregate groups now expose nested status-duration timing context. Command attempts, command cwd totals, per-file edit totals, and edit-kind totals include per-status duration totals, averages, min/max extremes, coverage ratios, duration shares, and dominant status highlights in JSON reports, and Markdown renders the same nested status-duration detail beside existing repeated-group duration-source totals.
 
 ## What was done
-- created AgentSpec task `T-080` for a report observability follow-up slice
-- added repeated-group duration coverage fields to command attempts, command cwd totals, file change totals, and edit kind totals
-- rendered nested duration recorded/missing counts and coverage ratios in Markdown repeated-group summaries
-- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for repeated aggregate duration coverage visibility
+- created AgentSpec task `T-083` for a report observability follow-up slice
+- extended repeated aggregate duration spread rows with status-duration totals/averages/extremes/coverage/shares and dominant status highlights
+- rendered nested status-duration metrics for command attempts, cwd totals, file change totals, and edit-kind totals in Markdown
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested status-duration visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+
+`agentrace` report aggregate summaries now expose duration totals grouped by command working directory and edit kind. Command timing totals include `cwd_duration_ms`, cwd averages/extremes/coverage/shares, and a dominant-duration cwd highlight; edit totals include equivalent `kind_duration_*` metrics and a dominant-duration edit-kind highlight, with Markdown rendering both grouped summaries next to the existing cwd/kind counts.
+
+## What was done
+- created AgentSpec task `T-082` for a report observability follow-up slice
+- added grouped duration aggregate fields for command cwd and edit kind summaries in JSON reports
+- rendered command cwd and edit kind duration summaries in Markdown reports
+- refreshed regression coverage and the rich Markdown fixture for grouped cwd/kind duration visibility
 
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning

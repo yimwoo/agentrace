@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-081-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-081-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Grouped duration coverage implementation reviewed via regression tests and ci_check; JSON/Markdown/schema/docs updates are within context-pack scope.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-19T23:06:46Z",
+  "id": "REVIEW-0056"
+}
