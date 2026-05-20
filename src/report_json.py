@@ -360,6 +360,8 @@ def _add_duration_spread(summary, rows):
     summary["status_duration_share"] = _duration_shares_by_status(status_duration_ms, total_duration_ms)
     summary["dominant_duration_status"] = _dominant_duration_status(status_duration_ms, total_duration_ms)
     summary["duration_source_duration_ms"] = source_duration_ms
+    summary["duration_source_average_ms"] = _duration_averages_by_source(rows)
+    summary["duration_source_extremes_ms"] = _duration_extremes_by_source(rows)
     summary["duration_source_share"] = _duration_shares(source_duration_ms, total_duration_ms)
 
 

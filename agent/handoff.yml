@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-20T08:05:53Z",
+  "updated_at": "2026-05-20T13:04:47Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-083",
-    "context_pack": "agent/context-packs/T-083-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-083: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-083-add-command-timing-and-edit-summaries-to-reports-20260520080354820567",
-    "reason": "Implemented nested status-duration summaries for repeated command/edit aggregate groups and verified with ci_check.",
-    "updated_at": "2026-05-20T08:05:53Z",
+    "id": "T-084",
+    "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-084: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-084-add-command-timing-and-edit-summaries-to-reports-20260520130447662474",
+    "reason": "Implemented nested duration-source average/extreme metrics for repeated command/edit aggregate groups and verified with ci_check.",
+    "updated_at": "2026-05-20T13:04:47Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0059",
+      "id": "REVIEW-0060",
       "verdict": "ready",
       "reviewer": "codex",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0059.yml"
+      "path": "agent/reviews/REVIEW-0060.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 83,
+      "total": 84,
       "by_status": {
-        "complete": 81,
+        "complete": 82,
         "halted": 2
       },
       "by_type": {
-        "implementation": 80,
+        "implementation": 81,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0059.yml"
+    "last_code_review": "agent/reviews/REVIEW-0060.yml"
   }
 }

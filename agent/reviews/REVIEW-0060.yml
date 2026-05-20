@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-084 changes: repeated command/edit aggregate groups now include duration-source average and min/max metrics in JSON and Markdown, regression coverage and docs updated, ci_check passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-20T13:04:11Z",
+  "id": "REVIEW-0060"
+}

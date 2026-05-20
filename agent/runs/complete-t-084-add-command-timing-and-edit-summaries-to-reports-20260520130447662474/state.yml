@@ -1,0 +1,102 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-084-add-command-timing-and-edit-summaries-to-reports-20260520130447662474",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-084: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-20T13:04:47Z",
+  "updated_at": "2026-05-20T13:04:47Z",
+  "last_decision": "complete",
+  "completion_reason": "Implemented nested duration-source average/extreme metrics for repeated command/edit aggregate groups and verified with ci_check.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0060",
+    "verdict": "ready",
+    "summary": "Reviewed T-084 changes: repeated command/edit aggregate groups now include duration-source average and min/max metrics in JSON and Markdown, regression coverage and docs updated, ci_check passed.",
+    "reviewer": "codex",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0060.yml"
+  },
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-084",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": {
+      "session_id": "S-20260520T130105989834Z-t-084-93c60adb",
+      "status": "active",
+      "terminal": false,
+      "owner": "cron",
+      "mode": "owner",
+      "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
+      "context_pack_title": "Add command timing and edit summaries to reports",
+      "task_id": "T-084",
+      "task_type": "implementation",
+      "branch": "codex/t-084-implementation",
+      "worktree": "/Users/jc/Workspace/Apps/agentrace",
+      "run_id": null,
+      "created_at": "2026-05-20T13:01:05Z",
+      "updated_at": "2026-05-20T13:01:05Z",
+      "disposition": null,
+      "path": "agent/sessions/active/S-20260520T130105989834Z-t-084-93c60adb.yml"
+    },
+    "satisfied_by": "session_lease",
+    "message": "Active owner/patcher session lease with isolated branch and worktree metadata is present.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution inside the active session lease and task allowed paths."
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

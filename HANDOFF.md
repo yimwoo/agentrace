@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` repeated command/edit aggregate groups now expose nested duration-source average and min/max timing context. Command attempts, command cwd totals, per-file edit totals, and edit-kind totals already exposed source counts, source duration totals, and shares; they now also include `duration_source_average_ms` and `duration_source_extremes_ms` in JSON, with Markdown rendering the same nested source-duration spread beside existing repeated-group duration-source totals.
+
+## What was done
+- created AgentSpec task `T-084` for a report observability follow-up slice
+- extended repeated aggregate duration spread rows with duration-source average durations and min/max extremes
+- rendered nested duration-source averages/extremes for command attempts, cwd totals, file change totals, and edit-kind totals in Markdown
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested duration-source spread visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
 `agentrace` repeated command/edit aggregate groups now expose nested status-duration timing context. Command attempts, command cwd totals, per-file edit totals, and edit-kind totals include per-status duration totals, averages, min/max extremes, coverage ratios, duration shares, and dominant status highlights in JSON reports, and Markdown renders the same nested status-duration detail beside existing repeated-group duration-source totals.
 
 ## What was done

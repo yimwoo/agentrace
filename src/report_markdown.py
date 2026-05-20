@@ -122,6 +122,8 @@ def _append_duration_spread_details(details, row):
         f"status_duration_share={_format_status_counts(row.get('status_duration_share'))}",
         f"dominant_duration_status={_format_dominant_duration_status(row.get('dominant_duration_status'))}",
         f"duration_source_duration_ms={_format_status_counts(row.get('duration_source_duration_ms'))}",
+        f"duration_source_average_ms={_format_status_counts(row.get('duration_source_average_ms'))}",
+        f"duration_source_extremes_ms={_format_duration_source_extremes(row.get('duration_source_extremes_ms'))}",
         f"duration_source_share={_format_status_counts(row.get('duration_source_share'))}",
     ])
 
