@@ -1060,6 +1060,14 @@ def _shortest_edit_row(rows):
     return shortest
 
 
+def _slowest_edit_row(rows):
+    slowest = None
+    for row in rows:
+        if slowest is None or _numeric_value(row.get("duration_ms")) > _numeric_value(slowest.get("duration_ms")):
+            slowest = row
+    return slowest
+
+
 def _first_edit_row(rows):
     return rows[0] if rows else None
 
@@ -1252,6 +1260,7 @@ def build_edit_summary_totals(rows):
     total_removed_lines = sum(_numeric_value(row.get("removed_lines")) for row in normalized_rows)
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     largest_edit = _largest_edit_row(normalized_rows)
+    slowest_edit = _slowest_edit_row(normalized_rows)
     shortest_edit = _shortest_edit_row(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
     kind_duration_ms = _duration_totals_by_field(normalized_rows, "kind")
@@ -1299,6 +1308,7 @@ def build_edit_summary_totals(rows):
         "duration_extremes_ms": _duration_extremes_ms(normalized_rows),
         "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),
         "largest_edit": _largest_edit_summary_row(largest_edit),
+        "slowest_edit": _largest_edit_summary_row(slowest_edit),
         "shortest_edit": _largest_edit_summary_row(shortest_edit),
         "last_edit": _largest_edit_summary_row(_last_edit_row(normalized_rows)),
     }

@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-20T13:04:47Z",
+  "updated_at": "2026-05-21T23:03:55Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-084",
-    "context_pack": "agent/context-packs/T-084-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-084: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-084-add-command-timing-and-edit-summaries-to-reports-20260520130447662474",
-    "reason": "Implemented nested duration-source average/extreme metrics for repeated command/edit aggregate groups and verified with ci_check.",
-    "updated_at": "2026-05-20T13:04:47Z",
+    "id": "T-085",
+    "context_pack": "agent/context-packs/T-085-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-085: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-085-add-command-timing-and-edit-summaries-to-reports-20260521230355889736",
+    "reason": "Implemented slowest-edit report highlight and verified with ci_check.",
+    "updated_at": "2026-05-21T23:03:55Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0060",
+      "id": "REVIEW-0061",
       "verdict": "ready",
       "reviewer": "codex",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0060.yml"
+      "path": "agent/reviews/REVIEW-0061.yml"
     }
   },
   "current_state": {
@@ -41,13 +41,13 @@
       }
     },
     "tasks": {
-      "total": 84,
+      "total": 85,
       "by_status": {
-        "complete": 82,
+        "complete": 83,
         "halted": 2
       },
       "by_type": {
-        "implementation": 81,
+        "implementation": 82,
         "scaffold": 3
       }
     }
@@ -64,6 +64,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0060.yml"
+    "last_code_review": "agent/reviews/REVIEW-0061.yml"
   }
 }

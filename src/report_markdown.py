@@ -349,6 +349,10 @@ def _format_largest_edit(largest_edit):
     return _format_edit_highlight(largest_edit)
 
 
+def _format_slowest_edit(slowest_edit):
+    return _format_edit_highlight(slowest_edit)
+
+
 def _format_shortest_edit(shortest_edit):
     return _format_edit_highlight(shortest_edit)
 
@@ -772,6 +776,7 @@ def build_markdown_summary(trace):
         f"- edit_duration_extremes_ms: {_format_duration_extremes(edit_totals['duration_extremes_ms'])}",
         f"- first_edit: {_format_edit_highlight(edit_totals['first_edit'])}",
         f"- largest_edit: {_format_largest_edit(edit_totals['largest_edit'])}",
+        f"- slowest_edit: {_format_slowest_edit(edit_totals['slowest_edit'])}",
         f"- shortest_edit: {_format_shortest_edit(edit_totals['shortest_edit'])}",
         f"- last_edit: {_format_edit_highlight(edit_totals['last_edit'])}",
         "",

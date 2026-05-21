@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` edit aggregate summaries now identify the slowest edit by duration alongside existing first, largest-by-churn, shortest, and last edit highlights. JSON reports expose `edit_summary_totals.slowest_edit`, and Markdown reports render `slowest_edit` with the same file impact, duration source, status, timestamps, and artifact context as the other selected edit highlights.
+
+## What was done
+- created AgentSpec task `T-085` for a report observability follow-up slice
+- added slowest-edit selection to JSON edit summary totals
+- rendered the slowest edit highlight in Markdown report top-level summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for slowest edit visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
 `agentrace` repeated command/edit aggregate groups now expose nested duration-source average and min/max timing context. Command attempts, command cwd totals, per-file edit totals, and edit-kind totals already exposed source counts, source duration totals, and shares; they now also include `duration_source_average_ms` and `duration_source_extremes_ms` in JSON, with Markdown rendering the same nested source-duration spread beside existing repeated-group duration-source totals.
 
 ## What was done

@@ -810,6 +810,19 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "started_at": "2026-04-25T00:00:04Z",
             "ended_at": None,
         },
+        "slowest_edit": {
+            "event": "evt_edit_one",
+            "path": "src/report_json.py",
+            "kind": "modify",
+            "added_lines": 8,
+            "removed_lines": 2,
+            "net_line_delta": 6,
+            "duration_ms": 12,
+            "duration_source": "explicit",
+            "status": "succeeded",
+            "started_at": "2026-04-25T00:00:04Z",
+            "ended_at": None,
+        },
         "shortest_edit": {
             "event": "evt_edit_two",
             "path": "src/report_markdown.py",
@@ -890,6 +903,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_duration_range_ms: 4" in text
     assert "first_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
     assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
+    assert "slowest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
     assert "shortest_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
     assert "last_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
 

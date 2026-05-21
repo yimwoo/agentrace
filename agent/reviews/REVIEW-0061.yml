@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-085-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-085-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-085 slowest-edit report changes; implementation is scoped to allowed paths, tests cover JSON and Markdown output, and ci_check passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-21T23:03:38Z",
+  "id": "REVIEW-0061"
+}
