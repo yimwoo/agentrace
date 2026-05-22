@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "T-088",
+    "context_pack": "agent/context-packs/T-088-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Report summary coverage metrics implemented for command/edit aggregates; bash scripts/ci_check.sh passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-22T18:06:14Z",
+  "id": "REVIEW-0064"
+}

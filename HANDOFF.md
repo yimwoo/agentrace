@@ -1,6 +1,32 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline totals now expose summary coverage. JSON `activity_timeline_summary` includes `summary_recorded_count`, `summary_missing_count`, and `summary_coverage_ratio`, and Markdown renders those counts beside duration coverage so reviewers can see whether chronological command/edit activity has human-readable explanations.
+
+## What was done
+- created AgentSpec task `T-089` for a report observability follow-up slice
+- added activity timeline summary coverage metrics in JSON report totals
+- rendered activity timeline summary coverage in Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for activity summary coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
+`agentrace` report totals now expose command and edit summary coverage. JSON command timing and edit aggregate blocks include summary recorded/missing counts plus coverage ratios, and Markdown renders those coverage metrics beside duration coverage so reviewers can see whether report rows carry human-readable explanations without scanning each row.
+
+## What was done
+- created AgentSpec task `T-088` for a report observability follow-up slice
+- added command and edit `summary_recorded_count`, `summary_missing_count`, and `summary_coverage_ratio` aggregate fields
+- rendered command/edit summary coverage in Markdown report totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for summary coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
+- `bash scripts/ci_check.sh` — 37 passed, 1 warning
+
+## Previous status
 `agentrace` command timing and selected edit highlights now preserve and render human-readable summaries. JSON command highlight rows (first/slowest/fastest/last), failed command rows, activity timeline command rows, and edit highlight rows include `summary` when present; Markdown renders those summaries beside timing, status, artifact, output-preview, and line-impact context.
 
 ## What was done

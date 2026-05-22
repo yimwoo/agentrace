@@ -168,6 +168,18 @@ def _duration_coverage(rows):
     }
 
 
+def _summary_coverage(rows):
+    """Return how many report rows include human-readable summaries."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    recorded_count = sum(1 for row in normalized_rows if row.get("summary"))
+    missing_count = len(normalized_rows) - recorded_count
+    return {
+        "summary_recorded_count": recorded_count,
+        "summary_missing_count": missing_count,
+        "summary_coverage_ratio": 0 if not normalized_rows else round(recorded_count / len(normalized_rows), 4),
+    }
+
+
 def _duration_coverage_by_field(rows, field):
     """Return duration recorded/missing coverage grouped by a row field."""
     rows_by_label = {}
@@ -720,6 +732,7 @@ def build_activity_timeline_summary(rows):
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
+    summary_coverage = _summary_coverage(normalized_rows)
     return {
         "count": len(normalized_rows),
         "type_counts": type_counts,
@@ -744,6 +757,9 @@ def build_activity_timeline_summary(rows):
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
+        "summary_recorded_count": summary_coverage["summary_recorded_count"],
+        "summary_missing_count": summary_coverage["summary_missing_count"],
+        "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
@@ -1000,6 +1016,7 @@ def build_command_timing_summary(rows):
     total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     commands_run = _ordered_values(normalized_rows, "command")
     duration_coverage = _duration_coverage(normalized_rows)
+    summary_coverage = _summary_coverage(normalized_rows)
     cwd_duration_ms = _duration_totals_by_field(normalized_rows, "cwd")
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
@@ -1041,6 +1058,9 @@ def build_command_timing_summary(rows):
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
+        "summary_recorded_count": summary_coverage["summary_recorded_count"],
+        "summary_missing_count": summary_coverage["summary_missing_count"],
+        "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "time_window": _time_window(normalized_rows),
         "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
@@ -1275,6 +1295,7 @@ def build_edit_summary_totals(rows):
     slowest_edit = _slowest_edit_row(normalized_rows)
     shortest_edit = _shortest_edit_row(normalized_rows)
     duration_coverage = _duration_coverage(normalized_rows)
+    summary_coverage = _summary_coverage(normalized_rows)
     kind_duration_ms = _duration_totals_by_field(normalized_rows, "kind")
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
@@ -1308,6 +1329,9 @@ def build_edit_summary_totals(rows):
         "duration_recorded_count": duration_coverage["duration_recorded_count"],
         "duration_missing_count": duration_coverage["duration_missing_count"],
         "duration_coverage_ratio": duration_coverage["duration_coverage_ratio"],
+        "summary_recorded_count": summary_coverage["summary_recorded_count"],
+        "summary_missing_count": summary_coverage["summary_missing_count"],
+        "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,
