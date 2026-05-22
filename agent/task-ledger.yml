@@ -1236,6 +1236,40 @@
         "path": "agent/reviews/REVIEW-0061.yml"
       },
       "updated_at": "2026-05-21T23:03:55Z"
+    },
+    "agent/context-packs/T-086-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-086-add-command-timing-and-edit-summaries-to-reports-20260522040454662733",
+      "reason": "Implemented selected edit summary preservation and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0062",
+        "verdict": "ready",
+        "summary": "No blocking findings. Selected edit highlights now preserve summary text in JSON and Markdown with regression coverage and ci_check passing.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0062.yml"
+      },
+      "updated_at": "2026-05-22T04:04:54Z"
+    },
+    "agent/context-packs/T-087-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-087-add-command-timing-and-edit-summaries-to-reports-20260522080100597565",
+      "reason": "Implemented command summary propagation and selected edit summary preservation in reports; verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0063",
+        "verdict": "ready",
+        "summary": "No blocking findings. Command summaries now propagate through run summaries, JSON report command rows/highlights/failed/activity rows, and Markdown report rows; selected edit highlights preserve summaries. ci_check passed.",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0063.yml"
+      },
+      "updated_at": "2026-05-22T13:01:28Z"
     }
   }
 }

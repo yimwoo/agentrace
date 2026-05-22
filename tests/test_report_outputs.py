@@ -326,13 +326,27 @@ def test_slowest_command_and_largest_edit_preserve_artifact_refs():
     assert payload["command_timing_summary"]["slowest"]["artifacts"] == [
         {"kind": "command_log", "path": "artifacts/evt_cmd_slowest_log.log"}
     ]
-    assert payload["edit_summary_totals"]["largest_edit"]["artifacts"] == [
-        {"kind": "diff", "path": "artifacts/evt_edit_largest_diff.diff"}
-    ]
+    assert payload["edit_summary_totals"]["largest_edit"] == {
+        "event": "evt_edit_largest_diff",
+        "path": "src/large.py",
+        "kind": "modify",
+        "added_lines": 5,
+        "removed_lines": 2,
+        "net_line_delta": 3,
+        "duration_ms": 3,
+        "duration_source": "explicit",
+        "status": "succeeded",
+        "started_at": None,
+        "ended_at": None,
+        "summary": "Large edit",
+        "artifacts": [
+            {"kind": "diff", "path": "artifacts/evt_edit_largest_diff.diff"}
+        ],
+    }
 
     text = build_markdown_summary(trace)
     assert "slowest_command: evt_cmd_slowest_log: `pytest -q` (75ms, status=succeeded, exit_code=0, duration_source=explicit, artifacts=command_log=artifacts/evt_cmd_slowest_log.log)" in text
-    assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
+    assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, summary=Large edit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
 
 
 def test_report_outputs_fall_back_to_existing_run_summary_rows():
@@ -491,7 +505,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
                 "status": "failed",
                 "started_at": "2026-04-25T00:00:00Z",
                 "ended_at": "2026-04-25T00:00:02Z",
-                "command": {"value": "pytest -q"},
+                "command": {"value": "pytest -q", "summary": "Run focused tests"},
                 "exit_code": 1,
             },
             {
@@ -616,6 +630,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "exit_code": 1,
             "started_at": "2026-04-25T00:00:00Z",
             "ended_at": "2026-04-25T00:00:02Z",
+            "summary": "Run focused tests",
         }],
         "exit_code_counts": {"1": 1, "0": 1},
         "status_counts": {"failed": 1, "succeeded": 1},
@@ -646,6 +661,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "exit_code": 1,
             "started_at": "2026-04-25T00:00:00Z",
             "ended_at": "2026-04-25T00:00:02Z",
+            "summary": "Run focused tests",
         },
         "slowest": {
             "event": "evt_cmd_slow",
@@ -656,6 +672,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "exit_code": 1,
             "started_at": "2026-04-25T00:00:00Z",
             "ended_at": "2026-04-25T00:00:02Z",
+            "summary": "Run focused tests",
         },
         "fastest": {
             "event": "evt_cmd_fast",
@@ -796,6 +813,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "status": "succeeded",
             "started_at": "2026-04-25T00:00:04Z",
             "ended_at": None,
+            "summary": "Add report totals",
         },
         "largest_edit": {
             "event": "evt_edit_one",
@@ -809,6 +827,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "status": "succeeded",
             "started_at": "2026-04-25T00:00:04Z",
             "ended_at": None,
+            "summary": "Add report totals",
         },
         "slowest_edit": {
             "event": "evt_edit_one",
@@ -822,6 +841,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "status": "succeeded",
             "started_at": "2026-04-25T00:00:04Z",
             "ended_at": None,
+            "summary": "Add report totals",
         },
         "shortest_edit": {
             "event": "evt_edit_two",
@@ -835,6 +855,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "status": "succeeded",
             "started_at": "2026-04-25T00:00:05Z",
             "ended_at": None,
+            "summary": "Render report totals",
         },
         "last_edit": {
             "event": "evt_edit_two",
@@ -848,6 +869,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "status": "succeeded",
             "started_at": "2026-04-25T00:00:05Z",
             "ended_at": None,
+            "summary": "Render report totals",
         },
     }
 
@@ -866,7 +888,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_median_duration_ms: 1062.5" in text
     assert "command_duration_range_ms: 1875" in text
     assert "command_failed_count: 1" in text
-    assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
+    assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
     assert "command_exit_code_counts: 0=1, 1=1" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
@@ -875,8 +897,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_duration_source_extremes_ms: derived=min=2000/max=2000, explicit=min=125/max=125" in text
     assert "command_duration_source_share: derived=0.9412, explicit=0.0588" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
-    assert "first_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
-    assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z)" in text
+    assert "first_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
+    assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
     assert "fastest_command: evt_cmd_fast: `ruff check` (125ms, status=succeeded, exit_code=0, duration_source=explicit, started_at=2026-04-25T00:00:03Z)" in text
     assert "last_command: evt_cmd_fast: `ruff check` (125ms, status=succeeded, exit_code=0, duration_source=explicit, started_at=2026-04-25T00:00:03Z)" in text
     assert "files_changed_count: 2" in text
@@ -901,11 +923,11 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_average_recorded_duration_ms: 10.0" in text
     assert "edit_median_duration_ms: 10.0" in text
     assert "edit_duration_range_ms: 4" in text
-    assert "first_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
-    assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
-    assert "slowest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z)" in text
-    assert "shortest_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
-    assert "last_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z)" in text
+    assert "first_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z, summary=Add report totals)" in text
+    assert "largest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z, summary=Add report totals)" in text
+    assert "slowest_edit: evt_edit_one: src/report_json.py (+8/-2, net=6, duration_ms=12, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:04Z, summary=Add report totals)" in text
+    assert "shortest_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, summary=Render report totals)" in text
+    assert "last_edit: evt_edit_two: src/report_markdown.py (+3/-1, net=2, duration_ms=8, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, summary=Render report totals)" in text
 
 
 def test_report_aggregate_time_windows_use_full_row_ranges():

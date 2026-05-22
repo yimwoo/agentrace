@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-087-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-087-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Command summaries now propagate through run summaries, JSON report command rows/highlights/failed/activity rows, and Markdown report rows; selected edit highlights preserve summaries. ci_check passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-22T13:01:25Z",
+  "id": "REVIEW-0063"
+}

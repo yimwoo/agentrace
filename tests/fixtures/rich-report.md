@@ -66,11 +66,11 @@
 - edit_median_duration_ms: 125
 - edit_duration_range_ms: 0
 - edit_duration_extremes_ms: min=125, max=125
-- first_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
-- largest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
-- slowest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
-- shortest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
-- last_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z)
+- first_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z, summary=Translate decoder errors into 401 responses)
+- largest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z, summary=Translate decoder errors into 401 responses)
+- slowest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z, summary=Translate decoder errors into 401 responses)
+- shortest_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z, summary=Translate decoder errors into 401 responses)
+- last_edit: evt_edit_1: src/auth.py (+4/-1, net=3, duration_ms=125, status=succeeded, duration_source=explicit, started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z, summary=Translate decoder errors into 401 responses)
 
 ## Command Timing
 

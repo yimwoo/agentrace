@@ -63,6 +63,8 @@ def build_command_timing(events, artifacts=None):
             "duration_source": event_duration_source(event),
             "exit_code": event.get("exit_code", details.get("exit_code")),
         }
+        if command.get("summary") or details.get("summary"):
+            row["summary"] = command.get("summary") or details.get("summary")
         if event.get("started_at"):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
@@ -395,6 +397,8 @@ def build_activity_timeline(command_rows, edit_rows):
             "exit_code": row.get("exit_code"),
             "_source_order": source_order,
         }
+        if row.get("summary"):
+            item["summary"] = row["summary"]
         if row.get("stdout_preview"):
             item["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
@@ -462,6 +466,8 @@ def _activity_identity_row(row):
             activity_row["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
             activity_row["stderr_preview"] = row["stderr_preview"]
+        if row.get("summary"):
+            activity_row["summary"] = row["summary"]
     elif row.get("type") == "file_edit":
         activity_row.update({
             "path": row.get("path"),
@@ -933,6 +939,8 @@ def _failed_command_rows(rows):
             failed_row["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
             failed_row["stderr_preview"] = row["stderr_preview"]
+        if row.get("summary"):
+            failed_row["summary"] = row["summary"]
         if row.get("artifacts"):
             failed_row["artifacts"] = row["artifacts"]
         failed.append(failed_row)
@@ -954,6 +962,8 @@ def _command_identity_row(row):
     }
     if row.get("artifacts"):
         summary["artifacts"] = row["artifacts"]
+    if row.get("summary"):
+        summary["summary"] = row["summary"]
     return summary
 
 
@@ -1076,7 +1086,7 @@ def _last_edit_row(rows):
     return rows[-1] if rows else None
 
 
-def _largest_edit_summary_row(row):
+def _edit_summary_highlight_row(row):
     if row is None:
         return None
     summary = {
@@ -1092,6 +1102,8 @@ def _largest_edit_summary_row(row):
         "started_at": row.get("started_at"),
         "ended_at": row.get("ended_at"),
     }
+    if row.get("summary"):
+        summary["summary"] = row["summary"]
     if row.get("artifacts"):
         summary["artifacts"] = row["artifacts"]
     return summary
@@ -1306,11 +1318,11 @@ def build_edit_summary_totals(rows):
         "median_duration_ms": _median_duration_ms(normalized_rows),
         "duration_range_ms": _duration_range_ms(normalized_rows),
         "duration_extremes_ms": _duration_extremes_ms(normalized_rows),
-        "first_edit": _largest_edit_summary_row(_first_edit_row(normalized_rows)),
-        "largest_edit": _largest_edit_summary_row(largest_edit),
-        "slowest_edit": _largest_edit_summary_row(slowest_edit),
-        "shortest_edit": _largest_edit_summary_row(shortest_edit),
-        "last_edit": _largest_edit_summary_row(_last_edit_row(normalized_rows)),
+        "first_edit": _edit_summary_highlight_row(_first_edit_row(normalized_rows)),
+        "largest_edit": _edit_summary_highlight_row(largest_edit),
+        "slowest_edit": _edit_summary_highlight_row(slowest_edit),
+        "shortest_edit": _edit_summary_highlight_row(shortest_edit),
+        "last_edit": _edit_summary_highlight_row(_last_edit_row(normalized_rows)),
     }
 
 

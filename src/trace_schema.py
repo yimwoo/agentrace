@@ -165,6 +165,8 @@ def build_run_summary(trace):
             }
             if command.get("cwd") or details.get("cwd"):
                 row["cwd"] = command.get("cwd") or details.get("cwd")
+            if command.get("summary") or details.get("summary"):
+                row["summary"] = command.get("summary") or details.get("summary")
             _copy_present(row, event, ["started_at", "ended_at"])
             if event.get("stdout_preview") or details.get("stdout_preview"):
                 row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-086-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-086-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "No blocking findings. Selected edit highlights now preserve summary text in JSON and Markdown with regression coverage and ci_check passing.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-05-22T04:04:50Z",
+  "id": "REVIEW-0062"
+}

@@ -50,6 +50,8 @@ def _format_command_highlight(row):
         details.append(duration_source)
     if timing:
         details.append(timing)
+    if row.get("summary"):
+        details.append(f"summary={row['summary']}")
     artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
@@ -243,6 +245,8 @@ def _format_failed_commands(failed_commands):
             details.append(f"stdout_preview={row['stdout_preview']}")
         if row.get("stderr_preview"):
             details.append(f"stderr_preview={row['stderr_preview']}")
+        if row.get("summary"):
+            details.append(f"summary={row['summary']}")
         artifact_details = _format_artifact_details(row)
         if artifact_details:
             details.append(artifact_details)
@@ -339,6 +343,8 @@ def _format_edit_highlight(row):
         details.append(duration_source)
     if timing:
         details.append(timing)
+    if row.get("summary"):
+        details.append(f"summary={row['summary']}")
     artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
@@ -375,7 +381,8 @@ def _format_command_timing(rows):
         if row.get("stderr_preview"):
             output_context += f", stderr_preview={row['stderr_preview']}"
         event = row.get("event", "summary")
-        lines.append(f"- {event}: `{command}` — {duration}ms, status={row.get('status')}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
+        command_summary = f", summary={row['summary']}" if row.get("summary") else ""
+        lines.append(f"- {event}: `{command}` — {duration}ms, status={row.get('status')}, exit_code={exit_code}{duration_source}{cwd}{time_window}{command_summary}{output_context}{artifacts}")
     return lines
 
 
@@ -423,6 +430,8 @@ def _format_failed_activity(failed_activity):
             details.append(f"exit_code={exit_code}")
             if row.get("cwd"):
                 details.append(f"cwd={row['cwd']}")
+            if row.get("summary"):
+                details.append(f"summary={row['summary']}")
             if row.get("stdout_preview"):
                 details.append(f"stdout_preview={row['stdout_preview']}")
             if row.get("stderr_preview"):

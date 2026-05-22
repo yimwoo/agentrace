@@ -1,13 +1,13 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` edit aggregate summaries now identify the slowest edit by duration alongside existing first, largest-by-churn, shortest, and last edit highlights. JSON reports expose `edit_summary_totals.slowest_edit`, and Markdown reports render `slowest_edit` with the same file impact, duration source, status, timestamps, and artifact context as the other selected edit highlights.
+`agentrace` command timing and selected edit highlights now preserve and render human-readable summaries. JSON command highlight rows (first/slowest/fastest/last), failed command rows, activity timeline command rows, and edit highlight rows include `summary` when present; Markdown renders those summaries beside timing, status, artifact, output-preview, and line-impact context.
 
 ## What was done
-- created AgentSpec task `T-085` for a report observability follow-up slice
-- added slowest-edit selection to JSON edit summary totals
-- rendered the slowest edit highlight in Markdown report top-level summaries
-- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for slowest edit visibility
+- created AgentSpec task `T-087` for a report observability follow-up slice
+- preserved command summaries from command events and run-summary rows through JSON report timing/highlight/activity rows
+- rendered command summaries in Markdown command timing, failed-command, command-highlight, and activity rows
+- retained selected edit summaries in JSON/Markdown edit highlight rows and refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
 
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 30 passed, 1 warning
