@@ -1321,6 +1321,23 @@
         "path": "agent/reviews/REVIEW-0066.yml"
       },
       "updated_at": "2026-05-23T04:03:24Z"
+    },
+    "agent/context-packs/T-091-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-091-add-command-timing-and-edit-summaries-to-reports-20260523080041907904",
+      "reason": "Completed per-command and per-file report summary coverage implementation with passing CI and review evidence.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0067",
+        "verdict": "ready",
+        "summary": "Ready: per-command and per-file report summary coverage added with regression tests and passing CI.",
+        "reviewer": "autonomous-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0067.yml"
+      },
+      "updated_at": "2026-05-23T08:02:06Z"
     }
   }
 }

@@ -332,8 +332,10 @@ def _format_report_summary_coverage(coverage):
     labels = [
         "command_by_duration_source",
         "command_by_status",
+        "command_by_command",
         "edit_by_duration_source",
         "edit_by_kind",
+        "edit_by_path",
         "activity_by_type",
         "activity_by_status",
         "activity_by_duration_source",

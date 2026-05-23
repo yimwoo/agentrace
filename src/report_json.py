@@ -1414,8 +1414,10 @@ def build_json_summary(trace):
     report_summary_coverage = {
         "command_by_duration_source": _summary_coverage_by_field(command_timing, "duration_source"),
         "command_by_status": _summary_coverage_by_field(command_timing, "status"),
+        "command_by_command": _summary_coverage_by_field(command_timing, "command"),
         "edit_by_duration_source": _summary_coverage_by_field(edit_summary, "duration_source"),
         "edit_by_kind": _summary_coverage_by_field(edit_summary, "kind"),
+        "edit_by_path": _summary_coverage_by_field(edit_summary, "path"),
         "activity_by_type": _summary_coverage_by_field(activity_timeline, "type"),
         "activity_by_status": _summary_coverage_by_field(activity_timeline, "status"),
         "activity_by_duration_source": _summary_coverage_by_field(activity_timeline, "duration_source"),

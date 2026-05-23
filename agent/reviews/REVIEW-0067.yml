@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-091-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-091-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Ready: per-command and per-file report summary coverage added with regression tests and passing CI.",
+  "reviewer": "autonomous-cron",
+  "range": "worktree",
+  "created_at": "2026-05-23T08:02:02Z",
+  "id": "REVIEW-0067"
+}

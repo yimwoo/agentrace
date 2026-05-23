@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` grouped report summary coverage now drills down to command identity and edit file path. JSON `report_summary_coverage` includes `command_by_command` and `edit_by_path`, and Markdown renders those labels in the compact top-level coverage line so sparse explanations can be tied to specific commands or files without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-091` for a report observability follow-up slice
+- added per-command and per-file summary coverage breakdowns to JSON reports
+- rendered the new coverage labels in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for command/file summary coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 31 passed, 1 warning
+- `bash scripts/ci_check.sh` — 38 passed, 1 warning
+
+## Previous status
 `agentrace` JSON and Markdown reports now expose grouped human-readable summary coverage. A new top-level JSON `report_summary_coverage` block breaks coverage down by command duration source/status, edit duration source/kind, and activity type/status/duration source, and Markdown renders the same compact line near the top of the report so sparse explanations are visible without scanning detail rows.
 
 ## What was done

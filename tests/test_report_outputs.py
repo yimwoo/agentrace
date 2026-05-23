@@ -81,11 +81,18 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
             "succeeded": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
             "failed": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
         },
+        "command_by_command": {
+            "pytest -q": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "ruff check": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
         "edit_by_duration_source": {
             "explicit": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
         },
         "edit_by_kind": {
             "modify": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        },
+        "edit_by_path": {
+            "src/report_json.py": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
         },
         "activity_by_type": {
             "command": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
@@ -104,6 +111,8 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     text = build_markdown_summary(trace)
     assert "report_summary_coverage:" in text
     assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text
+    assert "command_by_command=pytest -q=recorded=1/missing=0/ratio=1.0, ruff check=recorded=0/missing=1/ratio=0.0" in text
+    assert "edit_by_path=src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "activity_by_type=command=recorded=1/missing=1/ratio=0.5, file_edit=recorded=1/missing=0/ratio=1.0" in text
 
 
