@@ -191,6 +191,17 @@ def _duration_coverage_by_field(rows, field):
     return {label: _duration_coverage(group_rows) for label, group_rows in rows_by_label.items()}
 
 
+def _summary_coverage_by_field(rows, field):
+    """Return human-readable summary recorded/missing coverage grouped by a row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {label: _summary_coverage(group_rows) for label, group_rows in rows_by_label.items()}
+
+
 def _average_recorded_duration_ms(rows):
     """Average duration across rows that actually recorded or derived timing."""
     recorded_durations = [
@@ -1400,6 +1411,15 @@ def build_json_summary(trace):
     command_timing = build_command_timing(events, trace.get("artifacts", [])) or _normalize_summary_command_rows(run_summary.get("command_durations_ms", []))
     edit_summary = build_edit_summary(events, trace.get("artifacts", [])) or _normalize_summary_edit_rows(run_summary.get("edit_summaries", []))
     activity_timeline = build_activity_timeline(command_timing, edit_summary)
+    report_summary_coverage = {
+        "command_by_duration_source": _summary_coverage_by_field(command_timing, "duration_source"),
+        "command_by_status": _summary_coverage_by_field(command_timing, "status"),
+        "edit_by_duration_source": _summary_coverage_by_field(edit_summary, "duration_source"),
+        "edit_by_kind": _summary_coverage_by_field(edit_summary, "kind"),
+        "activity_by_type": _summary_coverage_by_field(activity_timeline, "type"),
+        "activity_by_status": _summary_coverage_by_field(activity_timeline, "status"),
+        "activity_by_duration_source": _summary_coverage_by_field(activity_timeline, "duration_source"),
+    }
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
@@ -1408,6 +1428,7 @@ def build_json_summary(trace):
         "summary": summary,
         "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
+        "report_summary_coverage": report_summary_coverage,
         "command_timing_summary": build_command_timing_summary(command_timing),
         "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
         "activity_timeline": activity_timeline,

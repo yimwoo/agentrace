@@ -315,6 +315,35 @@ def _format_duration_coverage_by_label(coverage_by_label):
     )
 
 
+def _format_summary_coverage_by_label(coverage_by_label):
+    if not coverage_by_label:
+        return "none"
+    return ", ".join(
+        f"{label}=recorded={coverage.get('summary_recorded_count', 0)}/missing={coverage.get('summary_missing_count', 0)}/ratio={coverage.get('summary_coverage_ratio', 0)}"
+        for label, coverage in sorted(coverage_by_label.items())
+    )
+
+
+
+
+def _format_report_summary_coverage(coverage):
+    if not coverage:
+        return "none"
+    labels = [
+        "command_by_duration_source",
+        "command_by_status",
+        "edit_by_duration_source",
+        "edit_by_kind",
+        "activity_by_type",
+        "activity_by_status",
+        "activity_by_duration_source",
+    ]
+    parts = []
+    for label in labels:
+        if label in coverage:
+            parts.append(f"{label}={_format_summary_coverage_by_label(coverage.get(label))}")
+    return "; ".join(parts) if parts else "none"
+
 def _format_aggregate_time_window(time_window):
     if not time_window:
         return "none"
@@ -724,6 +753,7 @@ def build_markdown_summary(trace):
         f"- event_count: {payload['summary']['event_count']}",
         f"- ok_events: {payload['summary']['ok_events']}",
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
+        f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- command_count: {command_totals['count']}",
         f"- unique_command_count: {command_totals['unique_command_count']}",
         f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",

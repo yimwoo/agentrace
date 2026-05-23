@@ -35,6 +35,78 @@ def test_json_and_markdown_stay_consistent():
     assert payload["run_id"] in text
 
 
+def test_report_summary_coverage_groups_explanations_by_report_labels():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-coverage-1", "task": "inspect summary coverage", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_with_summary",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 10,
+                "command": {"value": "pytest -q", "summary": "Run tests"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_without_summary",
+                "seq": 2,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.005Z",
+                "command": {"value": "ruff check"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_edit_with_summary",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 3,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 0, "summary": "Add coverage"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["report_summary_coverage"] == {
+        "command_by_duration_source": {
+            "explicit": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "derived": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
+        "command_by_status": {
+            "succeeded": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "failed": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
+        "edit_by_duration_source": {
+            "explicit": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        },
+        "edit_by_kind": {
+            "modify": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        },
+        "activity_by_type": {
+            "command": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
+            "file_edit": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        },
+        "activity_by_status": {
+            "succeeded": {"summary_recorded_count": 2, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "failed": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
+        "activity_by_duration_source": {
+            "explicit": {"summary_recorded_count": 2, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "derived": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
+    }
+
+    text = build_markdown_summary(trace)
+    assert "report_summary_coverage:" in text
+    assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text
+    assert "activity_by_type=command=recorded=1/missing=1/ratio=0.5, file_edit=recorded=1/missing=0/ratio=1.0" in text
+
+
 def test_build_sample_trace_shape():
     trace = build_sample_trace()
     assert trace["trace_version"] == "0.1"

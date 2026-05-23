@@ -1,6 +1,19 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` JSON and Markdown reports now expose grouped human-readable summary coverage. A new top-level JSON `report_summary_coverage` block breaks coverage down by command duration source/status, edit duration source/kind, and activity type/status/duration source, and Markdown renders the same compact line near the top of the report so sparse explanations are visible without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-090` for a report observability follow-up slice
+- added grouped summary coverage metrics in JSON report output
+- rendered grouped summary coverage in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for grouped summary coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 31 passed, 1 warning
+- `bash scripts/ci_check.sh` — 38 passed, 1 warning
+
+## Previous status
 `agentrace` activity timeline totals now expose summary coverage. JSON `activity_timeline_summary` includes `summary_recorded_count`, `summary_missing_count`, and `summary_coverage_ratio`, and Markdown renders those counts beside duration coverage so reviewers can see whether chronological command/edit activity has human-readable explanations.
 
 ## What was done
