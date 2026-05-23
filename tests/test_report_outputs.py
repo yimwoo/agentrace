@@ -208,6 +208,7 @@ def test_report_includes_command_timing_and_edit_summary():
         "ended_at": None,
         "stdout_preview": "F",
         "stderr_preview": "AssertionError: expected 401 but got 500",
+        "cwd": "/workspace/app",
     }]
     assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
     assert payload["run_summary"]["edit_summaries"][0]["net_line_delta"] == 3
@@ -361,6 +362,30 @@ def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
     text = build_markdown_summary(trace)
     assert "failed_commands: evt_cmd_failed_log: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_failed_log.log)" in text
     assert "failed_edits: evt_edit_failed_diff: src/auth.py (kind=modify, +0/-0, net=0, 5ms, status=failed, duration_source=explicit, summary=Patch auth handling, error_message=target hunk not found, artifacts=diff=artifacts/evt_edit_failed_diff.diff)" in text
+
+
+def test_failed_command_aggregates_include_working_directory_context():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "failed-cwd-1", "task": "inspect failed cwd", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_failed_cwd",
+                "seq": 1,
+                "type": "command",
+                "status": "failed",
+                "duration_ms": 80,
+                "command": {"value": "pytest -q", "cwd": "/workspace/app"},
+                "exit_code": 1,
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["command_timing_summary"]["failed_commands"][0]["cwd"] == "/workspace/app"
+
+    text = build_markdown_summary(trace)
+    assert "failed_commands: evt_cmd_failed_cwd: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, cwd=/workspace/app)" in text
 
 
 def test_slowest_command_and_largest_edit_preserve_artifact_refs():

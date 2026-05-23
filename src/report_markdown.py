@@ -244,6 +244,8 @@ def _format_failed_commands(failed_commands):
             details.append(duration_source)
         if timing:
             details.append(timing)
+        if row.get("cwd"):
+            details.append(f"cwd={row['cwd']}")
         if row.get("stdout_preview"):
             details.append(f"stdout_preview={row['stdout_preview']}")
         if row.get("stderr_preview"):

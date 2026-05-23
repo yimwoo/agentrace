@@ -970,6 +970,8 @@ def _failed_command_rows(rows):
             failed_row["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
             failed_row["stderr_preview"] = row["stderr_preview"]
+        if row.get("cwd"):
+            failed_row["cwd"] = row["cwd"]
         if row.get("summary"):
             failed_row["summary"] = row["summary"]
         if row.get("artifacts"):
