@@ -4,7 +4,7 @@
 - event_count: 3
 - ok_events: 3
 - total_duration_ms: 3325
-- report_summary_coverage: command_by_duration_source=explicit=recorded=0/missing=1/ratio=0.0; command_by_status=failed=recorded=0/missing=1/ratio=0.0; command_by_command=pytest tests/test_auth.py -q=recorded=0/missing=1/ratio=0.0; edit_by_duration_source=explicit=recorded=1/missing=0/ratio=1.0; edit_by_kind=modify=recorded=1/missing=0/ratio=1.0; edit_by_path=src/auth.py=recorded=1/missing=0/ratio=1.0; activity_by_type=command=recorded=0/missing=1/ratio=0.0, file_edit=recorded=1/missing=0/ratio=1.0; activity_by_status=failed=recorded=0/missing=1/ratio=0.0, succeeded=recorded=1/missing=0/ratio=1.0; activity_by_duration_source=explicit=recorded=1/missing=1/ratio=0.5
+- report_summary_coverage: command_by_duration_source=explicit=recorded=0/missing=1/ratio=0.0; command_by_status=failed=recorded=0/missing=1/ratio=0.0; command_by_command=pytest tests/test_auth.py -q=recorded=0/missing=1/ratio=0.0; command_by_cwd=/workspace/app=recorded=0/missing=1/ratio=0.0; edit_by_duration_source=explicit=recorded=1/missing=0/ratio=1.0; edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0; edit_by_kind=modify=recorded=1/missing=0/ratio=1.0; edit_by_path=src/auth.py=recorded=1/missing=0/ratio=1.0; activity_by_type=command=recorded=0/missing=1/ratio=0.0, file_edit=recorded=1/missing=0/ratio=1.0; activity_by_status=failed=recorded=0/missing=1/ratio=0.0, succeeded=recorded=1/missing=0/ratio=1.0; activity_by_duration_source=explicit=recorded=1/missing=1/ratio=0.5
 - command_count: 1
 - unique_command_count: 1
 - commands_run: pytest tests/test_auth.py -q

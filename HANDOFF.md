@@ -1,6 +1,31 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` grouped report summary coverage now includes command working-directory and edit-status breakdowns. JSON `report_summary_coverage` adds `command_by_cwd` and `edit_by_status`, and Markdown renders both in the top-level coverage line so sparse human-readable explanations can be traced to execution location and edit outcome as well as command identity/file path.
+
+## What was done
+- created AgentSpec task `T-093` for a report observability follow-up slice
+- added command working-directory and edit-status grouped summary coverage to JSON reports
+- rendered the new grouped coverage labels in Markdown reports
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new coverage dimensions
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 31 passed, 1 warning
+- `bash scripts/ci_check.sh` — 38 passed, 1 warning
+
+## Previous status
+`agentrace` repeated command/edit aggregate groups now expose summary coverage alongside duration coverage. JSON repeated-group rows for command attempts, command cwd totals, per-file change totals, and edit-kind totals include summary recorded/missing counts and coverage ratios when the group has multiple rows, and Markdown renders those metrics in the same nested aggregate details.
+
+## What was done
+- created AgentSpec task `T-092` for a report observability follow-up slice
+- added repeated-group summary coverage metrics to JSON aggregate rows
+- rendered repeated-group summary coverage in Markdown command/edit aggregate totals
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested summary coverage visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 31 passed, 1 warning
+
+## Previous status
 `agentrace` grouped report summary coverage now drills down to command identity and edit file path. JSON `report_summary_coverage` includes `command_by_command` and `edit_by_path`, and Markdown renders those labels in the compact top-level coverage line so sparse explanations can be tied to specific commands or files without scanning detail rows.
 
 ## What was done

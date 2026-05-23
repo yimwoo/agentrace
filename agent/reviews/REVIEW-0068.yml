@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-092-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-092-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-092 changes: repeated command/edit aggregate rows now include summary coverage metrics, Markdown renders them, regression and CI checks pass.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-23T13:05:23Z",
+  "id": "REVIEW-0068"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-093-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-093-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Self-review: grouped report summary coverage now includes command working-directory and edit-status breakdowns in JSON and Markdown; regression tests, rich fixture, schema, project state, and handoff are updated; ci_check passed.",
+  "reviewer": "current-host",
+  "range": "worktree",
+  "created_at": "2026-05-23T18:08:00Z",
+  "id": "REVIEW-0069"
+}

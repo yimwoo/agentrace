@@ -372,12 +372,16 @@ def _add_duration_spread(summary, rows):
     source_duration_ms = _duration_totals_by_source(rows)
     status_duration_ms = _duration_totals_by_status(rows)
     duration_coverage = _duration_coverage(rows)
+    summary_coverage = _summary_coverage(rows)
     summary["median_duration_ms"] = _median_duration_ms(rows)
     summary["duration_range_ms"] = _duration_range_ms(rows)
     summary["duration_extremes_ms"] = _duration_extremes_ms(rows)
     summary["duration_recorded_count"] = duration_coverage["duration_recorded_count"]
     summary["duration_missing_count"] = duration_coverage["duration_missing_count"]
     summary["duration_coverage_ratio"] = duration_coverage["duration_coverage_ratio"]
+    summary["summary_recorded_count"] = summary_coverage["summary_recorded_count"]
+    summary["summary_missing_count"] = summary_coverage["summary_missing_count"]
+    summary["summary_coverage_ratio"] = summary_coverage["summary_coverage_ratio"]
     summary["status_duration_ms"] = status_duration_ms
     summary["status_average_duration_ms"] = _duration_averages_by_status(rows)
     summary["status_duration_extremes_ms"] = _duration_extremes_by_status(rows)
@@ -1415,7 +1419,9 @@ def build_json_summary(trace):
         "command_by_duration_source": _summary_coverage_by_field(command_timing, "duration_source"),
         "command_by_status": _summary_coverage_by_field(command_timing, "status"),
         "command_by_command": _summary_coverage_by_field(command_timing, "command"),
+        "command_by_cwd": _summary_coverage_by_field(command_timing, "cwd"),
         "edit_by_duration_source": _summary_coverage_by_field(edit_summary, "duration_source"),
+        "edit_by_status": _summary_coverage_by_field(edit_summary, "status"),
         "edit_by_kind": _summary_coverage_by_field(edit_summary, "kind"),
         "edit_by_path": _summary_coverage_by_field(edit_summary, "path"),
         "activity_by_type": _summary_coverage_by_field(activity_timeline, "type"),

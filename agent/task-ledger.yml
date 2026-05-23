@@ -1338,6 +1338,40 @@
         "path": "agent/reviews/REVIEW-0067.yml"
       },
       "updated_at": "2026-05-23T08:02:06Z"
+    },
+    "agent/context-packs/T-092-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-092-add-command-timing-and-edit-summaries-to-reports-20260523130611610549",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0068",
+        "verdict": "ready",
+        "summary": "Reviewed T-092 changes: repeated command/edit aggregate rows now include summary coverage metrics, Markdown renders them, regression and CI checks pass.",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0068.yml"
+      },
+      "updated_at": "2026-05-23T13:06:11Z"
+    },
+    "agent/context-packs/T-093-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-093-add-command-timing-and-edit-summaries-to-reports-20260523180057521103",
+      "reason": "Implemented command working-directory and edit-status grouped report summary coverage; verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0069",
+        "verdict": "ready",
+        "summary": "Self-review: grouped report summary coverage now includes command working-directory and edit-status breakdowns in JSON and Markdown; regression tests, rich fixture, schema, project state, and handoff are updated; ci_check passed.",
+        "reviewer": "current-host",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0069.yml"
+      },
+      "updated_at": "2026-05-23T18:04:01Z"
     }
   }
 }
