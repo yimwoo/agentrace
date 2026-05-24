@@ -1415,6 +1415,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-24T13:08:58Z"
+    },
+    "agent/context-packs/T-098-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-098-add-command-timing-and-edit-summaries-to-reports-20260524180113020467",
+      "reason": "Implemented compact activity timeline summary examples in JSON and Markdown reports; bash scripts/ci_check.sh passed (40 passed, 1 warning).",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-24T18:04:20Z"
     }
   }
 }

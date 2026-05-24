@@ -709,6 +709,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"summary_recorded_count={timeline_totals.get('summary_recorded_count', 0)}",
         f"summary_missing_count={timeline_totals.get('summary_missing_count', 0)}",
         f"summary_coverage_ratio={timeline_totals.get('summary_coverage_ratio', 0)}",
+        f"summary_examples={_format_summary_examples(timeline_totals.get('summary_examples'))}",
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
         f"covered_intervals={_format_activity_covered_intervals(timeline_totals.get('covered_intervals'))}",

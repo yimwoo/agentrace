@@ -1851,6 +1851,19 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "summary_recorded_count": 1,
         "summary_missing_count": 1,
         "summary_coverage_ratio": 0.5,
+        "summary_examples": [{
+            "type": "file_edit",
+            "event": "evt_edit_late_diff",
+            "status": "failed",
+            "duration_ms": 5,
+            "duration_source": "explicit",
+            "summary": "Edit report timeline",
+            "path": "src/report.py",
+            "kind": "modify",
+            "added_lines": 2,
+            "removed_lines": 1,
+            "net_line_delta": 1,
+        }],
         "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
         "span_duration_ms": 20,
         "covered_duration_ms": 25,
@@ -2054,6 +2067,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "summary_recorded_count=1" in text
     assert "summary_missing_count=1" in text
     assert "summary_coverage_ratio=0.5" in text
+    assert "summary_examples=src/report.py (event=evt_edit_late_diff, status=failed, duration_ms=5, duration_source=explicit, kind=modify, net=1, summary=Edit report timeline)" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text

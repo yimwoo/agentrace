@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` activity timeline aggregate totals now expose compact activity summary examples. JSON `activity_timeline_summary.summary_examples` carries representative command/edit rows with timing/status/type identity context, and Markdown renders those examples alongside activity summary coverage metrics so chronological explanations are visible without scanning timeline detail rows.
+
+## What was done
+- created AgentSpec task `T-098` for a report observability follow-up slice after `T-096` remained halted for attention
+- added compact activity summary example rows to JSON activity timeline totals
+- rendered activity summary examples in Markdown activity timeline aggregate totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for activity summary-example visibility
+- completed AgentSpec run `t-098-add-command-timing-and-edit-summaries-to-reports-20260524180113020467`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 33 passed, 1 warning
+- `bash scripts/ci_check.sh` — 40 passed, 1 warning
+
+## Previous status
 `agentrace` aggregate report totals now expose compact command/edit summary examples. JSON `command_timing_summary.summary_examples` and `edit_summary_totals.summary_examples` include representative rows with timing/status/identity context, and Markdown renders those examples beside summary coverage counts so sparse human-readable explanations are visible without scanning detail rows.
 
 ## What was done
