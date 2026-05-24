@@ -1,6 +1,21 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` repeated command/edit aggregate groups now surface compact summary examples. JSON repeated-group rows produced for per-command attempts, command cwd totals, per-file change totals, and edit-kind totals include `summary_examples` when grouped rows have human-readable summaries, and Markdown renders those examples beside summary coverage so repeated work can be explained without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-099` for a report observability follow-up slice after `T-096` remained halted for attention
+- added repeated-group summary example extraction to command/edit aggregate rows
+- rendered repeated-group summary examples in Markdown nested aggregate totals
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for repeated-group summary-example visibility
+- completed AgentSpec run `t-099-add-command-timing-and-edit-summaries-to-reports-20260524230022803050`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 33 passed, 1 warning
+- `bash scripts/ci_check.sh` — 40 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline aggregate totals now expose compact activity summary examples. JSON `activity_timeline_summary.summary_examples` carries representative command/edit rows with timing/status/type identity context, and Markdown renders those examples alongside activity summary coverage metrics so chronological explanations are visible without scanning timeline detail rows.
 
 ## What was done

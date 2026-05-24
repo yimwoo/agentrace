@@ -432,6 +432,17 @@ def _duration_extremes_ms(rows):
     return {"min": min(durations), "max": max(durations)}
 
 
+def _summary_example_type(rows):
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        if row.get("command") is not None:
+            return "command"
+        if row.get("path") is not None:
+            return "file_edit"
+    return "unknown"
+
+
 def _add_duration_spread(summary, rows):
     """Attach compact duration spread, coverage, and source-share metrics for repeated aggregate groups."""
     if summary.get("count", 0) <= 1:
@@ -450,6 +461,7 @@ def _add_duration_spread(summary, rows):
     summary["summary_recorded_count"] = summary_coverage["summary_recorded_count"]
     summary["summary_missing_count"] = summary_coverage["summary_missing_count"]
     summary["summary_coverage_ratio"] = summary_coverage["summary_coverage_ratio"]
+    summary["summary_examples"] = _summary_example_rows(rows, _summary_example_type(rows))
     summary["status_duration_ms"] = status_duration_ms
     summary["status_average_duration_ms"] = _duration_averages_by_status(rows)
     summary["status_duration_extremes_ms"] = _duration_extremes_by_status(rows)
