@@ -180,6 +180,39 @@ def _summary_coverage(rows):
     }
 
 
+def _summary_example_rows(rows, row_type, limit=3):
+    """Return compact examples for rows with human-readable summaries."""
+    examples = []
+    for row in rows or []:
+        if not isinstance(row, dict) or not row.get("summary"):
+            continue
+        example = {
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+            "summary": row.get("summary"),
+        }
+        if row_type == "command":
+            example["command"] = row.get("command")
+            if row.get("cwd"):
+                example["cwd"] = row["cwd"]
+            if row.get("exit_code") is not None:
+                example["exit_code"] = row.get("exit_code")
+        elif row_type == "file_edit":
+            example.update({
+                "path": row.get("path"),
+                "kind": row.get("kind"),
+                "added_lines": _numeric_value(row.get("added_lines")),
+                "removed_lines": _numeric_value(row.get("removed_lines")),
+                "net_line_delta": _net_line_delta(row),
+            })
+        examples.append(example)
+        if len(examples) >= limit:
+            break
+    return examples
+
+
 def _duration_coverage_by_field(rows, field):
     """Return duration recorded/missing coverage grouped by a row field."""
     rows_by_label = {}
@@ -1080,6 +1113,7 @@ def build_command_timing_summary(rows):
         "summary_recorded_count": summary_coverage["summary_recorded_count"],
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
+        "summary_examples": _summary_example_rows(normalized_rows, "command"),
         "time_window": _time_window(normalized_rows),
         "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
@@ -1351,6 +1385,7 @@ def build_edit_summary_totals(rows):
         "summary_recorded_count": summary_coverage["summary_recorded_count"],
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
+        "summary_examples": _summary_example_rows(normalized_rows, "file_edit"),
         "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,

@@ -1,0 +1,96 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-097-add-command-timing-and-edit-summaries-to-reports-20260524130336753849",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-097-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-097: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:91e1f5612e9e7640c476d29edf527f7fe14c26dc3d1ee0858247c166fc2869a7",
+      "PROJECT_STATE.md": " M:file:30cca56a9e24862abae729c1963e592493858ea7b6f7b44757c7af27992d0aad",
+      "TRACE_SCHEMA.md": " M:file:a69561d7f172f13ab2deb064c3f3827cc254008176f3fea38512ea1f3f059e61",
+      "docs/discovery/open-questions.yml": " M:file:8935a6dc64b012854fa567643543a98c2b9b3d535e268baf4d5efa85ff281a52",
+      "src/report_json.py": " M:file:6c8b63fe98ca412ce1c6272c35fe44654719aaa5a36a6bd3b15e026b4ef91abc",
+      "src/report_markdown.py": " M:file:ac809af98ac13ccc024e6d8f55e61fb08dcc657df6b695f821714ca8ae40847d",
+      "tests/fixtures/rich-report.md": " M:file:5eb965a04b877d7311095d487644e4d800913e8537a8e2a22da05166d33b393d",
+      "tests/test_report_outputs.py": " M:file:134e0ec02dcfdf5ff080be917e8fd87e1014819fdbdd52f55711aa431dfffb50",
+      "agent/context-packs/T-096-add-command-timing-and-edit-summaries-to-reports.md": "??:file:0eee6b1cc5e63f8653e320252ba923667fdb1f3a0947ae8ef4b5bdd526f05730",
+      "agent/context-packs/T-097-add-command-timing-and-edit-summaries-to-reports.md": "??:file:916f9ab93680bb2e070b3ef50a5bb1cba287aee9a5f8e03ea4bdb33bd599bc30",
+      "agent/runs/t-096-add-command-timing-and-edit-summaries-to-reports-20260524080115550491/summary.yml": "??:file:af07a355596e6e3eaae6e44d99a2af20ca2b97790d2a54bc3642b1b22f0d3a16",
+      "agent/sessions/active/S-20260524T080221191332Z-t-096-89e9430a.yml": "??:file:16dcc0efbd4aad90df3d75293ffb5e9dfbdd6bf1edba0f1b535c4aa7d076d788"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-24T13:03:46Z",
+  "updated_at": "2026-05-24T13:08:58Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-097-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-097",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": "explicit",
+    "active_session": null,
+    "satisfied_by": "explicit_host_worktree",
+    "message": "Explicit host-worktree execution is declared for this implementation task.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution in the declared host worktree only because the context pack records host-worktree execution as an intentional mode."
+  },
+  "completion_reason": "Implemented compact command/edit summary examples in report totals; bash scripts/ci_check.sh passed (40 passed, 1 warning).",
+  "verification": {
+    "status": "passed"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

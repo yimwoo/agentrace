@@ -35,6 +35,7 @@
 - command_summary_recorded_count: 0
 - command_summary_missing_count: 1
 - command_summary_coverage_ratio: 0.0
+- command_summary_examples: none
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
 - first_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
 - slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
@@ -64,6 +65,7 @@
 - edit_summary_recorded_count: 1
 - edit_summary_missing_count: 0
 - edit_summary_coverage_ratio: 1.0
+- edit_summary_examples: src/auth.py (event=evt_edit_1, status=succeeded, duration_ms=125, duration_source=explicit, kind=modify, net=3, summary=Translate decoder errors into 401 responses)
 - edit_time_window: started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z
 - edit_total_lines: +4/-1
 - edit_net_line_delta: 3

@@ -1,0 +1,43 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260524T080221191332Z-t-096-89e9430a",
+  "status": "active",
+  "terminal": false,
+  "owner": "cron",
+  "mode": "owner",
+  "created_at": "2026-05-24T08:02:21Z",
+  "updated_at": "2026-05-24T08:02:21Z",
+  "context_pack": "agent/context-packs/T-096-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:0eee6b1cc5e63f8653e320252ba923667fdb1f3a0947ae8ef4b5bdd526f05730",
+  "task_id": "T-096",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-096-add-command-timing-and-edit-summaries-to-reports-20260524080115550491",
+  "note": "Host worktree execution is intentional for scheduled portfolio cron run.",
+  "history": [
+    {
+      "at": "2026-05-24T08:02:21Z",
+      "action": "started",
+      "by": "cron",
+      "note": "Host worktree execution is intentional for scheduled portfolio cron run."
+    }
+  ]
+}

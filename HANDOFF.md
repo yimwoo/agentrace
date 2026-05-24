@@ -1,16 +1,17 @@
 # HANDOFF.md
 
 ## Latest status
-`agentrace` first/slowest/fastest/last command highlight rows now retain command working-directory context. JSON `command_timing_summary` highlight rows carry `cwd` when available, and Markdown renders it in the command highlight summary so selected command locations are visible without scanning detail rows.
+`agentrace` aggregate report totals now expose compact command/edit summary examples. JSON `command_timing_summary.summary_examples` and `edit_summary_totals.summary_examples` include representative rows with timing/status/identity context, and Markdown renders those examples beside summary coverage counts so sparse human-readable explanations are visible without scanning detail rows.
 
 ## What was done
-- created AgentSpec task `T-095` for a report observability follow-up slice
-- added cwd preservation to command identity/highlight rows in JSON reports
-- rendered command-highlight cwd context in Markdown reports
-- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for command-highlight cwd visibility
+- created AgentSpec task `T-097` for a report observability follow-up slice after `T-096` halted for attention
+- declared explicit host-worktree execution in the AgentSpec context pack for the scheduled cron run
+- added compact command and edit summary example rows to JSON report totals
+- rendered command/edit summary examples in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for summary-example visibility
+- completed AgentSpec run `t-097-add-command-timing-and-edit-summaries-to-reports-20260524130336753849`
 
 ## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 33 passed, 1 warning
 - `bash scripts/ci_check.sh` — 40 passed, 1 warning
 
 ## Previous status

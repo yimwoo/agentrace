@@ -810,6 +810,15 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "summary_recorded_count": 1,
         "summary_missing_count": 1,
         "summary_coverage_ratio": 0.5,
+        "summary_examples": [{
+            "event": "evt_cmd_slow",
+            "status": "failed",
+            "duration_ms": 2000,
+            "duration_source": "derived",
+            "summary": "Run focused tests",
+            "command": "pytest -q",
+            "exit_code": 1,
+        }],
         "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
         "first": {
             "event": "evt_cmd_slow",
@@ -956,6 +965,32 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "summary_recorded_count": 2,
         "summary_missing_count": 0,
         "summary_coverage_ratio": 1.0,
+        "summary_examples": [
+            {
+                "event": "evt_edit_one",
+                "status": "succeeded",
+                "duration_ms": 12,
+                "duration_source": "explicit",
+                "summary": "Add report totals",
+                "path": "src/report_json.py",
+                "kind": "modify",
+                "added_lines": 8,
+                "removed_lines": 2,
+                "net_line_delta": 6,
+            },
+            {
+                "event": "evt_edit_two",
+                "status": "succeeded",
+                "duration_ms": 8,
+                "duration_source": "explicit",
+                "summary": "Render report totals",
+                "path": "src/report_markdown.py",
+                "kind": "modify",
+                "added_lines": 3,
+                "removed_lines": 1,
+                "net_line_delta": 2,
+            },
+        ],
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
         "total_added_lines": 11,
         "total_removed_lines": 3,
@@ -1067,6 +1102,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_summary_recorded_count: 1" in text
     assert "command_summary_missing_count: 1" in text
     assert "command_summary_coverage_ratio: 0.5" in text
+    assert "command_summary_examples: `pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests)" in text
     assert "command_time_window: started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z" in text
     assert "first_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
     assert "slowest_command: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
@@ -1092,6 +1128,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_summary_recorded_count: 2" in text
     assert "edit_summary_missing_count: 0" in text
     assert "edit_summary_coverage_ratio: 1.0" in text
+    assert "edit_summary_examples: src/report_json.py (event=evt_edit_one, status=succeeded, duration_ms=12, duration_source=explicit, kind=modify, net=6, summary=Add report totals); src/report_markdown.py (event=evt_edit_two, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=2, summary=Render report totals)" in text
     assert "edit_time_window: started_at=2026-04-25T00:00:04Z" in text
     assert "edit_total_lines: +11/-3" in text
     assert "edit_net_line_delta: 8" in text
