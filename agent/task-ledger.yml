@@ -1389,6 +1389,23 @@
         "path": "agent/reviews/REVIEW-0070.yml"
       },
       "updated_at": "2026-05-23T23:04:32Z"
+    },
+    "agent/context-packs/T-095-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-095-add-command-timing-and-edit-summaries-to-reports-20260524040102098718",
+      "reason": "Implemented command-highlight cwd context and verified with CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0071",
+        "verdict": "ready",
+        "summary": "Command highlight cwd context implemented and verified with pytest report tests plus full CI.",
+        "reviewer": "cron",
+        "range": "HEAD",
+        "path": "agent/reviews/REVIEW-0071.yml"
+      },
+      "updated_at": "2026-05-24T04:03:33Z"
     }
   }
 }

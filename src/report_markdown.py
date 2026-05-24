@@ -50,6 +50,8 @@ def _format_command_highlight(row):
         details.append(duration_source)
     if timing:
         details.append(timing)
+    if row.get("cwd"):
+        details.append(f"cwd={row['cwd']}")
     if row.get("summary"):
         details.append(f"summary={row['summary']}")
     artifact_details = _format_artifact_details(row)

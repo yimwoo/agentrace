@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260524T040253883410Z-t-095-b0be3b4b",
+  "status": "finished",
+  "terminal": true,
+  "owner": "cron",
+  "mode": "owner",
+  "created_at": "2026-05-24T04:02:53Z",
+  "updated_at": "2026-05-24T04:03:46Z",
+  "context_pack": "agent/context-packs/T-095-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:6a3a992e0797db01619cf9c1435f3a41033471a95e3f2b5705d3fc1c4e30d193",
+  "task_id": "T-095",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-095-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-05-24T04:02:53Z",
+      "action": "started",
+      "by": "cron",
+      "note": null
+    },
+    {
+      "at": "2026-05-24T04:03:46Z",
+      "action": "finished",
+      "note": "Task T-095 completed and ready to commit.",
+      "disposition": "merge"
+    }
+  ],
+  "disposition": "merge",
+  "review_id": "REVIEW-0071",
+  "test_status": "passed",
+  "finish_note": "Task T-095 completed and ready to commit.",
+  "finished_at": "2026-05-24T04:03:46Z"
+}

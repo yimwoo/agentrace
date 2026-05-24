@@ -1,6 +1,20 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` first/slowest/fastest/last command highlight rows now retain command working-directory context. JSON `command_timing_summary` highlight rows carry `cwd` when available, and Markdown renders it in the command highlight summary so selected command locations are visible without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-095` for a report observability follow-up slice
+- added cwd preservation to command identity/highlight rows in JSON reports
+- rendered command-highlight cwd context in Markdown reports
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for command-highlight cwd visibility
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 33 passed, 1 warning
+- `bash scripts/ci_check.sh` — 40 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` failed-command aggregate rows now retain command working-directory context. JSON `command_timing_summary.failed_commands` carries `cwd` when available, and Markdown renders it in the failed-command summary so command failures can be tied to execution location without scanning detail rows.
 
 ## What was done

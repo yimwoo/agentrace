@@ -463,6 +463,45 @@ def test_slowest_command_and_largest_edit_preserve_artifact_refs():
     assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, summary=Large edit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
 
 
+def test_command_highlight_aggregates_include_working_directory_context():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "highlight-cwd-1", "task": "inspect command highlight cwd", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_setup",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 20,
+                "command": {"value": "python manage.py migrate", "cwd": "/workspace/api"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_test",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 5,
+                "command": {"value": "npm test", "cwd": "/workspace/web"},
+                "exit_code": 0,
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    command_totals = payload["command_timing_summary"]
+    assert command_totals["first"]["cwd"] == "/workspace/api"
+    assert command_totals["slowest"]["cwd"] == "/workspace/api"
+    assert command_totals["fastest"]["cwd"] == "/workspace/web"
+    assert command_totals["last"]["cwd"] == "/workspace/web"
+
+    text = build_markdown_summary(trace)
+    assert "first_command: evt_cmd_setup: `python manage.py migrate` (20ms, status=succeeded, exit_code=0, duration_source=explicit, cwd=/workspace/api)" in text
+    assert "fastest_command: evt_cmd_test: `npm test` (5ms, status=succeeded, exit_code=0, duration_source=explicit, cwd=/workspace/web)" in text
+    assert "last_command: evt_cmd_test: `npm test` (5ms, status=succeeded, exit_code=0, duration_source=explicit, cwd=/workspace/web)" in text
+
+
 def test_report_outputs_fall_back_to_existing_run_summary_rows():
     trace = {
         "trace_version": "0.1",

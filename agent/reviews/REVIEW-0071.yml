@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "T-095",
+    "context_pack": "agent/context-packs/T-095-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Command highlight cwd context implemented and verified with pytest report tests plus full CI.",
+  "reviewer": "cron",
+  "range": "HEAD",
+  "created_at": "2026-05-24T04:03:30Z",
+  "id": "REVIEW-0071"
+}

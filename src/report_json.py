@@ -993,6 +993,8 @@ def _command_identity_row(row):
         "started_at": row.get("started_at"),
         "ended_at": row.get("ended_at"),
     }
+    if row.get("cwd"):
+        summary["cwd"] = row["cwd"]
     if row.get("artifacts"):
         summary["artifacts"] = row["artifacts"]
     if row.get("summary"):
