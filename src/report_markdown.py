@@ -370,6 +370,7 @@ def _format_report_summary_coverage(coverage):
         "command_by_status",
         "command_by_command",
         "command_by_cwd",
+        "command_by_exit_code",
         "edit_by_duration_source",
         "edit_by_status",
         "edit_by_kind",
@@ -667,6 +668,19 @@ def _format_cwd_duration_summary(row):
     ])
 
 
+def _format_exit_code_duration_summary(row):
+    if not row:
+        return "none"
+    return ", ".join([
+        f"exit_code_duration_ms={_format_status_counts(row.get('exit_code_duration_ms'))}",
+        f"exit_code_average_duration_ms={_format_status_counts(row.get('exit_code_average_duration_ms'))}",
+        f"exit_code_duration_extremes_ms={_format_duration_source_extremes(row.get('exit_code_duration_extremes_ms'))}",
+        f"exit_code_duration_coverage={_format_duration_coverage_by_label(row.get('exit_code_duration_coverage'))}",
+        f"exit_code_duration_share={_format_status_counts(row.get('exit_code_duration_share'))}",
+        f"exit_code_summary_coverage={_format_summary_coverage_by_label(row.get('exit_code_summary_coverage'))}",
+    ])
+
+
 def _format_kind_duration_summary(row):
     if not row:
         return "none"
@@ -812,6 +826,7 @@ def build_markdown_summary(trace):
         f"- command_failed_count: {command_totals['failed_count']}",
         f"- failed_commands: {_format_failed_commands(command_totals['failed_commands'])}",
         f"- command_exit_code_counts: {_format_status_counts(command_totals['exit_code_counts'])}",
+        f"- command_exit_code_duration_summary: {_format_exit_code_duration_summary(command_totals)}",
         f"- command_status_counts: {_format_status_counts(command_totals['status_counts'])}",
         f"- command_status_duration_summary: {_format_status_duration_summary(command_totals)}",
         f"- command_duration_sources: {_format_status_counts(command_totals['duration_source_counts'])}",

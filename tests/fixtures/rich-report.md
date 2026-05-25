@@ -4,7 +4,7 @@
 - event_count: 3
 - ok_events: 3
 - total_duration_ms: 3325
-- report_summary_coverage: command_by_duration_source=explicit=recorded=0/missing=1/ratio=0.0; command_by_status=failed=recorded=0/missing=1/ratio=0.0; command_by_command=pytest tests/test_auth.py -q=recorded=0/missing=1/ratio=0.0; command_by_cwd=/workspace/app=recorded=0/missing=1/ratio=0.0; edit_by_duration_source=explicit=recorded=1/missing=0/ratio=1.0; edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0; edit_by_kind=modify=recorded=1/missing=0/ratio=1.0; edit_by_path=src/auth.py=recorded=1/missing=0/ratio=1.0; activity_by_type=command=recorded=0/missing=1/ratio=0.0, file_edit=recorded=1/missing=0/ratio=1.0; activity_by_status=failed=recorded=0/missing=1/ratio=0.0, succeeded=recorded=1/missing=0/ratio=1.0; activity_by_duration_source=explicit=recorded=1/missing=1/ratio=0.5
+- report_summary_coverage: command_by_duration_source=explicit=recorded=0/missing=1/ratio=0.0; command_by_status=failed=recorded=0/missing=1/ratio=0.0; command_by_command=pytest tests/test_auth.py -q=recorded=0/missing=1/ratio=0.0; command_by_cwd=/workspace/app=recorded=0/missing=1/ratio=0.0; command_by_exit_code=1=recorded=0/missing=1/ratio=0.0; edit_by_duration_source=explicit=recorded=1/missing=0/ratio=1.0; edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0; edit_by_kind=modify=recorded=1/missing=0/ratio=1.0; edit_by_path=src/auth.py=recorded=1/missing=0/ratio=1.0; activity_by_type=command=recorded=0/missing=1/ratio=0.0, file_edit=recorded=1/missing=0/ratio=1.0; activity_by_status=failed=recorded=0/missing=1/ratio=0.0, succeeded=recorded=1/missing=0/ratio=1.0; activity_by_duration_source=explicit=recorded=1/missing=1/ratio=0.5
 - command_count: 1
 - unique_command_count: 1
 - commands_run: pytest tests/test_auth.py -q
@@ -22,6 +22,7 @@
 - command_failed_count: 1
 - failed_commands: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
 - command_exit_code_counts: 1=1
+- command_exit_code_duration_summary: exit_code_duration_ms=1=3200, exit_code_average_duration_ms=1=3200.0, exit_code_duration_extremes_ms=1=min=3200/max=3200, exit_code_duration_coverage=1=recorded=1/missing=0/ratio=1.0, exit_code_duration_share=1=1.0, exit_code_summary_coverage=1=recorded=0/missing=1/ratio=0.0
 - command_status_counts: failed=1
 - command_status_duration_summary: status_duration_ms=failed=3200, status_average_duration_ms=failed=3200.0, status_duration_extremes_ms=failed=min=3200/max=3200, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=1.0, dominant_duration_status=failed (3200ms, share=1.0)
 - command_duration_sources: explicit=1

@@ -88,6 +88,10 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
         "command_by_cwd": {
             "repo": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
         },
+        "command_by_exit_code": {
+            "0": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "1": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
         "edit_by_duration_source": {
             "explicit": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
         },
@@ -119,6 +123,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text
     assert "command_by_command=pytest -q=recorded=1/missing=0/ratio=1.0, ruff check=recorded=0/missing=1/ratio=0.0" in text
     assert "command_by_cwd=repo=recorded=1/missing=1/ratio=0.5" in text
+    assert "command_by_exit_code=0=recorded=1/missing=0/ratio=1.0, 1=recorded=0/missing=1/ratio=0.0" in text
     assert "edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0" in text
     assert "edit_by_path=src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "activity_by_type=command=recorded=1/missing=1/ratio=0.5, file_edit=recorded=1/missing=0/ratio=1.0" in text
@@ -386,6 +391,76 @@ def test_failed_command_aggregates_include_working_directory_context():
 
     text = build_markdown_summary(trace)
     assert "failed_commands: evt_cmd_failed_cwd: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, cwd=/workspace/app)" in text
+
+
+def test_command_summary_totals_break_down_duration_by_exit_code():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "exit-code-duration-1", "task": "inspect exit code timing", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_cmd_ok",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 20,
+                "command": {"value": "ruff check", "summary": "Lint passed"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_fail_first",
+                "seq": 2,
+                "type": "command",
+                "status": "failed",
+                "duration_ms": 80,
+                "command": {"value": "pytest -q", "summary": "Tests failed"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_cmd_fail_retry",
+                "seq": 3,
+                "type": "command",
+                "status": "failed",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.100Z",
+                "command": {"value": "pytest -q"},
+                "exit_code": 1,
+            },
+            {
+                "id": "evt_cmd_unknown_exit",
+                "seq": 4,
+                "type": "command",
+                "status": "cancelled",
+                "duration_ms": 5,
+                "command": {"value": "npm test"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    command_totals = payload["command_timing_summary"]
+    assert command_totals["exit_code_duration_ms"] == {"0": 20, "1": 180, "unknown": 5}
+    assert command_totals["exit_code_average_duration_ms"] == {"0": 20.0, "1": 90.0, "unknown": 5.0}
+    assert command_totals["exit_code_duration_extremes_ms"] == {
+        "0": {"min": 20, "max": 20},
+        "1": {"min": 80, "max": 100},
+        "unknown": {"min": 5, "max": 5},
+    }
+    assert command_totals["exit_code_duration_coverage"] == {
+        "0": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
+        "1": {"duration_recorded_count": 2, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
+        "unknown": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
+    }
+    assert command_totals["exit_code_duration_share"] == {"0": 0.0976, "1": 0.878, "unknown": 0.0244}
+    assert command_totals["exit_code_summary_coverage"] == {
+        "0": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        "1": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
+        "unknown": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+    }
+
+    text = build_markdown_summary(trace)
+    assert "command_exit_code_duration_summary: exit_code_duration_ms=0=20, 1=180, unknown=5" in text
+    assert "exit_code_summary_coverage=0=recorded=1/missing=0/ratio=1.0, 1=recorded=1/missing=1/ratio=0.5, unknown=recorded=0/missing=1/ratio=0.0" in text
 
 
 def test_slowest_command_and_largest_edit_preserve_artifact_refs():
@@ -798,6 +873,18 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "summary": "Run focused tests",
         }],
         "exit_code_counts": {"1": 1, "0": 1},
+        "exit_code_duration_ms": {"1": 2000, "0": 125},
+        "exit_code_average_duration_ms": {"1": 2000.0, "0": 125.0},
+        "exit_code_duration_extremes_ms": {"1": {"min": 2000, "max": 2000}, "0": {"min": 125, "max": 125}},
+        "exit_code_duration_coverage": {
+            "1": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
+            "0": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
+        },
+        "exit_code_duration_share": {"1": 0.9412, "0": 0.0588},
+        "exit_code_summary_coverage": {
+            "1": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "0": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+        },
         "status_counts": {"failed": 1, "succeeded": 1},
         "status_duration_ms": {"failed": 2000, "succeeded": 125},
         "status_average_duration_ms": {"failed": 2000.0, "succeeded": 125.0},

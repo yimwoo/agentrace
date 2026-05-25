@@ -1,6 +1,22 @@
 # HANDOFF.md
 
 ## Latest status
+`agentrace` command aggregate totals now break timing and summary coverage down by exit code. JSON `command_timing_summary` includes exit-code duration totals, averages, min/max extremes, duration coverage, duration shares, and exit-code summary coverage, while Markdown renders a compact `command_exit_code_duration_summary` next to the existing exit-code counts.
+
+## What was done
+- created AgentSpec task `T-100` for a report observability follow-up slice after `T-096` remained halted for attention
+- added exit-code timing and summary-coverage aggregate fields to command timing reports
+- rendered exit-code duration/coverage/share metrics in Markdown summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for exit-code timing visibility
+- completed AgentSpec run `t-100-add-command-timing-and-edit-summaries-to-reports-20260525040010047150`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` repeated command/edit aggregate groups now surface compact summary examples. JSON repeated-group rows produced for per-command attempts, command cwd totals, per-file change totals, and edit-kind totals include `summary_examples` when grouped rows have human-readable summaries, and Markdown renders those examples beside summary coverage so repeated work can be explained without scanning detail rows.
 
 ## What was done

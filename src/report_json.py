@@ -270,6 +270,28 @@ def _summary_coverage_by_field(rows, field):
     return {label: _summary_coverage(group_rows) for label, group_rows in rows_by_label.items()}
 
 
+def _exit_code_label(row):
+    exit_code = row.get("exit_code") if isinstance(row, dict) else None
+    return "unknown" if exit_code is None else str(exit_code)
+
+
+def _rows_by_exit_code(rows):
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        rows_by_label.setdefault(_exit_code_label(row), []).append(row)
+    return rows_by_label
+
+
+def _duration_coverage_by_exit_code(rows):
+    return {label: _duration_coverage(group_rows) for label, group_rows in _rows_by_exit_code(rows).items()}
+
+
+def _summary_coverage_by_exit_code(rows):
+    return {label: _summary_coverage(group_rows) for label, group_rows in _rows_by_exit_code(rows).items()}
+
+
 def _average_recorded_duration_ms(rows):
     """Average duration across rows that actually recorded or derived timing."""
     recorded_durations = [
@@ -298,6 +320,13 @@ def _duration_totals_by_status(rows):
     return _duration_totals_by_field(rows, "status")
 
 
+def _duration_totals_by_exit_code(rows):
+    return {
+        label: sum(_numeric_value(row.get("duration_ms")) for row in group_rows)
+        for label, group_rows in _rows_by_exit_code(rows).items()
+    }
+
+
 def _duration_averages_by_field(rows, field):
     counts = _value_counts(rows, field, missing_label="unknown")
     totals = _duration_totals_by_field(rows, field)
@@ -313,6 +342,13 @@ def _duration_averages_by_type(rows):
 
 def _duration_averages_by_status(rows):
     return _duration_averages_by_field(rows, "status")
+
+
+def _duration_averages_by_exit_code(rows):
+    return {
+        label: round(sum(_numeric_value(row.get("duration_ms")) for row in group_rows) / len(group_rows), 2) if group_rows else 0
+        for label, group_rows in _rows_by_exit_code(rows).items()
+    }
 
 
 def _duration_totals_by_source(rows):
@@ -336,6 +372,17 @@ def _duration_extremes_by_source(rows):
 def _duration_extremes_by_status(rows):
     """Return per-status min/max duration bounds for aggregate report blocks."""
     return _duration_extremes_by_field(rows, "status")
+
+
+def _duration_extremes_by_exit_code(rows):
+    durations_by_label = {
+        label: [_numeric_value(row.get("duration_ms")) for row in group_rows]
+        for label, group_rows in _rows_by_exit_code(rows).items()
+    }
+    return {
+        label: {"min": min(durations), "max": max(durations)}
+        for label, durations in durations_by_label.items()
+    }
 
 
 def _duration_extremes_by_type(rows):
@@ -1120,6 +1167,7 @@ def build_command_timing_summary(rows):
     cwd_duration_ms = _duration_totals_by_field(normalized_rows, "cwd")
     status_duration_ms = _duration_totals_by_status(normalized_rows)
     duration_source_duration_ms = _duration_totals_by_source(normalized_rows)
+    exit_code_duration_ms = _duration_totals_by_exit_code(normalized_rows)
     return {
         "count": len(normalized_rows),
         "unique_command_count": len(commands_run),
@@ -1143,6 +1191,12 @@ def build_command_timing_summary(rows):
         "failed_count": sum(1 for row in normalized_rows if _is_failed_command(row)),
         "failed_commands": _failed_command_rows(normalized_rows),
         "exit_code_counts": _exit_code_counts(normalized_rows),
+        "exit_code_duration_ms": exit_code_duration_ms,
+        "exit_code_average_duration_ms": _duration_averages_by_exit_code(normalized_rows),
+        "exit_code_duration_extremes_ms": _duration_extremes_by_exit_code(normalized_rows),
+        "exit_code_duration_coverage": _duration_coverage_by_exit_code(normalized_rows),
+        "exit_code_duration_share": _duration_shares(exit_code_duration_ms, total_duration_ms),
+        "exit_code_summary_coverage": _summary_coverage_by_exit_code(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),
@@ -1507,6 +1561,7 @@ def build_json_summary(trace):
         "command_by_status": _summary_coverage_by_field(command_timing, "status"),
         "command_by_command": _summary_coverage_by_field(command_timing, "command"),
         "command_by_cwd": _summary_coverage_by_field(command_timing, "cwd"),
+        "command_by_exit_code": _summary_coverage_by_exit_code(command_timing),
         "edit_by_duration_source": _summary_coverage_by_field(edit_summary, "duration_source"),
         "edit_by_status": _summary_coverage_by_field(edit_summary, "status"),
         "edit_by_kind": _summary_coverage_by_field(edit_summary, "kind"),
