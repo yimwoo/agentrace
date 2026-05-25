@@ -1,3 +1,18 @@
+## Latest status
+`agentrace` command exit-code timing reports now identify the dominant duration exit code. JSON `command_timing_summary` includes `dominant_duration_exit_code`, and Markdown renders that highlight inside `command_exit_code_duration_summary` beside exit-code duration totals, shares, and summary coverage.
+
+## What was done
+- created AgentSpec task `T-101` for a report observability follow-up slice after `T-096` remained halted for attention
+- added a dominant exit-code duration highlight to command timing report totals
+- rendered the dominant exit-code duration in Markdown summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for dominant exit-code visibility
+- completed AgentSpec run `t-101-add-command-timing-and-edit-summaries-to-reports-20260525080056230097`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+- `bash scripts/ci_check.sh` — 41 passed, 1 warning
+
+## Previous status
 # HANDOFF.md
 
 ## Latest status

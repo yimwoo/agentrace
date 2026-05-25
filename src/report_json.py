@@ -454,6 +454,10 @@ def _dominant_duration_status(status_duration_ms, total_duration_ms):
     return _dominant_duration_label(status_duration_ms, total_duration_ms, "status")
 
 
+def _dominant_duration_exit_code(exit_code_duration_ms, total_duration_ms):
+    return _dominant_duration_label(exit_code_duration_ms, total_duration_ms, "exit_code")
+
+
 def _median_duration_ms(rows):
     durations = sorted(_numeric_value(row.get("duration_ms")) for row in rows or [] if isinstance(row, dict))
     if not durations:
@@ -1196,6 +1200,7 @@ def build_command_timing_summary(rows):
         "exit_code_duration_extremes_ms": _duration_extremes_by_exit_code(normalized_rows),
         "exit_code_duration_coverage": _duration_coverage_by_exit_code(normalized_rows),
         "exit_code_duration_share": _duration_shares(exit_code_duration_ms, total_duration_ms),
+        "dominant_duration_exit_code": _dominant_duration_exit_code(exit_code_duration_ms, total_duration_ms),
         "exit_code_summary_coverage": _summary_coverage_by_exit_code(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,

@@ -452,6 +452,7 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
         "unknown": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
     }
     assert command_totals["exit_code_duration_share"] == {"0": 0.0976, "1": 0.878, "unknown": 0.0244}
+    assert command_totals["dominant_duration_exit_code"] == {"exit_code": "1", "duration_ms": 180, "duration_share": 0.878}
     assert command_totals["exit_code_summary_coverage"] == {
         "0": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
         "1": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
@@ -460,6 +461,7 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
 
     text = build_markdown_summary(trace)
     assert "command_exit_code_duration_summary: exit_code_duration_ms=0=20, 1=180, unknown=5" in text
+    assert "dominant_duration_exit_code=1 (180ms, share=0.878)" in text
     assert "exit_code_summary_coverage=0=recorded=1/missing=0/ratio=1.0, 1=recorded=1/missing=1/ratio=0.5, unknown=recorded=0/missing=1/ratio=0.0" in text
 
 
@@ -881,6 +883,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "0": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
         },
         "exit_code_duration_share": {"1": 0.9412, "0": 0.0588},
+        "dominant_duration_exit_code": {"exit_code": "1", "duration_ms": 2000, "duration_share": 0.9412},
         "exit_code_summary_coverage": {
             "1": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
             "0": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},

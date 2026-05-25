@@ -642,6 +642,14 @@ def _format_dominant_duration_status(row):
     return f"{row.get('status') or 'unknown'} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
 
 
+def _format_dominant_duration_exit_code(row):
+    if not row:
+        return "none"
+    exit_code = row.get("exit_code")
+    label = "unknown" if exit_code is None else exit_code
+    return f"{label} ({row.get('duration_ms', 0)}ms, share={row.get('duration_share', 0)})"
+
+
 def _format_status_duration_summary(row):
     if not row:
         return "none"
@@ -677,6 +685,7 @@ def _format_exit_code_duration_summary(row):
         f"exit_code_duration_extremes_ms={_format_duration_source_extremes(row.get('exit_code_duration_extremes_ms'))}",
         f"exit_code_duration_coverage={_format_duration_coverage_by_label(row.get('exit_code_duration_coverage'))}",
         f"exit_code_duration_share={_format_status_counts(row.get('exit_code_duration_share'))}",
+        f"dominant_duration_exit_code={_format_dominant_duration_exit_code(row.get('dominant_duration_exit_code'))}",
         f"exit_code_summary_coverage={_format_summary_coverage_by_label(row.get('exit_code_summary_coverage'))}",
     ])
 
