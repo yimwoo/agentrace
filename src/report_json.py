@@ -358,6 +358,22 @@ def _summary_coverage_by_exit_code(rows):
     return {label: _summary_coverage(group_rows) for label, group_rows in _rows_by_exit_code(rows).items()}
 
 
+def _summary_examples_by_exit_code(rows, limit=3):
+    """Return compact command summary examples grouped by exit-code label."""
+    return {
+        label: _summary_example_rows(group_rows, "command", limit=limit)
+        for label, group_rows in _rows_by_exit_code(rows).items()
+    }
+
+
+def _summary_missing_examples_by_exit_code(rows, limit=3):
+    """Return compact missing-summary command examples grouped by exit-code label."""
+    return {
+        label: _summary_missing_example_rows(group_rows, "command", limit=limit)
+        for label, group_rows in _rows_by_exit_code(rows).items()
+    }
+
+
 def _average_recorded_duration_ms(rows):
     """Average duration across rows that actually recorded or derived timing."""
     recorded_durations = [
@@ -1271,6 +1287,8 @@ def build_command_timing_summary(rows):
         "exit_code_duration_share": _duration_shares(exit_code_duration_ms, total_duration_ms),
         "dominant_duration_exit_code": _dominant_duration_exit_code(exit_code_duration_ms, total_duration_ms),
         "exit_code_summary_coverage": _summary_coverage_by_exit_code(normalized_rows),
+        "exit_code_summary_examples": _summary_examples_by_exit_code(normalized_rows),
+        "exit_code_summary_missing_examples": _summary_missing_examples_by_exit_code(normalized_rows),
         "status_counts": status_counts,
         "status_duration_ms": status_duration_ms,
         "status_average_duration_ms": _duration_averages_by_status(normalized_rows),

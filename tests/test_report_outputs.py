@@ -463,6 +463,8 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
     assert "command_exit_code_duration_summary: exit_code_duration_ms=0=20, 1=180, unknown=5" in text
     assert "dominant_duration_exit_code=1 (180ms, share=0.878)" in text
     assert "exit_code_summary_coverage=0=recorded=1/missing=0/ratio=1.0, 1=recorded=1/missing=1/ratio=0.5, unknown=recorded=0/missing=1/ratio=0.0" in text
+    assert "exit_code_summary_examples=0=`ruff check` (event=evt_cmd_ok, status=succeeded, duration_ms=20, duration_source=explicit, exit_code=0, summary=Lint passed); 1=`pytest -q` (event=evt_cmd_fail_first, status=failed, duration_ms=80, duration_source=explicit, exit_code=1, summary=Tests failed)" in text
+    assert "exit_code_summary_missing_examples=1=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1); unknown=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit)" in text
 
 
 def test_slowest_command_and_largest_edit_preserve_artifact_refs():
@@ -896,6 +898,29 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "1": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
             "0": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
         },
+        "exit_code_summary_examples": {
+            "1": [{
+                "event": "evt_cmd_slow",
+                "status": "failed",
+                "duration_ms": 2000,
+                "duration_source": "derived",
+                "summary": "Run focused tests",
+                "command": "pytest -q",
+                "exit_code": 1,
+            }],
+            "0": [],
+        },
+        "exit_code_summary_missing_examples": {
+            "1": [],
+            "0": [{
+                "event": "evt_cmd_fast",
+                "status": "succeeded",
+                "duration_ms": 125,
+                "duration_source": "explicit",
+                "command": "ruff check",
+                "exit_code": 0,
+            }],
+        },
         "status_counts": {"failed": 1, "succeeded": 1},
         "status_duration_ms": {"failed": 2000, "succeeded": 125},
         "status_average_duration_ms": {"failed": 2000.0, "succeeded": 125.0},
@@ -1233,6 +1258,8 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_failed_count: 1" in text
     assert "failed_commands: evt_cmd_slow: `pytest -q` (2000ms, status=failed, exit_code=1, duration_source=derived, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, summary=Run focused tests)" in text
     assert "command_exit_code_counts: 0=1, 1=1" in text
+    assert "exit_code_summary_examples=1=`pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests)" in text
+    assert "exit_code_summary_missing_examples=0=`ruff check` (event=evt_cmd_fast, status=succeeded, duration_ms=125, duration_source=explicit, exit_code=0)" in text
     assert "command_status_counts: failed=1, succeeded=1" in text
     assert "command_duration_sources: derived=1, explicit=1" in text
     assert "command_duration_source_duration_ms: derived=2000, explicit=125" in text

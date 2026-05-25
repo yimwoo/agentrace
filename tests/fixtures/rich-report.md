@@ -22,7 +22,7 @@
 - command_failed_count: 1
 - failed_commands: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
 - command_exit_code_counts: 1=1
-- command_exit_code_duration_summary: exit_code_duration_ms=1=3200, exit_code_average_duration_ms=1=3200.0, exit_code_duration_extremes_ms=1=min=3200/max=3200, exit_code_duration_coverage=1=recorded=1/missing=0/ratio=1.0, exit_code_duration_share=1=1.0, dominant_duration_exit_code=1 (3200ms, share=1.0), exit_code_summary_coverage=1=recorded=0/missing=1/ratio=0.0
+- command_exit_code_duration_summary: exit_code_duration_ms=1=3200, exit_code_average_duration_ms=1=3200.0, exit_code_duration_extremes_ms=1=min=3200/max=3200, exit_code_duration_coverage=1=recorded=1/missing=0/ratio=1.0, exit_code_duration_share=1=1.0, dominant_duration_exit_code=1 (3200ms, share=1.0), exit_code_summary_coverage=1=recorded=0/missing=1/ratio=0.0, exit_code_summary_examples=none, exit_code_summary_missing_examples=1=`pytest tests/test_auth.py -q` (event=evt_cmd_1, status=failed, duration_ms=3200, duration_source=explicit, cwd=/workspace/app, exit_code=1)
 - command_status_counts: failed=1
 - command_status_duration_summary: status_duration_ms=failed=3200, status_average_duration_ms=failed=3200.0, status_duration_extremes_ms=failed=min=3200/max=3200, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=1.0, dominant_duration_status=failed (3200ms, share=1.0)
 - command_duration_sources: explicit=1

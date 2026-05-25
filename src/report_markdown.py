@@ -333,6 +333,17 @@ def _format_summary_coverage_by_label(coverage_by_label):
     )
 
 
+def _format_summary_examples_by_label(examples_by_label, formatter):
+    if not examples_by_label:
+        return "none"
+    rendered = []
+    for label, rows in sorted(examples_by_label.items()):
+        examples = formatter(rows)
+        if examples == "none":
+            continue
+        rendered.append(f"{label}={examples}")
+    return "; ".join(rendered) if rendered else "none"
+
 
 
 def _format_summary_examples(rows):
@@ -715,6 +726,8 @@ def _format_exit_code_duration_summary(row):
         f"exit_code_duration_share={_format_status_counts(row.get('exit_code_duration_share'))}",
         f"dominant_duration_exit_code={_format_dominant_duration_exit_code(row.get('dominant_duration_exit_code'))}",
         f"exit_code_summary_coverage={_format_summary_coverage_by_label(row.get('exit_code_summary_coverage'))}",
+        f"exit_code_summary_examples={_format_summary_examples_by_label(row.get('exit_code_summary_examples'), _format_summary_examples)}",
+        f"exit_code_summary_missing_examples={_format_summary_examples_by_label(row.get('exit_code_summary_missing_examples'), _format_summary_missing_examples)}",
     ])
 
 

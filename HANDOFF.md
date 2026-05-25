@@ -1,4 +1,19 @@
 ## Latest status
+`agentrace` command exit-code aggregate summaries now include compact summary and missing-summary examples. JSON `command_timing_summary` exposes `exit_code_summary_examples` and `exit_code_summary_missing_examples`, while Markdown renders both beside exit-code summary coverage so reviewers can see representative explained and unexplained commands for each exit-code bucket.
+
+## What was done
+- created AgentSpec task `T-104` for a report observability follow-up slice after `T-096` remained halted for attention
+- added exit-code-grouped command summary and missing-summary example rows to JSON command timing totals
+- rendered exit-code grouped summary examples in Markdown `command_exit_code_duration_summary`
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for exit-code grouped summary-example visibility
+- completed AgentSpec run `t-104-add-command-timing-and-edit-summaries-to-reports-20260525230025038814`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+- `bash scripts/ci_check.sh` — 41 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` repeated command/edit aggregate groups now include compact missing-summary examples. JSON nested aggregate rows produced for per-command attempts, command cwd totals, per-file change totals, and edit-kind totals include `summary_missing_examples` beside `summary_examples`, and Markdown renders those missing-summary examples so reviewers can identify repeated rows still lacking human-readable explanations without scanning details.
 
 ## What was done
