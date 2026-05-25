@@ -123,6 +123,7 @@ def _append_duration_spread_details(details, row):
         f"summary_missing_count={row.get('summary_missing_count', 0)}",
         f"summary_coverage_ratio={row.get('summary_coverage_ratio', 0)}",
         f"summary_examples={_format_summary_examples(row.get('summary_examples'))}",
+        f"summary_missing_examples={_format_summary_missing_examples(row.get('summary_missing_examples'))}",
         f"status_duration_ms={_format_status_counts(row.get('status_duration_ms'))}",
         f"status_average_duration_ms={_format_status_counts(row.get('status_average_duration_ms'))}",
         f"status_duration_extremes_ms={_format_duration_source_extremes(row.get('status_duration_extremes_ms'))}",
@@ -360,6 +361,33 @@ def _format_summary_examples(rows):
         details.append(f"summary={summary}")
         rendered.append(f"{label} ({', '.join(details)})")
     return "; ".join(rendered)
+
+
+def _format_summary_missing_examples(rows):
+    if not rows:
+        return "none"
+    rendered = []
+    for row in rows:
+        duration = row.get("duration_ms", 0)
+        status = row.get("status") or "unknown"
+        source = row.get("duration_source") or "unknown"
+        if row.get("command"):
+            label = f"`{row.get('command')}`"
+            extras = []
+            if row.get("cwd"):
+                extras.append(f"cwd={row['cwd']}")
+            if row.get("exit_code") is not None:
+                extras.append(f"exit_code={row['exit_code']}")
+        else:
+            label = row.get("path") or "<unknown file>"
+            extras = [f"kind={row.get('kind') or 'unknown'}"]
+            if "net_line_delta" in row:
+                extras.append(f"net={row.get('net_line_delta', 0)}")
+        details = [f"event={row.get('event') or 'summary'}", f"status={status}", f"duration_ms={duration}", f"duration_source={source}"]
+        details.extend(extras)
+        rendered.append(f"{label} ({', '.join(details)})")
+    return "; ".join(rendered)
+
 
 
 def _format_report_summary_coverage(coverage):
@@ -734,6 +762,7 @@ def _format_activity_timeline_summary(timeline_totals):
         f"summary_missing_count={timeline_totals.get('summary_missing_count', 0)}",
         f"summary_coverage_ratio={timeline_totals.get('summary_coverage_ratio', 0)}",
         f"summary_examples={_format_summary_examples(timeline_totals.get('summary_examples'))}",
+        f"summary_missing_examples={_format_summary_missing_examples(timeline_totals.get('summary_missing_examples'))}",
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
         f"covered_intervals={_format_activity_covered_intervals(timeline_totals.get('covered_intervals'))}",
@@ -850,6 +879,7 @@ def build_markdown_summary(trace):
         f"- command_summary_missing_count: {command_totals['summary_missing_count']}",
         f"- command_summary_coverage_ratio: {command_totals['summary_coverage_ratio']}",
         f"- command_summary_examples: {_format_summary_examples(command_totals['summary_examples'])}",
+        f"- command_summary_missing_examples: {_format_summary_missing_examples(command_totals['summary_missing_examples'])}",
         f"- command_time_window: {_format_aggregate_time_window(command_totals['time_window'])}",
         f"- first_command: {_format_command_highlight(command_totals['first'])}",
         f"- slowest_command: {_format_slowest_command(command_totals['slowest'])}",
@@ -880,6 +910,7 @@ def build_markdown_summary(trace):
         f"- edit_summary_missing_count: {edit_totals['summary_missing_count']}",
         f"- edit_summary_coverage_ratio: {edit_totals['summary_coverage_ratio']}",
         f"- edit_summary_examples: {_format_summary_examples(edit_totals['summary_examples'])}",
+        f"- edit_summary_missing_examples: {_format_summary_missing_examples(edit_totals['summary_missing_examples'])}",
         f"- edit_time_window: {_format_aggregate_time_window(edit_totals['time_window'])}",
         f"- edit_total_lines: +{edit_totals['total_added_lines']}/-{edit_totals['total_removed_lines']}",
         f"- edit_net_line_delta: {edit_totals['net_line_delta']}",

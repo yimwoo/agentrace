@@ -1451,6 +1451,24 @@
         "status": "passed"
       },
       "updated_at": "2026-05-25T08:05:06Z"
+    },
+    "agent/context-packs/T-102-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-102-add-command-timing-and-edit-summaries-to-reports-20260525130737822661",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-25T13:07:37Z"
+    },
+    "agent/context-packs/T-103-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-103-add-command-timing-and-edit-summaries-to-reports-20260525180024180055",
+      "reason": "Implemented nested missing-summary examples for report aggregates; ci_check passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-25T18:03:48Z"
     }
   }
 }

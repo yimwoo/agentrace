@@ -213,6 +213,38 @@ def _summary_example_rows(rows, row_type, limit=3):
     return examples
 
 
+def _summary_missing_example_rows(rows, row_type, limit=3):
+    """Return compact examples for rows that lack human-readable summaries."""
+    examples = []
+    for row in rows or []:
+        if not isinstance(row, dict) or row.get("summary"):
+            continue
+        example = {
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
+        }
+        if row_type == "command":
+            example["command"] = row.get("command")
+            if row.get("cwd"):
+                example["cwd"] = row["cwd"]
+            if row.get("exit_code") is not None:
+                example["exit_code"] = row.get("exit_code")
+        elif row_type == "file_edit":
+            example.update({
+                "path": row.get("path"),
+                "kind": row.get("kind"),
+                "added_lines": _numeric_value(row.get("added_lines")),
+                "removed_lines": _numeric_value(row.get("removed_lines")),
+                "net_line_delta": _net_line_delta(row),
+            })
+        examples.append(example)
+        if len(examples) >= limit:
+            break
+    return examples
+
+
 def _activity_summary_example_rows(rows, limit=3):
     """Return compact activity examples with human-readable summaries."""
     examples = []
@@ -227,6 +259,40 @@ def _activity_summary_example_rows(rows, limit=3):
             "duration_ms": _numeric_value(row.get("duration_ms")),
             "duration_source": row.get("duration_source"),
             "summary": row.get("summary"),
+        }
+        if row_type == "command":
+            example["command"] = row.get("command")
+            if row.get("cwd"):
+                example["cwd"] = row["cwd"]
+            if row.get("exit_code") is not None:
+                example["exit_code"] = row.get("exit_code")
+        elif row_type == "file_edit":
+            example.update({
+                "path": row.get("path"),
+                "kind": row.get("kind"),
+                "added_lines": _numeric_value(row.get("added_lines")),
+                "removed_lines": _numeric_value(row.get("removed_lines")),
+                "net_line_delta": _net_line_delta(row),
+            })
+        examples.append(example)
+        if len(examples) >= limit:
+            break
+    return examples
+
+
+def _activity_summary_missing_example_rows(rows, limit=3):
+    """Return compact activity examples without human-readable summaries."""
+    examples = []
+    for row in rows or []:
+        if not isinstance(row, dict) or row.get("summary"):
+            continue
+        row_type = row.get("type") or "unknown"
+        example = {
+            "type": row_type,
+            "event": row.get("event"),
+            "status": row.get("status"),
+            "duration_ms": _numeric_value(row.get("duration_ms")),
+            "duration_source": row.get("duration_source"),
         }
         if row_type == "command":
             example["command"] = row.get("command")
@@ -512,7 +578,9 @@ def _add_duration_spread(summary, rows):
     summary["summary_recorded_count"] = summary_coverage["summary_recorded_count"]
     summary["summary_missing_count"] = summary_coverage["summary_missing_count"]
     summary["summary_coverage_ratio"] = summary_coverage["summary_coverage_ratio"]
-    summary["summary_examples"] = _summary_example_rows(rows, _summary_example_type(rows))
+    summary_example_type = _summary_example_type(rows)
+    summary["summary_examples"] = _summary_example_rows(rows, summary_example_type)
+    summary["summary_missing_examples"] = _summary_missing_example_rows(rows, summary_example_type)
     summary["status_duration_ms"] = status_duration_ms
     summary["status_average_duration_ms"] = _duration_averages_by_status(rows)
     summary["status_duration_extremes_ms"] = _duration_extremes_by_status(rows)
@@ -907,6 +975,7 @@ def build_activity_timeline_summary(rows):
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _activity_summary_example_rows(normalized_rows),
+        "summary_missing_examples": _activity_summary_missing_example_rows(normalized_rows),
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
@@ -1221,6 +1290,7 @@ def build_command_timing_summary(rows):
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _summary_example_rows(normalized_rows, "command"),
+        "summary_missing_examples": _summary_missing_example_rows(normalized_rows, "command"),
         "time_window": _time_window(normalized_rows),
         "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
@@ -1493,6 +1563,7 @@ def build_edit_summary_totals(rows):
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _summary_example_rows(normalized_rows, "file_edit"),
+        "summary_missing_examples": _summary_missing_example_rows(normalized_rows, "file_edit"),
         "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,

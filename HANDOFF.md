@@ -1,4 +1,35 @@
 ## Latest status
+`agentrace` repeated command/edit aggregate groups now include compact missing-summary examples. JSON nested aggregate rows produced for per-command attempts, command cwd totals, per-file change totals, and edit-kind totals include `summary_missing_examples` beside `summary_examples`, and Markdown renders those missing-summary examples so reviewers can identify repeated rows still lacking human-readable explanations without scanning details.
+
+## What was done
+- created AgentSpec task `T-103` for a report observability follow-up slice after `T-096` remained halted for attention
+- added missing-summary examples to repeated command/edit aggregate rows via shared duration-spread enrichment
+- rendered nested missing-summary examples in Markdown command attempts, command cwd totals, file change totals, and edit-kind totals
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for nested missing-summary visibility
+- completed AgentSpec run `t-103-add-command-timing-and-edit-summaries-to-reports-20260525180024180055`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+- `bash scripts/ci_check.sh` — 41 passed, 1 warning
+
+## Previous status
+## Latest status
+`agentrace` report aggregate totals now include compact missing-summary examples. JSON `command_timing_summary`, `edit_summary_totals`, and `activity_timeline_summary` expose `summary_missing_examples`, and Markdown renders those examples beside existing summary coverage so reviewers can identify representative rows that still lack human-readable explanations.
+
+## What was done
+- created AgentSpec task `T-102` for a report observability follow-up slice after `T-096` remained halted for attention
+- added compact missing-summary example rows for command, edit, and activity aggregate summaries
+- rendered missing-summary examples in Markdown report totals and the activity timeline summary
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for missing-summary visibility
+- completed AgentSpec run `t-102-add-command-timing-and-edit-summaries-to-reports-20260525130054449874`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+
+## Previous status
+# HANDOFF.md
+
+## Latest status
 `agentrace` command exit-code timing reports now identify the dominant duration exit code. JSON `command_timing_summary` includes `dominant_duration_exit_code`, and Markdown renders that highlight inside `command_exit_code_duration_summary` beside exit-code duration totals, shares, and summary coverage.
 
 ## What was done
