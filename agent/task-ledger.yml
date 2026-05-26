@@ -1478,6 +1478,24 @@
         "status": "passed"
       },
       "updated_at": "2026-05-25T23:03:56Z"
+    },
+    "agent/context-packs/T-105-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-105-add-command-timing-and-edit-summaries-to-reports-20260526040602651668",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-26T04:06:02Z"
+    },
+    "agent/context-packs/T-106-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-106-add-command-timing-and-edit-summaries-to-reports-20260526080410361293",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-26T08:04:10Z"
     }
   }
 }

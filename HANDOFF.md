@@ -1,4 +1,36 @@
 ## Latest status
+`agentrace` activity timeline aggregate summaries now include grouped summary and missing-summary examples by activity type, status, and duration source. JSON `activity_timeline_summary` exposes `type_summary_examples`, `type_summary_missing_examples`, `status_summary_examples`, `status_summary_missing_examples`, `duration_source_summary_examples`, and `duration_source_summary_missing_examples`; Markdown renders those grouped examples inline with existing timeline summary coverage so reviewers can see representative explained and unexplained chronological activity without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-106` for a report observability follow-up slice after prior halted runs remained attention-gated
+- added activity timeline grouped summary/missing-summary example helpers for type/status/duration-source labels
+- surfaced grouped activity summary examples in JSON activity timeline totals
+- rendered grouped activity summary examples in Markdown activity timeline summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for grouped activity example visibility
+- completed AgentSpec run `t-106-add-command-timing-and-edit-summaries-to-reports-20260526080026487634`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+- `bash scripts/ci_check.sh` — 41 passed, 1 warning
+
+## Previous status
+## Latest status
+`agentrace` aggregate command/edit summaries now include grouped summary and missing-summary examples by command working directory/status and edit kind/status. JSON `command_timing_summary` exposes `cwd_summary_examples`, `cwd_summary_missing_examples`, `status_summary_examples`, and `status_summary_missing_examples`; JSON `edit_summary_totals` exposes `kind_summary_examples`, `kind_summary_missing_examples`, `status_summary_examples`, and `status_summary_missing_examples`. Markdown renders those grouped examples near the existing top-level summary coverage metrics so reviewers can see representative explained and unexplained rows for key command/edit groupings without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-105` for a report observability follow-up slice after prior halted runs remained attention-gated
+- added shared grouped summary/missing-summary example helpers for report rows
+- surfaced grouped command cwd/status and edit kind/status summary examples in JSON report totals
+- rendered the grouped examples in Markdown top-level report summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for grouped example visibility
+- completed AgentSpec run `t-105-add-command-timing-and-edit-summaries-to-reports-20260526040104220664`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+- `bash scripts/ci_check.sh` — 41 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` command exit-code aggregate summaries now include compact summary and missing-summary examples. JSON `command_timing_summary` exposes `exit_code_summary_examples` and `exit_code_summary_missing_examples`, while Markdown renders both beside exit-code summary coverage so reviewers can see representative explained and unexplained commands for each exit-code bucket.
 
 ## What was done

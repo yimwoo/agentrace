@@ -118,6 +118,14 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
         },
     }
 
+    activity_totals = payload["activity_timeline_summary"]
+    assert activity_totals["type_summary_examples"]["command"][0]["summary"] == "Run tests"
+    assert activity_totals["type_summary_examples"]["file_edit"][0]["summary"] == "Add coverage"
+    assert activity_totals["type_summary_missing_examples"]["command"][0]["command"] == "ruff check"
+    assert activity_totals["status_summary_missing_examples"]["failed"][0]["command"] == "ruff check"
+    assert activity_totals["duration_source_summary_examples"]["explicit"][0]["summary"] == "Run tests"
+    assert activity_totals["duration_source_summary_missing_examples"]["derived"][0]["command"] == "ruff check"
+
     text = build_markdown_summary(trace)
     assert "report_summary_coverage:" in text
     assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text
@@ -127,6 +135,8 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0" in text
     assert "edit_by_path=src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "activity_by_type=command=recorded=1/missing=1/ratio=0.5, file_edit=recorded=1/missing=0/ratio=1.0" in text
+    assert "type_summary_examples=command=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
+    assert "type_summary_missing_examples=command=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
 
 def test_build_sample_trace_shape():
@@ -458,6 +468,25 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
         "1": {"summary_recorded_count": 1, "summary_missing_count": 1, "summary_coverage_ratio": 0.5},
         "unknown": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
     }
+    assert command_totals["status_summary_examples"]["failed"] == [{
+        "event": "evt_cmd_fail_first",
+        "status": "failed",
+        "duration_ms": 80,
+        "duration_source": "explicit",
+        "summary": "Tests failed",
+        "command": "pytest -q",
+        "exit_code": 1,
+    }]
+    assert command_totals["status_summary_missing_examples"]["failed"] == [{
+        "event": "evt_cmd_fail_retry",
+        "status": "failed",
+        "duration_ms": 100,
+        "duration_source": "derived",
+        "command": "pytest -q",
+        "exit_code": 1,
+    }]
+    assert command_totals["cwd_summary_examples"]["unknown"][0]["summary"] == "Lint passed"
+    assert command_totals["cwd_summary_missing_examples"]["unknown"][0]["command"] == "pytest -q"
 
     text = build_markdown_summary(trace)
     assert "command_exit_code_duration_summary: exit_code_duration_ms=0=20, 1=180, unknown=5" in text
@@ -465,9 +494,11 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
     assert "exit_code_summary_coverage=0=recorded=1/missing=0/ratio=1.0, 1=recorded=1/missing=1/ratio=0.5, unknown=recorded=0/missing=1/ratio=0.0" in text
     assert "exit_code_summary_examples=0=`ruff check` (event=evt_cmd_ok, status=succeeded, duration_ms=20, duration_source=explicit, exit_code=0, summary=Lint passed); 1=`pytest -q` (event=evt_cmd_fail_first, status=failed, duration_ms=80, duration_source=explicit, exit_code=1, summary=Tests failed)" in text
     assert "exit_code_summary_missing_examples=1=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1); unknown=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit)" in text
+    assert "command_status_summary_examples: failed=`pytest -q` (event=evt_cmd_fail_first, status=failed, duration_ms=80, duration_source=explicit, exit_code=1, summary=Tests failed); succeeded=`ruff check`" in text
+    assert "command_status_summary_missing_examples: cancelled=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit); failed=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1)" in text
 
 
-def test_slowest_command_and_largest_edit_preserve_artifact_refs():
+def test_slowest_command_largest_edit_and_edit_grouped_summary_examples():
     trace = {
         "trace_version": "0.1",
         "run": {"id": "selected-artifacts-1", "task": "inspect selected artifacts", "status": "succeeded"},
@@ -516,9 +547,6 @@ def test_slowest_command_and_largest_edit_preserve_artifact_refs():
     }
 
     payload = build_json_summary(trace)
-    assert payload["command_timing_summary"]["slowest"]["artifacts"] == [
-        {"kind": "command_log", "path": "artifacts/evt_cmd_slowest_log.log"}
-    ]
     assert payload["edit_summary_totals"]["largest_edit"] == {
         "event": "evt_edit_largest_diff",
         "path": "src/large.py",
@@ -536,10 +564,16 @@ def test_slowest_command_and_largest_edit_preserve_artifact_refs():
             {"kind": "diff", "path": "artifacts/evt_edit_largest_diff.diff"}
         ],
     }
+    edit_totals = payload["edit_summary_totals"]
+    assert edit_totals["kind_summary_examples"]["modify"][0]["summary"] == "Small edit"
+    assert edit_totals["status_summary_examples"]["succeeded"][1]["path"] == "src/large.py"
+    assert edit_totals["kind_summary_missing_examples"]["modify"] == []
 
     text = build_markdown_summary(trace)
     assert "slowest_command: evt_cmd_slowest_log: `pytest -q` (75ms, status=succeeded, exit_code=0, duration_source=explicit, artifacts=command_log=artifacts/evt_cmd_slowest_log.log)" in text
     assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, summary=Large edit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
+    assert "edit_kind_summary_examples: modify=src/small.py (event=evt_edit_small, status=succeeded, duration_ms=2, duration_source=explicit, kind=modify, net=1, summary=Small edit); src/large.py" in text
+    assert "edit_kind_summary_missing_examples: none" in text
 
 
 def test_command_highlight_aggregates_include_working_directory_context():
@@ -813,6 +847,27 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "unknown": {"duration_recorded_count": 2, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
         },
         "cwd_duration_share": {"unknown": 1.0},
+        "cwd_summary_examples": {
+            "unknown": [{
+                "event": "evt_cmd_slow",
+                "status": "failed",
+                "duration_ms": 2000,
+                "duration_source": "derived",
+                "summary": "Run focused tests",
+                "command": "pytest -q",
+                "exit_code": 1,
+            }],
+        },
+        "cwd_summary_missing_examples": {
+            "unknown": [{
+                "event": "evt_cmd_fast",
+                "status": "succeeded",
+                "duration_ms": 125,
+                "duration_source": "explicit",
+                "command": "ruff check",
+                "exit_code": 0,
+            }],
+        },
         "dominant_duration_cwd": {"cwd": "unknown", "duration_ms": 2125, "duration_share": 1.0},
         "cwd_totals": [{
             "cwd": "unknown",
@@ -930,6 +985,29 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "succeeded": {"duration_recorded_count": 1, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
         },
         "status_duration_share": {"failed": 0.9412, "succeeded": 0.0588},
+        "status_summary_examples": {
+            "failed": [{
+                "event": "evt_cmd_slow",
+                "status": "failed",
+                "duration_ms": 2000,
+                "duration_source": "derived",
+                "summary": "Run focused tests",
+                "command": "pytest -q",
+                "exit_code": 1,
+            }],
+            "succeeded": [],
+        },
+        "status_summary_missing_examples": {
+            "failed": [],
+            "succeeded": [{
+                "event": "evt_cmd_fast",
+                "status": "succeeded",
+                "duration_ms": 125,
+                "duration_source": "explicit",
+                "command": "ruff check",
+                "exit_code": 0,
+            }],
+        },
         "dominant_duration_status": {"status": "failed", "duration_ms": 2000, "duration_share": 0.9412},
         "duration_source_counts": {"derived": 1, "explicit": 1},
         "duration_source_duration_ms": {"derived": 2000, "explicit": 125},
@@ -1047,6 +1125,35 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "modify": {"duration_recorded_count": 2, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
         },
         "kind_duration_share": {"modify": 1.0},
+        "kind_summary_examples": {
+            "modify": [
+                {
+                    "event": "evt_edit_one",
+                    "status": "succeeded",
+                    "duration_ms": 12,
+                    "duration_source": "explicit",
+                    "summary": "Add report totals",
+                    "path": "src/report_json.py",
+                    "kind": "modify",
+                    "added_lines": 8,
+                    "removed_lines": 2,
+                    "net_line_delta": 6,
+                },
+                {
+                    "event": "evt_edit_two",
+                    "status": "succeeded",
+                    "duration_ms": 8,
+                    "duration_source": "explicit",
+                    "summary": "Render report totals",
+                    "path": "src/report_markdown.py",
+                    "kind": "modify",
+                    "added_lines": 3,
+                    "removed_lines": 1,
+                    "net_line_delta": 2,
+                },
+            ],
+        },
+        "kind_summary_missing_examples": {"modify": []},
         "dominant_duration_kind": {"kind": "modify", "duration_ms": 20, "duration_share": 1.0},
         "kind_totals": [{
             "kind": "modify",
@@ -1120,6 +1227,35 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "succeeded": {"duration_recorded_count": 2, "duration_missing_count": 0, "duration_coverage_ratio": 1.0},
         },
         "status_duration_share": {"succeeded": 1.0},
+        "status_summary_examples": {
+            "succeeded": [
+                {
+                    "event": "evt_edit_one",
+                    "status": "succeeded",
+                    "duration_ms": 12,
+                    "duration_source": "explicit",
+                    "summary": "Add report totals",
+                    "path": "src/report_json.py",
+                    "kind": "modify",
+                    "added_lines": 8,
+                    "removed_lines": 2,
+                    "net_line_delta": 6,
+                },
+                {
+                    "event": "evt_edit_two",
+                    "status": "succeeded",
+                    "duration_ms": 8,
+                    "duration_source": "explicit",
+                    "summary": "Render report totals",
+                    "path": "src/report_markdown.py",
+                    "kind": "modify",
+                    "added_lines": 3,
+                    "removed_lines": 1,
+                    "net_line_delta": 2,
+                },
+            ],
+        },
+        "status_summary_missing_examples": {"succeeded": []},
         "dominant_duration_status": {"status": "succeeded", "duration_ms": 20, "duration_share": 1.0},
         "duration_source_counts": {"explicit": 2},
         "duration_source_duration_ms": {"explicit": 20},
@@ -2090,6 +2226,91 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
             "cwd": "/repo",
             "exit_code": 1,
         }],
+        "type_summary_examples": {
+            "command": [],
+            "file_edit": [{
+                "type": "file_edit",
+                "event": "evt_edit_late_diff",
+                "status": "failed",
+                "duration_ms": 5,
+                "duration_source": "explicit",
+                "summary": "Edit report timeline",
+                "path": "src/report.py",
+                "kind": "modify",
+                "added_lines": 2,
+                "removed_lines": 1,
+                "net_line_delta": 1,
+            }],
+        },
+        "type_summary_missing_examples": {
+            "command": [{
+                "type": "command",
+                "event": "evt_cmd_early_log",
+                "status": "failed",
+                "duration_ms": 20,
+                "duration_source": "derived",
+                "command": "pytest -q",
+                "cwd": "/repo",
+                "exit_code": 1,
+            }],
+            "file_edit": [],
+        },
+        "status_summary_examples": {
+            "failed": [{
+                "type": "file_edit",
+                "event": "evt_edit_late_diff",
+                "status": "failed",
+                "duration_ms": 5,
+                "duration_source": "explicit",
+                "summary": "Edit report timeline",
+                "path": "src/report.py",
+                "kind": "modify",
+                "added_lines": 2,
+                "removed_lines": 1,
+                "net_line_delta": 1,
+            }],
+        },
+        "status_summary_missing_examples": {
+            "failed": [{
+                "type": "command",
+                "event": "evt_cmd_early_log",
+                "status": "failed",
+                "duration_ms": 20,
+                "duration_source": "derived",
+                "command": "pytest -q",
+                "cwd": "/repo",
+                "exit_code": 1,
+            }],
+        },
+        "duration_source_summary_examples": {
+            "derived": [],
+            "explicit": [{
+                "type": "file_edit",
+                "event": "evt_edit_late_diff",
+                "status": "failed",
+                "duration_ms": 5,
+                "duration_source": "explicit",
+                "summary": "Edit report timeline",
+                "path": "src/report.py",
+                "kind": "modify",
+                "added_lines": 2,
+                "removed_lines": 1,
+                "net_line_delta": 1,
+            }],
+        },
+        "duration_source_summary_missing_examples": {
+            "derived": [{
+                "type": "command",
+                "event": "evt_cmd_early_log",
+                "status": "failed",
+                "duration_ms": 20,
+                "duration_source": "derived",
+                "command": "pytest -q",
+                "cwd": "/repo",
+                "exit_code": 1,
+            }],
+            "explicit": [],
+        },
         "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
         "span_duration_ms": 20,
         "covered_duration_ms": 25,

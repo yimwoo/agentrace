@@ -314,6 +314,34 @@ def _activity_summary_missing_example_rows(rows, limit=3):
     return examples
 
 
+def _activity_summary_examples_by_field(rows, field, limit=3):
+    """Return compact activity summary examples grouped by a timeline row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {
+        label: _activity_summary_example_rows(group_rows, limit=limit)
+        for label, group_rows in rows_by_label.items()
+    }
+
+
+def _activity_summary_missing_examples_by_field(rows, field, limit=3):
+    """Return compact missing-summary activity examples grouped by a timeline row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {
+        label: _activity_summary_missing_example_rows(group_rows, limit=limit)
+        for label, group_rows in rows_by_label.items()
+    }
+
+
 def _duration_coverage_by_field(rows, field):
     """Return duration recorded/missing coverage grouped by a row field."""
     rows_by_label = {}
@@ -371,6 +399,34 @@ def _summary_missing_examples_by_exit_code(rows, limit=3):
     return {
         label: _summary_missing_example_rows(group_rows, "command", limit=limit)
         for label, group_rows in _rows_by_exit_code(rows).items()
+    }
+
+
+def _summary_examples_by_field(rows, field, row_type, limit=3):
+    """Return compact summary examples grouped by a report row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {
+        label: _summary_example_rows(group_rows, row_type, limit=limit)
+        for label, group_rows in rows_by_label.items()
+    }
+
+
+def _summary_missing_examples_by_field(rows, field, row_type, limit=3):
+    """Return compact missing-summary examples grouped by a report row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {
+        label: _summary_missing_example_rows(group_rows, row_type, limit=limit)
+        for label, group_rows in rows_by_label.items()
     }
 
 
@@ -992,6 +1048,12 @@ def build_activity_timeline_summary(rows):
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _activity_summary_example_rows(normalized_rows),
         "summary_missing_examples": _activity_summary_missing_example_rows(normalized_rows),
+        "type_summary_examples": _activity_summary_examples_by_field(normalized_rows, "type"),
+        "type_summary_missing_examples": _activity_summary_missing_examples_by_field(normalized_rows, "type"),
+        "status_summary_examples": _activity_summary_examples_by_field(normalized_rows, "status"),
+        "status_summary_missing_examples": _activity_summary_missing_examples_by_field(normalized_rows, "status"),
+        "duration_source_summary_examples": _activity_summary_examples_by_field(normalized_rows, "duration_source"),
+        "duration_source_summary_missing_examples": _activity_summary_missing_examples_by_field(normalized_rows, "duration_source"),
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
@@ -1309,6 +1371,10 @@ def build_command_timing_summary(rows):
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _summary_example_rows(normalized_rows, "command"),
         "summary_missing_examples": _summary_missing_example_rows(normalized_rows, "command"),
+        "cwd_summary_examples": _summary_examples_by_field(normalized_rows, "cwd", "command"),
+        "cwd_summary_missing_examples": _summary_missing_examples_by_field(normalized_rows, "cwd", "command"),
+        "status_summary_examples": _summary_examples_by_field(normalized_rows, "status", "command"),
+        "status_summary_missing_examples": _summary_missing_examples_by_field(normalized_rows, "status", "command"),
         "time_window": _time_window(normalized_rows),
         "first": _first_command_row(normalized_rows),
         "slowest": _slowest_command_row(slowest),
@@ -1582,6 +1648,10 @@ def build_edit_summary_totals(rows):
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
         "summary_examples": _summary_example_rows(normalized_rows, "file_edit"),
         "summary_missing_examples": _summary_missing_example_rows(normalized_rows, "file_edit"),
+        "kind_summary_examples": _summary_examples_by_field(normalized_rows, "kind", "file_edit"),
+        "kind_summary_missing_examples": _summary_missing_examples_by_field(normalized_rows, "kind", "file_edit"),
+        "status_summary_examples": _summary_examples_by_field(normalized_rows, "status", "file_edit"),
+        "status_summary_missing_examples": _summary_missing_examples_by_field(normalized_rows, "status", "file_edit"),
         "time_window": _time_window(normalized_rows),
         "total_added_lines": total_added_lines,
         "total_removed_lines": total_removed_lines,
