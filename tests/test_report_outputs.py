@@ -150,6 +150,30 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "identity_summary_missing_examples=command:ruff check=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
 
+def test_activity_timeline_renders_command_summaries():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "activity-command-summary-1", "task": "inspect activity command summaries", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_summary",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 42,
+                "command": {"value": "pytest -q", "cwd": "repo", "summary": "Run regression tests"},
+                "exit_code": 0,
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["activity_timeline"][0]["summary"] == "Run regression tests"
+
+    text = build_markdown_summary(trace)
+    assert "- evt_cmd_summary: command `pytest -q` — 42ms, status=succeeded, exit_code=0, duration_source=explicit, cwd=repo, summary=Run regression tests" in text
+
+
 def test_build_sample_trace_shape():
     trace = build_sample_trace()
     assert trace["trace_version"] == "0.1"

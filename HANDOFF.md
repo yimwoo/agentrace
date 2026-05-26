@@ -1,4 +1,19 @@
 ## Latest status
+`agentrace` Markdown activity timeline rows now render command summaries when command events include human-readable summaries. JSON already preserved the summary on activity rows; Markdown now displays it inline with timing/status/cwd/exit-code context so chronological command explanations are visible without relying only on aggregate summary-example lines.
+
+## What was done
+- created AgentSpec task `T-109` for a report observability follow-up slice after prior halted runs remained attention-gated
+- rendered command summaries in Markdown `Activity Timeline` command rows
+- added regression coverage proving activity timeline command summaries are preserved in JSON and rendered in Markdown
+- refreshed `TRACE_SCHEMA.md` and `PROJECT_STATE.md` for activity timeline command-summary visibility
+- completed AgentSpec run `t-109-add-command-timing-and-edit-summaries-to-reports-20260526230027162315`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 35 passed, 1 warning
+- `bash scripts/ci_check.sh` — 42 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline aggregate summaries now include grouped summary and missing-summary examples by activity identity. JSON `report_summary_coverage` exposes `activity_by_identity`, and JSON `activity_timeline_summary` exposes `identity_summary_examples` plus `identity_summary_missing_examples`; Markdown renders both so reviewers can see explained and unexplained commands/files in the chronological activity rollup without scanning detail rows.
 
 ## What was done

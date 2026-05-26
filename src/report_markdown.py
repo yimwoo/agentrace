@@ -842,7 +842,8 @@ def _format_activity_timeline(rows):
                 output_context += f", stdout_preview={row['stdout_preview']}"
             if row.get("stderr_preview"):
                 output_context += f", stderr_preview={row['stderr_preview']}"
-            lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{output_context}{artifacts}")
+            command_summary = f", summary={row['summary']}" if row.get("summary") else ""
+            lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{command_summary}{output_context}{artifacts}")
             continue
 
         path = row.get("path") or "<unknown file>"
