@@ -487,6 +487,16 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
     }]
     assert command_totals["cwd_summary_examples"]["unknown"][0]["summary"] == "Lint passed"
     assert command_totals["cwd_summary_missing_examples"]["unknown"][0]["command"] == "pytest -q"
+    assert command_totals["command_summary_examples"]["pytest -q"] == [{
+        "event": "evt_cmd_fail_first",
+        "status": "failed",
+        "duration_ms": 80,
+        "duration_source": "explicit",
+        "summary": "Tests failed",
+        "command": "pytest -q",
+        "exit_code": 1,
+    }]
+    assert command_totals["command_summary_missing_examples"]["pytest -q"][0]["event"] == "evt_cmd_fail_retry"
 
     text = build_markdown_summary(trace)
     assert "command_exit_code_duration_summary: exit_code_duration_ms=0=20, 1=180, unknown=5" in text
@@ -496,6 +506,8 @@ def test_command_summary_totals_break_down_duration_by_exit_code():
     assert "exit_code_summary_missing_examples=1=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1); unknown=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit)" in text
     assert "command_status_summary_examples: failed=`pytest -q` (event=evt_cmd_fail_first, status=failed, duration_ms=80, duration_source=explicit, exit_code=1, summary=Tests failed); succeeded=`ruff check`" in text
     assert "command_status_summary_missing_examples: cancelled=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit); failed=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1)" in text
+    assert "command_identity_summary_examples: pytest -q=`pytest -q` (event=evt_cmd_fail_first, status=failed, duration_ms=80, duration_source=explicit, exit_code=1, summary=Tests failed); ruff check=`ruff check`" in text
+    assert "command_identity_summary_missing_examples: npm test=`npm test` (event=evt_cmd_unknown_exit, status=cancelled, duration_ms=5, duration_source=explicit); pytest -q=`pytest -q` (event=evt_cmd_fail_retry, status=failed, duration_ms=100, duration_source=derived, exit_code=1)" in text
 
 
 def test_slowest_command_largest_edit_and_edit_grouped_summary_examples():
@@ -568,10 +580,14 @@ def test_slowest_command_largest_edit_and_edit_grouped_summary_examples():
     assert edit_totals["kind_summary_examples"]["modify"][0]["summary"] == "Small edit"
     assert edit_totals["status_summary_examples"]["succeeded"][1]["path"] == "src/large.py"
     assert edit_totals["kind_summary_missing_examples"]["modify"] == []
+    assert edit_totals["path_summary_examples"]["src/large.py"][0]["summary"] == "Large edit"
+    assert edit_totals["path_summary_missing_examples"]["src/large.py"] == []
 
     text = build_markdown_summary(trace)
     assert "slowest_command: evt_cmd_slowest_log: `pytest -q` (75ms, status=succeeded, exit_code=0, duration_source=explicit, artifacts=command_log=artifacts/evt_cmd_slowest_log.log)" in text
     assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, summary=Large edit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
+    assert "edit_path_summary_examples: src/large.py=src/large.py (event=evt_edit_largest_diff, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=3, summary=Large edit); src/small.py=src/small.py" in text
+    assert "edit_path_summary_missing_examples: none" in text
     assert "edit_kind_summary_examples: modify=src/small.py (event=evt_edit_small, status=succeeded, duration_ms=2, duration_source=explicit, kind=modify, net=1, summary=Small edit); src/large.py" in text
     assert "edit_kind_summary_missing_examples: none" in text
 
@@ -1037,6 +1053,29 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "command": "ruff check",
             "exit_code": 0,
         }],
+        "command_summary_examples": {
+            "pytest -q": [{
+                "event": "evt_cmd_slow",
+                "status": "failed",
+                "duration_ms": 2000,
+                "duration_source": "derived",
+                "summary": "Run focused tests",
+                "command": "pytest -q",
+                "exit_code": 1,
+            }],
+            "ruff check": [],
+        },
+        "command_summary_missing_examples": {
+            "pytest -q": [],
+            "ruff check": [{
+                "event": "evt_cmd_fast",
+                "status": "succeeded",
+                "duration_ms": 125,
+                "duration_source": "explicit",
+                "command": "ruff check",
+                "exit_code": 0,
+            }],
+        },
         "time_window": {"started_at": "2026-04-25T00:00:00Z", "ended_at": "2026-04-25T00:00:02Z"},
         "first": {
             "event": "evt_cmd_slow",
@@ -1295,6 +1334,36 @@ def test_reports_include_aggregate_command_and_edit_totals():
             },
         ],
         "summary_missing_examples": [],
+        "path_summary_examples": {
+            "src/report_json.py": [{
+                "event": "evt_edit_one",
+                "status": "succeeded",
+                "duration_ms": 12,
+                "duration_source": "explicit",
+                "summary": "Add report totals",
+                "path": "src/report_json.py",
+                "kind": "modify",
+                "added_lines": 8,
+                "removed_lines": 2,
+                "net_line_delta": 6,
+            }],
+            "src/report_markdown.py": [{
+                "event": "evt_edit_two",
+                "status": "succeeded",
+                "duration_ms": 8,
+                "duration_source": "explicit",
+                "summary": "Render report totals",
+                "path": "src/report_markdown.py",
+                "kind": "modify",
+                "added_lines": 3,
+                "removed_lines": 1,
+                "net_line_delta": 2,
+            }],
+        },
+        "path_summary_missing_examples": {
+            "src/report_json.py": [],
+            "src/report_markdown.py": [],
+        },
         "time_window": {"started_at": "2026-04-25T00:00:04Z", "ended_at": None},
         "total_added_lines": 11,
         "total_removed_lines": 3,

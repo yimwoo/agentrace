@@ -1,4 +1,19 @@
 ## Latest status
+`agentrace` aggregate command/edit summaries now include grouped summary and missing-summary examples by command identity and edit path. JSON `command_timing_summary` exposes `command_summary_examples` and `command_summary_missing_examples`; JSON `edit_summary_totals` exposes `path_summary_examples` and `path_summary_missing_examples`. Markdown renders these grouped examples near existing top-level summary coverage so reviewers can see representative explained and unexplained commands/files without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-107` for a report observability follow-up slice after prior halted runs remained attention-gated
+- reused the grouped summary/missing-summary helpers for command identity and edit path labels
+- surfaced grouped command identity and edit path summary examples in JSON report totals
+- rendered grouped command identity and edit path summary examples in Markdown top-level report summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for command/file grouped example visibility
+- completed AgentSpec run `t-107-add-command-timing-and-edit-summaries-to-reports-20260526130058468765`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 34 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` activity timeline aggregate summaries now include grouped summary and missing-summary examples by activity type, status, and duration source. JSON `activity_timeline_summary` exposes `type_summary_examples`, `type_summary_missing_examples`, `status_summary_examples`, `status_summary_missing_examples`, `duration_source_summary_examples`, and `duration_source_summary_missing_examples`; Markdown renders those grouped examples inline with existing timeline summary coverage so reviewers can see representative explained and unexplained chronological activity without scanning detail rows.
 
 ## What was done
