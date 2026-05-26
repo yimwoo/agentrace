@@ -1,14 +1,14 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-26T13:04:37Z",
+  "updated_at": "2026-05-26T18:03:20Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-107",
-    "context_pack": "agent/context-packs/T-107-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-107: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-107-add-command-timing-and-edit-summaries-to-reports-20260526130437522473",
+    "id": "T-108",
+    "context_pack": "agent/context-packs/T-108-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-108: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-108-add-command-timing-and-edit-summaries-to-reports-20260526180320341810",
     "reason": "Marked complete by user.",
-    "updated_at": "2026-05-26T13:04:37Z",
+    "updated_at": "2026-05-26T18:03:20Z",
     "verification": {
       "status": "passed"
     }
@@ -34,13 +34,13 @@
       }
     },
     "tasks": {
-      "total": 107,
+      "total": 108,
       "by_status": {
-        "complete": 104,
+        "complete": 105,
         "halted": 3
       },
       "by_type": {
-        "implementation": 104,
+        "implementation": 105,
         "scaffold": 3
       }
     }

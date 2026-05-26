@@ -116,6 +116,11 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
             "explicit": {"summary_recorded_count": 2, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
             "derived": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
         },
+        "activity_by_identity": {
+            "command:pytest -q": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+            "command:ruff check": {"summary_recorded_count": 0, "summary_missing_count": 1, "summary_coverage_ratio": 0.0},
+            "file_edit:src/report_json.py": {"summary_recorded_count": 1, "summary_missing_count": 0, "summary_coverage_ratio": 1.0},
+        },
     }
 
     activity_totals = payload["activity_timeline_summary"]
@@ -125,6 +130,9 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert activity_totals["status_summary_missing_examples"]["failed"][0]["command"] == "ruff check"
     assert activity_totals["duration_source_summary_examples"]["explicit"][0]["summary"] == "Run tests"
     assert activity_totals["duration_source_summary_missing_examples"]["derived"][0]["command"] == "ruff check"
+    assert activity_totals["identity_summary_examples"]["command:pytest -q"][0]["summary"] == "Run tests"
+    assert activity_totals["identity_summary_examples"]["file_edit:src/report_json.py"][0]["summary"] == "Add coverage"
+    assert activity_totals["identity_summary_missing_examples"]["command:ruff check"][0]["event"] == "evt_cmd_without_summary"
 
     text = build_markdown_summary(trace)
     assert "report_summary_coverage:" in text
@@ -135,8 +143,11 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "edit_by_status=succeeded=recorded=1/missing=0/ratio=1.0" in text
     assert "edit_by_path=src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "activity_by_type=command=recorded=1/missing=1/ratio=0.5, file_edit=recorded=1/missing=0/ratio=1.0" in text
+    assert "activity_by_identity=command:pytest -q=recorded=1/missing=0/ratio=1.0, command:ruff check=recorded=0/missing=1/ratio=0.0, file_edit:src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "type_summary_examples=command=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "type_summary_missing_examples=command=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
+    assert "identity_summary_examples=command:pytest -q=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit:src/report_json.py=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
+    assert "identity_summary_missing_examples=command:ruff check=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
 
 def test_build_sample_trace_shape():
@@ -2379,6 +2390,35 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "exit_code": 1,
             }],
             "explicit": [],
+        },
+        "identity_summary_examples": {
+            "command:pytest -q": [],
+            "file_edit:src/report.py": [{
+                "type": "file_edit",
+                "event": "evt_edit_late_diff",
+                "status": "failed",
+                "duration_ms": 5,
+                "duration_source": "explicit",
+                "summary": "Edit report timeline",
+                "path": "src/report.py",
+                "kind": "modify",
+                "added_lines": 2,
+                "removed_lines": 1,
+                "net_line_delta": 1,
+            }],
+        },
+        "identity_summary_missing_examples": {
+            "command:pytest -q": [{
+                "type": "command",
+                "event": "evt_cmd_early_log",
+                "status": "failed",
+                "duration_ms": 20,
+                "duration_source": "derived",
+                "command": "pytest -q",
+                "cwd": "/repo",
+                "exit_code": 1,
+            }],
+            "file_edit:src/report.py": [],
         },
         "time_window": {"started_at": "2026-04-25T00:00:01Z", "ended_at": "2026-04-25T00:00:01.020Z"},
         "span_duration_ms": 20,

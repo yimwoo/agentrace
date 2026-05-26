@@ -342,6 +342,50 @@ def _activity_summary_missing_examples_by_field(rows, field, limit=3):
     }
 
 
+def _activity_identity_label(row):
+    """Return a stable human-readable identity label for timeline coverage groups."""
+    if not isinstance(row, dict):
+        return "unknown"
+    row_type = row.get("type") or "unknown"
+    if row_type == "command":
+        return f"command:{row.get('command') or '<unknown command>'}"
+    if row_type == "file_edit":
+        return f"file_edit:{row.get('path') or '<unknown file>'}"
+    return row_type
+
+
+def _activity_rows_by_identity(rows):
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        rows_by_label.setdefault(_activity_identity_label(row), []).append(row)
+    return rows_by_label
+
+
+def _activity_summary_examples_by_identity(rows, limit=3):
+    """Return compact activity summary examples grouped by command/file identity."""
+    return {
+        label: _activity_summary_example_rows(group_rows, limit=limit)
+        for label, group_rows in _activity_rows_by_identity(rows).items()
+    }
+
+
+def _activity_summary_missing_examples_by_identity(rows, limit=3):
+    """Return compact missing-summary activity examples grouped by command/file identity."""
+    return {
+        label: _activity_summary_missing_example_rows(group_rows, limit=limit)
+        for label, group_rows in _activity_rows_by_identity(rows).items()
+    }
+
+
+def _summary_coverage_by_activity_identity(rows):
+    return {
+        label: _summary_coverage(group_rows)
+        for label, group_rows in _activity_rows_by_identity(rows).items()
+    }
+
+
 def _duration_coverage_by_field(rows, field):
     """Return duration recorded/missing coverage grouped by a row field."""
     rows_by_label = {}
@@ -1054,6 +1098,8 @@ def build_activity_timeline_summary(rows):
         "status_summary_missing_examples": _activity_summary_missing_examples_by_field(normalized_rows, "status"),
         "duration_source_summary_examples": _activity_summary_examples_by_field(normalized_rows, "duration_source"),
         "duration_source_summary_missing_examples": _activity_summary_missing_examples_by_field(normalized_rows, "duration_source"),
+        "identity_summary_examples": _activity_summary_examples_by_identity(normalized_rows),
+        "identity_summary_missing_examples": _activity_summary_missing_examples_by_identity(normalized_rows),
         "time_window": time_window,
         "span_duration_ms": span_duration_ms,
         "covered_duration_ms": coverage["covered_duration_ms"],
@@ -1737,6 +1783,7 @@ def build_json_summary(trace):
         "activity_by_type": _summary_coverage_by_field(activity_timeline, "type"),
         "activity_by_status": _summary_coverage_by_field(activity_timeline, "status"),
         "activity_by_duration_source": _summary_coverage_by_field(activity_timeline, "duration_source"),
+        "activity_by_identity": _summary_coverage_by_activity_identity(activity_timeline),
     }
     return {
         "task": metadata["task"],

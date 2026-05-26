@@ -417,6 +417,7 @@ def _format_report_summary_coverage(coverage):
         "activity_by_type",
         "activity_by_status",
         "activity_by_duration_source",
+        "activity_by_identity",
     ]
     parts = []
     for label in labels:
@@ -782,6 +783,8 @@ def _format_activity_timeline_summary(timeline_totals):
         f"status_summary_missing_examples={_format_summary_examples_by_label(timeline_totals.get('status_summary_missing_examples'), _format_summary_missing_examples)}",
         f"duration_source_summary_examples={_format_summary_examples_by_label(timeline_totals.get('duration_source_summary_examples'), _format_summary_examples)}",
         f"duration_source_summary_missing_examples={_format_summary_examples_by_label(timeline_totals.get('duration_source_summary_missing_examples'), _format_summary_missing_examples)}",
+        f"identity_summary_examples={_format_summary_examples_by_label(timeline_totals.get('identity_summary_examples'), _format_summary_examples)}",
+        f"identity_summary_missing_examples={_format_summary_examples_by_label(timeline_totals.get('identity_summary_missing_examples'), _format_summary_missing_examples)}",
         f"span_duration_ms={timeline_totals.get('span_duration_ms', 0)}",
         f"covered_duration_ms={timeline_totals.get('covered_duration_ms', 0)}",
         f"covered_intervals={_format_activity_covered_intervals(timeline_totals.get('covered_intervals'))}",
