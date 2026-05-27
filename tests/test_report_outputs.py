@@ -134,7 +134,35 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert activity_totals["identity_summary_examples"]["file_edit:src/report_json.py"][0]["summary"] == "Add coverage"
     assert activity_totals["identity_summary_missing_examples"]["command:ruff check"][0]["event"] == "evt_cmd_without_summary"
 
+    assert payload["report_inspection_targets"][0] == {
+        "type": "command",
+        "event": "evt_cmd_without_summary",
+        "reason": "failed_activity",
+        "identity": "ruff check",
+        "status": "failed",
+        "duration_ms": 5,
+        "duration_source": "derived",
+        "detail": "failed status or non-zero command exit code",
+        "cwd": "repo",
+        "exit_code": 1,
+    }
+    assert payload["report_inspection_targets"][1]["reason"] == "missing_command_summary"
+    assert payload["report_inspection_targets"][2] == {
+        "type": "command",
+        "event": "evt_cmd_with_summary",
+        "reason": "slowest_activity",
+        "identity": "pytest -q",
+        "status": "succeeded",
+        "duration_ms": 10,
+        "duration_source": "explicit",
+        "detail": "largest recorded duration in command/edit activity timeline",
+        "cwd": "repo",
+        "exit_code": 0,
+    }
+
     text = build_markdown_summary(trace)
+    assert "report_inspection_targets: ruff check (event=evt_cmd_without_summary, type=command, reason=failed_activity" in text
+    assert "pytest -q (event=evt_cmd_with_summary, type=command, reason=slowest_activity" in text
     assert "report_summary_coverage:" in text
     assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text
     assert "command_by_command=pytest -q=recorded=1/missing=0/ratio=1.0, ruff check=recorded=0/missing=1/ratio=0.0" in text

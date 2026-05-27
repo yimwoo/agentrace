@@ -407,6 +407,40 @@ def _format_summary_missing_examples(rows):
 
 
 
+def _format_report_inspection_targets(targets):
+    if not targets:
+        return "none"
+    rendered = []
+    for target in targets:
+        details = [
+            f"event={target.get('event') or 'summary'}",
+            f"type={target.get('type') or 'unknown'}",
+            f"reason={target.get('reason') or 'unknown'}",
+            f"status={target.get('status') or 'unknown'}",
+            f"duration_ms={target.get('duration_ms', 0)}",
+            f"duration_source={target.get('duration_source') or 'unknown'}",
+        ]
+        if target.get("detail"):
+            details.append(f"detail={target['detail']}")
+        if target.get("cwd"):
+            details.append(f"cwd={target['cwd']}")
+        if target.get("exit_code") is not None:
+            details.append(f"exit_code={target['exit_code']}")
+        if target.get("kind"):
+            details.append(f"kind={target['kind']}")
+        if "net_line_delta" in target:
+            details.append(f"net={target.get('net_line_delta', 0)}")
+        if target.get("stderr_preview"):
+            details.append(f"stderr_preview={target['stderr_preview']}")
+        if target.get("error_message"):
+            details.append(f"error_message={target['error_message']}")
+        artifact_details = _format_artifact_details(target)
+        if artifact_details:
+            details.append(artifact_details)
+        rendered.append(f"{target.get('identity') or 'unknown'} ({', '.join(details)})")
+    return "; ".join(rendered)
+
+
 def _format_report_summary_coverage(coverage):
     if not coverage:
         return "none"
@@ -875,6 +909,7 @@ def build_markdown_summary(trace):
         f"- event_count: {payload['summary']['event_count']}",
         f"- ok_events: {payload['summary']['ok_events']}",
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
+        f"- report_inspection_targets: {_format_report_inspection_targets(payload['report_inspection_targets'])}",
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- command_count: {command_totals['count']}",
         f"- unique_command_count: {command_totals['unique_command_count']}",

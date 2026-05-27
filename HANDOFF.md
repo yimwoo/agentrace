@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` reports now include prioritized inspection targets near the top of JSON and Markdown output. The new `report_inspection_targets` block points reviewers first to failed command/edit activity, missing command/edit timing, missing command/edit summaries, and the slowest activity, while preserving identity, timing source, status, cwd/exit-code or edit-kind/net-line context, error previews, and linked artifacts when present.
+
+## What was done
+- created AgentSpec task `T-114` for a report observability follow-up slice after prior attention-gated runs remained present
+- added JSON `report_inspection_targets` derived from command timing, edit summaries, and the activity timeline
+- rendered `report_inspection_targets` in the Markdown top-level summary before coverage totals
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for prioritized inspection-target visibility
+- completed AgentSpec run `t-114-add-command-timing-and-edit-summaries-to-reports-20260527230023954893`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 35 passed, 1 warning
+- `bash scripts/ci_check.sh` — 42 passed, 1 warning
+
+## Previous status
 `agentrace` report artifact references now merge top-level artifact links with inline per-event artifact arrays. Command/edit rows and their compact summary or missing-summary examples normalize both sources into deduplicated `{kind, path}` refs, and Markdown renders the merged artifact context so aggregate examples can point at every supporting command log, stdout/stderr capture, or diff.
 
 ## What was done

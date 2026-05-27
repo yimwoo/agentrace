@@ -1178,6 +1178,86 @@ def build_activity_timeline_summary(rows):
     }
 
 
+def _inspection_target_identity(row):
+    """Return the most useful human-readable target for a report row."""
+    if not isinstance(row, dict):
+        return "unknown"
+    row_type = row.get("type")
+    if row_type == "command" or row.get("command") is not None:
+        return row.get("command") or "<unknown command>"
+    if row_type == "file_edit" or row.get("path") is not None:
+        return row.get("path") or "<unknown file>"
+    return row.get("event") or "unknown"
+
+
+def _inspection_target_row(row, reason, detail=None):
+    target = {
+        "type": row.get("type") or ("command" if row.get("command") is not None else "file_edit" if row.get("path") is not None else "activity"),
+        "event": row.get("event"),
+        "reason": reason,
+        "identity": _inspection_target_identity(row),
+        "status": row.get("status"),
+        "duration_ms": _numeric_value(row.get("duration_ms")),
+        "duration_source": row.get("duration_source"),
+    }
+    if detail:
+        target["detail"] = detail
+    if row.get("type") == "command" or row.get("command") is not None:
+        if row.get("cwd"):
+            target["cwd"] = row["cwd"]
+        if row.get("exit_code") is not None:
+            target["exit_code"] = row.get("exit_code")
+        if row.get("stderr_preview"):
+            target["stderr_preview"] = row["stderr_preview"]
+    if row.get("type") == "file_edit" or row.get("path") is not None:
+        if row.get("kind"):
+            target["kind"] = row["kind"]
+        if "net_line_delta" in row:
+            target["net_line_delta"] = _net_line_delta(row)
+        if row.get("error_message"):
+            target["error_message"] = row["error_message"]
+    if row.get("artifacts"):
+        target["artifacts"] = row["artifacts"]
+    return target
+
+
+def build_report_inspection_targets(command_rows, edit_rows, activity_rows, limit=8):
+    """Build prioritized rows that tell reviewers what to inspect first."""
+    targets = []
+    seen = set()
+
+    def add(row, reason, detail=None):
+        if not isinstance(row, dict):
+            return
+        key = (row.get("type"), row.get("event"), reason)
+        if key in seen:
+            return
+        seen.add(key)
+        targets.append(_inspection_target_row(row, reason, detail))
+
+    for row in activity_rows or []:
+        if _is_failed_activity(row):
+            add(row, "failed_activity", "failed status or non-zero command exit code")
+
+    for row in command_rows or []:
+        if (row.get("duration_source") or "unknown") == "missing":
+            add(row, "missing_command_timing", "command row has no duration or timestamp window")
+        if not row.get("summary"):
+            add(row, "missing_command_summary", "command row has no human-readable summary")
+
+    for row in edit_rows or []:
+        if (row.get("duration_source") or "unknown") == "missing":
+            add(row, "missing_edit_timing", "edit row has no duration or timestamp window")
+        if not row.get("summary"):
+            add(row, "missing_edit_summary", "edit row has no human-readable summary")
+
+    slowest = _slowest_activity_row(activity_rows or [])
+    if slowest:
+        add(slowest, "slowest_activity", "largest recorded duration in command/edit activity timeline")
+
+    return targets[:limit]
+
+
 def _ordered_values(rows, field):
     values = []
     seen = set()
@@ -1837,6 +1917,7 @@ def build_json_summary(trace):
         "summary": summary,
         "run_summary": run_summary,
         "failure_summary": build_failure_summary(trace),
+        "report_inspection_targets": build_report_inspection_targets(command_timing, edit_summary, activity_timeline),
         "report_summary_coverage": report_summary_coverage,
         "command_timing_summary": build_command_timing_summary(command_timing),
         "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
