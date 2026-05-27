@@ -1,4 +1,19 @@
 ## Latest status
+`agentrace` aggregate command and edit summaries now include grouped summary and missing-summary examples by duration source. JSON `command_timing_summary` and `edit_summary_totals` expose `duration_source_summary_examples` plus `duration_source_summary_missing_examples`; Markdown renders both so reviewers can see representative explained and unexplained explicit/derived/missing-timing rows without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-110` for a report observability follow-up slice after prior halted runs remained attention-gated
+- added command and edit duration-source grouped summary and missing-summary examples to JSON report totals
+- rendered command/edit duration-source grouped summary examples in Markdown top-level report summaries
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for duration-source grouped example visibility
+- completed AgentSpec run `t-110-add-command-timing-and-edit-summaries-to-reports-20260527040037597025`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 35 passed, 1 warning
+- `bash scripts/ci_check.sh` — 42 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` Markdown activity timeline rows now render command summaries when command events include human-readable summaries. JSON already preserved the summary on activity rows; Markdown now displays it inline with timing/status/cwd/exit-code context so chronological command explanations are visible without relying only on aggregate summary-example lines.
 
 ## What was done

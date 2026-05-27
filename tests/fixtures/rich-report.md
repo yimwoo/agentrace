@@ -44,6 +44,8 @@
 - command_cwd_summary_missing_examples: /workspace/app=`pytest tests/test_auth.py -q` (event=evt_cmd_1, status=failed, duration_ms=3200, duration_source=explicit, cwd=/workspace/app, exit_code=1)
 - command_status_summary_examples: none
 - command_status_summary_missing_examples: failed=`pytest tests/test_auth.py -q` (event=evt_cmd_1, status=failed, duration_ms=3200, duration_source=explicit, cwd=/workspace/app, exit_code=1)
+- command_duration_source_summary_examples: none
+- command_duration_source_summary_missing_examples: explicit=`pytest tests/test_auth.py -q` (event=evt_cmd_1, status=failed, duration_ms=3200, duration_source=explicit, cwd=/workspace/app, exit_code=1)
 - command_time_window: started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z
 - first_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
 - slowest_command: evt_cmd_1: `pytest tests/test_auth.py -q` (3200ms, status=failed, exit_code=1, duration_source=explicit, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:04.200Z, cwd=/workspace/app)
@@ -81,6 +83,8 @@
 - edit_kind_summary_missing_examples: none
 - edit_status_summary_examples: succeeded=src/auth.py (event=evt_edit_1, status=succeeded, duration_ms=125, duration_source=explicit, kind=modify, net=3, summary=Translate decoder errors into 401 responses)
 - edit_status_summary_missing_examples: none
+- edit_duration_source_summary_examples: explicit=src/auth.py (event=evt_edit_1, status=succeeded, duration_ms=125, duration_source=explicit, kind=modify, net=3, summary=Translate decoder errors into 401 responses)
+- edit_duration_source_summary_missing_examples: none
 - edit_time_window: started_at=2026-04-25T00:00:05Z, ended_at=2026-04-25T00:00:05.125Z
 - edit_total_lines: +4/-1
 - edit_net_line_delta: 3

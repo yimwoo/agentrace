@@ -1523,6 +1523,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-26T23:04:52Z"
+    },
+    "agent/context-packs/T-110-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-110-add-command-timing-and-edit-summaries-to-reports-20260527040037597025",
+      "reason": "Implemented duration-source grouped command/edit summary examples and verified with ci_check.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-27T04:06:54Z"
     }
   }
 }
