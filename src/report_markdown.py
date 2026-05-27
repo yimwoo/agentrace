@@ -369,6 +369,9 @@ def _format_summary_examples(rows):
                 extras.append(f"net={row.get('net_line_delta', 0)}")
         details = [f"event={row.get('event') or 'summary'}", f"status={status}", f"duration_ms={duration}", f"duration_source={source}"]
         details.extend(extras)
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         details.append(f"summary={summary}")
         rendered.append(f"{label} ({', '.join(details)})")
     return "; ".join(rendered)
@@ -396,6 +399,9 @@ def _format_summary_missing_examples(rows):
                 extras.append(f"net={row.get('net_line_delta', 0)}")
         details = [f"event={row.get('event') or 'summary'}", f"status={status}", f"duration_ms={duration}", f"duration_source={source}"]
         details.extend(extras)
+        artifact_details = _format_artifact_details(row)
+        if artifact_details:
+            details.append(artifact_details)
         rendered.append(f"{label} ({', '.join(details)})")
     return "; ".join(rendered)
 

@@ -1,14 +1,14 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-05-27T04:06:54Z",
+  "updated_at": "2026-05-27T13:09:24Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-110",
-    "context_pack": "agent/context-packs/T-110-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-110: Add command timing and edit summaries to reports",
-    "run_id": "t-110-add-command-timing-and-edit-summaries-to-reports-20260527040037597025",
-    "reason": "Implemented duration-source grouped command/edit summary examples and verified with ci_check.",
-    "updated_at": "2026-05-27T04:06:54Z",
+    "id": "T-112",
+    "context_pack": "agent/context-packs/T-112-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-112: Add command timing and edit summaries to reports",
+    "run_id": "t-112-add-command-timing-and-edit-summaries-to-reports-20260527130109132007",
+    "reason": "Implemented merged top-level and inline artifact reference normalization for command/edit reports; CI passed.",
+    "updated_at": "2026-05-27T13:09:24Z",
     "verification": {
       "status": "passed"
     }
@@ -34,13 +34,13 @@
       }
     },
     "tasks": {
-      "total": 110,
+      "total": 112,
       "by_status": {
-        "complete": 107,
+        "complete": 109,
         "halted": 3
       },
       "by_type": {
-        "implementation": 107,
+        "implementation": 109,
         "scaffold": 3
       }
     }

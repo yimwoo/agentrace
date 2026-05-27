@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260527T130206938794Z-t-112-1b7bbff7",
+  "status": "finished",
+  "terminal": true,
+  "owner": "cron",
+  "mode": "owner",
+  "created_at": "2026-05-27T13:02:06Z",
+  "updated_at": "2026-05-27T13:09:53Z",
+  "context_pack": "agent/context-packs/T-112-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:16e9e21992259e8ba47410f65c2b7e989b13fc02c0c9dd8346d12df8e232fdea",
+  "task_id": "T-112",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-112-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-05-27T13:02:06Z",
+      "action": "started",
+      "by": "cron",
+      "note": null
+    },
+    {
+      "at": "2026-05-27T13:09:53Z",
+      "action": "finished",
+      "note": "T-112 completed in shared host worktree; CI passed.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "passed",
+  "finish_note": "T-112 completed in shared host worktree; CI passed.",
+  "finished_at": "2026-05-27T13:09:53Z"
+}

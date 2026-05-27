@@ -338,6 +338,7 @@ def test_reports_include_artifact_refs_for_commands_and_edits():
                 "duration_ms": 50,
                 "command": {"value": "pytest -q", "cwd": "/workspace/app"},
                 "exit_code": 1,
+                "artifacts": [{"kind": "stdout", "path": "artifacts/evt_cmd_stdout.txt"}],
             },
             {
                 "id": "evt_diff",
@@ -358,15 +359,44 @@ def test_reports_include_artifact_refs_for_commands_and_edits():
 
     payload = build_json_summary(trace)
     assert payload["command_timing"][0]["artifacts"] == [
-        {"kind": "command_log", "path": "artifacts/evt_cmd_log.log"}
+        {"kind": "command_log", "path": "artifacts/evt_cmd_log.log"},
+        {"kind": "stdout", "path": "artifacts/evt_cmd_stdout.txt"},
     ]
+    assert payload["command_timing_summary"]["summary_missing_examples"] == [{
+        "event": "evt_cmd_log",
+        "status": "failed",
+        "duration_ms": 50,
+        "duration_source": "explicit",
+        "command": "pytest -q",
+        "cwd": "/workspace/app",
+        "exit_code": 1,
+        "artifacts": [
+            {"kind": "command_log", "path": "artifacts/evt_cmd_log.log"},
+            {"kind": "stdout", "path": "artifacts/evt_cmd_stdout.txt"},
+        ],
+    }]
     assert payload["edit_summary"][0]["artifacts"] == [
         {"kind": "diff", "path": "artifacts/evt_diff.diff"}
     ]
+    assert payload["edit_summary_totals"]["summary_examples"] == [{
+        "event": "evt_diff",
+        "status": "succeeded",
+        "duration_ms": 2,
+        "duration_source": "explicit",
+        "summary": "Surface linked artifacts",
+        "path": "src/report.py",
+        "kind": "modify",
+        "added_lines": 3,
+        "removed_lines": 1,
+        "net_line_delta": 2,
+        "artifacts": [{"kind": "diff", "path": "artifacts/evt_diff.diff"}],
+    }]
 
     text = build_markdown_summary(trace)
-    assert "artifacts: command_log=artifacts/evt_cmd_log.log" in text
+    assert "artifacts: command_log=artifacts/evt_cmd_log.log; stdout=artifacts/evt_cmd_stdout.txt" in text
     assert "artifacts: diff=artifacts/evt_diff.diff" in text
+    assert "command_summary_missing_examples: `pytest -q` (event=evt_cmd_log, status=failed, duration_ms=50, duration_source=explicit, cwd=/workspace/app, exit_code=1, artifacts=command_log=artifacts/evt_cmd_log.log; stdout=artifacts/evt_cmd_stdout.txt)" in text
+    assert "edit_summary_examples: src/report.py (event=evt_diff, status=succeeded, duration_ms=2, duration_source=explicit, kind=modify, net=2, artifacts=diff=artifacts/evt_diff.diff, summary=Surface linked artifacts)" in text
 
 
 def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
@@ -383,6 +413,7 @@ def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
                 "command": {"value": "pytest -q"},
                 "exit_code": 1,
                 "stderr_preview": "AssertionError: expected 401",
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             },
             {
                 "id": "evt_edit_failed_diff",
@@ -403,14 +434,15 @@ def test_failed_command_and_edit_aggregates_preserve_artifact_refs():
 
     payload = build_json_summary(trace)
     assert payload["command_timing_summary"]["failed_commands"][0]["artifacts"] == [
-        {"kind": "command_log", "path": "artifacts/evt_cmd_failed_log.log"}
+        {"kind": "command_log", "path": "artifacts/evt_cmd_failed_log.log"},
+        {"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"},
     ]
     assert payload["edit_summary_totals"]["failed_edits"][0]["artifacts"] == [
         {"kind": "diff", "path": "artifacts/evt_edit_failed_diff.diff"}
     ]
 
     text = build_markdown_summary(trace)
-    assert "failed_commands: evt_cmd_failed_log: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_failed_log.log)" in text
+    assert "failed_commands: evt_cmd_failed_log: `pytest -q` (80ms, status=failed, exit_code=1, duration_source=explicit, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_failed_log.log; command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_edits: evt_edit_failed_diff: src/auth.py (kind=modify, +0/-0, net=0, 5ms, status=failed, duration_source=explicit, summary=Patch auth handling, error_message=target hunk not found, artifacts=diff=artifacts/evt_edit_failed_diff.diff)" in text
 
 
@@ -627,7 +659,7 @@ def test_slowest_command_largest_edit_and_edit_grouped_summary_examples():
     text = build_markdown_summary(trace)
     assert "slowest_command: evt_cmd_slowest_log: `pytest -q` (75ms, status=succeeded, exit_code=0, duration_source=explicit, artifacts=command_log=artifacts/evt_cmd_slowest_log.log)" in text
     assert "largest_edit: evt_edit_largest_diff: src/large.py (+5/-2, net=3, duration_ms=3, status=succeeded, duration_source=explicit, summary=Large edit, artifacts=diff=artifacts/evt_edit_largest_diff.diff)" in text
-    assert "edit_path_summary_examples: src/large.py=src/large.py (event=evt_edit_largest_diff, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=3, summary=Large edit); src/small.py=src/small.py" in text
+    assert "edit_path_summary_examples: src/large.py=src/large.py (event=evt_edit_largest_diff, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=3, artifacts=diff=artifacts/evt_edit_largest_diff.diff, summary=Large edit); src/small.py=src/small.py" in text
     assert "edit_path_summary_missing_examples: none" in text
     assert "edit_kind_summary_examples: modify=src/small.py (event=evt_edit_small, status=succeeded, duration_ms=2, duration_source=explicit, kind=modify, net=1, summary=Small edit); src/large.py" in text
     assert "edit_kind_summary_missing_examples: none" in text
@@ -2028,6 +2060,7 @@ def test_markdown_detail_rows_include_failure_output_and_edit_error_context():
                 "exit_code": 1,
                 "stdout_preview": "F",
                 "stderr_preview": "AssertionError: expected 401",
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             },
             {
                 "id": "evt_edit_failed_context",
@@ -2330,6 +2363,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "command": {"value": "pytest -q", "cwd": "/repo"},
                 "exit_code": 1,
                 "stderr_preview": "AssertionError: expected 401",
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             },
         ],
         "artifacts": [
@@ -2383,6 +2417,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
             "added_lines": 2,
             "removed_lines": 1,
             "net_line_delta": 1,
+            "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
         }],
         "summary_missing_examples": [{
             "type": "command",
@@ -2393,6 +2428,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
             "command": "pytest -q",
             "cwd": "/repo",
             "exit_code": 1,
+            "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
         }],
         "type_summary_examples": {
             "command": [],
@@ -2408,6 +2444,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "added_lines": 2,
                 "removed_lines": 1,
                 "net_line_delta": 1,
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
             }],
         },
         "type_summary_missing_examples": {
@@ -2420,6 +2457,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "command": "pytest -q",
                 "cwd": "/repo",
                 "exit_code": 1,
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             }],
             "file_edit": [],
         },
@@ -2436,6 +2474,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "added_lines": 2,
                 "removed_lines": 1,
                 "net_line_delta": 1,
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
             }],
         },
         "status_summary_missing_examples": {
@@ -2448,6 +2487,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "command": "pytest -q",
                 "cwd": "/repo",
                 "exit_code": 1,
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             }],
         },
         "duration_source_summary_examples": {
@@ -2464,6 +2504,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "added_lines": 2,
                 "removed_lines": 1,
                 "net_line_delta": 1,
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
             }],
         },
         "duration_source_summary_missing_examples": {
@@ -2476,6 +2517,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "command": "pytest -q",
                 "cwd": "/repo",
                 "exit_code": 1,
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             }],
             "explicit": [],
         },
@@ -2493,6 +2535,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "added_lines": 2,
                 "removed_lines": 1,
                 "net_line_delta": 1,
+                "artifacts": [{"kind": "diff", "path": "artifacts/evt_edit_late_diff.diff"}],
             }],
         },
         "identity_summary_missing_examples": {
@@ -2505,6 +2548,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
                 "command": "pytest -q",
                 "cwd": "/repo",
                 "exit_code": 1,
+                "artifacts": [{"kind": "command_log", "path": "artifacts/evt_cmd_early_log.log"}],
             }],
             "file_edit:src/report.py": [],
         },
@@ -2711,7 +2755,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
     assert "summary_recorded_count=1" in text
     assert "summary_missing_count=1" in text
     assert "summary_coverage_ratio=0.5" in text
-    assert "summary_examples=src/report.py (event=evt_edit_late_diff, status=failed, duration_ms=5, duration_source=explicit, kind=modify, net=1, summary=Edit report timeline)" in text
+    assert "summary_examples=src/report.py (event=evt_edit_late_diff, status=failed, duration_ms=5, duration_source=explicit, kind=modify, net=1, artifacts=diff=artifacts/evt_edit_late_diff.diff, summary=Edit report timeline)" in text
     assert "first_failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log)" in text
     assert "failed_activity: evt_cmd_early_log: `pytest -q` (type=command, 20ms, status=failed, duration_source=derived, started_at=2026-04-25T00:00:01Z, ended_at=2026-04-25T00:00:01.020Z, exit_code=1, cwd=/repo, stderr_preview=AssertionError: expected 401, artifacts=command_log=artifacts/evt_cmd_early_log.log); evt_edit_late_diff: src/report.py (type=file_edit, 5ms, status=failed, duration_source=explicit, started_at=2026-04-25T00:00:03Z, kind=modify, +2/-1, net=1, summary=Edit report timeline, error_message=patch failed, artifacts=diff=artifacts/evt_edit_late_diff.diff)" in text
     assert "## Activity Timeline" in text

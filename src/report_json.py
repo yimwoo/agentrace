@@ -34,6 +34,36 @@ def _artifact_refs_by_event(artifacts):
     return refs
 
 
+def _compact_artifact_ref(artifact):
+    if not isinstance(artifact, dict) or not artifact.get("path"):
+        return None
+    return {
+        "kind": artifact.get("kind", "artifact"),
+        "path": artifact["path"],
+    }
+
+
+def _artifact_refs_for_event(event, artifact_refs):
+    """Return normalized artifact refs linked either inline or by top-level event_id."""
+    refs = []
+    seen = set()
+    event_ref = _event_ref(event)
+    for artifact in artifact_refs.get(event_ref, []):
+        key = (artifact.get("kind"), artifact.get("path"))
+        if key not in seen:
+            refs.append(artifact)
+            seen.add(key)
+    for artifact in event.get("artifacts", []) if isinstance(event, dict) else []:
+        compact = _compact_artifact_ref(artifact)
+        if not compact:
+            continue
+        key = (compact.get("kind"), compact.get("path"))
+        if key not in seen:
+            refs.append(compact)
+            seen.add(key)
+    return refs
+
+
 def _numeric_value(value):
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         return 0
@@ -73,8 +103,9 @@ def build_command_timing(events, artifacts=None):
             row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")
         if event.get("stderr_preview") or details.get("stderr_preview"):
             row["stderr_preview"] = event.get("stderr_preview") or details.get("stderr_preview")
-        if event_ref in artifact_refs:
-            row["artifacts"] = artifact_refs[event_ref]
+        event_artifacts = _artifact_refs_for_event(event, artifact_refs)
+        if event_artifacts:
+            row["artifacts"] = event_artifacts
         rows.append(row)
     return rows
 
@@ -110,8 +141,9 @@ def build_edit_summary(events, artifacts=None):
         error_message = error.get("message") or details.get("error_message") or details.get("error")
         if error_message:
             row["error_message"] = error_message
-        if event_ref in artifact_refs:
-            row["artifacts"] = artifact_refs[event_ref]
+        event_artifacts = _artifact_refs_for_event(event, artifact_refs)
+        if event_artifacts:
+            row["artifacts"] = event_artifacts
         rows.append(row)
     return rows
 
@@ -207,6 +239,8 @@ def _summary_example_rows(rows, row_type, limit=3):
                 "removed_lines": _numeric_value(row.get("removed_lines")),
                 "net_line_delta": _net_line_delta(row),
             })
+        if row.get("artifacts"):
+            example["artifacts"] = row["artifacts"]
         examples.append(example)
         if len(examples) >= limit:
             break
@@ -239,6 +273,8 @@ def _summary_missing_example_rows(rows, row_type, limit=3):
                 "removed_lines": _numeric_value(row.get("removed_lines")),
                 "net_line_delta": _net_line_delta(row),
             })
+        if row.get("artifacts"):
+            example["artifacts"] = row["artifacts"]
         examples.append(example)
         if len(examples) >= limit:
             break
@@ -274,6 +310,8 @@ def _activity_summary_example_rows(rows, limit=3):
                 "removed_lines": _numeric_value(row.get("removed_lines")),
                 "net_line_delta": _net_line_delta(row),
             })
+        if row.get("artifacts"):
+            example["artifacts"] = row["artifacts"]
         examples.append(example)
         if len(examples) >= limit:
             break
@@ -308,6 +346,8 @@ def _activity_summary_missing_example_rows(rows, limit=3):
                 "removed_lines": _numeric_value(row.get("removed_lines")),
                 "net_line_delta": _net_line_delta(row),
             })
+        if row.get("artifacts"):
+            example["artifacts"] = row["artifacts"]
         examples.append(example)
         if len(examples) >= limit:
             break
