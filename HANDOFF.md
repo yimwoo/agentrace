@@ -1,11 +1,11 @@
 ## Latest status
-`agentrace` report duration-impact summaries now name the highest-duration rows that lack human-readable summaries. The top-level `report_summary_duration_impact` block/line still totals summarized vs. unsummarized duration for command rows, edit rows, and combined activity rows, and now carries compact missing-duration examples so reviewers can jump directly to the sparse row causing the largest timing impact.
+`agentrace` report duration-impact summaries now include row counts beside duration totals for summarized vs. unsummarized command, edit, and combined activity rows. The top-level `report_summary_duration_impact` block/line still names highest-duration rows that lack human-readable summaries, and now also shows recorded/missing/total row counts so reviewers can distinguish one expensive sparse row from many smaller missing-summary rows.
 
 ## What was done
-- created AgentSpec task `T-117` for a report summary-duration-impact example follow-up slice
-- added JSON `summary_missing_duration_examples` under each command/edit/activity duration-impact bucket
-- rendered missing-duration examples in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new missing-summary duration examples
+- created AgentSpec task `T-118` for a report summary-duration-impact count follow-up slice
+- added JSON `summary_recorded_duration_count`, `summary_missing_duration_count`, and `summary_total_duration_count` under each command/edit/activity duration-impact bucket
+- rendered duration-impact counts in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new duration-impact count fields
 
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 36 passed, 1 warning

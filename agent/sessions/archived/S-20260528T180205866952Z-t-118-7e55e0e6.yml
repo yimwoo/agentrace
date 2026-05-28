@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260528T180205866952Z-t-118-7e55e0e6",
+  "status": "finished",
+  "terminal": true,
+  "owner": "codex",
+  "mode": "owner",
+  "created_at": "2026-05-28T18:02:05Z",
+  "updated_at": "2026-05-28T18:05:17Z",
+  "context_pack": "agent/context-packs/T-118-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:ce2a4c0c17131fd482d158db28504e8094c08e67b0e1ba362984a85c95a6465b",
+  "task_id": "T-118",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-118-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-05-28T18:02:05Z",
+      "action": "started",
+      "by": "codex",
+      "note": null
+    },
+    {
+      "at": "2026-05-28T18:05:17Z",
+      "action": "finished",
+      "note": "Completed T-118 implementation and kept changes in shared worktree for commit.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "passed",
+  "finish_note": "Completed T-118 implementation and kept changes in shared worktree for commit.",
+  "finished_at": "2026-05-28T18:05:17Z"
+}

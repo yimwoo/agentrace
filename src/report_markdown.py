@@ -458,7 +458,10 @@ def _format_report_summary_duration_impact(impact):
         row = impact.get(label) or {}
         examples = _format_report_summary_duration_examples(row.get("summary_missing_duration_examples"))
         parts.append(
-            f"{label}=recorded_duration_ms={row.get('summary_recorded_duration_ms', 0)}/"
+            f"{label}=recorded_duration_count={row.get('summary_recorded_duration_count', 0)}/"
+            f"missing_duration_count={row.get('summary_missing_duration_count', 0)}/"
+            f"total_duration_count={row.get('summary_total_duration_count', 0)}/"
+            f"recorded_duration_ms={row.get('summary_recorded_duration_ms', 0)}/"
             f"missing_duration_ms={row.get('summary_missing_duration_ms', 0)}/"
             f"missing_duration_share={row.get('summary_missing_duration_share', 0)}/"
             f"missing_duration_examples={examples}"
