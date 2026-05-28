@@ -130,6 +130,11 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert activity_totals["status_summary_missing_examples"]["failed"][0]["command"] == "ruff check"
     assert activity_totals["duration_source_summary_examples"]["explicit"][0]["summary"] == "Run tests"
     assert activity_totals["duration_source_summary_missing_examples"]["derived"][0]["command"] == "ruff check"
+    assert payload["report_summary_duration_impact"]["activity"] == {
+        "summary_recorded_duration_ms": 13,
+        "summary_missing_duration_ms": 5,
+        "summary_missing_duration_share": 0.2778,
+    }
     assert activity_totals["identity_summary_examples"]["command:pytest -q"][0]["summary"] == "Run tests"
     assert activity_totals["identity_summary_examples"]["file_edit:src/report_json.py"][0]["summary"] == "Add coverage"
     assert activity_totals["identity_summary_missing_examples"]["command:ruff check"][0]["event"] == "evt_cmd_without_summary"
@@ -177,6 +182,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "activity_by_identity=command:pytest -q=recorded=1/missing=0/ratio=1.0, command:ruff check=recorded=0/missing=1/ratio=0.0, file_edit:src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "type_summary_examples=command=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "type_summary_missing_examples=command=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
+    assert "report_summary_duration_impact: command=recorded_duration_ms=10/missing_duration_ms=5/missing_duration_share=0.3333; edit=recorded_duration_ms=3/missing_duration_ms=0/missing_duration_share=0.0; activity=recorded_duration_ms=13/missing_duration_ms=5/missing_duration_share=0.2778" in text
     assert "identity_summary_examples=command:pytest -q=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit:src/report_json.py=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "identity_summary_missing_examples=command:ruff check=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
@@ -203,6 +209,66 @@ def test_activity_timeline_renders_command_summaries():
 
     text = build_markdown_summary(trace)
     assert "- evt_cmd_summary: command `pytest -q` — 42ms, status=succeeded, exit_code=0, duration_source=explicit, cwd=repo, summary=Run regression tests" in text
+
+
+def test_summary_coverage_includes_missing_summary_duration_impact():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-duration-impact-1", "task": "inspect missing summaries", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_summarized",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "command": {"value": "pytest -q", "summary": "Run focused tests"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_unsummarized",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 75,
+                "command": {"value": "python scripts/slow.py"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_unsummarized",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 20,
+                "file": {"path": "src/slow.py"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["report_summary_duration_impact"] == {
+        "command": {
+            "summary_recorded_duration_ms": 25,
+            "summary_missing_duration_ms": 75,
+            "summary_missing_duration_share": 0.75,
+        },
+        "edit": {
+            "summary_recorded_duration_ms": 0,
+            "summary_missing_duration_ms": 20,
+            "summary_missing_duration_share": 1.0,
+        },
+        "activity": {
+            "summary_recorded_duration_ms": 25,
+            "summary_missing_duration_ms": 95,
+            "summary_missing_duration_share": 0.7917,
+        },
+    }
+
+    text = build_markdown_summary(trace)
+    assert "command=recorded_duration_ms=25/missing_duration_ms=75/missing_duration_share=0.75" in text
+    assert "edit=recorded_duration_ms=0/missing_duration_ms=20/missing_duration_share=1.0" in text
+    assert "activity=recorded_duration_ms=25/missing_duration_ms=95/missing_duration_share=0.7917" in text
 
 
 def test_build_sample_trace_shape():

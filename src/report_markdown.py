@@ -444,6 +444,20 @@ def _format_report_inspection_targets(targets):
     return "; ".join(rendered)
 
 
+def _format_report_summary_duration_impact(impact):
+    if not impact:
+        return "none"
+    parts = []
+    for label in ["command", "edit", "activity"]:
+        row = impact.get(label) or {}
+        parts.append(
+            f"{label}=recorded_duration_ms={row.get('summary_recorded_duration_ms', 0)}/"
+            f"missing_duration_ms={row.get('summary_missing_duration_ms', 0)}/"
+            f"missing_duration_share={row.get('summary_missing_duration_share', 0)}"
+        )
+    return "; ".join(parts)
+
+
 def _format_report_summary_coverage(coverage):
     if not coverage:
         return "none"
@@ -914,6 +928,7 @@ def build_markdown_summary(trace):
         f"- total_duration_ms: {payload['summary']['total_duration_ms']}",
         f"- report_inspection_targets: {_format_report_inspection_targets(payload['report_inspection_targets'])}",
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
+        f"- report_summary_duration_impact: {_format_report_summary_duration_impact(payload['report_summary_duration_impact'])}",
         f"- command_count: {command_totals['count']}",
         f"- unique_command_count: {command_totals['unique_command_count']}",
         f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",

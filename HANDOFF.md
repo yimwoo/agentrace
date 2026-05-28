@@ -1,4 +1,17 @@
 ## Latest status
+`agentrace` reports now include a top-level `report_summary_duration_impact` block/line. It totals summarized vs. unsummarized duration for command rows, edit rows, and combined activity rows so reviewers can prioritize high-duration rows that lack human-readable summaries before scanning detail sections.
+
+## What was done
+- created AgentSpec task `T-116` for a report summary-duration-impact follow-up slice
+- added JSON `report_summary_duration_impact` with command/edit/activity summarized vs. unsummarized duration totals and missing-duration share
+- rendered the duration-impact line near the top of Markdown summaries next to `report_summary_coverage`
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new top-level sparse-summary duration signal
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 36 passed, 1 warning
+- `bash scripts/ci_check.sh` — 43 passed, 1 warning
+
+## Previous status
 `agentrace` report inspection targets now carry explicit timing windows when source rows have them. Failed activity, missing timing/summary targets, and slowest-activity targets preserve `started_at`/`ended_at` in JSON and render that context in Markdown, making the prioritized inspection list line up with the activity timeline and command/edit detail rows.
 
 ## What was done

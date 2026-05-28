@@ -212,6 +212,27 @@ def _summary_coverage(rows):
     }
 
 
+def _summary_duration_metrics(rows):
+    """Return duration impact split by rows with and without summaries."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    recorded_duration_ms = sum(
+        _numeric_value(row.get("duration_ms"))
+        for row in normalized_rows
+        if row.get("summary")
+    )
+    missing_duration_ms = sum(
+        _numeric_value(row.get("duration_ms"))
+        for row in normalized_rows
+        if not row.get("summary")
+    )
+    total_duration_ms = recorded_duration_ms + missing_duration_ms
+    return {
+        "summary_recorded_duration_ms": recorded_duration_ms,
+        "summary_missing_duration_ms": missing_duration_ms,
+        "summary_missing_duration_share": 0 if not total_duration_ms else round(missing_duration_ms / total_duration_ms, 4),
+    }
+
+
 def _summary_example_rows(rows, row_type, limit=3):
     """Return compact examples for rows with human-readable summaries."""
     examples = []
@@ -1913,6 +1934,11 @@ def build_json_summary(trace):
         "activity_by_duration_source": _summary_coverage_by_field(activity_timeline, "duration_source"),
         "activity_by_identity": _summary_coverage_by_activity_identity(activity_timeline),
     }
+    report_summary_duration_impact = {
+        "command": _summary_duration_metrics(command_timing),
+        "edit": _summary_duration_metrics(edit_summary),
+        "activity": _summary_duration_metrics(activity_timeline),
+    }
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
@@ -1923,6 +1949,7 @@ def build_json_summary(trace):
         "failure_summary": build_failure_summary(trace),
         "report_inspection_targets": build_report_inspection_targets(command_timing, edit_summary, activity_timeline),
         "report_summary_coverage": report_summary_coverage,
+        "report_summary_duration_impact": report_summary_duration_impact,
         "command_timing_summary": build_command_timing_summary(command_timing),
         "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
         "activity_timeline": activity_timeline,
