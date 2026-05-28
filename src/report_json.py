@@ -212,6 +212,50 @@ def _summary_coverage(rows):
     }
 
 
+def _summary_duration_example_row(row):
+    """Return compact context for an unsummarized row contributing duration."""
+    example = {
+        "event": row.get("event"),
+        "status": row.get("status"),
+        "duration_ms": _numeric_value(row.get("duration_ms")),
+        "duration_source": row.get("duration_source"),
+    }
+    if row.get("type"):
+        example["type"] = row.get("type")
+    if row.get("command") is not None:
+        example["command"] = row.get("command")
+        if row.get("cwd"):
+            example["cwd"] = row["cwd"]
+        if row.get("exit_code") is not None:
+            example["exit_code"] = row.get("exit_code")
+    elif row.get("path") is not None:
+        example.update({
+            "path": row.get("path"),
+            "kind": row.get("kind"),
+            "added_lines": _numeric_value(row.get("added_lines")),
+            "removed_lines": _numeric_value(row.get("removed_lines")),
+            "net_line_delta": _net_line_delta(row),
+        })
+    if row.get("started_at"):
+        example["started_at"] = row["started_at"]
+    if row.get("ended_at"):
+        example["ended_at"] = row["ended_at"]
+    if row.get("artifacts"):
+        example["artifacts"] = row["artifacts"]
+    return example
+
+
+def _summary_missing_duration_example_rows(rows, limit=3):
+    """Return the highest-duration rows that lack human-readable summaries."""
+    candidates = [
+        (index, row)
+        for index, row in enumerate(rows or [])
+        if isinstance(row, dict) and not row.get("summary")
+    ]
+    candidates.sort(key=lambda item: (-_numeric_value(item[1].get("duration_ms")), item[0]))
+    return [_summary_duration_example_row(row) for _, row in candidates[:limit]]
+
+
 def _summary_duration_metrics(rows):
     """Return duration impact split by rows with and without summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -230,6 +274,7 @@ def _summary_duration_metrics(rows):
         "summary_recorded_duration_ms": recorded_duration_ms,
         "summary_missing_duration_ms": missing_duration_ms,
         "summary_missing_duration_share": 0 if not total_duration_ms else round(missing_duration_ms / total_duration_ms, 4),
+        "summary_missing_duration_examples": _summary_missing_duration_example_rows(normalized_rows),
     }
 
 

@@ -134,6 +134,18 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
         "summary_recorded_duration_ms": 13,
         "summary_missing_duration_ms": 5,
         "summary_missing_duration_share": 0.2778,
+        "summary_missing_duration_examples": [{
+            "event": "evt_cmd_without_summary",
+            "status": "failed",
+            "duration_ms": 5,
+            "duration_source": "derived",
+            "type": "command",
+            "command": "ruff check",
+            "cwd": "repo",
+            "exit_code": 1,
+            "started_at": "2026-04-25T00:00:00Z",
+            "ended_at": "2026-04-25T00:00:00.005Z",
+        }],
     }
     assert activity_totals["identity_summary_examples"]["command:pytest -q"][0]["summary"] == "Run tests"
     assert activity_totals["identity_summary_examples"]["file_edit:src/report_json.py"][0]["summary"] == "Add coverage"
@@ -182,7 +194,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "activity_by_identity=command:pytest -q=recorded=1/missing=0/ratio=1.0, command:ruff check=recorded=0/missing=1/ratio=0.0, file_edit:src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "type_summary_examples=command=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "type_summary_missing_examples=command=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
-    assert "report_summary_duration_impact: command=recorded_duration_ms=10/missing_duration_ms=5/missing_duration_share=0.3333; edit=recorded_duration_ms=3/missing_duration_ms=0/missing_duration_share=0.0; activity=recorded_duration_ms=13/missing_duration_ms=5/missing_duration_share=0.2778" in text
+    assert "report_summary_duration_impact: command=recorded_duration_ms=10/missing_duration_ms=5/missing_duration_share=0.3333/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1); edit=recorded_duration_ms=3/missing_duration_ms=0/missing_duration_share=0.0/missing_duration_examples=none; activity=recorded_duration_ms=13/missing_duration_ms=5/missing_duration_share=0.2778/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
     assert "identity_summary_examples=command:pytest -q=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit:src/report_json.py=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "identity_summary_missing_examples=command:ruff check=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
@@ -252,23 +264,63 @@ def test_summary_coverage_includes_missing_summary_duration_impact():
             "summary_recorded_duration_ms": 25,
             "summary_missing_duration_ms": 75,
             "summary_missing_duration_share": 0.75,
+            "summary_missing_duration_examples": [{
+                "event": "evt_cmd_unsummarized",
+                "status": "succeeded",
+                "duration_ms": 75,
+                "duration_source": "explicit",
+                "command": "python scripts/slow.py",
+                "exit_code": 0,
+            }],
         },
         "edit": {
             "summary_recorded_duration_ms": 0,
             "summary_missing_duration_ms": 20,
             "summary_missing_duration_share": 1.0,
+            "summary_missing_duration_examples": [{
+                "event": "evt_edit_unsummarized",
+                "status": "succeeded",
+                "duration_ms": 20,
+                "duration_source": "explicit",
+                "path": "src/slow.py",
+                "kind": "modify",
+                "added_lines": 1,
+                "removed_lines": 0,
+                "net_line_delta": 1,
+            }],
         },
         "activity": {
             "summary_recorded_duration_ms": 25,
             "summary_missing_duration_ms": 95,
             "summary_missing_duration_share": 0.7917,
+            "summary_missing_duration_examples": [{
+                "event": "evt_cmd_unsummarized",
+                "status": "succeeded",
+                "duration_ms": 75,
+                "duration_source": "explicit",
+                "type": "command",
+                "command": "python scripts/slow.py",
+                "exit_code": 0,
+            }, {
+                "event": "evt_edit_unsummarized",
+                "status": "succeeded",
+                "duration_ms": 20,
+                "duration_source": "explicit",
+                "type": "file_edit",
+                "path": "src/slow.py",
+                "kind": "modify",
+                "added_lines": 1,
+                "removed_lines": 0,
+                "net_line_delta": 1,
+            }],
         },
     }
 
     text = build_markdown_summary(trace)
-    assert "command=recorded_duration_ms=25/missing_duration_ms=75/missing_duration_share=0.75" in text
-    assert "edit=recorded_duration_ms=0/missing_duration_ms=20/missing_duration_share=1.0" in text
-    assert "activity=recorded_duration_ms=25/missing_duration_ms=95/missing_duration_share=0.7917" in text
+    assert "command=recorded_duration_ms=25/missing_duration_ms=75/missing_duration_share=0.75/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0)" in text
+    assert "edit=recorded_duration_ms=0/missing_duration_ms=20/missing_duration_share=1.0/missing_duration_examples=src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
+    assert "activity=recorded_duration_ms=25/missing_duration_ms=95/missing_duration_share=0.7917/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0); src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
+    assert text.index("python scripts/slow.py") < text.index("evt_edit_unsummarized")
 
 
 def test_build_sample_trace_shape():

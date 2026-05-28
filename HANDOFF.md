@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` report duration-impact summaries now name the highest-duration rows that lack human-readable summaries. The top-level `report_summary_duration_impact` block/line still totals summarized vs. unsummarized duration for command rows, edit rows, and combined activity rows, and now carries compact missing-duration examples so reviewers can jump directly to the sparse row causing the largest timing impact.
+
+## What was done
+- created AgentSpec task `T-117` for a report summary-duration-impact example follow-up slice
+- added JSON `summary_missing_duration_examples` under each command/edit/activity duration-impact bucket
+- rendered missing-duration examples in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, the rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new missing-summary duration examples
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 36 passed, 1 warning
+- `bash scripts/ci_check.sh` — 43 passed, 1 warning
+
+## Previous status
+## Previous status
 `agentrace` reports now include a top-level `report_summary_duration_impact` block/line. It totals summarized vs. unsummarized duration for command rows, edit rows, and combined activity rows so reviewers can prioritize high-duration rows that lack human-readable summaries before scanning detail sections.
 
 ## What was done
