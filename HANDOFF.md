@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` report duration-impact summaries now surface the largest missing-summary duration and its share of each command/edit/activity missing-summary bucket. This extends the summarized-vs-unsummarized duration signal so reviewers can quickly see whether sparse summary coverage is dominated by one expensive unsummarized row or distributed across multiple rows.
+
+## What was done
+- created AgentSpec task `T-119` for a report summary-duration-impact concentration follow-up slice
+- added JSON `summary_largest_missing_duration_ms` and `summary_largest_missing_duration_share` under each command/edit/activity duration-impact bucket
+- rendered largest-missing duration/share in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new duration-impact concentration fields
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels -q` — 2 passed
+- `bash scripts/ci_check.sh` — 43 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` report duration-impact summaries now include row counts beside duration totals for summarized vs. unsummarized command, edit, and combined activity rows. The top-level `report_summary_duration_impact` block/line still names highest-duration rows that lack human-readable summaries, and now also shows recorded/missing/total row counts so reviewers can distinguish one expensive sparse row from many smaller missing-summary rows.
 
 ## What was done
