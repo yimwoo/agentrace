@@ -143,6 +143,8 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
         "duration_ms": 5,
         "duration_source": "derived",
         "detail": "failed status or non-zero command exit code",
+        "started_at": "2026-04-25T00:00:00Z",
+        "ended_at": "2026-04-25T00:00:00.005Z",
         "cwd": "repo",
         "exit_code": 1,
     }
@@ -162,6 +164,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
 
     text = build_markdown_summary(trace)
     assert "report_inspection_targets: ruff check (event=evt_cmd_without_summary, type=command, reason=failed_activity" in text
+    assert "detail=failed status or non-zero command exit code, started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:00.005Z" in text
     assert "pytest -q (event=evt_cmd_with_summary, type=command, reason=slowest_activity" in text
     assert "report_summary_coverage:" in text
     assert "command_by_duration_source=derived=recorded=0/missing=1/ratio=0.0, explicit=recorded=1/missing=0/ratio=1.0" in text

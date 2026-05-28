@@ -1202,6 +1202,10 @@ def _inspection_target_row(row, reason, detail=None):
     }
     if detail:
         target["detail"] = detail
+    if row.get("started_at"):
+        target["started_at"] = row["started_at"]
+    if row.get("ended_at"):
+        target["ended_at"] = row["ended_at"]
     if row.get("type") == "command" or row.get("command") is not None:
         if row.get("cwd"):
             target["cwd"] = row["cwd"]

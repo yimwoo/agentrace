@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` report inspection targets now carry explicit timing windows when source rows have them. Failed activity, missing timing/summary targets, and slowest-activity targets preserve `started_at`/`ended_at` in JSON and render that context in Markdown, making the prioritized inspection list line up with the activity timeline and command/edit detail rows.
+
+## What was done
+- created AgentSpec task `T-115` for a small report inspection-target timing follow-up slice
+- added start/end timestamp preservation to `report_inspection_targets`
+- rendered inspection-target start/end timing in Markdown report summaries
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the inspection-target timing context
+- completed AgentSpec task `T-115` via completion run `complete-t-115-add-command-timing-and-edit-summaries-to-reports-20260528040319621662` after the autonomous run recorded a stale pause finding
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 35 passed, 1 warning
+- `bash scripts/ci_check.sh` — 42 passed, 1 warning
+
+## Previous status
 `agentrace` reports now include prioritized inspection targets near the top of JSON and Markdown output. The new `report_inspection_targets` block points reviewers first to failed command/edit activity, missing command/edit timing, missing command/edit summaries, and the slowest activity, while preserving identity, timing source, status, cwd/exit-code or edit-kind/net-line context, error previews, and linked artifacts when present.
 
 ## What was done

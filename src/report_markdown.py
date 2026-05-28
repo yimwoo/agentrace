@@ -422,6 +422,9 @@ def _format_report_inspection_targets(targets):
         ]
         if target.get("detail"):
             details.append(f"detail={target['detail']}")
+        timing = _format_time_window(target).removeprefix(", ")
+        if timing:
+            details.append(timing)
         if target.get("cwd"):
             details.append(f"cwd={target['cwd']}")
         if target.get("exit_code") is not None:
