@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` report duration-impact summaries now include the average duration of rows that lack human-readable summaries. This complements the largest-missing-duration signal so reviewers can distinguish one expensive sparse row from a broader set of similarly costly unsummarized command/edit/activity rows.
+
+## What was done
+- created AgentSpec task `T-120` for a report summary-duration-impact average follow-up slice
+- added JSON `summary_missing_average_duration_ms` under each command/edit/activity duration-impact bucket
+- rendered `missing_average_duration_ms` in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new sparse-summary average field
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels -q` — 2 passed
+- `bash scripts/ci_check.sh` — 43 passed, 1 warning
+
+## Previous status
+## Latest status
 `agentrace` report duration-impact summaries now surface the largest missing-summary duration and its share of each command/edit/activity missing-summary bucket. This extends the summarized-vs-unsummarized duration signal so reviewers can quickly see whether sparse summary coverage is dominated by one expensive unsummarized row or distributed across multiple rows.
 
 ## What was done

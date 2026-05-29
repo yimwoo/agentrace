@@ -280,6 +280,9 @@ def _summary_duration_metrics(rows):
         "summary_total_duration_count": recorded_duration_count + missing_duration_count,
         "summary_recorded_duration_ms": recorded_duration_ms,
         "summary_missing_duration_ms": missing_duration_ms,
+        "summary_missing_average_duration_ms": (
+            0 if not missing_duration_count else round(missing_duration_ms / missing_duration_count, 2)
+        ),
         "summary_missing_duration_share": 0 if not total_duration_ms else round(missing_duration_ms / total_duration_ms, 4),
         "summary_largest_missing_duration_ms": largest_missing_duration_ms,
         "summary_largest_missing_duration_share": 0 if not missing_duration_ms else round(largest_missing_duration_ms / missing_duration_ms, 4),
