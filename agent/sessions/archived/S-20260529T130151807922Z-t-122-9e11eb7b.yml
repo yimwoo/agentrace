@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260529T130151807922Z-t-122-9e11eb7b",
+  "status": "finished",
+  "terminal": true,
+  "owner": "codex",
+  "mode": "owner",
+  "created_at": "2026-05-29T13:01:51Z",
+  "updated_at": "2026-05-29T13:05:02Z",
+  "context_pack": "agent/context-packs/T-122-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:9bbf3a293e9ff73d45fab070c6cb3b3391dd01bf24030dae457f4a91f2e8b54b",
+  "task_id": "T-122",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-122-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-05-29T13:01:51Z",
+      "action": "started",
+      "by": "codex",
+      "note": null
+    },
+    {
+      "at": "2026-05-29T13:05:02Z",
+      "action": "finished",
+      "note": "T-122 implementation completed and verified with bash scripts/ci_check.sh.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "passed",
+  "finish_note": "T-122 implementation completed and verified with bash scripts/ci_check.sh.",
+  "finished_at": "2026-05-29T13:05:02Z"
+}

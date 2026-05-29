@@ -1,4 +1,17 @@
 ## Latest status
+`agentrace` report duration-impact summaries now include range and min/max extremes for rows that lack human-readable summaries. This extends the average/median/largest-missing signals so reviewers can see the spread of unsummarized command/edit/activity durations without scanning detail rows.
+
+## What was done
+- created AgentSpec task `T-122` for a report summary-duration-impact spread follow-up slice
+- added JSON `summary_missing_duration_range_ms` and `summary_missing_duration_extremes_ms` under each command/edit/activity duration-impact bucket
+- rendered missing-duration range and min/max extremes in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new sparse-summary spread fields
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels -q` — 2 passed
+
+## Previous status
+## Latest status
 `agentrace` report duration-impact summaries now include the median duration of rows that lack human-readable summaries. This complements the average and largest-missing-duration signals so reviewers can see whether sparse summary coverage is skewed by one expensive row or reflects the typical unsummarized command/edit/activity row.
 
 ## What was done
