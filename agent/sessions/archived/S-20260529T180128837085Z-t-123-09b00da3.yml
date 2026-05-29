@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260529T180128837085Z-t-123-09b00da3",
+  "status": "finished",
+  "terminal": true,
+  "owner": "cron-agent",
+  "mode": "owner",
+  "created_at": "2026-05-29T18:01:28Z",
+  "updated_at": "2026-05-29T18:03:48Z",
+  "context_pack": "agent/context-packs/T-123-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:e4cc19d4e0bf25a73db2a0547dad8f86dcb4e6a25d76c6189dbd7cf46f045397",
+  "task_id": "T-123",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-123-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-123-add-command-timing-and-edit-summaries-to-reports-20260529180051941105",
+  "note": "Scheduled AgentSpec-only portfolio run; sharing host checkout because stale T-082/T-096 sessions still lease it.",
+  "history": [
+    {
+      "at": "2026-05-29T18:01:28Z",
+      "action": "started",
+      "by": "cron-agent",
+      "note": "Scheduled AgentSpec-only portfolio run; sharing host checkout because stale T-082/T-096 sessions still lease it."
+    },
+    {
+      "at": "2026-05-29T18:03:48Z",
+      "action": "finished",
+      "note": "Completed T-123; CI passed.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "passed",
+  "finish_note": "Completed T-123; CI passed.",
+  "finished_at": "2026-05-29T18:03:48Z"
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-123-add-command-timing-and-edit-summaries-to-reports-20260529180338471865",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-123-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-123: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-05-29T18:03:38Z",
+  "updated_at": "2026-05-29T18:03:38Z",
+  "last_decision": "complete",
+  "completion_reason": "Marked complete by user.",
+  "verification": {
+    "status": "passed"
+  },
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-123-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-123",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": {
+      "session_id": "S-20260529T180128837085Z-t-123-09b00da3",
+      "status": "active",
+      "terminal": false,
+      "owner": "cron-agent",
+      "mode": "owner",
+      "context_pack": "agent/context-packs/T-123-add-command-timing-and-edit-summaries-to-reports.md",
+      "context_pack_title": "Add command timing and edit summaries to reports",
+      "task_id": "T-123",
+      "task_type": "implementation",
+      "branch": "codex/t-123-implementation",
+      "worktree": "/Users/jc/Workspace/Apps/agentrace",
+      "run_id": "t-123-add-command-timing-and-edit-summaries-to-reports-20260529180051941105",
+      "created_at": "2026-05-29T18:01:28Z",
+      "updated_at": "2026-05-29T18:01:28Z",
+      "disposition": null,
+      "path": "agent/sessions/active/S-20260529T180128837085Z-t-123-09b00da3.yml"
+    },
+    "satisfied_by": "session_lease",
+    "message": "Active owner/patcher session lease with isolated branch and worktree metadata is present.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution inside the active session lease and task allowed paths."
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

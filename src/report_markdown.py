@@ -467,6 +467,7 @@ def _format_report_summary_duration_impact(impact):
             f"missing_median_duration_ms={row.get('summary_missing_median_duration_ms', 0)}/"
             f"missing_duration_range_ms={row.get('summary_missing_duration_range_ms', 0)}/"
             f"missing_duration_extremes_ms={row.get('summary_missing_duration_extremes_ms', {'min': 0, 'max': 0})}/"
+            f"missing_duration_source_counts={_format_status_counts(row.get('summary_missing_duration_source_counts'))}/"
             f"missing_duration_share={row.get('summary_missing_duration_share', 0)}/"
             f"largest_missing_duration_ms={row.get('summary_largest_missing_duration_ms', 0)}/"
             f"largest_missing_duration_share={row.get('summary_largest_missing_duration_share', 0)}/"

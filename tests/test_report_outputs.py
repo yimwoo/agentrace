@@ -140,6 +140,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
         "summary_missing_median_duration_ms": 5,
         "summary_missing_duration_range_ms": 0,
         "summary_missing_duration_extremes_ms": {"min": 5, "max": 5},
+        "summary_missing_duration_source_counts": {"derived": 1},
         "summary_missing_duration_share": 0.2778,
         "summary_largest_missing_duration_ms": 5,
         "summary_largest_missing_duration_share": 1.0,
@@ -203,7 +204,7 @@ def test_report_summary_coverage_groups_explanations_by_report_labels():
     assert "activity_by_identity=command:pytest -q=recorded=1/missing=0/ratio=1.0, command:ruff check=recorded=0/missing=1/ratio=0.0, file_edit:src/report_json.py=recorded=1/missing=0/ratio=1.0" in text
     assert "type_summary_examples=command=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "type_summary_missing_examples=command=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
-    assert "report_summary_duration_impact: command=recorded_duration_count=1/missing_duration_count=1/total_duration_count=2/recorded_duration_ms=10/missing_duration_ms=5/missing_average_duration_ms=5.0/missing_median_duration_ms=5/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 5, 'max': 5}/missing_duration_share=0.3333/largest_missing_duration_ms=5/largest_missing_duration_share=1.0/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1); edit=recorded_duration_count=1/missing_duration_count=0/total_duration_count=1/recorded_duration_ms=3/missing_duration_ms=0/missing_average_duration_ms=0/missing_median_duration_ms=0/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 0, 'max': 0}/missing_duration_share=0.0/largest_missing_duration_ms=0/largest_missing_duration_share=0/missing_duration_examples=none; activity=recorded_duration_count=2/missing_duration_count=1/total_duration_count=3/recorded_duration_ms=13/missing_duration_ms=5/missing_average_duration_ms=5.0/missing_median_duration_ms=5/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 5, 'max': 5}/missing_duration_share=0.2778/largest_missing_duration_ms=5/largest_missing_duration_share=1.0/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
+    assert "report_summary_duration_impact: command=recorded_duration_count=1/missing_duration_count=1/total_duration_count=2/recorded_duration_ms=10/missing_duration_ms=5/missing_average_duration_ms=5.0/missing_median_duration_ms=5/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 5, 'max': 5}/missing_duration_source_counts=derived=1/missing_duration_share=0.3333/largest_missing_duration_ms=5/largest_missing_duration_share=1.0/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1); edit=recorded_duration_count=1/missing_duration_count=0/total_duration_count=1/recorded_duration_ms=3/missing_duration_ms=0/missing_average_duration_ms=0/missing_median_duration_ms=0/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 0, 'max': 0}/missing_duration_source_counts=none/missing_duration_share=0.0/largest_missing_duration_ms=0/largest_missing_duration_share=0/missing_duration_examples=none; activity=recorded_duration_count=2/missing_duration_count=1/total_duration_count=3/recorded_duration_ms=13/missing_duration_ms=5/missing_average_duration_ms=5.0/missing_median_duration_ms=5/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 5, 'max': 5}/missing_duration_source_counts=derived=1/missing_duration_share=0.2778/largest_missing_duration_ms=5/largest_missing_duration_share=1.0/missing_duration_examples=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
     assert "identity_summary_examples=command:pytest -q=`pytest -q` (event=evt_cmd_with_summary, status=succeeded, duration_ms=10, duration_source=explicit, cwd=repo, exit_code=0, summary=Run tests); file_edit:src/report_json.py=src/report_json.py (event=evt_edit_with_summary, status=succeeded, duration_ms=3, duration_source=explicit, kind=modify, net=2, summary=Add coverage)" in text
     assert "identity_summary_missing_examples=command:ruff check=`ruff check` (event=evt_cmd_without_summary, status=failed, duration_ms=5, duration_source=derived, cwd=repo, exit_code=1)" in text
 
@@ -279,6 +280,7 @@ def test_summary_coverage_includes_missing_summary_duration_impact():
             "summary_missing_median_duration_ms": 75,
             "summary_missing_duration_range_ms": 0,
             "summary_missing_duration_extremes_ms": {"min": 75, "max": 75},
+            "summary_missing_duration_source_counts": {"explicit": 1},
             "summary_missing_duration_share": 0.75,
             "summary_largest_missing_duration_ms": 75,
             "summary_largest_missing_duration_share": 1.0,
@@ -301,6 +303,7 @@ def test_summary_coverage_includes_missing_summary_duration_impact():
             "summary_missing_median_duration_ms": 20,
             "summary_missing_duration_range_ms": 0,
             "summary_missing_duration_extremes_ms": {"min": 20, "max": 20},
+            "summary_missing_duration_source_counts": {"explicit": 1},
             "summary_missing_duration_share": 1.0,
             "summary_largest_missing_duration_ms": 20,
             "summary_largest_missing_duration_share": 1.0,
@@ -326,6 +329,7 @@ def test_summary_coverage_includes_missing_summary_duration_impact():
             "summary_missing_median_duration_ms": 47.5,
             "summary_missing_duration_range_ms": 55,
             "summary_missing_duration_extremes_ms": {"min": 20, "max": 75},
+            "summary_missing_duration_source_counts": {"explicit": 2},
             "summary_missing_duration_share": 0.7917,
             "summary_largest_missing_duration_ms": 75,
             "summary_largest_missing_duration_share": 0.7895,
@@ -353,9 +357,9 @@ def test_summary_coverage_includes_missing_summary_duration_impact():
     }
 
     text = build_markdown_summary(trace)
-    assert "command=recorded_duration_count=1/missing_duration_count=1/total_duration_count=2/recorded_duration_ms=25/missing_duration_ms=75/missing_average_duration_ms=75.0/missing_median_duration_ms=75/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 75, 'max': 75}/missing_duration_share=0.75/largest_missing_duration_ms=75/largest_missing_duration_share=1.0/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0)" in text
-    assert "edit=recorded_duration_count=0/missing_duration_count=1/total_duration_count=1/recorded_duration_ms=0/missing_duration_ms=20/missing_average_duration_ms=20.0/missing_median_duration_ms=20/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 20, 'max': 20}/missing_duration_share=1.0/largest_missing_duration_ms=20/largest_missing_duration_share=1.0/missing_duration_examples=src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
-    assert "activity=recorded_duration_count=1/missing_duration_count=2/total_duration_count=3/recorded_duration_ms=25/missing_duration_ms=95/missing_average_duration_ms=47.5/missing_median_duration_ms=47.5/missing_duration_range_ms=55/missing_duration_extremes_ms={'min': 20, 'max': 75}/missing_duration_share=0.7917/largest_missing_duration_ms=75/largest_missing_duration_share=0.7895/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0); src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
+    assert "command=recorded_duration_count=1/missing_duration_count=1/total_duration_count=2/recorded_duration_ms=25/missing_duration_ms=75/missing_average_duration_ms=75.0/missing_median_duration_ms=75/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 75, 'max': 75}/missing_duration_source_counts=explicit=1/missing_duration_share=0.75/largest_missing_duration_ms=75/largest_missing_duration_share=1.0/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0)" in text
+    assert "edit=recorded_duration_count=0/missing_duration_count=1/total_duration_count=1/recorded_duration_ms=0/missing_duration_ms=20/missing_average_duration_ms=20.0/missing_median_duration_ms=20/missing_duration_range_ms=0/missing_duration_extremes_ms={'min': 20, 'max': 20}/missing_duration_source_counts=explicit=1/missing_duration_share=1.0/largest_missing_duration_ms=20/largest_missing_duration_share=1.0/missing_duration_examples=src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
+    assert "activity=recorded_duration_count=1/missing_duration_count=2/total_duration_count=3/recorded_duration_ms=25/missing_duration_ms=95/missing_average_duration_ms=47.5/missing_median_duration_ms=47.5/missing_duration_range_ms=55/missing_duration_extremes_ms={'min': 20, 'max': 75}/missing_duration_source_counts=explicit=2/missing_duration_share=0.7917/largest_missing_duration_ms=75/largest_missing_duration_share=0.7895/missing_duration_examples=`python scripts/slow.py` (event=evt_cmd_unsummarized, status=succeeded, duration_ms=75, duration_source=explicit, exit_code=0); src/slow.py (event=evt_edit_unsummarized, status=succeeded, duration_ms=20, duration_source=explicit, kind=modify, net=1)" in text
     assert text.index("python scripts/slow.py") < text.index("evt_edit_unsummarized")
 
 
