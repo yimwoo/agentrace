@@ -462,6 +462,7 @@ def _format_report_summary_duration_impact(impact):
             f"missing_duration_count={row.get('summary_missing_duration_count', 0)}/"
             f"total_duration_count={row.get('summary_total_duration_count', 0)}/"
             f"recorded_duration_ms={row.get('summary_recorded_duration_ms', 0)}/"
+            f"recorded_duration_source_counts={_format_status_counts(row.get('summary_recorded_duration_source_counts'))}/"
             f"missing_duration_ms={row.get('summary_missing_duration_ms', 0)}/"
             f"missing_average_duration_ms={row.get('summary_missing_average_duration_ms', 0)}/"
             f"missing_median_duration_ms={row.get('summary_missing_median_duration_ms', 0)}/"

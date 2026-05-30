@@ -259,8 +259,9 @@ def _summary_missing_duration_example_rows(rows, limit=3):
 def _summary_duration_metrics(rows):
     """Return duration impact split by rows with and without summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    recorded_duration_rows = [row for row in normalized_rows if row.get("summary")]
     missing_duration_rows = [row for row in normalized_rows if not row.get("summary")]
-    recorded_duration_count = sum(1 for row in normalized_rows if row.get("summary"))
+    recorded_duration_count = len(recorded_duration_rows)
     missing_duration_count = len(missing_duration_rows)
     recorded_duration_ms = sum(
         _numeric_value(row.get("duration_ms"))
@@ -280,6 +281,7 @@ def _summary_duration_metrics(rows):
         "summary_missing_duration_count": missing_duration_count,
         "summary_total_duration_count": recorded_duration_count + missing_duration_count,
         "summary_recorded_duration_ms": recorded_duration_ms,
+        "summary_recorded_duration_source_counts": _duration_source_counts(recorded_duration_rows),
         "summary_missing_duration_ms": missing_duration_ms,
         "summary_missing_average_duration_ms": (
             0 if not missing_duration_count else round(missing_duration_ms / missing_duration_count, 2)
