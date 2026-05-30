@@ -1676,6 +1676,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-30T18:04:17Z"
+    },
+    "agent/context-packs/T-128-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-128-add-command-timing-and-edit-summaries-to-reports-20260530230336579275",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-30T23:03:36Z"
     }
   }
 }
