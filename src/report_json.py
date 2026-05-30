@@ -281,6 +281,12 @@ def _summary_duration_metrics(rows):
         "summary_missing_duration_count": missing_duration_count,
         "summary_total_duration_count": recorded_duration_count + missing_duration_count,
         "summary_recorded_duration_ms": recorded_duration_ms,
+        "summary_recorded_average_duration_ms": (
+            0 if not recorded_duration_count else round(recorded_duration_ms / recorded_duration_count, 2)
+        ),
+        "summary_recorded_median_duration_ms": _median_duration_ms(recorded_duration_rows),
+        "summary_recorded_duration_range_ms": _duration_range_ms(recorded_duration_rows),
+        "summary_recorded_duration_extremes_ms": _duration_extremes_ms(recorded_duration_rows),
         "summary_recorded_duration_source_counts": _duration_source_counts(recorded_duration_rows),
         "summary_missing_duration_ms": missing_duration_ms,
         "summary_missing_average_duration_ms": (

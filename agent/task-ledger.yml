@@ -1649,6 +1649,15 @@
         "status": "passed"
       },
       "updated_at": "2026-05-30T04:03:07Z"
+    },
+    "agent/context-packs/T-125-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-125-add-command-timing-and-edit-summaries-to-reports-20260530080058329651",
+      "reason": "Implemented recorded-duration spread metrics and ci_check passed",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-05-30T08:03:29Z"
     }
   }
 }
