@@ -240,6 +240,8 @@ def _summary_duration_example_row(row):
         example["started_at"] = row["started_at"]
     if row.get("ended_at"):
         example["ended_at"] = row["ended_at"]
+    if row.get("summary"):
+        example["summary"] = row["summary"]
     if row.get("artifacts"):
         example["artifacts"] = row["artifacts"]
     return example
@@ -251,6 +253,17 @@ def _summary_missing_duration_example_rows(rows, limit=3):
         (index, row)
         for index, row in enumerate(rows or [])
         if isinstance(row, dict) and not row.get("summary")
+    ]
+    candidates.sort(key=lambda item: (-_numeric_value(item[1].get("duration_ms")), item[0]))
+    return [_summary_duration_example_row(row) for _, row in candidates[:limit]]
+
+
+def _summary_recorded_duration_example_rows(rows, limit=3):
+    """Return the highest-duration rows that include human-readable summaries."""
+    candidates = [
+        (index, row)
+        for index, row in enumerate(rows or [])
+        if isinstance(row, dict) and row.get("summary")
     ]
     candidates.sort(key=lambda item: (-_numeric_value(item[1].get("duration_ms")), item[0]))
     return [_summary_duration_example_row(row) for _, row in candidates[:limit]]
@@ -274,6 +287,7 @@ def _summary_duration_metrics(rows):
         if not row.get("summary")
     )
     total_duration_ms = recorded_duration_ms + missing_duration_ms
+    recorded_examples = _summary_recorded_duration_example_rows(normalized_rows)
     missing_examples = _summary_missing_duration_example_rows(normalized_rows)
     largest_missing_duration_ms = missing_examples[0]["duration_ms"] if missing_examples else 0
     return {
@@ -288,6 +302,7 @@ def _summary_duration_metrics(rows):
         "summary_recorded_duration_range_ms": _duration_range_ms(recorded_duration_rows),
         "summary_recorded_duration_extremes_ms": _duration_extremes_ms(recorded_duration_rows),
         "summary_recorded_duration_source_counts": _duration_source_counts(recorded_duration_rows),
+        "summary_recorded_duration_examples": recorded_examples,
         "summary_missing_duration_ms": missing_duration_ms,
         "summary_missing_average_duration_ms": (
             0 if not missing_duration_count else round(missing_duration_ms / missing_duration_count, 2)

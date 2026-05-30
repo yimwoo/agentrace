@@ -399,6 +399,8 @@ def _format_summary_missing_examples(rows):
                 extras.append(f"net={row.get('net_line_delta', 0)}")
         details = [f"event={row.get('event') or 'summary'}", f"status={status}", f"duration_ms={duration}", f"duration_source={source}"]
         details.extend(extras)
+        if row.get("summary"):
+            details.append(f"summary={row['summary']}")
         artifact_details = _format_artifact_details(row)
         if artifact_details:
             details.append(artifact_details)
@@ -457,6 +459,7 @@ def _format_report_summary_duration_impact(impact):
     for label in ["command", "edit", "activity"]:
         row = impact.get(label) or {}
         examples = _format_report_summary_duration_examples(row.get("summary_missing_duration_examples"))
+        recorded_examples = _format_report_summary_duration_examples(row.get("summary_recorded_duration_examples"))
         parts.append(
             f"{label}=recorded_duration_count={row.get('summary_recorded_duration_count', 0)}/"
             f"missing_duration_count={row.get('summary_missing_duration_count', 0)}/"
@@ -467,6 +470,7 @@ def _format_report_summary_duration_impact(impact):
             f"recorded_duration_range_ms={row.get('summary_recorded_duration_range_ms', 0)}/"
             f"recorded_duration_extremes_ms={row.get('summary_recorded_duration_extremes_ms', {'min': 0, 'max': 0})}/"
             f"recorded_duration_source_counts={_format_status_counts(row.get('summary_recorded_duration_source_counts'))}/"
+            f"recorded_duration_examples={recorded_examples}/"
             f"missing_duration_ms={row.get('summary_missing_duration_ms', 0)}/"
             f"missing_average_duration_ms={row.get('summary_missing_average_duration_ms', 0)}/"
             f"missing_median_duration_ms={row.get('summary_missing_median_duration_ms', 0)}/"
