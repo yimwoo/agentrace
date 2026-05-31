@@ -491,6 +491,7 @@ def _format_report_summary_duration_impact(impact):
             f"missing_duration_share={row.get('summary_missing_duration_share', 0)}/"
             f"largest_missing_duration_ms={row.get('summary_largest_missing_duration_ms', 0)}/"
             f"largest_missing_duration_share={row.get('summary_largest_missing_duration_share', 0)}/"
+            f"largest_missing_total_duration_share={row.get('summary_largest_missing_total_duration_share', 0)}/"
             f"missing_duration_examples={examples}"
         )
     return "; ".join(parts)
