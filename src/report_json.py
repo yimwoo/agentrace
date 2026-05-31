@@ -296,6 +296,7 @@ def _summary_duration_metrics(rows):
         "summary_recorded_duration_count": recorded_duration_count,
         "summary_missing_duration_count": missing_duration_count,
         "summary_total_duration_count": recorded_duration_count + missing_duration_count,
+        "summary_total_duration_ms": total_duration_ms,
         "summary_recorded_duration_ms": recorded_duration_ms,
         "summary_recorded_duration_share": 0 if not total_duration_ms else round(recorded_duration_ms / total_duration_ms, 4),
         "summary_recorded_average_duration_ms": (
