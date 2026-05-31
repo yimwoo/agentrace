@@ -276,6 +276,7 @@ def _summary_duration_metrics(rows):
     missing_duration_rows = [row for row in normalized_rows if not row.get("summary")]
     recorded_duration_count = len(recorded_duration_rows)
     missing_duration_count = len(missing_duration_rows)
+    total_duration_count = recorded_duration_count + missing_duration_count
     recorded_duration_ms = sum(
         _numeric_value(row.get("duration_ms"))
         for row in normalized_rows
@@ -295,7 +296,9 @@ def _summary_duration_metrics(rows):
     return {
         "summary_recorded_duration_count": recorded_duration_count,
         "summary_missing_duration_count": missing_duration_count,
-        "summary_total_duration_count": recorded_duration_count + missing_duration_count,
+        "summary_total_duration_count": total_duration_count,
+        "summary_recorded_count_share": 0 if not total_duration_count else round(recorded_duration_count / total_duration_count, 4),
+        "summary_missing_count_share": 0 if not total_duration_count else round(missing_duration_count / total_duration_count, 4),
         "summary_total_duration_ms": total_duration_ms,
         "summary_recorded_duration_ms": recorded_duration_ms,
         "summary_recorded_duration_share": 0 if not total_duration_ms else round(recorded_duration_ms / total_duration_ms, 4),
