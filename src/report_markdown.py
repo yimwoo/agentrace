@@ -490,6 +490,8 @@ def _format_report_summary_duration_impact(impact):
             f"missing_duration_source_share={_format_status_counts(row.get('summary_missing_duration_source_share'))}/"
             f"missing_duration_share={row.get('summary_missing_duration_share', 0)}/"
             f"missing_recorded_duration_delta_ms={row.get('summary_missing_recorded_duration_delta_ms', 0)}/"
+            f"missing_recorded_duration_delta_share={row.get('summary_missing_recorded_duration_delta_share', 0)}/"
+            f"missing_recorded_excess_duration_ms={row.get('summary_missing_recorded_excess_duration_ms', 0)}/"
             f"missing_exceeds_recorded_duration={row.get('summary_missing_exceeds_recorded_duration', False)}/"
             f"largest_missing_duration_ms={row.get('summary_largest_missing_duration_ms', 0)}/"
             f"largest_missing_duration_share={row.get('summary_largest_missing_duration_share', 0)}/"
