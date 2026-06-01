@@ -320,6 +320,17 @@ def _summary_duration_metrics(rows):
         summary_missing_duration_attention = "medium"
     else:
         summary_missing_duration_attention = "low"
+    largest_missing_duration_share = (
+        0 if not missing_duration_ms else round(largest_missing_duration_ms / missing_duration_ms, 4)
+    )
+    if not missing_duration_ms:
+        summary_missing_duration_concentration = "none"
+    elif largest_missing_duration_share >= 0.75:
+        summary_missing_duration_concentration = "single_row"
+    elif largest_missing_duration_share >= 0.5:
+        summary_missing_duration_concentration = "clustered"
+    else:
+        summary_missing_duration_concentration = "distributed"
     return {
         "summary_recorded_duration_count": recorded_duration_count,
         "summary_missing_duration_count": missing_duration_count,
@@ -360,8 +371,9 @@ def _summary_duration_metrics(rows):
         "summary_duration_balance": summary_duration_balance,
         "summary_missing_duration_attention": summary_missing_duration_attention,
         "summary_missing_exceeds_recorded_duration": missing_duration_ms > recorded_duration_ms,
+        "summary_missing_duration_concentration": summary_missing_duration_concentration,
         "summary_largest_missing_duration_ms": largest_missing_duration_ms,
-        "summary_largest_missing_duration_share": 0 if not missing_duration_ms else round(largest_missing_duration_ms / missing_duration_ms, 4),
+        "summary_largest_missing_duration_share": largest_missing_duration_share,
         "summary_largest_missing_total_duration_share": 0 if not total_duration_ms else round(largest_missing_duration_ms / total_duration_ms, 4),
         "summary_missing_duration_examples": missing_examples,
     }
