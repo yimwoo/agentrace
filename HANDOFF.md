@@ -1,4 +1,17 @@
 ## Latest status
+`agentrace` report summary-duration-impact rows now include a missing-duration attention label. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_duration_attention` (`none`, `low`, `medium`, or `high`), and Markdown renders `missing_duration_attention` beside `duration_balance` so reviewers can triage sparse-summary duration risk without comparing raw recorded and missing duration totals.
+
+## What was done
+- created AgentSpec task `T-137` for a report summary-duration-impact attention-label follow-up slice
+- added JSON missing-duration attention labels for command, edit, and combined activity duration-impact metrics
+- rendered the new attention label in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new attention field
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
+- `bash scripts/ci_check.sh` — 43 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` report summary-duration-impact rows now label the summarized-vs-unsummarized duration balance. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_duration_balance` (`missing_dominates`, `recorded_dominates`, `balanced`, or `none`), and Markdown renders `duration_balance` beside the existing missing-vs-recorded ratio/excess fields so reviewers can classify sparse-summary duration risk without interpreting raw deltas.
 
 ## What was done
@@ -11,64 +24,3 @@
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 36 passed, 1 warning
 - `bash scripts/ci_check.sh` — 43 passed, 1 warning; wrote `examples/trace-example.json`
-
-## Older status
-`agentrace` report summary-duration-impact rows now include a missing-to-recorded duration ratio for command, edit, and combined activity buckets. The top-level JSON `report_summary_duration_impact` buckets include `summary_missing_recorded_duration_ratio`, and Markdown renders `missing_recorded_duration_ratio` next to the existing missing-minus-recorded delta/share/excess fields so reviewers can size unexplained-duration cost against explained summarized work.
-
-## What was done
-- created AgentSpec task `T-135` for a report summary-duration-impact ratio follow-up slice
-- added JSON missing-to-recorded duration ratio fields for command, edit, and combined activity duration-impact metrics
-- rendered the new ratio field in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new ratio field
-
-## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
-
-## Older status
-`agentrace` report summary-duration-impact rows now quantify missing-summary duration deltas as both a share and a positive excess amount. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_recorded_duration_delta_share` and `summary_missing_recorded_excess_duration_ms`, and Markdown renders matching `missing_recorded_duration_delta_share` / `missing_recorded_excess_duration_ms` fields beside the existing missing-vs-recorded comparison so reviewers can size unexplained-duration overage against the full bucket duration.
-
-## What was done
-- created AgentSpec task `T-134` for a report summary-duration-impact delta-share/excess follow-up slice
-- added JSON missing-minus-recorded duration share and positive excess duration fields for command, edit, and combined activity duration-impact metrics
-- rendered the new comparison fields in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new comparison fields
-
-## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 36 passed, 1 warning
-
-## Older status
-`agentrace` report summary-duration-impact rows now compare unexplained duration directly against explained duration. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_recorded_duration_delta_ms` and `summary_missing_exceeds_recorded_duration`, and Markdown renders matching `missing_recorded_duration_delta_ms` / `missing_exceeds_recorded_duration` fields so reviewers can immediately spot buckets where unsummarized command/edit time outweighs summarized work.
-
-## What was done
-- created AgentSpec task `T-133` for a report summary-duration-impact missing-vs-recorded comparison slice
-- added JSON missing-minus-recorded duration delta and missing-exceeds-recorded boolean fields for command, edit, and combined activity duration-impact metrics
-- rendered the new comparison fields in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new comparison fields
-
-## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
-
-## Older status
-`agentrace` report summary-duration-impact rows now expose the largest missing-summary row's total-duration share. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_largest_missing_total_duration_share`, and Markdown renders `largest_missing_total_duration_share` beside the missing-bucket share so reviewers can see whether one unexplained row dominates the whole command/edit activity duration, not just the missing-summary bucket.
-
-## What was done
-- created AgentSpec task `T-132` for a report summary-duration-impact missing-total-share follow-up slice
-- added JSON largest-missing total-duration share fields for command, edit, and combined activity duration-impact metrics
-- rendered largest-missing total-duration share fields in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new largest-missing total-share field
-
-## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
-
-## Older status
-`agentrace` report summary-duration-impact rows now expose the largest summarized-row duration and its concentration shares. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_largest_recorded_duration_ms`, `summary_largest_recorded_duration_share`, and `summary_largest_recorded_total_duration_share`, and Markdown renders matching `largest_recorded_*` fields beside summarized duration-source shares so reviewers can see whether summarized coverage is dominated by one expensive explained row.
-
-## What was done
-- created AgentSpec task `T-131` for a report summary-duration-impact largest-recorded follow-up slice
-- added JSON largest-recorded duration/share fields for command, edit, and combined activity duration-impact metrics
-- rendered largest-recorded duration/share fields in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new largest-recorded fields
-
-## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
