@@ -1,14 +1,14 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-01T08:03:55Z",
+  "updated_at": "2026-06-01T13:04:01Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-135",
-    "context_pack": "agent/context-packs/T-135-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-135: Add command timing and edit summaries to reports",
-    "run_id": "t-135-add-command-timing-and-edit-summaries-to-reports-20260601080027249362",
-    "reason": "Implemented missing-to-recorded duration ratio for report summary duration impact; bash scripts/ci_check.sh passed.",
-    "updated_at": "2026-06-01T08:03:55Z",
+    "id": "T-136",
+    "context_pack": "agent/context-packs/T-136-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-136: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-136-add-command-timing-and-edit-summaries-to-reports-20260601130401728659",
+    "reason": "Marked complete by user.",
+    "updated_at": "2026-06-01T13:04:01Z",
     "verification": {
       "status": "passed"
     }
@@ -34,14 +34,14 @@
       }
     },
     "tasks": {
-      "total": 135,
+      "total": 136,
       "by_status": {
-        "complete": 131,
+        "complete": 132,
         "halted": 3,
         "started": 1
       },
       "by_type": {
-        "implementation": 132,
+        "implementation": 133,
         "scaffold": 3
       }
     }
