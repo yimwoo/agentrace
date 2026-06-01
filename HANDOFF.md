@@ -1,4 +1,16 @@
 ## Latest status
+`agentrace` report summary-duration-impact rows now include a missing-to-recorded duration ratio for command, edit, and combined activity buckets. The top-level JSON `report_summary_duration_impact` buckets include `summary_missing_recorded_duration_ratio`, and Markdown renders `missing_recorded_duration_ratio` next to the existing missing-minus-recorded delta/share/excess fields so reviewers can size unexplained-duration cost against explained summarized work.
+
+## What was done
+- created AgentSpec task `T-135` for a report summary-duration-impact ratio follow-up slice
+- added JSON missing-to-recorded duration ratio fields for command, edit, and combined activity duration-impact metrics
+- rendered the new ratio field in the Markdown `report_summary_duration_impact` line
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new ratio field
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact -q` — 2 passed
+
+## Older status
 `agentrace` report summary-duration-impact rows now quantify missing-summary duration deltas as both a share and a positive excess amount. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_recorded_duration_delta_share` and `summary_missing_recorded_excess_duration_ms`, and Markdown renders matching `missing_recorded_duration_delta_share` / `missing_recorded_excess_duration_ms` fields beside the existing missing-vs-recorded comparison so reviewers can size unexplained-duration overage against the full bucket duration.
 
 ## What was done

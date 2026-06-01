@@ -298,6 +298,11 @@ def _summary_duration_metrics(rows):
     missing_recorded_duration_delta_share = (
         0 if not total_duration_ms else round(missing_recorded_duration_delta_ms / total_duration_ms, 4)
     )
+    missing_recorded_duration_ratio = (
+        None if not recorded_duration_ms and missing_duration_ms else (
+            0 if not recorded_duration_ms else round(missing_duration_ms / recorded_duration_ms, 4)
+        )
+    )
     missing_recorded_excess_duration_ms = max(missing_recorded_duration_delta_ms, 0)
     return {
         "summary_recorded_duration_count": recorded_duration_count,
@@ -334,6 +339,7 @@ def _summary_duration_metrics(rows):
         "summary_missing_duration_share": 0 if not total_duration_ms else round(missing_duration_ms / total_duration_ms, 4),
         "summary_missing_recorded_duration_delta_ms": missing_recorded_duration_delta_ms,
         "summary_missing_recorded_duration_delta_share": missing_recorded_duration_delta_share,
+        "summary_missing_recorded_duration_ratio": missing_recorded_duration_ratio,
         "summary_missing_recorded_excess_duration_ms": missing_recorded_excess_duration_ms,
         "summary_missing_exceeds_recorded_duration": missing_duration_ms > recorded_duration_ms,
         "summary_largest_missing_duration_ms": largest_missing_duration_ms,

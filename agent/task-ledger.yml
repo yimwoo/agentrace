@@ -1739,6 +1739,15 @@
         "status": "passed"
       },
       "updated_at": "2026-06-01T04:04:06Z"
+    },
+    "agent/context-packs/T-135-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-135-add-command-timing-and-edit-summaries-to-reports-20260601080027249362",
+      "reason": "Implemented missing-to-recorded duration ratio for report summary duration impact; bash scripts/ci_check.sh passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-01T08:03:55Z"
     }
   }
 }

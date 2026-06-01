@@ -1823,5 +1823,19 @@
     "preserve": "autonomous-finding",
     "context_pack": "agent/context-packs/T-134-add-command-timing-and-edit-summaries-to-reports.md",
     "iteration": 1
+  },
+  {
+    "id": "Q-1029",
+    "question": "Blocked finding from autonomous run t-135-add-command-timing-and-edit-summaries-to-reports-20260601080027249362: No deterministic auto-continue rule matched the executor output.",
+    "status": "open",
+    "impact": [
+      "autonomous-mode",
+      "blocked-finding"
+    ],
+    "source_sections": [],
+    "raised_by": "t-135-add-command-timing-and-edit-summaries-to-reports-20260601080027249362",
+    "preserve": "autonomous-finding",
+    "context_pack": "agent/context-packs/T-135-add-command-timing-and-edit-summaries-to-reports.md",
+    "iteration": 1
   }
 ]
