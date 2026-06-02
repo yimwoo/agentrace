@@ -1,4 +1,17 @@
 ## Latest status
+`agentrace` activity timeline rows now preserve `summary_source=event.summary` for command/edit summaries recovered from top-level canonical event summaries. The marker carries through combined timeline rows and timeline highlight rows so JSON and Markdown activity views explain where fallback summaries came from, matching the command timing and edit summary tables.
+
+## What was done
+- created AgentSpec task `T-142` for activity timeline summary-source propagation
+- carried `summary_source` from command/edit rows into combined activity timeline rows
+- preserved `summary_source` in activity identity/highlight rows such as first/last/slowest activity
+- refreshed regression coverage and `TRACE_SCHEMA.md` wording for timeline-level summary-source markers
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` report rows now mark summaries that were recovered from top-level canonical event summaries. Command timing, file-edit summaries, run-summary rows, compact JSON examples, and Markdown detail/highlight rows preserve `summary_source=event.summary` when the human-readable explanation came from the top-level event fallback rather than nested command/change/details fields.
 
 ## What was done

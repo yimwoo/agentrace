@@ -753,6 +753,9 @@ def test_report_includes_command_timing_and_edit_summary():
     }
     assert payload["run_summary"]["command_durations_ms"][1]["summary_source"] == "event.summary"
     assert payload["run_summary"]["edit_summaries"][1]["summary_source"] == "event.summary"
+    assert payload["activity_timeline"][2]["summary_source"] == "event.summary"
+    assert payload["activity_timeline"][3]["summary_source"] == "event.summary"
+    assert payload["activity_timeline_summary"]["last_activity"]["summary_source"] == "event.summary"
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():

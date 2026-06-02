@@ -332,7 +332,9 @@ A compact run-level summary for quick inspection.
 
 Report builders should surface command timing, command summaries, edit summaries, and a combined
 command/edit activity timeline in both JSON and Markdown so a developer can quickly identify slow or failed commands and
-understand the file-level impact and human-readable summary of edits without opening raw events first. Failed
+understand the file-level impact and human-readable summary of edits without opening raw events first. When a command
+or edit summary is recovered from a top-level event `summary`, the `summary_source=event.summary` marker should be
+preserved into combined activity timeline rows and timeline highlight rows, not only the original command/edit tables. Failed
 command rows may also carry stdout/stderr previews so report-level failure lists
 can point directly at the actionable command output.
 Command timing rows should carry and Markdown reports should render duration, duration source (`explicit`, `derived`, or

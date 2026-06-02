@@ -965,6 +965,8 @@ def build_activity_timeline(command_rows, edit_rows):
         }
         if row.get("summary"):
             item["summary"] = row["summary"]
+            if row.get("summary_source"):
+                item["summary_source"] = row["summary_source"]
         if row.get("stdout_preview"):
             item["stdout_preview"] = row["stdout_preview"]
         if row.get("stderr_preview"):
@@ -993,6 +995,8 @@ def build_activity_timeline(command_rows, edit_rows):
             "summary": row.get("summary"),
             "_source_order": source_order,
         }
+        if row.get("summary_source"):
+            item["summary_source"] = row["summary_source"]
         if row.get("error_message"):
             item["error_message"] = row["error_message"]
         if row.get("artifacts"):
@@ -1034,6 +1038,8 @@ def _activity_identity_row(row):
             activity_row["stderr_preview"] = row["stderr_preview"]
         if row.get("summary"):
             activity_row["summary"] = row["summary"]
+            if row.get("summary_source"):
+                activity_row["summary_source"] = row["summary_source"]
     elif row.get("type") == "file_edit":
         activity_row.update({
             "path": row.get("path"),
@@ -1044,6 +1050,8 @@ def _activity_identity_row(row):
         })
         if row.get("summary"):
             activity_row["summary"] = row["summary"]
+            if row.get("summary_source"):
+                activity_row["summary_source"] = row["summary_source"]
         if row.get("error_message"):
             activity_row["error_message"] = row["error_message"]
     if row.get("artifacts"):
