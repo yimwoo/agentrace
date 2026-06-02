@@ -1,17 +1,18 @@
 ## Latest status
-`agentrace` report rows now preserve human-readable command/edit summaries when producers attach them directly to canonical events. Command timing extracts `event.summary` after `command.summary`/`details.summary`, file-edit summaries extract `event.summary` after `change.summary`/`details.summary`, and run-summary fallbacks use the same precedence so JSON and Markdown reports do not classify top-level event summaries as missing.
+`agentrace` report rows now mark summaries that were recovered from top-level canonical event summaries. Command timing, file-edit summaries, run-summary rows, compact JSON examples, and Markdown detail/highlight rows preserve `summary_source=event.summary` when the human-readable explanation came from the top-level event fallback rather than nested command/change/details fields.
 
 ## What was done
-- created AgentSpec task `T-140` for top-level command/edit event-summary preservation
-- taught command timing and run-summary command rows to read top-level event summaries as a fallback
-- taught file-edit summary and run-summary edit rows to read top-level event summaries as a fallback
-- refreshed regression coverage and `TRACE_SCHEMA.md` wording for summary-source precedence
+- created AgentSpec task `T-141` for top-level summary source visibility
+- added `summary_source` to command timing and file-edit report rows when summaries come from `event.summary`
+- carried the source marker into run-summary rows, compact JSON summary examples, and Markdown command/edit/activity report rendering
+- refreshed regression coverage and `TRACE_SCHEMA.md` wording for top-level event-summary source markers
 
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
 - `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
 
 ## Older status
+`agentrace` report rows now preserve human-readable command/edit summaries when producers attach them directly to canonical events. Command timing extracts `event.summary` after `command.summary`/`details.summary`, file-edit summaries extract `event.summary` after `change.summary`/`details.summary`, and run-summary fallbacks use the same precedence so JSON and Markdown reports do not classify top-level event summaries as missing.
 `agentrace` report summary-duration-impact rows now include a missing-duration concentration label. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_duration_concentration` (`none`, `single_row`, `clustered`, or `distributed`), and Markdown renders `missing_duration_concentration` beside the existing missing-duration attention fields so reviewers can see whether sparse summaries are dominated by one expensive row or spread across multiple rows.
 
 ## What was done

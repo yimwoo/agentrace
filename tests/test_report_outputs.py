@@ -681,6 +681,7 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_source": "explicit",
             "exit_code": 0,
             "summary": "Run focused auth tests",
+            "summary_source": "event.summary",
         },
     ]
     assert payload["edit_summary"] == [
@@ -707,6 +708,7 @@ def test_report_includes_command_timing_and_edit_summary():
             "added_lines": 3,
             "removed_lines": 0,
             "summary": "Document auth error handling behavior",
+            "summary_source": "event.summary",
             "net_line_delta": 3,
         },
     ]
@@ -725,9 +727,32 @@ def test_report_includes_command_timing_and_edit_summary():
         "stderr_preview": "AssertionError: expected 401 but got 500",
         "cwd": "/workspace/app",
     }]
-    assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
-    assert payload["run_summary"]["edit_summaries"][0]["net_line_delta"] == 3
-    assert payload["run_summary"]["edit_summaries"][1]["summary"] == "Document auth error handling behavior"
+    assert payload["command_timing"][1] == {
+        "event": "evt_cmd_top_level_summary",
+        "command": "pytest tests/test_auth.py -q",
+        "cwd": "/workspace/app",
+        "status": "succeeded",
+        "duration_ms": 25,
+        "duration_source": "explicit",
+        "exit_code": 0,
+        "summary": "Run focused auth tests",
+        "summary_source": "event.summary",
+    }
+    assert payload["edit_summary"][1] == {
+        "event": "evt_edit_top_level_summary",
+        "path": "docs/auth.md",
+        "kind": "modify",
+        "status": "succeeded",
+        "duration_ms": 100,
+        "duration_source": "explicit",
+        "added_lines": 3,
+        "removed_lines": 0,
+        "summary": "Document auth error handling behavior",
+        "summary_source": "event.summary",
+        "net_line_delta": 3,
+    }
+    assert payload["run_summary"]["command_durations_ms"][1]["summary_source"] == "event.summary"
+    assert payload["run_summary"]["edit_summaries"][1]["summary_source"] == "event.summary"
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():

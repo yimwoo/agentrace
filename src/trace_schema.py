@@ -168,6 +168,8 @@ def build_run_summary(trace):
             command_summary = command.get("summary") or details.get("summary") or event.get("summary")
             if command_summary:
                 row["summary"] = command_summary
+                if event.get("summary") and not command.get("summary") and not details.get("summary"):
+                    row["summary_source"] = "event.summary"
             _copy_present(row, event, ["started_at", "ended_at"])
             if event.get("stdout_preview") or details.get("stdout_preview"):
                 row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")
@@ -192,6 +194,8 @@ def build_run_summary(trace):
                 "removed_lines": change.get("removed_lines", details.get("removed_lines")),
                 "summary": change.get("summary") or details.get("summary") or event.get("summary"),
             }
+            if row.get("summary") and event.get("summary") and not change.get("summary") and not details.get("summary"):
+                row["summary_source"] = "event.summary"
             row["net_line_delta"] = _net_line_delta(row)
             _copy_present(row, event, ["started_at", "ended_at"])
             error = event.get("error") if isinstance(event.get("error"), dict) else {}

@@ -96,6 +96,8 @@ def build_command_timing(events, artifacts=None):
         command_summary = command.get("summary") or details.get("summary") or event.get("summary")
         if command_summary:
             row["summary"] = command_summary
+            if event.get("summary") and not command.get("summary") and not details.get("summary"):
+                row["summary_source"] = "event.summary"
         if event.get("started_at"):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
@@ -133,6 +135,8 @@ def build_edit_summary(events, artifacts=None):
             "removed_lines": change.get("removed_lines", details.get("removed_lines")),
             "summary": change.get("summary") or details.get("summary") or event.get("summary"),
         }
+        if row.get("summary") and event.get("summary") and not change.get("summary") and not details.get("summary"):
+            row["summary_source"] = "event.summary"
         row["net_line_delta"] = _net_line_delta(row)
         if event.get("started_at"):
             row["started_at"] = event["started_at"]
@@ -243,6 +247,8 @@ def _summary_duration_example_row(row):
         example["ended_at"] = row["ended_at"]
     if row.get("summary"):
         example["summary"] = row["summary"]
+        if row.get("summary_source"):
+            example["summary_source"] = row["summary_source"]
     if row.get("artifacts"):
         example["artifacts"] = row["artifacts"]
     return example
@@ -399,6 +405,8 @@ def _summary_example_rows(rows, row_type, limit=3):
             "duration_source": row.get("duration_source"),
             "summary": row.get("summary"),
         }
+        if row.get("summary_source"):
+            example["summary_source"] = row["summary_source"]
         if row_type == "command":
             example["command"] = row.get("command")
             if row.get("cwd"):
@@ -470,6 +478,8 @@ def _activity_summary_example_rows(rows, limit=3):
             "duration_source": row.get("duration_source"),
             "summary": row.get("summary"),
         }
+        if row.get("summary_source"):
+            example["summary_source"] = row["summary_source"]
         if row_type == "command":
             example["command"] = row.get("command")
             if row.get("cwd"):

@@ -54,6 +54,8 @@ def _format_command_highlight(row):
         details.append(f"cwd={row['cwd']}")
     if row.get("summary"):
         details.append(f"summary={row['summary']}")
+        if row.get("summary_source"):
+            details.append(f"summary_source={row['summary_source']}")
     artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
@@ -256,6 +258,8 @@ def _format_failed_commands(failed_commands):
             details.append(f"stderr_preview={row['stderr_preview']}")
         if row.get("summary"):
             details.append(f"summary={row['summary']}")
+            if row.get("summary_source"):
+                details.append(f"summary_source={row['summary_source']}")
         artifact_details = _format_artifact_details(row)
         if artifact_details:
             details.append(artifact_details)
@@ -285,6 +289,8 @@ def _format_failed_edits(failed_edits):
             details.append(timing)
         if row.get("summary"):
             details.append(f"summary={row['summary']}")
+            if row.get("summary_source"):
+                details.append(f"summary_source={row['summary_source']}")
         if row.get("error_message"):
             details.append(f"error_message={row['error_message']}")
         artifact_details = _format_artifact_details(row)
@@ -401,6 +407,8 @@ def _format_summary_missing_examples(rows):
         details.extend(extras)
         if row.get("summary"):
             details.append(f"summary={row['summary']}")
+            if row.get("summary_source"):
+                details.append(f"summary_source={row['summary_source']}")
         artifact_details = _format_artifact_details(row)
         if artifact_details:
             details.append(artifact_details)
@@ -562,6 +570,8 @@ def _format_edit_highlight(row):
         details.append(timing)
     if row.get("summary"):
         details.append(f"summary={row['summary']}")
+        if row.get("summary_source"):
+            details.append(f"summary_source={row['summary_source']}")
     artifact_details = _format_artifact_details(row)
     if artifact_details:
         details.append(artifact_details)
@@ -598,7 +608,11 @@ def _format_command_timing(rows):
         if row.get("stderr_preview"):
             output_context += f", stderr_preview={row['stderr_preview']}"
         event = row.get("event", "summary")
-        command_summary = f", summary={row['summary']}" if row.get("summary") else ""
+        command_summary = ""
+        if row.get("summary"):
+            command_summary = f", summary={row['summary']}"
+            if row.get("summary_source"):
+                command_summary += f", summary_source={row['summary_source']}"
         lines.append(f"- {event}: `{command}` — {duration}ms, status={row.get('status')}, exit_code={exit_code}{duration_source}{cwd}{time_window}{command_summary}{output_context}{artifacts}")
     return lines
 
@@ -620,7 +634,8 @@ def _format_edit_summary(rows):
         artifacts = _format_artifacts(row)
         path = row.get("path") or "<unknown file>"
         kind = row.get("kind") or "unknown"
-        lines.append(f"- {path}: {kind} (+{added}/-{removed}{net_delta}) — {summary}{status}{duration}{duration_source}{time_window}{error_context}{artifacts}")
+        summary_source = f", summary_source={row['summary_source']}" if row.get("summary_source") else ""
+        lines.append(f"- {path}: {kind} (+{added}/-{removed}{net_delta}) — {summary}{summary_source}{status}{duration}{duration_source}{time_window}{error_context}{artifacts}")
     return lines
 
 
@@ -649,6 +664,8 @@ def _format_failed_activity(failed_activity):
                 details.append(f"cwd={row['cwd']}")
             if row.get("summary"):
                 details.append(f"summary={row['summary']}")
+                if row.get("summary_source"):
+                    details.append(f"summary_source={row['summary_source']}")
             if row.get("stdout_preview"):
                 details.append(f"stdout_preview={row['stdout_preview']}")
             if row.get("stderr_preview"):
@@ -662,6 +679,8 @@ def _format_failed_activity(failed_activity):
             details.extend([f"kind={kind}", f"+{added}/-{removed}", f"net={net}"])
             if row.get("summary"):
                 details.append(f"summary={row['summary']}")
+                if row.get("summary_source"):
+                    details.append(f"summary_source={row['summary_source']}")
             if row.get("error_message"):
                 details.append(f"error_message={row['error_message']}")
         artifact_details = _format_artifact_details(row)
@@ -949,7 +968,11 @@ def _format_activity_timeline(rows):
                 output_context += f", stdout_preview={row['stdout_preview']}"
             if row.get("stderr_preview"):
                 output_context += f", stderr_preview={row['stderr_preview']}"
-            command_summary = f", summary={row['summary']}" if row.get("summary") else ""
+            command_summary = ""
+            if row.get("summary"):
+                command_summary = f", summary={row['summary']}"
+                if row.get("summary_source"):
+                    command_summary += f", summary_source={row['summary_source']}"
             lines.append(f"- {event}: command `{command}` — {duration}ms, status={status}, exit_code={exit_code}{duration_source}{cwd}{time_window}{command_summary}{output_context}{artifacts}")
             continue
 
@@ -959,8 +982,9 @@ def _format_activity_timeline(rows):
         removed = row.get("removed_lines", 0)
         net = row.get("net_line_delta", added - removed)
         summary = row.get("summary") or "No edit summary recorded."
+        summary_source = f", summary_source={row['summary_source']}" if row.get("summary_source") else ""
         error_context = f", error_message={row['error_message']}" if row.get("error_message") else ""
-        lines.append(f"- {event}: edit {path} ({kind}, +{added}/-{removed}, net={net}) — {summary}, status={status}, duration_ms={duration}{duration_source}{time_window}{error_context}{artifacts}")
+        lines.append(f"- {event}: edit {path} ({kind}, +{added}/-{removed}, net={net}) — {summary}{summary_source}, status={status}, duration_ms={duration}{duration_source}{time_window}{error_context}{artifacts}")
     return lines
 
 
