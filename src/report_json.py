@@ -217,6 +217,17 @@ def _summary_coverage(rows):
     }
 
 
+def _summary_source_counts(rows):
+    """Count where human-readable report summaries came from."""
+    counts = {}
+    for row in rows or []:
+        if not isinstance(row, dict) or not row.get("summary"):
+            continue
+        source = row.get("summary_source") or "nested_or_inline"
+        counts[source] = counts.get(source, 0) + 1
+    return counts
+
+
 def _summary_duration_example_row(row):
     """Return compact context for an unsummarized row contributing duration."""
     example = {
@@ -2113,6 +2124,11 @@ def build_json_summary(trace):
         "edit": _summary_duration_metrics(edit_summary),
         "activity": _summary_duration_metrics(activity_timeline),
     }
+    report_summary_source_counts = {
+        "command": _summary_source_counts(command_timing),
+        "edit": _summary_source_counts(edit_summary),
+        "activity": _summary_source_counts(activity_timeline),
+    }
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
@@ -2124,6 +2140,7 @@ def build_json_summary(trace):
         "report_inspection_targets": build_report_inspection_targets(command_timing, edit_summary, activity_timeline),
         "report_summary_coverage": report_summary_coverage,
         "report_summary_duration_impact": report_summary_duration_impact,
+        "report_summary_source_counts": report_summary_source_counts,
         "command_timing_summary": build_command_timing_summary(command_timing),
         "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
         "activity_timeline": activity_timeline,

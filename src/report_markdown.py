@@ -306,6 +306,15 @@ def _format_status_counts(status_counts):
     return ", ".join(f"{status}={count}" for status, count in sorted(status_counts.items()))
 
 
+def _format_report_summary_source_counts(source_counts):
+    if not source_counts:
+        return "none"
+    parts = []
+    for label in ["command", "edit", "activity"]:
+        parts.append(f"{label}={_format_status_counts(source_counts.get(label))}")
+    return "; ".join(parts)
+
+
 def _format_duration_extremes(extremes):
     if not extremes:
         return "none"
@@ -1003,6 +1012,7 @@ def build_markdown_summary(trace):
         f"- report_inspection_targets: {_format_report_inspection_targets(payload['report_inspection_targets'])}",
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- report_summary_duration_impact: {_format_report_summary_duration_impact(payload['report_summary_duration_impact'])}",
+        f"- report_summary_source_counts: {_format_report_summary_source_counts(payload['report_summary_source_counts'])}",
         f"- command_count: {command_totals['count']}",
         f"- unique_command_count: {command_totals['unique_command_count']}",
         f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",

@@ -1,4 +1,17 @@
 ## Latest status
+`agentrace` JSON and Markdown reports now include `report_summary_source_counts` for command, edit, and combined activity rows. The new aggregate counts summarized rows by provenance, using `event.summary` for top-level canonical event fallback summaries and `nested_or_inline` for command/change/details or precomputed summary rows, so reviewers can quantify fallback summary usage without scanning every detail row.
+
+## What was done
+- created AgentSpec task `T-143` for report summary provenance counts
+- added JSON `report_summary_source_counts` for command/edit/activity report rows
+- rendered the new source-count line in Markdown reports near summary coverage and duration impact
+- refreshed regression coverage plus `TRACE_SCHEMA.md` and `PROJECT_STATE.md` wording
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` activity timeline rows now preserve `summary_source=event.summary` for command/edit summaries recovered from top-level canonical event summaries. The marker carries through combined timeline rows and timeline highlight rows so JSON and Markdown activity views explain where fallback summaries came from, matching the command timing and edit summary tables.
 
 ## What was done

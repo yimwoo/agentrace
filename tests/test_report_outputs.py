@@ -756,6 +756,14 @@ def test_report_includes_command_timing_and_edit_summary():
     assert payload["activity_timeline"][2]["summary_source"] == "event.summary"
     assert payload["activity_timeline"][3]["summary_source"] == "event.summary"
     assert payload["activity_timeline_summary"]["last_activity"]["summary_source"] == "event.summary"
+    assert payload["report_summary_source_counts"] == {
+        "command": {"event.summary": 1},
+        "edit": {"nested_or_inline": 1, "event.summary": 1},
+        "activity": {"nested_or_inline": 1, "event.summary": 2},
+    }
+
+    text = build_markdown_summary(trace)
+    assert "report_summary_source_counts: command=event.summary=1; edit=event.summary=1, nested_or_inline=1; activity=event.summary=2, nested_or_inline=1" in text
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():
