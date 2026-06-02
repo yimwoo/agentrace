@@ -165,8 +165,9 @@ def build_run_summary(trace):
             }
             if command.get("cwd") or details.get("cwd"):
                 row["cwd"] = command.get("cwd") or details.get("cwd")
-            if command.get("summary") or details.get("summary"):
-                row["summary"] = command.get("summary") or details.get("summary")
+            command_summary = command.get("summary") or details.get("summary") or event.get("summary")
+            if command_summary:
+                row["summary"] = command_summary
             _copy_present(row, event, ["started_at", "ended_at"])
             if event.get("stdout_preview") or details.get("stdout_preview"):
                 row["stdout_preview"] = event.get("stdout_preview") or details.get("stdout_preview")
@@ -189,7 +190,7 @@ def build_run_summary(trace):
                 "duration_source": event_duration_source(event),
                 "added_lines": change.get("added_lines", details.get("added_lines")),
                 "removed_lines": change.get("removed_lines", details.get("removed_lines")),
-                "summary": change.get("summary") or details.get("summary"),
+                "summary": change.get("summary") or details.get("summary") or event.get("summary"),
             }
             row["net_line_delta"] = _net_line_delta(row)
             _copy_present(row, event, ["started_at", "ended_at"])

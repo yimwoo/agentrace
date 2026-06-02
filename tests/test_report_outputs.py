@@ -636,35 +636,82 @@ def test_report_includes_command_timing_and_edit_summary():
                 "file": {"path": "src/auth.py"},
                 "change": {"kind": "modify", "added_lines": 4, "removed_lines": 1, "summary": "Translate decoder errors into 401 responses"},
             },
+            {
+                "id": "evt_cmd_top_level_summary",
+                "seq": 3,
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "summary": "Run focused auth tests",
+                "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_top_level_summary",
+                "seq": 4,
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 100,
+                "summary": "Document auth error handling behavior",
+                "file": {"path": "docs/auth.md"},
+                "change": {"kind": "modify", "added_lines": 3, "removed_lines": 0},
+            },
         ],
     }
     payload = build_json_summary(trace)
-    assert payload["command_timing"] == [{
-        "event": "evt_cmd",
-        "command": "pytest tests/test_auth.py -q",
-        "cwd": "/workspace/app",
-        "status": "failed",
-        "duration_ms": 3200,
-        "duration_source": "explicit",
-        "exit_code": 1,
-        "started_at": "2026-04-25T00:00:01Z",
-        "stdout_preview": "F",
-        "stderr_preview": "AssertionError: expected 401 but got 500",
-    }]
-    assert payload["edit_summary"] == [{
-        "event": "evt_edit",
-        "path": "src/auth.py",
-        "kind": "modify",
-        "status": "succeeded",
-        "duration_ms": 500,
-        "duration_source": "explicit",
-        "added_lines": 4,
-        "removed_lines": 1,
-        "summary": "Translate decoder errors into 401 responses",
-        "net_line_delta": 3,
-        "started_at": "2026-04-25T00:00:05Z",
-    }]
+    assert payload["command_timing"] == [
+        {
+            "event": "evt_cmd",
+            "command": "pytest tests/test_auth.py -q",
+            "cwd": "/workspace/app",
+            "status": "failed",
+            "duration_ms": 3200,
+            "duration_source": "explicit",
+            "exit_code": 1,
+            "started_at": "2026-04-25T00:00:01Z",
+            "stdout_preview": "F",
+            "stderr_preview": "AssertionError: expected 401 but got 500",
+        },
+        {
+            "event": "evt_cmd_top_level_summary",
+            "command": "pytest tests/test_auth.py -q",
+            "cwd": "/workspace/app",
+            "status": "succeeded",
+            "duration_ms": 25,
+            "duration_source": "explicit",
+            "exit_code": 0,
+            "summary": "Run focused auth tests",
+        },
+    ]
+    assert payload["edit_summary"] == [
+        {
+            "event": "evt_edit",
+            "path": "src/auth.py",
+            "kind": "modify",
+            "status": "succeeded",
+            "duration_ms": 500,
+            "duration_source": "explicit",
+            "added_lines": 4,
+            "removed_lines": 1,
+            "summary": "Translate decoder errors into 401 responses",
+            "net_line_delta": 3,
+            "started_at": "2026-04-25T00:00:05Z",
+        },
+        {
+            "event": "evt_edit_top_level_summary",
+            "path": "docs/auth.md",
+            "kind": "modify",
+            "status": "succeeded",
+            "duration_ms": 100,
+            "duration_source": "explicit",
+            "added_lines": 3,
+            "removed_lines": 0,
+            "summary": "Document auth error handling behavior",
+            "net_line_delta": 3,
+        },
+    ]
     assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
+    assert payload["run_summary"]["command_durations_ms"][1]["summary"] == "Run focused auth tests"
     assert payload["command_timing_summary"]["failed_commands"] == [{
         "event": "evt_cmd",
         "command": "pytest tests/test_auth.py -q",
@@ -680,6 +727,7 @@ def test_report_includes_command_timing_and_edit_summary():
     }]
     assert payload["run_summary"]["edit_summaries"][0]["summary"] == "Translate decoder errors into 401 responses"
     assert payload["run_summary"]["edit_summaries"][0]["net_line_delta"] == 3
+    assert payload["run_summary"]["edit_summaries"][1]["summary"] == "Document auth error handling behavior"
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():

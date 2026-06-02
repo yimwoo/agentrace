@@ -1,14 +1,14 @@
 ## Latest status
-`agentrace` report summary-duration-impact rows now break unsummarized duration down by status. The top-level JSON `report_summary_duration_impact` command/edit/activity buckets include `summary_missing_duration_status_counts`, `summary_missing_duration_status_duration_ms`, and `summary_missing_duration_status_share`, and Markdown renders the same fields beside missing duration-source totals so reviewers can see whether sparse summaries are concentrated in failed, succeeded, or unknown-status work.
+`agentrace` report rows now preserve human-readable command/edit summaries when producers attach them directly to canonical events. Command timing extracts `event.summary` after `command.summary`/`details.summary`, file-edit summaries extract `event.summary` after `change.summary`/`details.summary`, and run-summary fallbacks use the same precedence so JSON and Markdown reports do not classify top-level event summaries as missing.
 
 ## What was done
-- created AgentSpec task `T-139` for a report summary-duration-impact status-breakdown follow-up slice
-- added JSON missing-summary duration status counts, duration totals, and shares for command, edit, and combined activity duration-impact metrics
-- rendered the new status breakdown fields in the Markdown `report_summary_duration_impact` line
-- refreshed regression coverage, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md` for the new status fields
+- created AgentSpec task `T-140` for top-level command/edit event-summary preservation
+- taught command timing and run-summary command rows to read top-level event summaries as a fallback
+- taught file-edit summary and run-summary edit rows to read top-level event summaries as a fallback
+- refreshed regression coverage and `TRACE_SCHEMA.md` wording for summary-source precedence
 
 ## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_coverage_groups_explanations_by_report_labels tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact tests/test_report_outputs.py::test_summary_duration_impact_labels_missing_duration_concentration tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 4 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
 - `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
 
 ## Older status

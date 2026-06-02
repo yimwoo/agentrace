@@ -93,8 +93,9 @@ def build_command_timing(events, artifacts=None):
             "duration_source": event_duration_source(event),
             "exit_code": event.get("exit_code", details.get("exit_code")),
         }
-        if command.get("summary") or details.get("summary"):
-            row["summary"] = command.get("summary") or details.get("summary")
+        command_summary = command.get("summary") or details.get("summary") or event.get("summary")
+        if command_summary:
+            row["summary"] = command_summary
         if event.get("started_at"):
             row["started_at"] = event["started_at"]
         if event.get("ended_at"):
@@ -130,7 +131,7 @@ def build_edit_summary(events, artifacts=None):
             "duration_source": event_duration_source(event),
             "added_lines": change.get("added_lines", details.get("added_lines")),
             "removed_lines": change.get("removed_lines", details.get("removed_lines")),
-            "summary": change.get("summary") or details.get("summary"),
+            "summary": change.get("summary") or details.get("summary") or event.get("summary"),
         }
         row["net_line_delta"] = _net_line_delta(row)
         if event.get("started_at"):
@@ -2032,6 +2033,9 @@ def _normalize_summary_command_rows(rows):
         normalized_row.setdefault("command", None)
         normalized_row.setdefault("status", None)
         normalized_row.setdefault("exit_code", None)
+        command_summary = normalized_row.get("command_summary")
+        if not normalized_row.get("summary") and command_summary:
+            normalized_row["summary"] = command_summary
         if not normalized_row.get("duration_source"):
             normalized_row["duration_source"] = event_duration_source(normalized_row)
         if normalized_row.get("duration_ms") is None:
