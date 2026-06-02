@@ -363,6 +363,12 @@ def _summary_duration_metrics(rows):
         "summary_missing_duration_source_counts": _duration_source_counts(missing_duration_rows),
         "summary_missing_duration_source_duration_ms": missing_duration_source_duration_ms,
         "summary_missing_duration_source_share": _duration_shares(missing_duration_source_duration_ms, missing_duration_ms),
+        "summary_missing_duration_status_counts": _value_counts(missing_duration_rows, "status", missing_label="unknown"),
+        "summary_missing_duration_status_duration_ms": _duration_totals_by_status(missing_duration_rows),
+        "summary_missing_duration_status_share": _duration_shares_by_status(
+            _duration_totals_by_status(missing_duration_rows),
+            missing_duration_ms,
+        ),
         "summary_missing_duration_share": 0 if not total_duration_ms else round(missing_duration_ms / total_duration_ms, 4),
         "summary_missing_recorded_duration_delta_ms": missing_recorded_duration_delta_ms,
         "summary_missing_recorded_duration_delta_share": missing_recorded_duration_delta_share,
