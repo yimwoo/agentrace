@@ -1,3 +1,16 @@
+`agentrace` report-wide summary provenance now mirrors the grouped coverage dimensions. Top-level JSON `report_summary_source_counts` still reports command/edit/activity provenance totals, and now also includes per-label source-count breakdowns for command duration source/status/command/cwd/exit code, edit duration source/status/kind/path, and activity type/status/duration source/identity; Markdown renders those grouped provenance counts in the compact `report_summary_source_counts` line so reviewers can see where `event.summary` fallbacks are concentrated without cross-referencing detail rows.
+
+## What was done
+- created AgentSpec task `T-147` for grouped report summary-source provenance
+- expanded JSON `report_summary_source_counts` with grouped command/edit/activity provenance counts matching summary coverage labels
+- expanded Markdown report summary-source rendering for the grouped provenance counts
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` activity timeline summary aggregates now expose local `summary_source_counts`, complementing report-wide provenance counts and repeated command/edit group counts. JSON `activity_timeline_summary.summary_source_counts` counts nested/inline vs `event.summary` timeline summaries, and Markdown renders `summary_source_counts=...` inside the compact activity timeline summary line.
 
 ## What was done

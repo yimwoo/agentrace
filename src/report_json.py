@@ -228,6 +228,28 @@ def _summary_source_counts(rows):
     return counts
 
 
+def _summary_source_counts_by_field(rows, field):
+    """Return summary provenance counts grouped by a report row field."""
+    rows_by_label = {}
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        label = row.get(field) or "unknown"
+        rows_by_label.setdefault(label, []).append(row)
+    return {label: _summary_source_counts(group_rows) for label, group_rows in rows_by_label.items()}
+
+
+def _summary_source_counts_by_exit_code(rows):
+    return {label: _summary_source_counts(group_rows) for label, group_rows in _rows_by_exit_code(rows).items()}
+
+
+def _summary_source_counts_by_activity_identity(rows):
+    return {
+        label: _summary_source_counts(group_rows)
+        for label, group_rows in _activity_rows_by_identity(rows).items()
+    }
+
+
 def _summary_duration_example_row(row):
     """Return compact context for an unsummarized row contributing duration."""
     example = {
@@ -2130,8 +2152,21 @@ def build_json_summary(trace):
     }
     report_summary_source_counts = {
         "command": _summary_source_counts(command_timing),
+        "command_by_duration_source": _summary_source_counts_by_field(command_timing, "duration_source"),
+        "command_by_status": _summary_source_counts_by_field(command_timing, "status"),
+        "command_by_command": _summary_source_counts_by_field(command_timing, "command"),
+        "command_by_cwd": _summary_source_counts_by_field(command_timing, "cwd"),
+        "command_by_exit_code": _summary_source_counts_by_exit_code(command_timing),
         "edit": _summary_source_counts(edit_summary),
+        "edit_by_duration_source": _summary_source_counts_by_field(edit_summary, "duration_source"),
+        "edit_by_status": _summary_source_counts_by_field(edit_summary, "status"),
+        "edit_by_kind": _summary_source_counts_by_field(edit_summary, "kind"),
+        "edit_by_path": _summary_source_counts_by_field(edit_summary, "path"),
         "activity": _summary_source_counts(activity_timeline),
+        "activity_by_type": _summary_source_counts_by_field(activity_timeline, "type"),
+        "activity_by_status": _summary_source_counts_by_field(activity_timeline, "status"),
+        "activity_by_duration_source": _summary_source_counts_by_field(activity_timeline, "duration_source"),
+        "activity_by_identity": _summary_source_counts_by_activity_identity(activity_timeline),
     }
     return {
         "task": metadata["task"],

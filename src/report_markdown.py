@@ -307,13 +307,46 @@ def _format_status_counts(status_counts):
     return ", ".join(f"{status}={count}" for status, count in sorted(status_counts.items()))
 
 
+def _format_summary_source_counts_by_label(counts_by_label):
+    if not counts_by_label:
+        return "none"
+    return ", ".join(
+        f"{label}={_format_status_counts(counts)}"
+        for label, counts in sorted(counts_by_label.items())
+    )
+
+
 def _format_report_summary_source_counts(source_counts):
     if not source_counts:
         return "none"
+    labels = [
+        "command",
+        "command_by_duration_source",
+        "command_by_status",
+        "command_by_command",
+        "command_by_cwd",
+        "command_by_exit_code",
+        "edit",
+        "edit_by_duration_source",
+        "edit_by_status",
+        "edit_by_kind",
+        "edit_by_path",
+        "activity",
+        "activity_by_type",
+        "activity_by_status",
+        "activity_by_duration_source",
+        "activity_by_identity",
+    ]
     parts = []
-    for label in ["command", "edit", "activity"]:
-        parts.append(f"{label}={_format_status_counts(source_counts.get(label))}")
-    return "; ".join(parts)
+    for label in labels:
+        if label not in source_counts:
+            continue
+        value = source_counts.get(label)
+        if label in {"command", "edit", "activity"}:
+            parts.append(f"{label}={_format_status_counts(value)}")
+        else:
+            parts.append(f"{label}={_format_summary_source_counts_by_label(value)}")
+    return "; ".join(parts) if parts else "none"
 
 
 def _format_duration_extremes(extremes):

@@ -759,8 +759,34 @@ def test_report_includes_command_timing_and_edit_summary():
     assert payload["activity_timeline_summary"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 2}
     assert payload["report_summary_source_counts"] == {
         "command": {"event.summary": 1},
+        "command_by_duration_source": {"explicit": {"event.summary": 1}},
+        "command_by_status": {"failed": {}, "succeeded": {"event.summary": 1}},
+        "command_by_command": {"pytest tests/test_auth.py -q": {"event.summary": 1}},
+        "command_by_cwd": {"/workspace/app": {"event.summary": 1}},
+        "command_by_exit_code": {"0": {"event.summary": 1}, "1": {}},
         "edit": {"nested_or_inline": 1, "event.summary": 1},
+        "edit_by_duration_source": {"explicit": {"nested_or_inline": 1, "event.summary": 1}},
+        "edit_by_status": {"succeeded": {"nested_or_inline": 1, "event.summary": 1}},
+        "edit_by_kind": {"modify": {"nested_or_inline": 1, "event.summary": 1}},
+        "edit_by_path": {
+            "src/auth.py": {"nested_or_inline": 1},
+            "docs/auth.md": {"event.summary": 1},
+        },
         "activity": {"nested_or_inline": 1, "event.summary": 2},
+        "activity_by_type": {
+            "command": {"event.summary": 1},
+            "file_edit": {"nested_or_inline": 1, "event.summary": 1},
+        },
+        "activity_by_status": {
+            "failed": {},
+            "succeeded": {"nested_or_inline": 1, "event.summary": 2},
+        },
+        "activity_by_duration_source": {"explicit": {"nested_or_inline": 1, "event.summary": 2}},
+        "activity_by_identity": {
+            "command:pytest tests/test_auth.py -q": {"event.summary": 1},
+            "file_edit:src/auth.py": {"nested_or_inline": 1},
+            "file_edit:docs/auth.md": {"event.summary": 1},
+        },
     }
     assert payload["command_timing_summary"]["summary_source_counts"] == {"event.summary": 1}
     assert payload["edit_summary_totals"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 1}
@@ -768,7 +794,7 @@ def test_report_includes_command_timing_and_edit_summary():
     text = build_markdown_summary(trace)
     assert "activity_timeline_summary: count=4" in text
     assert "summary_source_counts=event.summary=2, nested_or_inline=1" in text
-    assert "report_summary_source_counts: command=event.summary=1; edit=event.summary=1, nested_or_inline=1; activity=event.summary=2, nested_or_inline=1" in text
+    assert "report_summary_source_counts: command=event.summary=1; command_by_duration_source=explicit=event.summary=1; command_by_status=failed=none, succeeded=event.summary=1; command_by_command=pytest tests/test_auth.py -q=event.summary=1; command_by_cwd=/workspace/app=event.summary=1; command_by_exit_code=0=event.summary=1, 1=none; edit=event.summary=1, nested_or_inline=1; edit_by_duration_source=explicit=event.summary=1, nested_or_inline=1; edit_by_status=succeeded=event.summary=1, nested_or_inline=1; edit_by_kind=modify=event.summary=1, nested_or_inline=1; edit_by_path=docs/auth.md=event.summary=1, src/auth.py=nested_or_inline=1; activity=event.summary=2, nested_or_inline=1; activity_by_type=command=event.summary=1, file_edit=event.summary=1, nested_or_inline=1; activity_by_status=failed=none, succeeded=event.summary=2, nested_or_inline=1; activity_by_duration_source=explicit=event.summary=2, nested_or_inline=1; activity_by_identity=command:pytest tests/test_auth.py -q=event.summary=1, file_edit:docs/auth.md=event.summary=1, file_edit:src/auth.py=nested_or_inline=1" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 
