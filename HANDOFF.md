@@ -1,4 +1,18 @@
 ## Latest status
+`agentrace` command and edit aggregate report sections now expose local `summary_source_counts` in addition to the top-level `report_summary_source_counts`. JSON `command_timing_summary` and `edit_summary_totals` count whether summarized rows came from `event.summary` or nested/inline sources, and Markdown renders `command_summary_source_counts` plus `edit_summary_source_counts` beside each section's summary coverage line.
+
+## What was done
+- created AgentSpec task `T-144` for command/edit summary-source aggregate follow-up
+- added command and edit aggregate `summary_source_counts` in JSON reports
+- rendered command/edit summary-source counts in Markdown reports
+- refreshed regression coverage, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_reports_include_aggregate_command_and_edit_totals tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 3 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` JSON and Markdown reports now include `report_summary_source_counts` for command, edit, and combined activity rows. The new aggregate counts summarized rows by provenance, using `event.summary` for top-level canonical event fallback summaries and `nested_or_inline` for command/change/details or precomputed summary rows, so reviewers can quantify fallback summary usage without scanning every detail row.
 
 ## What was done

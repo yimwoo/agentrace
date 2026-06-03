@@ -39,6 +39,7 @@
 - command_summary_recorded_count: 0
 - command_summary_missing_count: 1
 - command_summary_coverage_ratio: 0.0
+- command_summary_source_counts: none
 - command_summary_examples: none
 - command_summary_missing_examples: `pytest tests/test_auth.py -q` (event=evt_cmd_1, status=failed, duration_ms=3200, duration_source=explicit, cwd=/workspace/app, exit_code=1)
 - command_identity_summary_examples: none
@@ -78,6 +79,7 @@
 - edit_summary_recorded_count: 1
 - edit_summary_missing_count: 0
 - edit_summary_coverage_ratio: 1.0
+- edit_summary_source_counts: nested_or_inline=1
 - edit_summary_examples: src/auth.py (event=evt_edit_1, status=succeeded, duration_ms=125, duration_source=explicit, kind=modify, net=3, summary=Translate decoder errors into 401 responses)
 - edit_summary_missing_examples: none
 - edit_path_summary_examples: src/auth.py=src/auth.py (event=evt_edit_1, status=succeeded, duration_ms=125, duration_source=explicit, kind=modify, net=3, summary=Translate decoder errors into 401 responses)

@@ -761,9 +761,13 @@ def test_report_includes_command_timing_and_edit_summary():
         "edit": {"nested_or_inline": 1, "event.summary": 1},
         "activity": {"nested_or_inline": 1, "event.summary": 2},
     }
+    assert payload["command_timing_summary"]["summary_source_counts"] == {"event.summary": 1}
+    assert payload["edit_summary_totals"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 1}
 
     text = build_markdown_summary(trace)
     assert "report_summary_source_counts: command=event.summary=1; edit=event.summary=1, nested_or_inline=1; activity=event.summary=2, nested_or_inline=1" in text
+    assert "command_summary_source_counts: event.summary=1" in text
+    assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():
@@ -1636,6 +1640,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "summary_recorded_count": 1,
         "summary_missing_count": 1,
         "summary_coverage_ratio": 0.5,
+        "summary_source_counts": {"nested_or_inline": 1},
         "summary_examples": [{
             "event": "evt_cmd_slow",
             "status": "failed",
@@ -1936,6 +1941,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
         "summary_recorded_count": 2,
         "summary_missing_count": 0,
         "summary_coverage_ratio": 1.0,
+        "summary_source_counts": {"nested_or_inline": 2},
         "summary_examples": [
             {
                 "event": "evt_edit_one",
@@ -2106,6 +2112,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_summary_recorded_count: 1" in text
     assert "command_summary_missing_count: 1" in text
     assert "command_summary_coverage_ratio: 0.5" in text
+    assert "command_summary_source_counts: nested_or_inline=1" in text
     assert "command_summary_examples: `pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests)" in text
     assert "command_summary_missing_examples: `ruff check` (event=evt_cmd_fast, status=succeeded, duration_ms=125, duration_source=explicit, exit_code=0)" in text
     assert "command_duration_source_summary_examples: derived=`pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests)" in text
@@ -2135,6 +2142,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "edit_summary_recorded_count: 2" in text
     assert "edit_summary_missing_count: 0" in text
     assert "edit_summary_coverage_ratio: 1.0" in text
+    assert "edit_summary_source_counts: nested_or_inline=2" in text
     assert "edit_summary_examples: src/report_json.py (event=evt_edit_one, status=succeeded, duration_ms=12, duration_source=explicit, kind=modify, net=6, summary=Add report totals); src/report_markdown.py (event=evt_edit_two, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=2, summary=Render report totals)" in text
     assert "edit_summary_missing_examples: none" in text
     assert "edit_duration_source_summary_examples: explicit=src/report_json.py (event=evt_edit_one, status=succeeded, duration_ms=12, duration_source=explicit, kind=modify, net=6, summary=Add report totals); src/report_markdown.py (event=evt_edit_two, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=2, summary=Render report totals)" in text
