@@ -756,6 +756,7 @@ def test_report_includes_command_timing_and_edit_summary():
     assert payload["activity_timeline"][2]["summary_source"] == "event.summary"
     assert payload["activity_timeline"][3]["summary_source"] == "event.summary"
     assert payload["activity_timeline_summary"]["last_activity"]["summary_source"] == "event.summary"
+    assert payload["activity_timeline_summary"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 2}
     assert payload["report_summary_source_counts"] == {
         "command": {"event.summary": 1},
         "edit": {"nested_or_inline": 1, "event.summary": 1},
@@ -765,6 +766,8 @@ def test_report_includes_command_timing_and_edit_summary():
     assert payload["edit_summary_totals"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 1}
 
     text = build_markdown_summary(trace)
+    assert "activity_timeline_summary: count=4" in text
+    assert "summary_source_counts=event.summary=2, nested_or_inline=1" in text
     assert "report_summary_source_counts: command=event.summary=1; edit=event.summary=1, nested_or_inline=1; activity=event.summary=2, nested_or_inline=1" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
@@ -1482,6 +1485,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "summary_recorded_count": 1,
             "summary_missing_count": 1,
             "summary_coverage_ratio": 0.5,
+            "summary_source_counts": {"nested_or_inline": 1},
             "summary_examples": [{
                 "event": "evt_cmd_slow",
                 "status": "failed",
@@ -1818,6 +1822,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
             "summary_recorded_count": 2,
             "summary_missing_count": 0,
             "summary_coverage_ratio": 1.0,
+            "summary_source_counts": {"nested_or_inline": 2},
             "summary_examples": [
                 {
                     "event": "evt_edit_one",
@@ -2089,7 +2094,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "command_attempts: `pytest -q` (count=1, total_duration_ms=2000, average_duration_ms=2000.0, failed_count=1, statuses=failed=1, duration_sources=derived=1, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_slow); `ruff check` (count=1, total_duration_ms=125, average_duration_ms=125.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, time_window=started_at=2026-04-25T00:00:03Z, first_event=evt_cmd_fast, last_event=evt_cmd_fast)" in text
     assert "command_cwd_counts: unknown=2" in text
     assert "command_cwd_duration_summary: cwd_duration_ms=unknown=2125, cwd_average_duration_ms=unknown=1062.5, cwd_duration_extremes_ms=unknown=min=125/max=2000, cwd_duration_coverage=unknown=recorded=2/missing=0/ratio=1.0, cwd_duration_share=unknown=1.0, dominant_duration_cwd=unknown (2125ms, share=1.0)" in text
-    assert "command_cwd_totals: unknown (count=2, commands=pytest -q, ruff check, failed_count=1, total_duration_ms=2125, average_duration_ms=1062.5, statuses=failed=1, succeeded=1, duration_sources=derived=1, explicit=1, median_duration_ms=1062.5, duration_range_ms=1875, duration_extremes_ms=min=125, max=2000, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=1, summary_missing_count=1, summary_coverage_ratio=0.5, summary_examples=`pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests), summary_missing_examples=`ruff check` (event=evt_cmd_fast, status=succeeded, duration_ms=125, duration_source=explicit, exit_code=0), status_duration_ms=failed=2000, succeeded=125, status_average_duration_ms=failed=2000.0, succeeded=125.0, status_duration_extremes_ms=failed=min=2000/max=2000, succeeded=min=125/max=125, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, succeeded=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=0.9412, succeeded=0.0588, dominant_duration_status=failed (2000ms, share=0.9412), duration_source_duration_ms=derived=2000, explicit=125, duration_source_average_ms=derived=2000.0, explicit=125.0, duration_source_extremes_ms=derived=min=2000/max=2000, explicit=min=125/max=125, duration_source_share=derived=0.9412, explicit=0.0588, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_fast)" in text
+    assert "command_cwd_totals: unknown (count=2, commands=pytest -q, ruff check, failed_count=1, total_duration_ms=2125, average_duration_ms=1062.5, statuses=failed=1, succeeded=1, duration_sources=derived=1, explicit=1, median_duration_ms=1062.5, duration_range_ms=1875, duration_extremes_ms=min=125, max=2000, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=1, summary_missing_count=1, summary_coverage_ratio=0.5, summary_source_counts=nested_or_inline=1, summary_examples=`pytest -q` (event=evt_cmd_slow, status=failed, duration_ms=2000, duration_source=derived, exit_code=1, summary=Run focused tests), summary_missing_examples=`ruff check` (event=evt_cmd_fast, status=succeeded, duration_ms=125, duration_source=explicit, exit_code=0), status_duration_ms=failed=2000, succeeded=125, status_average_duration_ms=failed=2000.0, succeeded=125.0, status_duration_extremes_ms=failed=min=2000/max=2000, succeeded=min=125/max=125, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, succeeded=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=0.9412, succeeded=0.0588, dominant_duration_status=failed (2000ms, share=0.9412), duration_source_duration_ms=derived=2000, explicit=125, duration_source_average_ms=derived=2000.0, explicit=125.0, duration_source_extremes_ms=derived=min=2000/max=2000, explicit=min=125/max=125, duration_source_share=derived=0.9412, explicit=0.0588, time_window=started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:02Z, first_event=evt_cmd_slow, last_event=evt_cmd_fast)" in text
     assert "command_total_duration_ms: 2125" in text
     assert "command_average_duration_ms: 1062.5" in text
     assert "command_average_recorded_duration_ms: 1062.5" in text
@@ -2129,7 +2134,7 @@ def test_reports_include_aggregate_command_and_edit_totals():
     assert "failed_edits: none" in text
     assert "edit_kind_counts: modify=2" in text
     assert "edit_kind_duration_summary: kind_duration_ms=modify=20, kind_average_duration_ms=modify=10.0, kind_duration_extremes_ms=modify=min=8/max=12, kind_duration_coverage=modify=recorded=2/missing=0/ratio=1.0, kind_duration_share=modify=1.0, dominant_duration_kind=modify (20ms, share=1.0)" in text
-    assert "edit_kind_totals: modify (count=2, files=src/report_json.py, src/report_markdown.py, failed_count=0, +11/-3, net=8, total_duration_ms=20, average_duration_ms=10.0, statuses=succeeded=2, duration_sources=explicit=2, median_duration_ms=10.0, duration_range_ms=4, duration_extremes_ms=min=8, max=12, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=2, summary_missing_count=0, summary_coverage_ratio=1.0, summary_examples=src/report_json.py (event=evt_edit_one, status=succeeded, duration_ms=12, duration_source=explicit, kind=modify, net=6, summary=Add report totals); src/report_markdown.py (event=evt_edit_two, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=2, summary=Render report totals), summary_missing_examples=none, status_duration_ms=succeeded=20, status_average_duration_ms=succeeded=10.0, status_duration_extremes_ms=succeeded=min=8/max=12, status_duration_coverage=succeeded=recorded=2/missing=0/ratio=1.0, status_duration_share=succeeded=1.0, dominant_duration_status=succeeded (20ms, share=1.0), duration_source_duration_ms=explicit=20, duration_source_average_ms=explicit=10.0, duration_source_extremes_ms=explicit=min=8/max=12, duration_source_share=explicit=1.0, time_window=started_at=2026-04-25T00:00:04Z, first_event=evt_edit_one, last_event=evt_edit_two)" in text
+    assert "edit_kind_totals: modify (count=2, files=src/report_json.py, src/report_markdown.py, failed_count=0, +11/-3, net=8, total_duration_ms=20, average_duration_ms=10.0, statuses=succeeded=2, duration_sources=explicit=2, median_duration_ms=10.0, duration_range_ms=4, duration_extremes_ms=min=8, max=12, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=2, summary_missing_count=0, summary_coverage_ratio=1.0, summary_source_counts=nested_or_inline=2, summary_examples=src/report_json.py (event=evt_edit_one, status=succeeded, duration_ms=12, duration_source=explicit, kind=modify, net=6, summary=Add report totals); src/report_markdown.py (event=evt_edit_two, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=2, summary=Render report totals), summary_missing_examples=none, status_duration_ms=succeeded=20, status_average_duration_ms=succeeded=10.0, status_duration_extremes_ms=succeeded=min=8/max=12, status_duration_coverage=succeeded=recorded=2/missing=0/ratio=1.0, status_duration_share=succeeded=1.0, dominant_duration_status=succeeded (20ms, share=1.0), duration_source_duration_ms=explicit=20, duration_source_average_ms=explicit=10.0, duration_source_extremes_ms=explicit=min=8/max=12, duration_source_share=explicit=1.0, time_window=started_at=2026-04-25T00:00:04Z, first_event=evt_edit_one, last_event=evt_edit_two)" in text
     assert "edit_status_counts: succeeded=2" in text
     assert "edit_duration_sources: explicit=2" in text
     assert "edit_duration_source_duration_ms: explicit=20" in text
@@ -2353,6 +2358,7 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
         "summary_recorded_count": 1,
         "summary_missing_count": 1,
         "summary_coverage_ratio": 0.5,
+        "summary_source_counts": {"nested_or_inline": 1},
         "summary_examples": [{
             "event": "evt_cmd_first",
             "status": "failed",
@@ -2421,6 +2427,7 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
         "summary_recorded_count": 2,
         "summary_missing_count": 0,
         "summary_coverage_ratio": 1.0,
+        "summary_source_counts": {"nested_or_inline": 2},
         "summary_examples": [
             {
                 "event": "evt_edit_first",
@@ -2472,11 +2479,11 @@ def test_report_totals_deduplicate_files_and_show_repeated_commands():
     assert "unique_command_count: 2" in text
     assert "commands_run: pytest -q, ruff check" in text
     assert "repeated_commands: `pytest -q`=2" in text
-    assert "command_attempts: `pytest -q` (count=2, total_duration_ms=50, average_duration_ms=25.0, failed_count=1, statuses=failed=1, succeeded=1, median_duration_ms=25.0, duration_range_ms=10, duration_extremes_ms=min=20, max=30, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=1, summary_missing_count=1, summary_coverage_ratio=0.5, summary_examples=`pytest -q` (event=evt_cmd_first, status=failed, duration_ms=20, duration_source=explicit, exit_code=1, summary=Initial failing test run), summary_missing_examples=`pytest -q` (event=evt_cmd_retry, status=succeeded, duration_ms=30, duration_source=explicit, exit_code=0), status_duration_ms=failed=20, succeeded=30, status_average_duration_ms=failed=20.0, succeeded=30.0, status_duration_extremes_ms=failed=min=20/max=20, succeeded=min=30/max=30, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, succeeded=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=0.4, succeeded=0.6, dominant_duration_status=succeeded (30ms, share=0.6), duration_source_duration_ms=explicit=50, duration_source_average_ms=explicit=25.0, duration_source_extremes_ms=explicit=min=20/max=30, duration_source_share=explicit=1.0, duration_sources=explicit=2, first_event=evt_cmd_first, last_event=evt_cmd_retry); `ruff check` (count=1, total_duration_ms=5, average_duration_ms=5.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, first_event=evt_cmd_lint, last_event=evt_cmd_lint)" in text
+    assert "command_attempts: `pytest -q` (count=2, total_duration_ms=50, average_duration_ms=25.0, failed_count=1, statuses=failed=1, succeeded=1, median_duration_ms=25.0, duration_range_ms=10, duration_extremes_ms=min=20, max=30, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=1, summary_missing_count=1, summary_coverage_ratio=0.5, summary_source_counts=nested_or_inline=1, summary_examples=`pytest -q` (event=evt_cmd_first, status=failed, duration_ms=20, duration_source=explicit, exit_code=1, summary=Initial failing test run), summary_missing_examples=`pytest -q` (event=evt_cmd_retry, status=succeeded, duration_ms=30, duration_source=explicit, exit_code=0), status_duration_ms=failed=20, succeeded=30, status_average_duration_ms=failed=20.0, succeeded=30.0, status_duration_extremes_ms=failed=min=20/max=20, succeeded=min=30/max=30, status_duration_coverage=failed=recorded=1/missing=0/ratio=1.0, succeeded=recorded=1/missing=0/ratio=1.0, status_duration_share=failed=0.4, succeeded=0.6, dominant_duration_status=succeeded (30ms, share=0.6), duration_source_duration_ms=explicit=50, duration_source_average_ms=explicit=25.0, duration_source_extremes_ms=explicit=min=20/max=30, duration_source_share=explicit=1.0, duration_sources=explicit=2, first_event=evt_cmd_first, last_event=evt_cmd_retry); `ruff check` (count=1, total_duration_ms=5, average_duration_ms=5.0, failed_count=0, statuses=succeeded=1, duration_sources=explicit=1, first_event=evt_cmd_lint, last_event=evt_cmd_lint)" in text
     assert "failed_commands: evt_cmd_first: `pytest -q` (20ms, status=failed, exit_code=1, duration_source=explicit, summary=Initial failing test run)" in text
     assert "files_changed_count: 1" in text
     assert "files_changed: src/report_json.py" in text
-    assert "file_change_totals: src/report_json.py (count=2, failed_count=0, +3/-1, net=2, total_duration_ms=15, average_duration_ms=7.5, statuses=succeeded=2, kinds=modify=2, duration_sources=explicit=2, median_duration_ms=7.5, duration_range_ms=1, duration_extremes_ms=min=7, max=8, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=2, summary_missing_count=0, summary_coverage_ratio=1.0, summary_examples=src/report_json.py (event=evt_edit_first, status=succeeded, duration_ms=7, duration_source=explicit, kind=modify, net=1, summary=First change); src/report_json.py (event=evt_edit_second, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=1, summary=Second change), summary_missing_examples=none, status_duration_ms=succeeded=15, status_average_duration_ms=succeeded=7.5, status_duration_extremes_ms=succeeded=min=7/max=8, status_duration_coverage=succeeded=recorded=2/missing=0/ratio=1.0, status_duration_share=succeeded=1.0, dominant_duration_status=succeeded (15ms, share=1.0), duration_source_duration_ms=explicit=15, duration_source_average_ms=explicit=7.5, duration_source_extremes_ms=explicit=min=7/max=8, duration_source_share=explicit=1.0, first_event=evt_edit_first, last_event=evt_edit_second)" in text
+    assert "file_change_totals: src/report_json.py (count=2, failed_count=0, +3/-1, net=2, total_duration_ms=15, average_duration_ms=7.5, statuses=succeeded=2, kinds=modify=2, duration_sources=explicit=2, median_duration_ms=7.5, duration_range_ms=1, duration_extremes_ms=min=7, max=8, duration_recorded_count=2, duration_missing_count=0, duration_coverage_ratio=1.0, summary_recorded_count=2, summary_missing_count=0, summary_coverage_ratio=1.0, summary_source_counts=nested_or_inline=2, summary_examples=src/report_json.py (event=evt_edit_first, status=succeeded, duration_ms=7, duration_source=explicit, kind=modify, net=1, summary=First change); src/report_json.py (event=evt_edit_second, status=succeeded, duration_ms=8, duration_source=explicit, kind=modify, net=1, summary=Second change), summary_missing_examples=none, status_duration_ms=succeeded=15, status_average_duration_ms=succeeded=7.5, status_duration_extremes_ms=succeeded=min=7/max=8, status_duration_coverage=succeeded=recorded=2/missing=0/ratio=1.0, status_duration_share=succeeded=1.0, dominant_duration_status=succeeded (15ms, share=1.0), duration_source_duration_ms=explicit=15, duration_source_average_ms=explicit=7.5, duration_source_extremes_ms=explicit=min=7/max=8, duration_source_share=explicit=1.0, first_event=evt_edit_first, last_event=evt_edit_second)" in text
 
 
 def test_reports_expose_duration_source_for_timing_rows_and_totals():
@@ -2915,6 +2922,7 @@ def test_activity_timeline_interleaves_command_and_edit_rows_by_timestamp():
         "summary_recorded_count": 1,
         "summary_missing_count": 1,
         "summary_coverage_ratio": 0.5,
+        "summary_source_counts": {"nested_or_inline": 1},
         "summary_examples": [{
             "type": "file_edit",
             "event": "evt_edit_late_diff",

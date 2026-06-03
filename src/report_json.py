@@ -929,6 +929,7 @@ def _add_duration_spread(summary, rows):
     summary["summary_recorded_count"] = summary_coverage["summary_recorded_count"]
     summary["summary_missing_count"] = summary_coverage["summary_missing_count"]
     summary["summary_coverage_ratio"] = summary_coverage["summary_coverage_ratio"]
+    summary["summary_source_counts"] = _summary_source_counts(rows)
     summary_example_type = _summary_example_type(rows)
     summary["summary_examples"] = _summary_example_rows(rows, summary_example_type)
     summary["summary_missing_examples"] = _summary_missing_example_rows(rows, summary_example_type)
@@ -1333,6 +1334,7 @@ def build_activity_timeline_summary(rows):
         "summary_recorded_count": summary_coverage["summary_recorded_count"],
         "summary_missing_count": summary_coverage["summary_missing_count"],
         "summary_coverage_ratio": summary_coverage["summary_coverage_ratio"],
+        "summary_source_counts": _summary_source_counts(normalized_rows),
         "summary_examples": _activity_summary_example_rows(normalized_rows),
         "summary_missing_examples": _activity_summary_missing_example_rows(normalized_rows),
         "type_summary_examples": _activity_summary_examples_by_field(normalized_rows, "type"),

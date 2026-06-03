@@ -1,0 +1,88 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-146-add-command-timing-and-edit-summaries-to-reports-20260603130103756979",
+  "status": "halted",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-146-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-146: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:0cacb6252a8319066bbb79b20f7506d9b5c054940b7c04317c6f99e6dfcc5cb1",
+      "PROJECT_STATE.md": " M:file:96bc6ef2492200fdc566b97346ab8722b7e2dd741f53682ebdeeb4a2645604bc",
+      "TRACE_SCHEMA.md": " M:file:30a03c307f0b852952c002a480da0b7457d77f336d45ced3e4361127ff5d1c65",
+      "agent/handoff.yml": " M:file:be080317753f73214b04f93a959fc21b9bd86a2b25095d360987bb20c7bb98f8",
+      "agent/task-ledger.yml": " M:file:89fb25261018e22f2ac504a7695f6d59d90d7f3b2500ebd4fa2820ddb9d5f7e1",
+      "docs/discovery/open-questions.yml": " M:file:54332b0ef94cd1afaac396570b2415bfade496573057e8537a4322e485f17d8b",
+      "src/report_json.py": " M:file:4c8c9b8b185428e33b3f0720dfed13a647b20f19d7a1471fd5dc73e51f8e3ae4",
+      "src/report_markdown.py": " M:file:77136867b9c496dc76338923b65f0a2ad0b768d1cf36306e1c9eae9912225812",
+      "tests/test_report_outputs.py": " M:file:0bee13fd6a18dadbdec92c6beead78c3ebf46cbe0d25af4156e21d9280b39d92",
+      "agent/context-packs/T-145-add-command-timing-and-edit-summaries-to-reports.md": "??:file:1e3439ef88760bc290ccb75a45843cdf638c0083e5fa2282b0179964822df805",
+      "agent/context-packs/T-146-add-command-timing-and-edit-summaries-to-reports.md": "??:file:306cc41700524e4b6c95f1a80367ad592556316324eec8471d37a1771974c975",
+      "agent/runs/t-145-add-command-timing-and-edit-summaries-to-reports-20260603080055366990/summary.yml": "??:file:662115b35eae85e514756c90efe70b98a0de8f6c7d6b51dfb249a11f10416509"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-03T13:01:03Z",
+  "updated_at": "2026-06-03T13:04:11Z",
+  "last_decision": "pause_for_human",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-146-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-146",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-146 --owner <owner> --branch codex/t-146-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "autonomous_finding": "Q-1040"
+}

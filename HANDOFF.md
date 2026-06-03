@@ -1,4 +1,29 @@
-## Latest status
+`agentrace` activity timeline summary aggregates now expose local `summary_source_counts`, complementing report-wide provenance counts and repeated command/edit group counts. JSON `activity_timeline_summary.summary_source_counts` counts nested/inline vs `event.summary` timeline summaries, and Markdown renders `summary_source_counts=...` inside the compact activity timeline summary line.
+
+## What was done
+- created AgentSpec task `T-146` for activity timeline summary-source aggregate visibility
+- added activity timeline summary-source counts in JSON reports
+- rendered activity timeline summary-source counts in Markdown reports
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
+`agentrace` repeated aggregate report groups now expose local `summary_source_counts` when duration-spread metadata is present. Per-command attempt groups, repeated cwd groups, repeated per-file groups, and repeated edit-kind groups now count nested/inline vs `event.summary` provenance beside their summary coverage metrics in JSON, and Markdown renders `summary_source_counts=...` inside those group detail lines.
+
+## What was done
+- created AgentSpec task `T-145` for repeated aggregate summary-source count visibility
+- added repeated-group `summary_source_counts` via shared duration-spread aggregate metadata
+- rendered repeated-group summary-source counts in Markdown aggregate detail rows
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_totals_deduplicate_files_and_show_repeated_commands tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 37 passed, 1 warning
+
+## Older status
 `agentrace` command and edit aggregate report sections now expose local `summary_source_counts` in addition to the top-level `report_summary_source_counts`. JSON `command_timing_summary` and `edit_summary_totals` count whether summarized rows came from `event.summary` or nested/inline sources, and Markdown renders `command_summary_source_counts` plus `edit_summary_source_counts` beside each section's summary coverage line.
 
 ## What was done
