@@ -1,3 +1,15 @@
+`agentrace` timing-window coverage now labels duration-vs-window consistency severity. JSON `report_timing_window_coverage` command/edit/activity buckets include `duration_window_delta_abs_recorded_duration_share` and `duration_window_delta_consistency_label` (`no_comparable_rows`, `matched`, `low_delta`, `medium_delta`, or `high_delta`); Markdown renders both fields before direction counts so reviewers can triage whether timestamp-window mismatches are material before reading representative rows.
+
+## What was done
+- created AgentSpec task `T-153` for timing-window consistency severity labels
+- added absolute-delta recorded-duration share and consistency labels to JSON timing-window metrics
+- rendered the new severity fields in Markdown timing-window coverage
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary tests/test_report_outputs.py::test_timing_window_delta_direction_examples_show_mismatch_context -q` — 2 passed
+
+## Older status
 `agentrace` timing-window coverage now includes compact direction examples for duration-vs-window consistency. JSON `report_timing_window_coverage` command/edit/activity buckets include `duration_window_delta_direction_examples` keyed by matches, recorded-duration-greater rows, and timestamp-window-greater rows; Markdown renders those examples beside direction counts so reviewers can jump to representative mismatch rows with identity, timing, summary, cwd/exit-code or edit line-impact context.
 
 ## What was done

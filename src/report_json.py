@@ -354,6 +354,20 @@ def _duration_window_delta_metrics(rows):
     delta_rows = _duration_window_delta_rows(rows)
     total_delta_ms = sum(row["duration_window_delta_ms"] for row in delta_rows)
     total_abs_delta_ms = sum(row["duration_window_delta_abs_ms"] for row in delta_rows)
+    comparable_recorded_duration_ms = sum(_numeric_value(row["row"].get("duration_ms")) for row in delta_rows)
+    delta_abs_recorded_duration_share = (
+        0 if not comparable_recorded_duration_ms else round(total_abs_delta_ms / comparable_recorded_duration_ms, 4)
+    )
+    if not delta_rows:
+        consistency_label = "no_comparable_rows"
+    elif not total_abs_delta_ms:
+        consistency_label = "matched"
+    elif delta_abs_recorded_duration_share >= 0.25:
+        consistency_label = "high_delta"
+    elif delta_abs_recorded_duration_share >= 0.1:
+        consistency_label = "medium_delta"
+    else:
+        consistency_label = "low_delta"
     direction_counts = {
         "matches": 0,
         "duration_exceeds_window": 0,
@@ -390,6 +404,8 @@ def _duration_window_delta_metrics(rows):
         "duration_window_delta_abs_total_ms": total_abs_delta_ms,
         "duration_window_delta_average_ms": 0 if not delta_rows else round(total_delta_ms / len(delta_rows), 2),
         "duration_window_delta_abs_average_ms": 0 if not delta_rows else round(total_abs_delta_ms / len(delta_rows), 2),
+        "duration_window_delta_abs_recorded_duration_share": delta_abs_recorded_duration_share,
+        "duration_window_delta_consistency_label": consistency_label,
         "duration_window_delta_direction_counts": direction_counts,
         "duration_window_delta_direction_examples": direction_examples,
         "largest_duration_window_delta_ms": 0 if largest_delta is None else largest_delta["duration_window_delta_abs_ms"],

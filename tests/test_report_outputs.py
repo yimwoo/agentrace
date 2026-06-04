@@ -21,6 +21,8 @@ def _timing_window_delta_expected(
         "duration_window_delta_abs_total_ms": delta_abs_total_ms,
         "duration_window_delta_average_ms": delta_average_ms,
         "duration_window_delta_abs_average_ms": delta_abs_average_ms,
+        "duration_window_delta_abs_recorded_duration_share": 0.0 if not delta_abs_total_ms else 1.0,
+        "duration_window_delta_consistency_label": "no_comparable_rows" if not comparable_count else ("matched" if not delta_abs_total_ms else "high_delta"),
         "duration_window_delta_direction_counts": {
             "matches": comparable_count,
             "duration_exceeds_window": 0,
@@ -876,6 +878,8 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_abs_recorded_duration_share": 0.0,
+            "duration_window_delta_consistency_label": "matched",
             "duration_window_delta_direction_counts": {
                 "matches": 1,
                 "duration_exceeds_window": 0,
@@ -971,6 +975,8 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_abs_recorded_duration_share": 0.0,
+            "duration_window_delta_consistency_label": "matched",
             "duration_window_delta_direction_counts": {
                 "matches": 1,
                 "duration_exceeds_window": 0,
@@ -1084,6 +1090,8 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_abs_recorded_duration_share": 0.0,
+            "duration_window_delta_consistency_label": "matched",
             "duration_window_delta_direction_counts": {
                 "matches": 2,
                 "duration_exceeds_window": 0,
@@ -1163,6 +1171,7 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "activity=rows=4/started_at=4/ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
     assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, timestamp_window_ms=100, duration_window_delta_ms=0, duration_window_delta_abs_ms=0, summary=Document auth error handling behavior, summary_source=event.summary)" in text
     assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
+    assert "duration_window_delta_abs_recorded_duration_share=0.0/duration_window_delta_consistency_label=matched" in text
     assert "duration_window_delta_direction_counts=duration_exceeds_window=0, matches=2, window_exceeds_duration=0" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
@@ -1200,6 +1209,8 @@ def test_timing_window_delta_direction_examples_show_mismatch_context():
 
     payload = build_json_summary(trace)
     activity_coverage = payload["report_timing_window_coverage"]["activity"]
+    assert activity_coverage["duration_window_delta_abs_recorded_duration_share"] == 0.2857
+    assert activity_coverage["duration_window_delta_consistency_label"] == "high_delta"
     assert activity_coverage["duration_window_delta_direction_counts"] == {
         "matches": 0,
         "duration_exceeds_window": 1,
@@ -1243,6 +1254,7 @@ def test_timing_window_delta_direction_examples_show_mismatch_context():
     }]
 
     text = build_markdown_summary(trace)
+    assert "duration_window_delta_abs_recorded_duration_share=0.2857/duration_window_delta_consistency_label=high_delta" in text
     assert "duration_window_delta_direction_examples=matches=none, duration_exceeds_window=`python short.py`" in text
     assert "window_exceeds_duration=src/report.py (event=evt_window_long" in text
 

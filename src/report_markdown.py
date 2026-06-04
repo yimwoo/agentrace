@@ -520,6 +520,8 @@ def _format_report_timing_window_coverage(coverage):
             f"duration_window_delta_abs_total_ms={row.get('duration_window_delta_abs_total_ms', 0)}/"
             f"duration_window_delta_average_ms={row.get('duration_window_delta_average_ms', 0)}/"
             f"duration_window_delta_abs_average_ms={row.get('duration_window_delta_abs_average_ms', 0)}/"
+            f"duration_window_delta_abs_recorded_duration_share={row.get('duration_window_delta_abs_recorded_duration_share', 0)}/"
+            f"duration_window_delta_consistency_label={row.get('duration_window_delta_consistency_label', 'no_comparable_rows')}/"
             f"duration_window_delta_direction_counts={_format_status_counts(row.get('duration_window_delta_direction_counts'))}/"
             f"duration_window_delta_direction_examples={_format_report_timing_direction_examples(row.get('duration_window_delta_direction_examples'))}/"
             f"largest_duration_window_delta_ms={row.get('largest_duration_window_delta_ms', 0)}/"
