@@ -26,6 +26,11 @@ def _timing_window_delta_expected(
             "duration_exceeds_window": 0,
             "window_exceeds_duration": 0,
         },
+        "duration_window_delta_direction_examples": {
+            "matches": [] if largest_delta_example is None else [largest_delta_example],
+            "duration_exceeds_window": [],
+            "window_exceeds_duration": [],
+        },
         "largest_duration_window_delta_ms": largest_delta_ms,
         "largest_duration_window_delta_example": largest_delta_example,
     }
@@ -876,6 +881,28 @@ def test_report_includes_command_timing_and_edit_summary():
                 "duration_exceeds_window": 0,
                 "window_exceeds_duration": 0,
             },
+            "duration_window_delta_direction_examples": {
+                "matches": [
+                    {
+                        "event": "evt_cmd_top_level_summary",
+                        "status": "succeeded",
+                        "duration_ms": 25,
+                        "duration_source": "explicit",
+                        "command": "pytest tests/test_auth.py -q",
+                        "cwd": "/workspace/app",
+                        "exit_code": 0,
+                        "started_at": "2026-04-25T00:00:06Z",
+                        "ended_at": "2026-04-25T00:00:06.025Z",
+                        "summary": "Run focused auth tests",
+                        "summary_source": "event.summary",
+                        "timestamp_window_ms": 25,
+                        "duration_window_delta_ms": 0,
+                        "duration_window_delta_abs_ms": 0,
+                    }
+                ],
+                "duration_exceeds_window": [],
+                "window_exceeds_duration": [],
+            },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
                 "event": "evt_cmd_top_level_summary",
@@ -948,6 +975,30 @@ def test_report_includes_command_timing_and_edit_summary():
                 "matches": 1,
                 "duration_exceeds_window": 0,
                 "window_exceeds_duration": 0,
+            },
+            "duration_window_delta_direction_examples": {
+                "matches": [
+                    {
+                        "event": "evt_edit_top_level_summary",
+                        "status": "succeeded",
+                        "duration_ms": 100,
+                        "duration_source": "explicit",
+                        "path": "docs/auth.md",
+                        "kind": "modify",
+                        "added_lines": 3,
+                        "removed_lines": 0,
+                        "net_line_delta": 3,
+                        "started_at": "2026-04-25T00:00:07Z",
+                        "ended_at": "2026-04-25T00:00:07.100Z",
+                        "summary": "Document auth error handling behavior",
+                        "summary_source": "event.summary",
+                        "timestamp_window_ms": 100,
+                        "duration_window_delta_ms": 0,
+                        "duration_window_delta_abs_ms": 0,
+                    }
+                ],
+                "duration_exceeds_window": [],
+                "window_exceeds_duration": [],
             },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
@@ -1038,6 +1089,48 @@ def test_report_includes_command_timing_and_edit_summary():
                 "duration_exceeds_window": 0,
                 "window_exceeds_duration": 0,
             },
+            "duration_window_delta_direction_examples": {
+                "matches": [
+                    {
+                        "event": "evt_cmd_top_level_summary",
+                        "status": "succeeded",
+                        "duration_ms": 25,
+                        "duration_source": "explicit",
+                        "type": "command",
+                        "command": "pytest tests/test_auth.py -q",
+                        "cwd": "/workspace/app",
+                        "exit_code": 0,
+                        "started_at": "2026-04-25T00:00:06Z",
+                        "ended_at": "2026-04-25T00:00:06.025Z",
+                        "summary": "Run focused auth tests",
+                        "summary_source": "event.summary",
+                        "timestamp_window_ms": 25,
+                        "duration_window_delta_ms": 0,
+                        "duration_window_delta_abs_ms": 0,
+                    },
+                    {
+                        "event": "evt_edit_top_level_summary",
+                        "status": "succeeded",
+                        "duration_ms": 100,
+                        "duration_source": "explicit",
+                        "type": "file_edit",
+                        "path": "docs/auth.md",
+                        "kind": "modify",
+                        "added_lines": 3,
+                        "removed_lines": 0,
+                        "net_line_delta": 3,
+                        "started_at": "2026-04-25T00:00:07Z",
+                        "ended_at": "2026-04-25T00:00:07.100Z",
+                        "summary": "Document auth error handling behavior",
+                        "summary_source": "event.summary",
+                        "timestamp_window_ms": 100,
+                        "duration_window_delta_ms": 0,
+                        "duration_window_delta_abs_ms": 0,
+                    },
+                ],
+                "duration_exceeds_window": [],
+                "window_exceeds_duration": [],
+            },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
                 "event": "evt_cmd_top_level_summary",
@@ -1073,6 +1166,85 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "duration_window_delta_direction_counts=duration_exceeds_window=0, matches=2, window_exceeds_duration=0" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
+
+
+def test_timing_window_delta_direction_examples_show_mismatch_context():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "timing-direction-examples", "task": "inspect timing mismatches", "status": "failed"},
+        "events": [
+            {
+                "id": "evt_duration_long",
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.100Z",
+                "duration_ms": 150,
+                "summary": "Run short command",
+                "command": {"value": "python short.py", "cwd": "/workspace/app"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_window_long",
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.250Z",
+                "duration_ms": 200,
+                "summary": "Patch report",
+                "file": {"path": "src/report.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    activity_coverage = payload["report_timing_window_coverage"]["activity"]
+    assert activity_coverage["duration_window_delta_direction_counts"] == {
+        "matches": 0,
+        "duration_exceeds_window": 1,
+        "window_exceeds_duration": 1,
+    }
+    assert activity_coverage["duration_window_delta_direction_examples"]["duration_exceeds_window"] == [{
+        "event": "evt_duration_long",
+        "status": "succeeded",
+        "duration_ms": 150,
+        "duration_source": "explicit",
+        "type": "command",
+        "command": "python short.py",
+        "cwd": "/workspace/app",
+        "exit_code": 0,
+        "started_at": "2026-04-25T00:00:00Z",
+        "ended_at": "2026-04-25T00:00:00.100Z",
+        "summary": "Run short command",
+        "summary_source": "event.summary",
+        "timestamp_window_ms": 100,
+        "duration_window_delta_ms": 50,
+        "duration_window_delta_abs_ms": 50,
+    }]
+    assert activity_coverage["duration_window_delta_direction_examples"]["window_exceeds_duration"] == [{
+        "event": "evt_window_long",
+        "status": "succeeded",
+        "duration_ms": 200,
+        "duration_source": "explicit",
+        "type": "file_edit",
+        "path": "src/report.py",
+        "kind": "modify",
+        "added_lines": 2,
+        "removed_lines": 1,
+        "net_line_delta": 1,
+        "started_at": "2026-04-25T00:00:01Z",
+        "ended_at": "2026-04-25T00:00:01.250Z",
+        "summary": "Patch report",
+        "summary_source": "event.summary",
+        "timestamp_window_ms": 250,
+        "duration_window_delta_ms": -50,
+        "duration_window_delta_abs_ms": 50,
+    }]
+
+    text = build_markdown_summary(trace)
+    assert "duration_window_delta_direction_examples=matches=none, duration_exceeds_window=`python short.py`" in text
+    assert "window_exceeds_duration=src/report.py (event=evt_window_long" in text
 
 
 def test_markdown_report_renders_command_timing_and_edit_summary():

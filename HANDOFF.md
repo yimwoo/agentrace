@@ -1,3 +1,16 @@
+`agentrace` timing-window coverage now includes compact direction examples for duration-vs-window consistency. JSON `report_timing_window_coverage` command/edit/activity buckets include `duration_window_delta_direction_examples` keyed by matches, recorded-duration-greater rows, and timestamp-window-greater rows; Markdown renders those examples beside direction counts so reviewers can jump to representative mismatch rows with identity, timing, summary, cwd/exit-code or edit line-impact context.
+
+## What was done
+- created AgentSpec task `T-152` for timing-window direction examples
+- added direction-bucket examples to JSON timing-window consistency metrics
+- rendered direction examples in Markdown timing-window coverage
+- refreshed regression coverage, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_timing_window_delta_direction_examples_show_mismatch_context -q` — 1 passed
+
+## Older status
 `agentrace` timing-window coverage now classifies duration-vs-window deltas by direction. JSON `report_timing_window_coverage` command/edit/activity buckets include `duration_window_delta_direction_counts` for exact matches, rows where recorded `duration_ms` exceeds the timestamp window, and rows where the timestamp window exceeds recorded duration; Markdown renders those counts beside existing delta totals/averages so reviewers can distinguish harmless matches from over- or under-reported durations quickly.
 
 ## What was done
