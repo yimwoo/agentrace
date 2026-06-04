@@ -1,0 +1,54 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260604T040120356958Z-t-149-5e2ee2cd",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "owner",
+  "created_at": "2026-06-04T04:01:20Z",
+  "updated_at": "2026-06-04T04:04:23Z",
+  "context_pack": "agent/context-packs/T-149-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:e71ca114e731a1ce51b3a53ce1b7017c2e3262f139d65e06884a94f5729e3c67",
+  "task_id": "T-149",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-149-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-149-add-command-timing-and-edit-summaries-to-reports-20260604040102415898",
+  "note": "Scheduled AgentSpec-only run sharing dirty host checkout from prior scheduler slices.",
+  "history": [
+    {
+      "at": "2026-06-04T04:01:20Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Scheduled AgentSpec-only run sharing dirty host checkout from prior scheduler slices."
+    },
+    {
+      "at": "2026-06-04T04:04:23Z",
+      "action": "finished",
+      "note": "Task T-149 complete; changes retained in host checkout for commit.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": null,
+  "test_status": "passed",
+  "finish_note": "Task T-149 complete; changes retained in host checkout for commit.",
+  "finished_at": "2026-06-04T04:04:23Z"
+}

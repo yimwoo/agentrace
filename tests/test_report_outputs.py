@@ -641,6 +641,8 @@ def test_report_includes_command_timing_and_edit_summary():
                 "seq": 3,
                 "type": "command",
                 "status": "succeeded",
+                "started_at": "2026-04-25T00:00:06Z",
+                "ended_at": "2026-04-25T00:00:06.025Z",
                 "duration_ms": 25,
                 "summary": "Run focused auth tests",
                 "command": {"value": "pytest tests/test_auth.py -q", "cwd": "/workspace/app"},
@@ -651,6 +653,8 @@ def test_report_includes_command_timing_and_edit_summary():
                 "seq": 4,
                 "type": "file_edit",
                 "status": "succeeded",
+                "started_at": "2026-04-25T00:00:07Z",
+                "ended_at": "2026-04-25T00:00:07.100Z",
                 "duration_ms": 100,
                 "summary": "Document auth error handling behavior",
                 "file": {"path": "docs/auth.md"},
@@ -682,6 +686,8 @@ def test_report_includes_command_timing_and_edit_summary():
             "exit_code": 0,
             "summary": "Run focused auth tests",
             "summary_source": "event.summary",
+            "started_at": "2026-04-25T00:00:06Z",
+            "ended_at": "2026-04-25T00:00:06.025Z",
         },
     ]
     assert payload["edit_summary"] == [
@@ -710,6 +716,8 @@ def test_report_includes_command_timing_and_edit_summary():
             "summary": "Document auth error handling behavior",
             "summary_source": "event.summary",
             "net_line_delta": 3,
+            "started_at": "2026-04-25T00:00:07Z",
+            "ended_at": "2026-04-25T00:00:07.100Z",
         },
     ]
     assert payload["run_summary"]["command_durations_ms"][0]["duration_ms"] == 3200
@@ -737,6 +745,8 @@ def test_report_includes_command_timing_and_edit_summary():
         "exit_code": 0,
         "summary": "Run focused auth tests",
         "summary_source": "event.summary",
+        "started_at": "2026-04-25T00:00:06Z",
+        "ended_at": "2026-04-25T00:00:06.025Z",
     }
     assert payload["edit_summary"][1] == {
         "event": "evt_edit_top_level_summary",
@@ -750,6 +760,8 @@ def test_report_includes_command_timing_and_edit_summary():
         "summary": "Document auth error handling behavior",
         "summary_source": "event.summary",
         "net_line_delta": 3,
+        "started_at": "2026-04-25T00:00:07Z",
+        "ended_at": "2026-04-25T00:00:07.100Z",
     }
     assert payload["run_summary"]["command_durations_ms"][1]["summary_source"] == "event.summary"
     assert payload["run_summary"]["edit_summaries"][1]["summary_source"] == "event.summary"
@@ -788,6 +800,149 @@ def test_report_includes_command_timing_and_edit_summary():
             "file_edit:docs/auth.md": {"event.summary": 1},
         },
     }
+    assert payload["report_timing_window_coverage"] == {
+        "command": {
+            "timing_row_count": 2,
+            "started_at_count": 2,
+            "ended_at_count": 1,
+            "complete_window_count": 1,
+            "missing_window_count": 1,
+            "complete_window_ratio": 0.5,
+            "timestamp_window_total_ms": 25,
+            "timestamp_window_average_ms": 25.0,
+            "timestamp_window_extremes_ms": {"min": 25, "max": 25},
+            "largest_timestamp_window_ms": 25,
+            "largest_timestamp_window_example": {
+                "event": "evt_cmd_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "duration_source": "explicit",
+                "command": "pytest tests/test_auth.py -q",
+                "cwd": "/workspace/app",
+                "exit_code": 0,
+                "started_at": "2026-04-25T00:00:06Z",
+                "ended_at": "2026-04-25T00:00:06.025Z",
+                "summary": "Run focused auth tests",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 25,
+            },
+            "missing_timestamp_window_examples": [
+                {
+                    "event": "evt_cmd",
+                    "status": "failed",
+                    "duration_ms": 3200,
+                    "duration_source": "explicit",
+                    "command": "pytest tests/test_auth.py -q",
+                    "cwd": "/workspace/app",
+                    "exit_code": 1,
+                    "started_at": "2026-04-25T00:00:01Z",
+                    "missing_ended_at": True,
+                }
+            ],
+        },
+        "edit": {
+            "timing_row_count": 2,
+            "started_at_count": 2,
+            "ended_at_count": 1,
+            "complete_window_count": 1,
+            "missing_window_count": 1,
+            "complete_window_ratio": 0.5,
+            "timestamp_window_total_ms": 100,
+            "timestamp_window_average_ms": 100.0,
+            "timestamp_window_extremes_ms": {"min": 100, "max": 100},
+            "largest_timestamp_window_ms": 100,
+            "largest_timestamp_window_example": {
+                "event": "evt_edit_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 100,
+                "duration_source": "explicit",
+                "path": "docs/auth.md",
+                "kind": "modify",
+                "added_lines": 3,
+                "removed_lines": 0,
+                "net_line_delta": 3,
+                "started_at": "2026-04-25T00:00:07Z",
+                "ended_at": "2026-04-25T00:00:07.100Z",
+                "summary": "Document auth error handling behavior",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 100,
+            },
+            "missing_timestamp_window_examples": [
+                {
+                    "event": "evt_edit",
+                    "status": "succeeded",
+                    "duration_ms": 500,
+                    "duration_source": "explicit",
+                    "path": "src/auth.py",
+                    "kind": "modify",
+                    "added_lines": 4,
+                    "removed_lines": 1,
+                    "net_line_delta": 3,
+                    "started_at": "2026-04-25T00:00:05Z",
+                    "summary": "Translate decoder errors into 401 responses",
+                    "missing_ended_at": True,
+                }
+            ],
+        },
+        "activity": {
+            "timing_row_count": 4,
+            "started_at_count": 4,
+            "ended_at_count": 2,
+            "complete_window_count": 2,
+            "missing_window_count": 2,
+            "complete_window_ratio": 0.5,
+            "timestamp_window_total_ms": 125,
+            "timestamp_window_average_ms": 62.5,
+            "timestamp_window_extremes_ms": {"min": 25, "max": 100},
+            "largest_timestamp_window_ms": 100,
+            "largest_timestamp_window_example": {
+                "event": "evt_edit_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 100,
+                "duration_source": "explicit",
+                "type": "file_edit",
+                "path": "docs/auth.md",
+                "kind": "modify",
+                "added_lines": 3,
+                "removed_lines": 0,
+                "net_line_delta": 3,
+                "started_at": "2026-04-25T00:00:07Z",
+                "ended_at": "2026-04-25T00:00:07.100Z",
+                "summary": "Document auth error handling behavior",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 100,
+            },
+            "missing_timestamp_window_examples": [
+                {
+                    "event": "evt_cmd",
+                    "status": "failed",
+                    "duration_ms": 3200,
+                    "duration_source": "explicit",
+                    "type": "command",
+                    "command": "pytest tests/test_auth.py -q",
+                    "cwd": "/workspace/app",
+                    "exit_code": 1,
+                    "started_at": "2026-04-25T00:00:01Z",
+                    "missing_ended_at": True,
+                },
+                {
+                    "event": "evt_edit",
+                    "status": "succeeded",
+                    "duration_ms": 500,
+                    "duration_source": "explicit",
+                    "type": "file_edit",
+                    "path": "src/auth.py",
+                    "kind": "modify",
+                    "added_lines": 4,
+                    "removed_lines": 1,
+                    "net_line_delta": 3,
+                    "started_at": "2026-04-25T00:00:05Z",
+                    "summary": "Translate decoder errors into 401 responses",
+                    "missing_ended_at": True,
+                },
+            ],
+        },
+    }
     assert payload["command_timing_summary"]["summary_source_counts"] == {"event.summary": 1}
     assert payload["edit_summary_totals"]["summary_source_counts"] == {"nested_or_inline": 1, "event.summary": 1}
 
@@ -795,6 +950,10 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "activity_timeline_summary: count=4" in text
     assert "summary_source_counts=event.summary=2, nested_or_inline=1" in text
     assert "report_summary_source_counts: command=event.summary=1; command_by_duration_source=explicit=event.summary=1; command_by_status=failed=none, succeeded=event.summary=1; command_by_command=pytest tests/test_auth.py -q=event.summary=1; command_by_cwd=/workspace/app=event.summary=1; command_by_exit_code=0=event.summary=1, 1=none; edit=event.summary=1, nested_or_inline=1; edit_by_duration_source=explicit=event.summary=1, nested_or_inline=1; edit_by_status=succeeded=event.summary=1, nested_or_inline=1; edit_by_kind=modify=event.summary=1, nested_or_inline=1; edit_by_path=docs/auth.md=event.summary=1, src/auth.py=nested_or_inline=1; activity=event.summary=2, nested_or_inline=1; activity_by_type=command=event.summary=1, file_edit=event.summary=1, nested_or_inline=1; activity_by_status=failed=none, succeeded=event.summary=2, nested_or_inline=1; activity_by_duration_source=explicit=event.summary=2, nested_or_inline=1; activity_by_identity=command:pytest tests/test_auth.py -q=event.summary=1, file_edit:docs/auth.md=event.summary=1, file_edit:src/auth.py=nested_or_inline=1" in text
+    assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
+    assert "edit=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
+    assert "activity=rows=4/started_at=4/ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
+    assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, summary=Document auth error handling behavior, summary_source=event.summary)" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 

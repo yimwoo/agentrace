@@ -1856,6 +1856,24 @@
         "status": "passed"
       },
       "updated_at": "2026-06-03T18:05:08Z"
+    },
+    "agent/context-packs/T-148-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-148-add-command-timing-and-edit-summaries-to-reports-20260603230530980763",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-03T23:05:30Z"
+    },
+    "agent/context-packs/T-149-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-149-add-command-timing-and-edit-summaries-to-reports-20260604040102415898",
+      "reason": "Implemented missing timestamp-window examples in report timing-window coverage and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-04T04:03:55Z"
     }
   }
 }

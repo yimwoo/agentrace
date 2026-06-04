@@ -309,6 +309,60 @@ def _summary_recorded_duration_example_rows(rows, limit=3):
     return [_summary_duration_example_row(row) for _, row in candidates[:limit]]
 
 
+def _timing_window_example_row(row):
+    """Return compact context for timestamp-window coverage examples."""
+    example = _summary_duration_example_row(row)
+    timestamp_window_ms = _duration_between_ms(row.get("started_at"), row.get("ended_at"))
+    if timestamp_window_ms is not None:
+        example["timestamp_window_ms"] = timestamp_window_ms
+    if not row.get("started_at"):
+        example["missing_started_at"] = True
+    if not row.get("ended_at"):
+        example["missing_ended_at"] = True
+    return example
+
+
+def _missing_timing_window_example_rows(rows, limit=3):
+    """Return compact rows that lack a complete started_at/ended_at window."""
+    candidates = [
+        (index, row)
+        for index, row in enumerate(rows or [])
+        if isinstance(row, dict)
+        and _duration_between_ms(row.get("started_at"), row.get("ended_at")) is None
+    ]
+    candidates.sort(key=lambda item: (-_numeric_value(item[1].get("duration_ms")), item[0]))
+    return [_timing_window_example_row(row) for _, row in candidates[:limit]]
+
+
+def _timing_window_metrics(rows):
+    """Return timestamp-window coverage for command, edit, or activity report rows."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    complete_window_rows = [
+        row for row in normalized_rows
+        if _duration_between_ms(row.get("started_at"), row.get("ended_at")) is not None
+    ]
+    window_durations = [_duration_between_ms(row.get("started_at"), row.get("ended_at")) for row in complete_window_rows]
+    total_window_ms = sum(window_durations)
+    largest_row = None
+    for row in complete_window_rows:
+        if largest_row is None or (_duration_between_ms(row.get("started_at"), row.get("ended_at")) or 0) > (_duration_between_ms(largest_row.get("started_at"), largest_row.get("ended_at")) or 0):
+            largest_row = row
+    return {
+        "timing_row_count": len(normalized_rows),
+        "started_at_count": sum(1 for row in normalized_rows if row.get("started_at")),
+        "ended_at_count": sum(1 for row in normalized_rows if row.get("ended_at")),
+        "complete_window_count": len(complete_window_rows),
+        "missing_window_count": len(normalized_rows) - len(complete_window_rows),
+        "complete_window_ratio": 0 if not normalized_rows else round(len(complete_window_rows) / len(normalized_rows), 4),
+        "timestamp_window_total_ms": total_window_ms,
+        "timestamp_window_average_ms": 0 if not complete_window_rows else round(total_window_ms / len(complete_window_rows), 2),
+        "timestamp_window_extremes_ms": {"min": min(window_durations), "max": max(window_durations)} if window_durations else {"min": 0, "max": 0},
+        "largest_timestamp_window_ms": max(window_durations) if window_durations else 0,
+        "largest_timestamp_window_example": _timing_window_example_row(largest_row) if largest_row is not None else None,
+        "missing_timestamp_window_examples": _missing_timing_window_example_rows(normalized_rows),
+    }
+
+
 def _summary_duration_metrics(rows):
     """Return duration impact split by rows with and without summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -1840,6 +1894,8 @@ def _edit_summary_highlight_row(row):
     }
     if row.get("summary"):
         summary["summary"] = row["summary"]
+        if row.get("summary_source"):
+            summary["summary_source"] = row["summary_source"]
     if row.get("artifacts"):
         summary["artifacts"] = row["artifacts"]
     return summary
@@ -2168,6 +2224,11 @@ def build_json_summary(trace):
         "activity_by_duration_source": _summary_source_counts_by_field(activity_timeline, "duration_source"),
         "activity_by_identity": _summary_source_counts_by_activity_identity(activity_timeline),
     }
+    report_timing_window_coverage = {
+        "command": _timing_window_metrics(command_timing),
+        "edit": _timing_window_metrics(edit_summary),
+        "activity": _timing_window_metrics(activity_timeline),
+    }
     return {
         "task": metadata["task"],
         "run_id": metadata["run_id"],
@@ -2180,6 +2241,7 @@ def build_json_summary(trace):
         "report_summary_coverage": report_summary_coverage,
         "report_summary_duration_impact": report_summary_duration_impact,
         "report_summary_source_counts": report_summary_source_counts,
+        "report_timing_window_coverage": report_timing_window_coverage,
         "command_timing_summary": build_command_timing_summary(command_timing),
         "activity_timeline_summary": build_activity_timeline_summary(activity_timeline),
         "activity_timeline": activity_timeline,

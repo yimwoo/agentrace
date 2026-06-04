@@ -460,6 +460,51 @@ def _format_summary_missing_examples(rows):
 
 
 
+def _format_timing_window_example(example):
+    if not example:
+        return "none"
+    return _format_summary_missing_examples([example])
+
+
+def _format_timing_window_missing_examples(examples):
+    if not examples:
+        return "none"
+    rendered = []
+    for example in examples:
+        missing = []
+        if example.get("missing_started_at"):
+            missing.append("started_at")
+        if example.get("missing_ended_at"):
+            missing.append("ended_at")
+        suffix = f" missing={'+'.join(missing)}" if missing else ""
+        rendered_example = _format_timing_window_example(example)
+        rendered.append(f"{rendered_example}{suffix}")
+    return " | ".join(rendered)
+
+
+def _format_report_timing_window_coverage(coverage):
+    if not coverage:
+        return "none"
+    parts = []
+    for label in ["command", "edit", "activity"]:
+        row = coverage.get(label) or {}
+        parts.append(
+            f"{label}=rows={row.get('timing_row_count', 0)}/"
+            f"started_at={row.get('started_at_count', 0)}/"
+            f"ended_at={row.get('ended_at_count', 0)}/"
+            f"complete_windows={row.get('complete_window_count', 0)}/"
+            f"missing_windows={row.get('missing_window_count', 0)}/"
+            f"complete_window_ratio={row.get('complete_window_ratio', 0)}/"
+            f"timestamp_window_total_ms={row.get('timestamp_window_total_ms', 0)}/"
+            f"timestamp_window_average_ms={row.get('timestamp_window_average_ms', 0)}/"
+            f"timestamp_window_extremes_ms={row.get('timestamp_window_extremes_ms', {'min': 0, 'max': 0})}/"
+            f"largest_timestamp_window_ms={row.get('largest_timestamp_window_ms', 0)}/"
+            f"largest_timestamp_window_example={_format_timing_window_example(row.get('largest_timestamp_window_example'))}/"
+            f"missing_timestamp_window_examples={_format_timing_window_missing_examples(row.get('missing_timestamp_window_examples'))}"
+        )
+    return "; ".join(parts)
+
+
 def _format_report_inspection_targets(targets):
     if not targets:
         return "none"
@@ -1048,6 +1093,7 @@ def build_markdown_summary(trace):
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- report_summary_duration_impact: {_format_report_summary_duration_impact(payload['report_summary_duration_impact'])}",
         f"- report_summary_source_counts: {_format_report_summary_source_counts(payload['report_summary_source_counts'])}",
+        f"- report_timing_window_coverage: {_format_report_timing_window_coverage(payload['report_timing_window_coverage'])}",
         f"- command_count: {command_totals['count']}",
         f"- unique_command_count: {command_totals['unique_command_count']}",
         f"- commands_run: {_format_changed_files(command_totals['commands_run'])}",

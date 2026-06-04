@@ -1,3 +1,27 @@
+`agentrace` timing-window coverage now names the highest-duration rows that lack complete timestamp windows. JSON `report_timing_window_coverage` still reports started/ended/complete/missing counts and largest complete windows, and now adds `missing_timestamp_window_examples` for command, edit, and activity buckets with missing `started_at`/`ended_at` markers; Markdown renders those missing-window examples inline so reviewers can jump directly from coverage counts to the duration rows that need timestamp instrumentation.
+
+## What was done
+- created AgentSpec task `T-149` for report timing-window missing-window examples
+- added JSON `missing_timestamp_window_examples` under command/edit/activity `report_timing_window_coverage` buckets
+- rendered missing timestamp-window examples in Markdown report timing coverage
+- refreshed regression coverage, rich Markdown fixture, and `TRACE_SCHEMA.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 37 passed, 1 warning
+
+## Older status
+`agentrace` reports now include top-level timing-window coverage for command, edit, and combined activity rows. JSON exposes `report_timing_window_coverage` with started/ended/complete/missing timestamp-window counts, complete-window ratios, total/average/min/max timestamp-window durations, and largest-window examples; Markdown renders the same compact line near the existing summary coverage/source/impact lines so reviewers can quickly see whether command/edit reports have usable timestamp windows in addition to duration values.
+
+## What was done
+- created AgentSpec task `T-148` for report timing-window coverage
+- added JSON `report_timing_window_coverage` for command, edit, and activity rows
+- rendered the timing-window coverage line in Markdown reports
+- refreshed regression coverage and `TRACE_SCHEMA.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+
+## Older status
 `agentrace` report-wide summary provenance now mirrors the grouped coverage dimensions. Top-level JSON `report_summary_source_counts` still reports command/edit/activity provenance totals, and now also includes per-label source-count breakdowns for command duration source/status/command/cwd/exit code, edit duration source/status/kind/path, and activity type/status/duration source/identity; Markdown renders those grouped provenance counts in the compact `report_summary_source_counts` line so reviewers can see where `event.summary` fallbacks are concentrated without cross-referencing detail rows.
 
 ## What was done
