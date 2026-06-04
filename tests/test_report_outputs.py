@@ -6,6 +6,26 @@ from src.emit_example_trace import build_sample_trace
 from src.report_json import build_json_summary
 from src.report_markdown import build_markdown_summary
 
+def _timing_window_delta_expected(
+    comparable_count,
+    delta_total_ms=0,
+    delta_abs_total_ms=0,
+    delta_average_ms=0.0,
+    delta_abs_average_ms=0.0,
+    largest_delta_ms=0,
+    largest_delta_example=None,
+):
+    return {
+        "duration_window_comparable_count": comparable_count,
+        "duration_window_delta_total_ms": delta_total_ms,
+        "duration_window_delta_abs_total_ms": delta_abs_total_ms,
+        "duration_window_delta_average_ms": delta_average_ms,
+        "duration_window_delta_abs_average_ms": delta_abs_average_ms,
+        "largest_duration_window_delta_ms": largest_delta_ms,
+        "largest_duration_window_delta_example": largest_delta_example,
+    }
+
+
 TRACE = {
     "task": "debug sample",
     "run_id": "sample-1",
@@ -825,6 +845,8 @@ def test_report_includes_command_timing_and_edit_summary():
                 "summary": "Run focused auth tests",
                 "summary_source": "event.summary",
                 "timestamp_window_ms": 25,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
             },
             "missing_timestamp_window_examples": [
                 {
@@ -839,6 +861,28 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 }
             ],
+            "duration_window_comparable_count": 1,
+            "duration_window_delta_total_ms": 0,
+            "duration_window_delta_abs_total_ms": 0,
+            "duration_window_delta_average_ms": 0.0,
+            "duration_window_delta_abs_average_ms": 0.0,
+            "largest_duration_window_delta_ms": 0,
+            "largest_duration_window_delta_example": {
+                "event": "evt_cmd_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "duration_source": "explicit",
+                "command": "pytest tests/test_auth.py -q",
+                "cwd": "/workspace/app",
+                "exit_code": 0,
+                "started_at": "2026-04-25T00:00:06Z",
+                "ended_at": "2026-04-25T00:00:06.025Z",
+                "summary": "Run focused auth tests",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 25,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
+            },
         },
         "edit": {
             "timing_row_count": 2,
@@ -866,6 +910,8 @@ def test_report_includes_command_timing_and_edit_summary():
                 "summary": "Document auth error handling behavior",
                 "summary_source": "event.summary",
                 "timestamp_window_ms": 100,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
             },
             "missing_timestamp_window_examples": [
                 {
@@ -883,6 +929,30 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 }
             ],
+            "duration_window_comparable_count": 1,
+            "duration_window_delta_total_ms": 0,
+            "duration_window_delta_abs_total_ms": 0,
+            "duration_window_delta_average_ms": 0.0,
+            "duration_window_delta_abs_average_ms": 0.0,
+            "largest_duration_window_delta_ms": 0,
+            "largest_duration_window_delta_example": {
+                "event": "evt_edit_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 100,
+                "duration_source": "explicit",
+                "path": "docs/auth.md",
+                "kind": "modify",
+                "added_lines": 3,
+                "removed_lines": 0,
+                "net_line_delta": 3,
+                "started_at": "2026-04-25T00:00:07Z",
+                "ended_at": "2026-04-25T00:00:07.100Z",
+                "summary": "Document auth error handling behavior",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 100,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
+            },
         },
         "activity": {
             "timing_row_count": 4,
@@ -911,6 +981,8 @@ def test_report_includes_command_timing_and_edit_summary():
                 "summary": "Document auth error handling behavior",
                 "summary_source": "event.summary",
                 "timestamp_window_ms": 100,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
             },
             "missing_timestamp_window_examples": [
                 {
@@ -941,6 +1013,29 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 },
             ],
+            "duration_window_comparable_count": 2,
+            "duration_window_delta_total_ms": 0,
+            "duration_window_delta_abs_total_ms": 0,
+            "duration_window_delta_average_ms": 0.0,
+            "duration_window_delta_abs_average_ms": 0.0,
+            "largest_duration_window_delta_ms": 0,
+            "largest_duration_window_delta_example": {
+                "event": "evt_cmd_top_level_summary",
+                "status": "succeeded",
+                "duration_ms": 25,
+                "duration_source": "explicit",
+                "type": "command",
+                "command": "pytest tests/test_auth.py -q",
+                "cwd": "/workspace/app",
+                "exit_code": 0,
+                "started_at": "2026-04-25T00:00:06Z",
+                "ended_at": "2026-04-25T00:00:06.025Z",
+                "summary": "Run focused auth tests",
+                "summary_source": "event.summary",
+                "timestamp_window_ms": 25,
+                "duration_window_delta_ms": 0,
+                "duration_window_delta_abs_ms": 0,
+            },
         },
     }
     assert payload["command_timing_summary"]["summary_source_counts"] == {"event.summary": 1}
@@ -953,7 +1048,8 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
     assert "edit=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
     assert "activity=rows=4/started_at=4/ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
-    assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, summary=Document auth error handling behavior, summary_source=event.summary)" in text
+    assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, timestamp_window_ms=100, duration_window_delta_ms=0, duration_window_delta_abs_ms=0, summary=Document auth error handling behavior, summary_source=event.summary)" in text
+    assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 

@@ -1,18 +1,16 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-04T04:04:02Z",
+  "updated_at": "2026-06-04T08:05:16Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-149",
-    "context_pack": "agent/context-packs/T-149-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-149: Add command timing and edit summaries to reports",
-    "run_id": "t-149-add-command-timing-and-edit-summaries-to-reports-20260604040102415898",
-    "reason": "Implemented missing timestamp-window examples in report timing-window coverage.",
-    "updated_at": "2026-06-04T04:04:02Z",
+    "id": "T-150",
+    "context_pack": "agent/context-packs/T-150-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-150: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-150-add-command-timing-and-edit-summaries-to-reports-20260604080516297181",
+    "reason": "Marked complete by user.",
+    "updated_at": "2026-06-04T08:05:16Z",
     "verification": {
-      "status": "passed",
-      "command": "bash scripts/ci_check.sh",
-      "summary": "44 passed, 1 warning"
+      "status": "passed"
     }
   },
   "current_state": {
@@ -36,14 +34,14 @@
       }
     },
     "tasks": {
-      "total": 149,
+      "total": 150,
       "by_status": {
-        "complete": 145,
-        "halted": 3,
+        "complete": 147,
+        "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 146,
+        "implementation": 147,
         "scaffold": 3
       }
     }

@@ -315,11 +315,61 @@ def _timing_window_example_row(row):
     timestamp_window_ms = _duration_between_ms(row.get("started_at"), row.get("ended_at"))
     if timestamp_window_ms is not None:
         example["timestamp_window_ms"] = timestamp_window_ms
+        if _has_recorded_duration(row):
+            duration_window_delta_ms = _numeric_value(row.get("duration_ms")) - timestamp_window_ms
+            example["duration_window_delta_ms"] = duration_window_delta_ms
+            example["duration_window_delta_abs_ms"] = abs(duration_window_delta_ms)
     if not row.get("started_at"):
         example["missing_started_at"] = True
     if not row.get("ended_at"):
         example["missing_ended_at"] = True
     return example
+
+
+def _has_recorded_duration(row):
+    return isinstance(row, dict) and (row.get("duration_source") or "unknown") != "missing"
+
+
+def _duration_window_delta_rows(rows):
+    comparable_rows = []
+    for index, row in enumerate(rows or []):
+        if not isinstance(row, dict) or not _has_recorded_duration(row):
+            continue
+        timestamp_window_ms = _duration_between_ms(row.get("started_at"), row.get("ended_at"))
+        if timestamp_window_ms is None:
+            continue
+        duration_window_delta_ms = _numeric_value(row.get("duration_ms")) - timestamp_window_ms
+        comparable_rows.append({
+            "index": index,
+            "row": row,
+            "timestamp_window_ms": timestamp_window_ms,
+            "duration_window_delta_ms": duration_window_delta_ms,
+            "duration_window_delta_abs_ms": abs(duration_window_delta_ms),
+        })
+    return comparable_rows
+
+
+def _duration_window_delta_metrics(rows):
+    """Compare recorded duration_ms with complete started_at/ended_at windows."""
+    delta_rows = _duration_window_delta_rows(rows)
+    total_delta_ms = sum(row["duration_window_delta_ms"] for row in delta_rows)
+    total_abs_delta_ms = sum(row["duration_window_delta_abs_ms"] for row in delta_rows)
+    largest_delta = None
+    for delta_row in delta_rows:
+        if largest_delta is None or delta_row["duration_window_delta_abs_ms"] > largest_delta["duration_window_delta_abs_ms"]:
+            largest_delta = delta_row
+    largest_delta_example = None
+    if largest_delta is not None:
+        largest_delta_example = _timing_window_example_row(largest_delta["row"])
+    return {
+        "duration_window_comparable_count": len(delta_rows),
+        "duration_window_delta_total_ms": total_delta_ms,
+        "duration_window_delta_abs_total_ms": total_abs_delta_ms,
+        "duration_window_delta_average_ms": 0 if not delta_rows else round(total_delta_ms / len(delta_rows), 2),
+        "duration_window_delta_abs_average_ms": 0 if not delta_rows else round(total_abs_delta_ms / len(delta_rows), 2),
+        "largest_duration_window_delta_ms": 0 if largest_delta is None else largest_delta["duration_window_delta_abs_ms"],
+        "largest_duration_window_delta_example": largest_delta_example,
+    }
 
 
 def _missing_timing_window_example_rows(rows, limit=3):
@@ -347,7 +397,7 @@ def _timing_window_metrics(rows):
     for row in complete_window_rows:
         if largest_row is None or (_duration_between_ms(row.get("started_at"), row.get("ended_at")) or 0) > (_duration_between_ms(largest_row.get("started_at"), largest_row.get("ended_at")) or 0):
             largest_row = row
-    return {
+    timing_window_metrics = {
         "timing_row_count": len(normalized_rows),
         "started_at_count": sum(1 for row in normalized_rows if row.get("started_at")),
         "ended_at_count": sum(1 for row in normalized_rows if row.get("ended_at")),
@@ -361,6 +411,8 @@ def _timing_window_metrics(rows):
         "largest_timestamp_window_example": _timing_window_example_row(largest_row) if largest_row is not None else None,
         "missing_timestamp_window_examples": _missing_timing_window_example_rows(normalized_rows),
     }
+    timing_window_metrics.update(_duration_window_delta_metrics(normalized_rows))
+    return timing_window_metrics
 
 
 def _summary_duration_metrics(rows):

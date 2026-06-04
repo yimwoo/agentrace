@@ -448,6 +448,11 @@ def _format_summary_missing_examples(rows):
                 extras.append(f"net={row.get('net_line_delta', 0)}")
         details = [f"event={row.get('event') or 'summary'}", f"status={status}", f"duration_ms={duration}", f"duration_source={source}"]
         details.extend(extras)
+        if row.get("timestamp_window_ms") is not None:
+            details.append(f"timestamp_window_ms={row['timestamp_window_ms']}")
+        if row.get("duration_window_delta_ms") is not None:
+            details.append(f"duration_window_delta_ms={row['duration_window_delta_ms']}")
+            details.append(f"duration_window_delta_abs_ms={row.get('duration_window_delta_abs_ms', abs(row['duration_window_delta_ms']))}")
         if row.get("summary"):
             details.append(f"summary={row['summary']}")
             if row.get("summary_source"):
@@ -500,6 +505,13 @@ def _format_report_timing_window_coverage(coverage):
             f"timestamp_window_extremes_ms={row.get('timestamp_window_extremes_ms', {'min': 0, 'max': 0})}/"
             f"largest_timestamp_window_ms={row.get('largest_timestamp_window_ms', 0)}/"
             f"largest_timestamp_window_example={_format_timing_window_example(row.get('largest_timestamp_window_example'))}/"
+            f"duration_window_comparable_count={row.get('duration_window_comparable_count', 0)}/"
+            f"duration_window_delta_total_ms={row.get('duration_window_delta_total_ms', 0)}/"
+            f"duration_window_delta_abs_total_ms={row.get('duration_window_delta_abs_total_ms', 0)}/"
+            f"duration_window_delta_average_ms={row.get('duration_window_delta_average_ms', 0)}/"
+            f"duration_window_delta_abs_average_ms={row.get('duration_window_delta_abs_average_ms', 0)}/"
+            f"largest_duration_window_delta_ms={row.get('largest_duration_window_delta_ms', 0)}/"
+            f"largest_duration_window_delta_example={_format_timing_window_example(row.get('largest_duration_window_delta_example'))}/"
             f"missing_timestamp_window_examples={_format_timing_window_missing_examples(row.get('missing_timestamp_window_examples'))}"
         )
     return "; ".join(parts)

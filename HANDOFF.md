@@ -1,13 +1,14 @@
-`agentrace` timing-window coverage now names the highest-duration rows that lack complete timestamp windows. JSON `report_timing_window_coverage` still reports started/ended/complete/missing counts and largest complete windows, and now adds `missing_timestamp_window_examples` for command, edit, and activity buckets with missing `started_at`/`ended_at` markers; Markdown renders those missing-window examples inline so reviewers can jump directly from coverage counts to the duration rows that need timestamp instrumentation.
+`agentrace` timing-window coverage now compares complete timestamp windows against recorded row durations. JSON `report_timing_window_coverage` command/edit/activity buckets add comparable-row counts, signed and absolute duration-vs-window delta totals/averages, and largest-delta examples; Markdown renders those consistency metrics inline with the existing timestamp-window coverage so reviewers can spot producers whose `duration_ms` disagrees with `started_at`/`ended_at` without scanning detail rows.
 
 ## What was done
-- created AgentSpec task `T-149` for report timing-window missing-window examples
-- added JSON `missing_timestamp_window_examples` under command/edit/activity `report_timing_window_coverage` buckets
-- rendered missing timestamp-window examples in Markdown report timing coverage
-- refreshed regression coverage, rich Markdown fixture, and `TRACE_SCHEMA.md`
+- created AgentSpec task `T-150` for duration-vs-window consistency metrics
+- added JSON timing-window delta metrics and enriched largest-window examples with timestamp/duration delta context
+- rendered the new timing-window consistency fields in Markdown report coverage
+- refreshed regression coverage and `TRACE_SCHEMA.md`
 
 ## Verification
-- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 37 passed, 1 warning
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
 
 ## Older status
 `agentrace` reports now include top-level timing-window coverage for command, edit, and combined activity rows. JSON exposes `report_timing_window_coverage` with started/ended/complete/missing timestamp-window counts, complete-window ratios, total/average/min/max timestamp-window durations, and largest-window examples; Markdown renders the same compact line near the existing summary coverage/source/impact lines so reviewers can quickly see whether command/edit reports have usable timestamp windows in addition to duration values.
