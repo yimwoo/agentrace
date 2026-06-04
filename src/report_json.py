@@ -354,6 +354,19 @@ def _duration_window_delta_metrics(rows):
     delta_rows = _duration_window_delta_rows(rows)
     total_delta_ms = sum(row["duration_window_delta_ms"] for row in delta_rows)
     total_abs_delta_ms = sum(row["duration_window_delta_abs_ms"] for row in delta_rows)
+    direction_counts = {
+        "matches": 0,
+        "duration_exceeds_window": 0,
+        "window_exceeds_duration": 0,
+    }
+    for delta_row in delta_rows:
+        delta_ms = delta_row["duration_window_delta_ms"]
+        if delta_ms > 0:
+            direction_counts["duration_exceeds_window"] += 1
+        elif delta_ms < 0:
+            direction_counts["window_exceeds_duration"] += 1
+        else:
+            direction_counts["matches"] += 1
     largest_delta = None
     for delta_row in delta_rows:
         if largest_delta is None or delta_row["duration_window_delta_abs_ms"] > largest_delta["duration_window_delta_abs_ms"]:
@@ -367,6 +380,7 @@ def _duration_window_delta_metrics(rows):
         "duration_window_delta_abs_total_ms": total_abs_delta_ms,
         "duration_window_delta_average_ms": 0 if not delta_rows else round(total_delta_ms / len(delta_rows), 2),
         "duration_window_delta_abs_average_ms": 0 if not delta_rows else round(total_abs_delta_ms / len(delta_rows), 2),
+        "duration_window_delta_direction_counts": direction_counts,
         "largest_duration_window_delta_ms": 0 if largest_delta is None else largest_delta["duration_window_delta_abs_ms"],
         "largest_duration_window_delta_example": largest_delta_example,
     }

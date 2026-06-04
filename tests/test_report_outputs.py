@@ -21,6 +21,11 @@ def _timing_window_delta_expected(
         "duration_window_delta_abs_total_ms": delta_abs_total_ms,
         "duration_window_delta_average_ms": delta_average_ms,
         "duration_window_delta_abs_average_ms": delta_abs_average_ms,
+        "duration_window_delta_direction_counts": {
+            "matches": comparable_count,
+            "duration_exceeds_window": 0,
+            "window_exceeds_duration": 0,
+        },
         "largest_duration_window_delta_ms": largest_delta_ms,
         "largest_duration_window_delta_example": largest_delta_example,
     }
@@ -866,6 +871,11 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_direction_counts": {
+                "matches": 1,
+                "duration_exceeds_window": 0,
+                "window_exceeds_duration": 0,
+            },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
                 "event": "evt_cmd_top_level_summary",
@@ -934,6 +944,11 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_direction_counts": {
+                "matches": 1,
+                "duration_exceeds_window": 0,
+                "window_exceeds_duration": 0,
+            },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
                 "event": "evt_edit_top_level_summary",
@@ -1018,6 +1033,11 @@ def test_report_includes_command_timing_and_edit_summary():
             "duration_window_delta_abs_total_ms": 0,
             "duration_window_delta_average_ms": 0.0,
             "duration_window_delta_abs_average_ms": 0.0,
+            "duration_window_delta_direction_counts": {
+                "matches": 2,
+                "duration_exceeds_window": 0,
+                "window_exceeds_duration": 0,
+            },
             "largest_duration_window_delta_ms": 0,
             "largest_duration_window_delta_example": {
                 "event": "evt_cmd_top_level_summary",
@@ -1050,6 +1070,7 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "activity=rows=4/started_at=4/ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
     assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, timestamp_window_ms=100, duration_window_delta_ms=0, duration_window_delta_abs_ms=0, summary=Document auth error handling behavior, summary_source=event.summary)" in text
     assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
+    assert "duration_window_delta_direction_counts=duration_exceeds_window=0, matches=2, window_exceeds_duration=0" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 
