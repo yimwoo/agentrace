@@ -1,3 +1,16 @@
+`agentrace` timing-window coverage now quantifies duration impact for incomplete timestamp windows. JSON `report_timing_window_coverage` command/edit/activity buckets include complete-window duration totals, missing-window duration totals and shares, and `partial_timestamp_window_duration_ms` split into `started_only`, `ended_only`, and `missing_both`; Markdown renders the same totals inline so reviewers can see whether incomplete timestamp telemetry covers a material amount of recorded command/edit time.
+
+## What was done
+- created AgentSpec task `T-156` for missing timestamp-window duration impact
+- added complete vs. missing timestamp-window duration totals and missing-window duration share to JSON coverage metrics
+- added partial timestamp-window duration totals by started-only, ended-only, and missing-both buckets
+- rendered the new duration impact fields in Markdown and refreshed regression expectations plus schema/project state docs
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `bash scripts/ci_check.sh` — 45 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` timing-window coverage now includes grouped examples for partial timestamp telemetry. JSON `report_timing_window_coverage` command/edit/activity buckets expose `partial_timestamp_window_examples` split into `started_only`, `ended_only`, and `missing_both`, and Markdown renders the same buckets beside the existing missing-window examples so reviewers can jump directly to representative incomplete timestamp rows.
 
 ## What was done

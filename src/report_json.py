@@ -454,6 +454,30 @@ def _partial_timing_window_example_rows(rows, limit=3):
     return grouped_examples
 
 
+def _partial_timing_window_duration_totals(rows):
+    """Return duration totals grouped by incomplete timestamp boundary shape."""
+    totals = {
+        "started_only": 0,
+        "ended_only": 0,
+        "missing_both": 0,
+    }
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        has_started_at = bool(row.get("started_at"))
+        has_ended_at = bool(row.get("ended_at"))
+        if has_started_at and not has_ended_at:
+            bucket = "started_only"
+        elif has_ended_at and not has_started_at:
+            bucket = "ended_only"
+        elif not has_started_at and not has_ended_at:
+            bucket = "missing_both"
+        else:
+            continue
+        totals[bucket] += _numeric_value(row.get("duration_ms"))
+    return totals
+
+
 def _timing_window_metrics(rows):
     """Return timestamp-window coverage for command, edit, or activity report rows."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -461,8 +485,15 @@ def _timing_window_metrics(rows):
         row for row in normalized_rows
         if _duration_between_ms(row.get("started_at"), row.get("ended_at")) is not None
     ]
+    missing_window_rows = [
+        row for row in normalized_rows
+        if _duration_between_ms(row.get("started_at"), row.get("ended_at")) is None
+    ]
     window_durations = [_duration_between_ms(row.get("started_at"), row.get("ended_at")) for row in complete_window_rows]
     total_window_ms = sum(window_durations)
+    total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
+    complete_window_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in complete_window_rows)
+    missing_window_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in missing_window_rows)
     largest_row = None
     for row in complete_window_rows:
         if largest_row is None or (_duration_between_ms(row.get("started_at"), row.get("ended_at")) or 0) > (_duration_between_ms(largest_row.get("started_at"), largest_row.get("ended_at")) or 0):
@@ -478,6 +509,10 @@ def _timing_window_metrics(rows):
         "complete_window_count": len(complete_window_rows),
         "missing_window_count": len(normalized_rows) - len(complete_window_rows),
         "complete_window_ratio": 0 if not normalized_rows else round(len(complete_window_rows) / len(normalized_rows), 4),
+        "complete_window_duration_ms": complete_window_duration_ms,
+        "missing_window_duration_ms": missing_window_duration_ms,
+        "missing_window_duration_share": 0 if not total_duration_ms else round(missing_window_duration_ms / total_duration_ms, 4),
+        "partial_timestamp_window_duration_ms": _partial_timing_window_duration_totals(normalized_rows),
         "timestamp_window_total_ms": total_window_ms,
         "timestamp_window_average_ms": 0 if not complete_window_rows else round(total_window_ms / len(complete_window_rows), 2),
         "timestamp_window_extremes_ms": {"min": min(window_durations), "max": max(window_durations)} if window_durations else {"min": 0, "max": 0},
