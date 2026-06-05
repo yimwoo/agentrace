@@ -845,6 +845,7 @@ def test_report_includes_command_timing_and_edit_summary():
             "missing_window_count": 1,
             "complete_window_ratio": 0.5,
             "complete_window_duration_ms": 25,
+            "complete_window_duration_share": 0.0078,
             "missing_window_duration_ms": 3200,
             "missing_window_duration_share": 0.9922,
             "partial_timestamp_window_duration_ms": {"started_only": 3200, "ended_only": 0, "missing_both": 0},
@@ -962,6 +963,7 @@ def test_report_includes_command_timing_and_edit_summary():
             "missing_window_count": 1,
             "complete_window_ratio": 0.5,
             "complete_window_duration_ms": 100,
+            "complete_window_duration_share": 0.1667,
             "missing_window_duration_ms": 500,
             "missing_window_duration_share": 0.8333,
             "partial_timestamp_window_duration_ms": {"started_only": 500, "ended_only": 0, "missing_both": 0},
@@ -1091,6 +1093,7 @@ def test_report_includes_command_timing_and_edit_summary():
             "missing_window_count": 2,
             "complete_window_ratio": 0.5,
             "complete_window_duration_ms": 125,
+            "complete_window_duration_share": 0.0327,
             "missing_window_duration_ms": 3700,
             "missing_window_duration_share": 0.9673,
             "partial_timestamp_window_duration_ms": {"started_only": 3700, "ended_only": 0, "missing_both": 0},
@@ -1260,9 +1263,9 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "activity_timeline_summary: count=4" in text
     assert "summary_source_counts=event.summary=2, nested_or_inline=1" in text
     assert "report_summary_source_counts: command=event.summary=1; command_by_duration_source=explicit=event.summary=1; command_by_status=failed=none, succeeded=event.summary=1; command_by_command=pytest tests/test_auth.py -q=event.summary=1; command_by_cwd=/workspace/app=event.summary=1; command_by_exit_code=0=event.summary=1, 1=none; edit=event.summary=1, nested_or_inline=1; edit_by_duration_source=explicit=event.summary=1, nested_or_inline=1; edit_by_status=succeeded=event.summary=1, nested_or_inline=1; edit_by_kind=modify=event.summary=1, nested_or_inline=1; edit_by_path=docs/auth.md=event.summary=1, src/auth.py=nested_or_inline=1; activity=event.summary=2, nested_or_inline=1; activity_by_type=command=event.summary=1, file_edit=event.summary=1, nested_or_inline=1; activity_by_status=failed=none, succeeded=event.summary=2, nested_or_inline=1; activity_by_duration_source=explicit=event.summary=2, nested_or_inline=1; activity_by_identity=command:pytest tests/test_auth.py -q=event.summary=1, file_edit:docs/auth.md=event.summary=1, file_edit:src/auth.py=nested_or_inline=1" in text
-    assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/complete_window_duration_ms=25/missing_window_duration_ms=3200/missing_window_duration_share=0.9922/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=3200/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
-    assert "edit=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/complete_window_duration_ms=100/missing_window_duration_ms=500/missing_window_duration_share=0.8333/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=500/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
-    assert "activity=rows=4/started_at=4/ended_at=2/started_only=2/ended_only=0/missing_started_at=0/missing_ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/complete_window_duration_ms=125/missing_window_duration_ms=3700/missing_window_duration_share=0.9673/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=3700/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
+    assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/complete_window_duration_ms=25/complete_window_duration_share=0.0078/missing_window_duration_ms=3200/missing_window_duration_share=0.9922/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=3200/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
+    assert "edit=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/complete_window_duration_ms=100/complete_window_duration_share=0.1667/missing_window_duration_ms=500/missing_window_duration_share=0.8333/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=500/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
+    assert "activity=rows=4/started_at=4/ended_at=2/started_only=2/ended_only=0/missing_started_at=0/missing_ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/complete_window_duration_ms=125/complete_window_duration_share=0.0327/missing_window_duration_ms=3700/missing_window_duration_share=0.9673/partial_timestamp_window_duration_ms=ended_only=0, missing_both=0, started_only=3700/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
     assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, timestamp_window_ms=100, duration_window_delta_ms=0, duration_window_delta_abs_ms=0, summary=Document auth error handling behavior, summary_source=event.summary)" in text
     assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
     assert "duration_window_delta_abs_recorded_duration_share=0.0/duration_window_delta_consistency_label=matched" in text

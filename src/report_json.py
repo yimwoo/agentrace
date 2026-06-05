@@ -510,6 +510,7 @@ def _timing_window_metrics(rows):
         "missing_window_count": len(normalized_rows) - len(complete_window_rows),
         "complete_window_ratio": 0 if not normalized_rows else round(len(complete_window_rows) / len(normalized_rows), 4),
         "complete_window_duration_ms": complete_window_duration_ms,
+        "complete_window_duration_share": 0 if not total_duration_ms else round(complete_window_duration_ms / total_duration_ms, 4),
         "missing_window_duration_ms": missing_window_duration_ms,
         "missing_window_duration_share": 0 if not total_duration_ms else round(missing_window_duration_ms / total_duration_ms, 4),
         "partial_timestamp_window_duration_ms": _partial_timing_window_duration_totals(normalized_rows),

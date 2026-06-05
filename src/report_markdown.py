@@ -525,6 +525,7 @@ def _format_report_timing_window_coverage(coverage):
             f"missing_windows={row.get('missing_window_count', 0)}/"
             f"complete_window_ratio={row.get('complete_window_ratio', 0)}/"
             f"complete_window_duration_ms={row.get('complete_window_duration_ms', 0)}/"
+            f"complete_window_duration_share={row.get('complete_window_duration_share', 0)}/"
             f"missing_window_duration_ms={row.get('missing_window_duration_ms', 0)}/"
             f"missing_window_duration_share={row.get('missing_window_duration_share', 0)}/"
             f"partial_timestamp_window_duration_ms={_format_status_counts(row.get('partial_timestamp_window_duration_ms'))}/"

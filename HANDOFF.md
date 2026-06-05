@@ -1,3 +1,17 @@
+`agentrace` timing-window coverage now reports both sides of duration-share impact. JSON `report_timing_window_coverage` command/edit/activity buckets include `complete_window_duration_share` beside existing complete/missing window duration totals and missing-window share, and Markdown renders the same value inline so reviewers can see the explained timestamp-window share without subtracting from sparse-window impact.
+
+## What was done
+- created AgentSpec task `T-157` for complete timestamp-window duration share visibility
+- added `complete_window_duration_share` to JSON timing-window coverage metrics
+- rendered the new share in Markdown report timing-window coverage
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 38 passed, 1 warning
+- `bash scripts/ci_check.sh` — 45 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` timing-window coverage now quantifies duration impact for incomplete timestamp windows. JSON `report_timing_window_coverage` command/edit/activity buckets include complete-window duration totals, missing-window duration totals and shares, and `partial_timestamp_window_duration_ms` split into `started_only`, `ended_only`, and `missing_both`; Markdown renders the same totals inline so reviewers can see whether incomplete timestamp telemetry covers a material amount of recorded command/edit time.
 
 ## What was done
