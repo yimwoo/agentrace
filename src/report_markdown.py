@@ -497,6 +497,16 @@ def _format_report_timing_direction_examples(examples_by_direction):
     return ", ".join(rendered)
 
 
+def _format_partial_timing_window_examples(examples_by_bucket):
+    if not examples_by_bucket:
+        return "none"
+    rendered = []
+    for bucket in ["started_only", "ended_only", "missing_both"]:
+        examples = examples_by_bucket.get(bucket) or []
+        rendered.append(f"{bucket}={_format_timing_window_missing_examples(examples)}")
+    return ", ".join(rendered)
+
+
 def _format_report_timing_window_coverage(coverage):
     if not coverage:
         return "none"
@@ -530,6 +540,7 @@ def _format_report_timing_window_coverage(coverage):
             f"duration_window_delta_direction_examples={_format_report_timing_direction_examples(row.get('duration_window_delta_direction_examples'))}/"
             f"largest_duration_window_delta_ms={row.get('largest_duration_window_delta_ms', 0)}/"
             f"largest_duration_window_delta_example={_format_timing_window_example(row.get('largest_duration_window_delta_example'))}/"
+            f"partial_timestamp_window_examples={_format_partial_timing_window_examples(row.get('partial_timestamp_window_examples'))}/"
             f"missing_timestamp_window_examples={_format_timing_window_missing_examples(row.get('missing_timestamp_window_examples'))}"
         )
     return "; ".join(parts)

@@ -877,6 +877,23 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 }
             ],
+            "partial_timestamp_window_examples": {
+                "started_only": [
+                    {
+                        "event": "evt_cmd",
+                        "status": "failed",
+                        "duration_ms": 3200,
+                        "duration_source": "explicit",
+                        "command": "pytest tests/test_auth.py -q",
+                        "cwd": "/workspace/app",
+                        "exit_code": 1,
+                        "started_at": "2026-04-25T00:00:01Z",
+                        "missing_ended_at": True,
+                    }
+                ],
+                "ended_only": [],
+                "missing_both": [],
+            },
             "duration_window_comparable_count": 1,
             "duration_window_delta_total_ms": 0,
             "duration_window_delta_abs_total_ms": 0,
@@ -978,6 +995,26 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 }
             ],
+            "partial_timestamp_window_examples": {
+                "started_only": [
+                    {
+                        "event": "evt_edit",
+                        "status": "succeeded",
+                        "duration_ms": 500,
+                        "duration_source": "explicit",
+                        "path": "src/auth.py",
+                        "kind": "modify",
+                        "added_lines": 4,
+                        "removed_lines": 1,
+                        "net_line_delta": 3,
+                        "started_at": "2026-04-25T00:00:05Z",
+                        "summary": "Translate decoder errors into 401 responses",
+                        "missing_ended_at": True,
+                    }
+                ],
+                "ended_only": [],
+                "missing_both": [],
+            },
             "duration_window_comparable_count": 1,
             "duration_window_delta_total_ms": 0,
             "duration_window_delta_abs_total_ms": 0,
@@ -1097,6 +1134,39 @@ def test_report_includes_command_timing_and_edit_summary():
                     "missing_ended_at": True,
                 },
             ],
+            "partial_timestamp_window_examples": {
+                "started_only": [
+                    {
+                        "event": "evt_cmd",
+                        "status": "failed",
+                        "duration_ms": 3200,
+                        "duration_source": "explicit",
+                        "type": "command",
+                        "command": "pytest tests/test_auth.py -q",
+                        "cwd": "/workspace/app",
+                        "exit_code": 1,
+                        "started_at": "2026-04-25T00:00:01Z",
+                        "missing_ended_at": True,
+                    },
+                    {
+                        "event": "evt_edit",
+                        "status": "succeeded",
+                        "duration_ms": 500,
+                        "duration_source": "explicit",
+                        "type": "file_edit",
+                        "path": "src/auth.py",
+                        "kind": "modify",
+                        "added_lines": 4,
+                        "removed_lines": 1,
+                        "net_line_delta": 3,
+                        "started_at": "2026-04-25T00:00:05Z",
+                        "summary": "Translate decoder errors into 401 responses",
+                        "missing_ended_at": True,
+                    },
+                ],
+                "ended_only": [],
+                "missing_both": [],
+            },
             "duration_window_comparable_count": 2,
             "duration_window_delta_total_ms": 0,
             "duration_window_delta_abs_total_ms": 0,
@@ -1185,6 +1255,8 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
     assert "duration_window_delta_abs_recorded_duration_share=0.0/duration_window_delta_consistency_label=matched" in text
     assert "duration_window_delta_direction_counts=duration_exceeds_window=0, matches=2, window_exceeds_duration=0" in text
+    assert "partial_timestamp_window_examples=started_only=`pytest tests/test_auth.py -q` (event=evt_cmd" in text
+    assert "ended_only=none, missing_both=none" in text
     assert "command_summary_source_counts: event.summary=1" in text
     assert "edit_summary_source_counts: event.summary=1, nested_or_inline=1" in text
 

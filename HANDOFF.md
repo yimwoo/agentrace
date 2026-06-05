@@ -1,3 +1,15 @@
+`agentrace` timing-window coverage now includes grouped examples for partial timestamp telemetry. JSON `report_timing_window_coverage` command/edit/activity buckets expose `partial_timestamp_window_examples` split into `started_only`, `ended_only`, and `missing_both`, and Markdown renders the same buckets beside the existing missing-window examples so reviewers can jump directly to representative incomplete timestamp rows.
+
+## What was done
+- created AgentSpec task `T-155` for partial timestamp-window example buckets
+- added grouped partial timestamp-window examples to JSON report coverage metrics
+- rendered the new grouped examples in Markdown timing-window coverage
+- refreshed regression coverage, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py -q` — 38 passed, 1 warning
+
+## Older status
 `agentrace` timing-window coverage now separates partial timestamp telemetry. JSON `report_timing_window_coverage` command/edit/activity buckets include `started_only_count`, `ended_only_count`, `missing_started_at_count`, and `missing_ended_at_count` beside existing started/ended/complete/missing-window totals; Markdown renders the new fields inline so reviewers can distinguish producers that emit only start timestamps from those that emit only end timestamps before inspecting examples.
 
 ## What was done

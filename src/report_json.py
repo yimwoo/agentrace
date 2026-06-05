@@ -425,6 +425,35 @@ def _missing_timing_window_example_rows(rows, limit=3):
     return [_timing_window_example_row(row) for _, row in candidates[:limit]]
 
 
+def _partial_timing_window_example_rows(rows, limit=3):
+    """Return examples grouped by which timestamp boundary is missing."""
+    buckets = {
+        "started_only": [],
+        "ended_only": [],
+        "missing_both": [],
+    }
+    for index, row in enumerate(rows or []):
+        if not isinstance(row, dict):
+            continue
+        has_started_at = bool(row.get("started_at"))
+        has_ended_at = bool(row.get("ended_at"))
+        if has_started_at and not has_ended_at:
+            bucket = "started_only"
+        elif has_ended_at and not has_started_at:
+            bucket = "ended_only"
+        elif not has_started_at and not has_ended_at:
+            bucket = "missing_both"
+        else:
+            continue
+        buckets[bucket].append((index, row))
+
+    grouped_examples = {}
+    for bucket, candidates in buckets.items():
+        candidates.sort(key=lambda item: (-_numeric_value(item[1].get("duration_ms")), item[0]))
+        grouped_examples[bucket] = [_timing_window_example_row(row) for _, row in candidates[:limit]]
+    return grouped_examples
+
+
 def _timing_window_metrics(rows):
     """Return timestamp-window coverage for command, edit, or activity report rows."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -455,6 +484,7 @@ def _timing_window_metrics(rows):
         "largest_timestamp_window_ms": max(window_durations) if window_durations else 0,
         "largest_timestamp_window_example": _timing_window_example_row(largest_row) if largest_row is not None else None,
         "missing_timestamp_window_examples": _missing_timing_window_example_rows(normalized_rows),
+        "partial_timestamp_window_examples": _partial_timing_window_example_rows(normalized_rows),
     }
     timing_window_metrics.update(_duration_window_delta_metrics(normalized_rows))
     return timing_window_metrics
