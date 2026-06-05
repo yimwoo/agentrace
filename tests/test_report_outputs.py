@@ -837,6 +837,10 @@ def test_report_includes_command_timing_and_edit_summary():
             "timing_row_count": 2,
             "started_at_count": 2,
             "ended_at_count": 1,
+            "started_only_count": 1,
+            "ended_only_count": 0,
+            "missing_started_at_count": 0,
+            "missing_ended_at_count": 1,
             "complete_window_count": 1,
             "missing_window_count": 1,
             "complete_window_ratio": 0.5,
@@ -929,6 +933,10 @@ def test_report_includes_command_timing_and_edit_summary():
             "timing_row_count": 2,
             "started_at_count": 2,
             "ended_at_count": 1,
+            "started_only_count": 1,
+            "ended_only_count": 0,
+            "missing_started_at_count": 0,
+            "missing_ended_at_count": 1,
             "complete_window_count": 1,
             "missing_window_count": 1,
             "complete_window_ratio": 0.5,
@@ -1030,6 +1038,10 @@ def test_report_includes_command_timing_and_edit_summary():
             "timing_row_count": 4,
             "started_at_count": 4,
             "ended_at_count": 2,
+            "started_only_count": 2,
+            "ended_only_count": 0,
+            "missing_started_at_count": 0,
+            "missing_ended_at_count": 2,
             "complete_window_count": 2,
             "missing_window_count": 2,
             "complete_window_ratio": 0.5,
@@ -1166,9 +1178,9 @@ def test_report_includes_command_timing_and_edit_summary():
     assert "activity_timeline_summary: count=4" in text
     assert "summary_source_counts=event.summary=2, nested_or_inline=1" in text
     assert "report_summary_source_counts: command=event.summary=1; command_by_duration_source=explicit=event.summary=1; command_by_status=failed=none, succeeded=event.summary=1; command_by_command=pytest tests/test_auth.py -q=event.summary=1; command_by_cwd=/workspace/app=event.summary=1; command_by_exit_code=0=event.summary=1, 1=none; edit=event.summary=1, nested_or_inline=1; edit_by_duration_source=explicit=event.summary=1, nested_or_inline=1; edit_by_status=succeeded=event.summary=1, nested_or_inline=1; edit_by_kind=modify=event.summary=1, nested_or_inline=1; edit_by_path=docs/auth.md=event.summary=1, src/auth.py=nested_or_inline=1; activity=event.summary=2, nested_or_inline=1; activity_by_type=command=event.summary=1, file_edit=event.summary=1, nested_or_inline=1; activity_by_status=failed=none, succeeded=event.summary=2, nested_or_inline=1; activity_by_duration_source=explicit=event.summary=2, nested_or_inline=1; activity_by_identity=command:pytest tests/test_auth.py -q=event.summary=1, file_edit:docs/auth.md=event.summary=1, file_edit:src/auth.py=nested_or_inline=1" in text
-    assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
-    assert "edit=rows=2/started_at=2/ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
-    assert "activity=rows=4/started_at=4/ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
+    assert "report_timing_window_coverage: command=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=25/timestamp_window_average_ms=25.0" in text
+    assert "edit=rows=2/started_at=2/ended_at=1/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1/complete_windows=1/missing_windows=1/complete_window_ratio=0.5/timestamp_window_total_ms=100/timestamp_window_average_ms=100.0" in text
+    assert "activity=rows=4/started_at=4/ended_at=2/started_only=2/ended_only=0/missing_started_at=0/missing_ended_at=2/complete_windows=2/missing_windows=2/complete_window_ratio=0.5/timestamp_window_total_ms=125/timestamp_window_average_ms=62.5" in text
     assert "largest_timestamp_window_example=docs/auth.md (event=evt_edit_top_level_summary, status=succeeded, duration_ms=100, duration_source=explicit, kind=modify, net=3, timestamp_window_ms=100, duration_window_delta_ms=0, duration_window_delta_abs_ms=0, summary=Document auth error handling behavior, summary_source=event.summary)" in text
     assert "duration_window_comparable_count=2/duration_window_delta_total_ms=0/duration_window_delta_abs_total_ms=0" in text
     assert "duration_window_delta_abs_recorded_duration_share=0.0/duration_window_delta_consistency_label=matched" in text
@@ -3937,9 +3949,25 @@ def test_activity_timeline_summary_derives_coverage_for_partial_windows():
     assert timeline_totals["status_duration_ms"] == {"succeeded": 4000}
     assert timeline_totals["status_duration_share"] == {"succeeded": 1.0}
     assert timeline_totals["dominant_duration_status"] == {"status": "succeeded", "duration_ms": 4000, "duration_share": 1.0}
+    coverage = payload["report_timing_window_coverage"]
+    assert coverage["command"]["started_only_count"] == 1
+    assert coverage["command"]["ended_only_count"] == 0
+    assert coverage["command"]["missing_started_at_count"] == 0
+    assert coverage["command"]["missing_ended_at_count"] == 1
+    assert coverage["edit"]["started_only_count"] == 0
+    assert coverage["edit"]["ended_only_count"] == 1
+    assert coverage["edit"]["missing_started_at_count"] == 1
+    assert coverage["edit"]["missing_ended_at_count"] == 0
+    assert coverage["activity"]["started_only_count"] == 1
+    assert coverage["activity"]["ended_only_count"] == 1
+    assert coverage["activity"]["missing_started_at_count"] == 1
+    assert coverage["activity"]["missing_ended_at_count"] == 1
 
     text = build_markdown_summary(trace)
     assert "covered_duration_ms=4000" in text
+    assert "command=rows=1/started_at=1/ended_at=0/started_only=1/ended_only=0/missing_started_at=0/missing_ended_at=1" in text
+    assert "edit=rows=1/started_at=0/ended_at=1/started_only=0/ended_only=1/missing_started_at=1/missing_ended_at=0" in text
+    assert "activity=rows=2/started_at=1/ended_at=1/started_only=1/ended_only=1/missing_started_at=1/missing_ended_at=1" in text
     assert "covered_intervals=(started_at=2026-04-25T00:00:00Z, ended_at=2026-04-25T00:00:03Z, duration_ms=3000); (started_at=2026-04-25T00:00:04Z, ended_at=2026-04-25T00:00:05Z, duration_ms=1000)" in text
     assert "uncovered_duration_ms=1000" in text
     assert "uncovered_intervals=(started_at=2026-04-25T00:00:03Z, ended_at=2026-04-25T00:00:04Z, duration_ms=1000)" in text

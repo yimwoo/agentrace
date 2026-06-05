@@ -1,3 +1,16 @@
+`agentrace` timing-window coverage now separates partial timestamp telemetry. JSON `report_timing_window_coverage` command/edit/activity buckets include `started_only_count`, `ended_only_count`, `missing_started_at_count`, and `missing_ended_at_count` beside existing started/ended/complete/missing-window totals; Markdown renders the new fields inline so reviewers can distinguish producers that emit only start timestamps from those that emit only end timestamps before inspecting examples.
+
+## What was done
+- created AgentSpec task `T-154` for partial timestamp-window coverage counts
+- added started-only, ended-only, missing-start, and missing-end counts to JSON timing-window metrics
+- rendered the new partial-window counts in Markdown timing-window coverage
+- refreshed regression coverage, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_includes_command_timing_and_edit_summary tests/test_report_outputs.py::test_activity_timeline_summary_derives_coverage_for_partial_windows -q` — 2 passed
+- `bash scripts/ci_check.sh` — 45 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` timing-window coverage now labels duration-vs-window consistency severity. JSON `report_timing_window_coverage` command/edit/activity buckets include `duration_window_delta_abs_recorded_duration_share` and `duration_window_delta_consistency_label` (`no_comparable_rows`, `matched`, `low_delta`, `medium_delta`, or `high_delta`); Markdown renders both fields before direction counts so reviewers can triage whether timestamp-window mismatches are material before reading representative rows.
 
 ## What was done
