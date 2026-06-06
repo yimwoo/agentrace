@@ -565,6 +565,12 @@ def _summary_timing_window_metrics(rows):
         "summary_missing_complete_window_share": (
             0 if not unsummarized_rows else round(len(unsummarized_complete_rows) / len(unsummarized_rows), 4)
         ),
+        "summary_recorded_missing_window_share": (
+            0 if not summarized_rows else round(len(summarized_missing_rows) / len(summarized_rows), 4)
+        ),
+        "summary_missing_missing_window_share": (
+            0 if not unsummarized_rows else round(len(unsummarized_missing_rows) / len(unsummarized_rows), 4)
+        ),
         "summary_recorded_complete_window_duration_share": (
             0 if not summarized_duration_ms else round(summarized_complete_duration_ms / summarized_duration_ms, 4)
         ),

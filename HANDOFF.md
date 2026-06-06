@@ -1,3 +1,17 @@
+`agentrace` reports now show explicit missing timestamp-window count shares inside `report_summary_timing_window_impact`. JSON and Markdown include `summary_recorded_missing_window_share` and `summary_missing_missing_window_share` for command, edit, and combined activity buckets, complementing the existing complete-window count shares and duration shares so reviewers can see whether summarized or unsummarized rows lack complete start/end windows without doing subtraction.
+
+## What was done
+- created AgentSpec task `T-160` for summary/timing-window missing-count share visibility
+- added missing-window count share fields to JSON `report_summary_timing_window_impact`
+- rendered the new count shares in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now show missing timestamp-window duration shares inside `report_summary_timing_window_impact`. JSON and Markdown include `summary_recorded_missing_window_duration_share` and `summary_missing_missing_window_duration_share` for command, edit, and combined activity buckets, complementing the existing complete-window shares so reviewers can see how much summarized and unsummarized duration remains outside complete start/end windows.
 
 ## What was done

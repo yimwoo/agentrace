@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-06T13:06:05Z",
+  "updated_at": "2026-06-06T18:42:20Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-159",
-    "context_pack": "agent/context-packs/T-159-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-159: Add command timing and edit summaries to reports",
-    "run_id": "t-159-add-command-timing-and-edit-summaries-to-reports-20260606130120847450",
-    "reason": "Implemented missing-window duration shares for report_summary_timing_window_impact, rendered them in Markdown, updated tests/fixture/docs, reviewed as REVIEW-0073, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
-    "updated_at": "2026-06-06T13:06:05Z",
+    "id": "T-160",
+    "context_pack": "agent/context-packs/T-160-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-160: Add command timing and edit summaries to reports",
+    "run_id": "t-160-add-command-timing-and-edit-summaries-to-reports-20260606183037998528",
+    "reason": "Implemented explicit summary/timing-window missing-count shares in JSON and Markdown, updated tests/fixture/docs, and passed bash scripts/ci_check.sh (46 passed, 1 warning).",
+    "updated_at": "2026-06-06T18:42:20Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0073",
+      "id": "REVIEW-0074",
       "verdict": "ready",
       "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0073.yml"
+      "path": "agent/reviews/REVIEW-0074.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 159,
+      "total": 160,
       "by_status": {
-        "complete": 156,
+        "complete": 157,
         "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 156,
+        "implementation": 157,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0073.yml"
+    "last_code_review": "agent/reviews/REVIEW-0074.yml"
   }
 }
