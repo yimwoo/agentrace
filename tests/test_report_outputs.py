@@ -624,6 +624,98 @@ def test_summary_duration_impact_labels_missing_duration_concentration():
     assert "missing_duration_concentration=distributed" in text
 
 
+def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-window-impact-1", "task": "inspect summary timing windows", "status": "succeeded"},
+        "events": [
+            {
+                "id": "evt_cmd_summarized_window",
+                "seq": 1,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:00Z",
+                "ended_at": "2026-04-25T00:00:00.050Z",
+                "duration_ms": 50,
+                "command": {"value": "pytest -q", "summary": "Run tests"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_cmd_missing_window",
+                "seq": 2,
+                "type": "command",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:01Z",
+                "ended_at": "2026-04-25T00:00:01.150Z",
+                "duration_ms": 150,
+                "command": {"value": "python scripts/slow.py"},
+                "exit_code": 0,
+            },
+            {
+                "id": "evt_edit_summarized_partial",
+                "seq": 3,
+                "type": "file_edit",
+                "status": "succeeded",
+                "started_at": "2026-04-25T00:00:02Z",
+                "duration_ms": 80,
+                "file": {"path": "src/report_json.py"},
+                "change": {"kind": "modify", "added_lines": 2, "removed_lines": 1, "summary": "Add metric"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+    assert payload["report_summary_timing_window_impact"] == {
+        "command": {
+            "summary_recorded_complete_window_count": 1,
+            "summary_missing_complete_window_count": 1,
+            "summary_recorded_missing_window_count": 0,
+            "summary_missing_missing_window_count": 0,
+            "summary_recorded_complete_window_duration_ms": 50,
+            "summary_missing_complete_window_duration_ms": 150,
+            "summary_recorded_missing_window_duration_ms": 0,
+            "summary_missing_missing_window_duration_ms": 0,
+            "summary_recorded_complete_window_share": 1.0,
+            "summary_missing_complete_window_share": 1.0,
+            "summary_recorded_complete_window_duration_share": 1.0,
+            "summary_missing_complete_window_duration_share": 1.0,
+        },
+        "edit": {
+            "summary_recorded_complete_window_count": 0,
+            "summary_missing_complete_window_count": 0,
+            "summary_recorded_missing_window_count": 1,
+            "summary_missing_missing_window_count": 0,
+            "summary_recorded_complete_window_duration_ms": 0,
+            "summary_missing_complete_window_duration_ms": 0,
+            "summary_recorded_missing_window_duration_ms": 80,
+            "summary_missing_missing_window_duration_ms": 0,
+            "summary_recorded_complete_window_share": 0.0,
+            "summary_missing_complete_window_share": 0,
+            "summary_recorded_complete_window_duration_share": 0.0,
+            "summary_missing_complete_window_duration_share": 0,
+        },
+        "activity": {
+            "summary_recorded_complete_window_count": 1,
+            "summary_missing_complete_window_count": 1,
+            "summary_recorded_missing_window_count": 1,
+            "summary_missing_missing_window_count": 0,
+            "summary_recorded_complete_window_duration_ms": 50,
+            "summary_missing_complete_window_duration_ms": 150,
+            "summary_recorded_missing_window_duration_ms": 80,
+            "summary_missing_missing_window_duration_ms": 0,
+            "summary_recorded_complete_window_share": 0.5,
+            "summary_missing_complete_window_share": 1.0,
+            "summary_recorded_complete_window_duration_share": 0.3846,
+            "summary_missing_complete_window_duration_share": 1.0,
+        },
+    }
+
+    text = build_markdown_summary(trace)
+    assert "report_summary_timing_window_impact:" in text
+    assert "command=recorded_complete_windows=1/missing_complete_windows=1/recorded_missing_windows=0/missing_missing_windows=0" in text
+    assert "activity=recorded_complete_windows=1/missing_complete_windows=1/recorded_missing_windows=1/missing_missing_windows=0" in text
+
+
 def test_build_sample_trace_shape():
     trace = build_sample_trace()
     assert trace["trace_version"] == "0.1"

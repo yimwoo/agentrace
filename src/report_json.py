@@ -526,6 +526,54 @@ def _timing_window_metrics(rows):
     return timing_window_metrics
 
 
+def _summary_timing_window_metrics(rows):
+    """Return complete timestamp-window coverage split by summary presence."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    summarized_rows = [row for row in normalized_rows if row.get("summary")]
+    unsummarized_rows = [row for row in normalized_rows if not row.get("summary")]
+
+    summarized_complete_rows = [
+        row for row in summarized_rows
+        if _duration_between_ms(row.get("started_at"), row.get("ended_at")) is not None
+    ]
+    unsummarized_complete_rows = [
+        row for row in unsummarized_rows
+        if _duration_between_ms(row.get("started_at"), row.get("ended_at")) is not None
+    ]
+    summarized_missing_rows = [row for row in summarized_rows if row not in summarized_complete_rows]
+    unsummarized_missing_rows = [row for row in unsummarized_rows if row not in unsummarized_complete_rows]
+
+    summarized_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in summarized_rows)
+    unsummarized_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in unsummarized_rows)
+    summarized_complete_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in summarized_complete_rows)
+    unsummarized_complete_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in unsummarized_complete_rows)
+    summarized_missing_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in summarized_missing_rows)
+    unsummarized_missing_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in unsummarized_missing_rows)
+
+    return {
+        "summary_recorded_complete_window_count": len(summarized_complete_rows),
+        "summary_missing_complete_window_count": len(unsummarized_complete_rows),
+        "summary_recorded_missing_window_count": len(summarized_missing_rows),
+        "summary_missing_missing_window_count": len(unsummarized_missing_rows),
+        "summary_recorded_complete_window_duration_ms": summarized_complete_duration_ms,
+        "summary_missing_complete_window_duration_ms": unsummarized_complete_duration_ms,
+        "summary_recorded_missing_window_duration_ms": summarized_missing_duration_ms,
+        "summary_missing_missing_window_duration_ms": unsummarized_missing_duration_ms,
+        "summary_recorded_complete_window_share": (
+            0 if not summarized_rows else round(len(summarized_complete_rows) / len(summarized_rows), 4)
+        ),
+        "summary_missing_complete_window_share": (
+            0 if not unsummarized_rows else round(len(unsummarized_complete_rows) / len(unsummarized_rows), 4)
+        ),
+        "summary_recorded_complete_window_duration_share": (
+            0 if not summarized_duration_ms else round(summarized_complete_duration_ms / summarized_duration_ms, 4)
+        ),
+        "summary_missing_complete_window_duration_share": (
+            0 if not unsummarized_duration_ms else round(unsummarized_complete_duration_ms / unsummarized_duration_ms, 4)
+        ),
+    }
+
+
 def _summary_duration_metrics(rows):
     """Return duration impact split by rows with and without summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -2387,6 +2435,11 @@ def build_json_summary(trace):
         "activity_by_duration_source": _summary_source_counts_by_field(activity_timeline, "duration_source"),
         "activity_by_identity": _summary_source_counts_by_activity_identity(activity_timeline),
     }
+    report_summary_timing_window_impact = {
+        "command": _summary_timing_window_metrics(command_timing),
+        "edit": _summary_timing_window_metrics(edit_summary),
+        "activity": _summary_timing_window_metrics(activity_timeline),
+    }
     report_timing_window_coverage = {
         "command": _timing_window_metrics(command_timing),
         "edit": _timing_window_metrics(edit_summary),
@@ -2403,6 +2456,7 @@ def build_json_summary(trace):
         "report_inspection_targets": build_report_inspection_targets(command_timing, edit_summary, activity_timeline),
         "report_summary_coverage": report_summary_coverage,
         "report_summary_duration_impact": report_summary_duration_impact,
+        "report_summary_timing_window_impact": report_summary_timing_window_impact,
         "report_summary_source_counts": report_summary_source_counts,
         "report_timing_window_coverage": report_timing_window_coverage,
         "command_timing_summary": build_command_timing_summary(command_timing),

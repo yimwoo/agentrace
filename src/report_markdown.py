@@ -594,6 +594,29 @@ def _format_report_summary_duration_examples(rows):
     return _format_summary_missing_examples(rows)
 
 
+def _format_report_summary_timing_window_impact(impact):
+    if not impact:
+        return "none"
+    parts = []
+    for label in ["command", "edit", "activity"]:
+        row = impact.get(label) or {}
+        parts.append(
+            f"{label}=recorded_complete_windows={row.get('summary_recorded_complete_window_count', 0)}/"
+            f"missing_complete_windows={row.get('summary_missing_complete_window_count', 0)}/"
+            f"recorded_missing_windows={row.get('summary_recorded_missing_window_count', 0)}/"
+            f"missing_missing_windows={row.get('summary_missing_missing_window_count', 0)}/"
+            f"recorded_complete_window_duration_ms={row.get('summary_recorded_complete_window_duration_ms', 0)}/"
+            f"missing_complete_window_duration_ms={row.get('summary_missing_complete_window_duration_ms', 0)}/"
+            f"recorded_missing_window_duration_ms={row.get('summary_recorded_missing_window_duration_ms', 0)}/"
+            f"missing_missing_window_duration_ms={row.get('summary_missing_missing_window_duration_ms', 0)}/"
+            f"recorded_complete_window_share={row.get('summary_recorded_complete_window_share', 0)}/"
+            f"missing_complete_window_share={row.get('summary_missing_complete_window_share', 0)}/"
+            f"recorded_complete_window_duration_share={row.get('summary_recorded_complete_window_duration_share', 0)}/"
+            f"missing_complete_window_duration_share={row.get('summary_missing_complete_window_duration_share', 0)}"
+        )
+    return "; ".join(parts)
+
+
 def _format_report_summary_duration_impact(impact):
     if not impact:
         return "none"
@@ -1138,6 +1161,7 @@ def build_markdown_summary(trace):
         f"- report_inspection_targets: {_format_report_inspection_targets(payload['report_inspection_targets'])}",
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- report_summary_duration_impact: {_format_report_summary_duration_impact(payload['report_summary_duration_impact'])}",
+        f"- report_summary_timing_window_impact: {_format_report_summary_timing_window_impact(payload['report_summary_timing_window_impact'])}",
         f"- report_summary_source_counts: {_format_report_summary_source_counts(payload['report_summary_source_counts'])}",
         f"- report_timing_window_coverage: {_format_report_timing_window_coverage(payload['report_timing_window_coverage'])}",
         f"- command_count: {command_totals['count']}",

@@ -1,16 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-05T18:04:40Z",
+  "updated_at": "2026-06-06T08:05:37Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-157",
-    "context_pack": "agent/context-packs/T-157-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-157: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-157-add-command-timing-and-edit-summaries-to-reports-20260605180440588074",
-    "reason": "Marked complete by user.",
-    "updated_at": "2026-06-05T18:04:40Z",
+    "id": "T-158",
+    "context_pack": "agent/context-packs/T-158-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-158: Add command timing and edit summaries to reports",
+    "run_id": "t-158-add-command-timing-and-edit-summaries-to-reports-20260606080020120612",
+    "reason": "Implemented report_summary_timing_window_impact in JSON and Markdown, updated docs/fixtures, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
+    "updated_at": "2026-06-06T08:05:37Z",
     "verification": {
       "status": "passed"
+    },
+    "code_review": {
+      "id": "REVIEW-0072",
+      "verdict": "ready",
+      "reviewer": "human",
+      "range": "worktree",
+      "path": "agent/reviews/REVIEW-0072.yml"
     }
   },
   "current_state": {
@@ -34,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 157,
+      "total": 158,
       "by_status": {
-        "complete": 154,
+        "complete": 155,
         "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 154,
+        "implementation": 155,
         "scaffold": 3
       }
     }
@@ -58,6 +65,7 @@
   },
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
-    "handoff": "agent/handoff.yml"
+    "handoff": "agent/handoff.yml",
+    "last_code_review": "agent/reviews/REVIEW-0072.yml"
   }
 }
