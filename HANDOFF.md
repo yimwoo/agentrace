@@ -1,3 +1,17 @@
+`agentrace` reports now show missing timestamp-window duration shares inside `report_summary_timing_window_impact`. JSON and Markdown include `summary_recorded_missing_window_duration_share` and `summary_missing_missing_window_duration_share` for command, edit, and combined activity buckets, complementing the existing complete-window shares so reviewers can see how much summarized and unsummarized duration remains outside complete start/end windows.
+
+## What was done
+- created AgentSpec task `T-159` for summary/timing-window missing-duration share visibility
+- added missing-window duration share fields to JSON `report_summary_timing_window_impact`
+- rendered the new shares in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now connect summary coverage to timestamp-window completeness. JSON and Markdown include `report_summary_timing_window_impact` for command, edit, and combined activity rows, splitting complete versus missing timestamp-window counts and duration totals by rows with recorded summaries versus missing summaries so reviewers can tell whether explained and unexplained activity has comparable start/end telemetry.
 
 ## What was done

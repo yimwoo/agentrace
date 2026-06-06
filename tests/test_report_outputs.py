@@ -679,6 +679,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_share": 1.0,
             "summary_recorded_complete_window_duration_share": 1.0,
             "summary_missing_complete_window_duration_share": 1.0,
+            "summary_recorded_missing_window_duration_share": 0.0,
+            "summary_missing_missing_window_duration_share": 0.0,
         },
         "edit": {
             "summary_recorded_complete_window_count": 0,
@@ -693,6 +695,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_share": 0,
             "summary_recorded_complete_window_duration_share": 0.0,
             "summary_missing_complete_window_duration_share": 0,
+            "summary_recorded_missing_window_duration_share": 1.0,
+            "summary_missing_missing_window_duration_share": 0,
         },
         "activity": {
             "summary_recorded_complete_window_count": 1,
@@ -707,12 +711,15 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_share": 1.0,
             "summary_recorded_complete_window_duration_share": 0.3846,
             "summary_missing_complete_window_duration_share": 1.0,
+            "summary_recorded_missing_window_duration_share": 0.6154,
+            "summary_missing_missing_window_duration_share": 0.0,
         },
     }
 
     text = build_markdown_summary(trace)
     assert "report_summary_timing_window_impact:" in text
     assert "command=recorded_complete_windows=1/missing_complete_windows=1/recorded_missing_windows=0/missing_missing_windows=0" in text
+    assert "recorded_missing_window_duration_share=0.6154" in text
     assert "activity=recorded_complete_windows=1/missing_complete_windows=1/recorded_missing_windows=1/missing_missing_windows=0" in text
 
 

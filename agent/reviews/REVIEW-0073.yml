@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-159-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-159-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-159 worktree changes: missing-window duration share fields are computed from summarized/unsummarized bucket durations, Markdown renders the fields, regression expectations and fixture reflect the behavior, docs/handoff updated, and bash scripts/ci_check.sh passed (46 passed, 1 warning).",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-06T13:05:57Z",
+  "id": "REVIEW-0073"
+}
