@@ -613,10 +613,12 @@ def _format_report_summary_timing_window_impact(impact):
             f"missing_complete_window_share={row.get('summary_missing_complete_window_share', 0)}/"
             f"recorded_missing_window_share={row.get('summary_recorded_missing_window_share', 0)}/"
             f"missing_missing_window_share={row.get('summary_missing_missing_window_share', 0)}/"
+            f"missing_window_share_delta={row.get('summary_missing_window_share_delta', 0)}/"
             f"recorded_complete_window_duration_share={row.get('summary_recorded_complete_window_duration_share', 0)}/"
             f"missing_complete_window_duration_share={row.get('summary_missing_complete_window_duration_share', 0)}/"
             f"recorded_missing_window_duration_share={row.get('summary_recorded_missing_window_duration_share', 0)}/"
-            f"missing_missing_window_duration_share={row.get('summary_missing_missing_window_duration_share', 0)}"
+            f"missing_missing_window_duration_share={row.get('summary_missing_missing_window_duration_share', 0)}/"
+            f"missing_window_duration_share_delta={row.get('summary_missing_window_duration_share_delta', 0)}"
         )
     return "; ".join(parts)
 

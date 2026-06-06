@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-161-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-161-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-161 worktree changes: JSON metrics, Markdown rendering, regression expectations, fixture, and docs/handoff are aligned; required CI passed (46 tests, 1 known warning).",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-06T23:05:50Z",
+  "id": "REVIEW-0075"
+}
