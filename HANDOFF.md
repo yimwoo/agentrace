@@ -1,3 +1,16 @@
+`agentrace` reports now quantify the share of total duration represented by positive missing-summary incomplete-window excess. JSON and Markdown include `summary_missing_window_excess_duration_share` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see whether the excess incomplete-window duration is material relative to the bucket instead of reading only raw milliseconds.
+
+## What was done
+- created AgentSpec task `T-164` for summary/timing-window excess-duration share visibility
+- added `summary_missing_window_excess_duration_share` to JSON `report_summary_timing_window_impact`
+- rendered the new excess-duration share in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, and `PROJECT_STATE.md`
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now expose positive incomplete-window duration excess inside `report_summary_timing_window_impact`. JSON and Markdown include `summary_missing_window_excess_duration_ms` for command, edit, and combined activity buckets, so reviewers can see how much more missing timestamp-window duration belongs to rows without human-readable summaries than rows with summaries.
 
 ## What was done

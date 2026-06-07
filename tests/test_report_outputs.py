@@ -675,6 +675,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 0,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_excess_duration_ms": 150,
+            "summary_missing_window_excess_duration_share": 0.75,
             "summary_recorded_complete_window_share": 1.0,
             "summary_missing_complete_window_share": 0.0,
             "summary_recorded_missing_window_share": 0.0,
@@ -697,6 +698,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 0,
             "summary_missing_window_excess_duration_ms": 0,
+            "summary_missing_window_excess_duration_share": 0.0,
             "summary_recorded_complete_window_share": 0.0,
             "summary_missing_complete_window_share": 0,
             "summary_recorded_missing_window_share": 1.0,
@@ -719,6 +721,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_excess_duration_ms": 70,
+            "summary_missing_window_excess_duration_share": 0.25,
             "summary_recorded_complete_window_share": 0.5,
             "summary_missing_complete_window_share": 0.0,
             "summary_recorded_missing_window_share": 0.5,
@@ -741,6 +744,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "recorded_missing_window_duration_share=0.6154" in text
     assert "missing_window_duration_share_delta=0.3846" in text
     assert "missing_window_excess_duration_ms=70" in text
+    assert "missing_window_excess_duration_share=0.25" in text
     assert "missing_window_gap_label=high_missing_summary_gap" in text
     assert "activity=recorded_complete_windows=1/missing_complete_windows=0/recorded_missing_windows=1/missing_missing_windows=1" in text
 
