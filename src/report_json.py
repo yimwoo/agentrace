@@ -526,6 +526,18 @@ def _timing_window_metrics(rows):
     return timing_window_metrics
 
 
+def _summary_timing_window_gap_label(count_delta, duration_delta):
+    """Label whether missing-summary rows are more timestamp-sparse than summarized rows."""
+    max_gap = max(count_delta, duration_delta)
+    if max_gap <= 0:
+        return "no_missing_summary_gap"
+    if max_gap >= 0.5:
+        return "high_missing_summary_gap"
+    if max_gap >= 0.25:
+        return "medium_missing_summary_gap"
+    return "low_missing_summary_gap"
+
+
 def _summary_timing_window_metrics(rows):
     """Return complete timestamp-window coverage split by summary presence."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -562,6 +574,15 @@ def _summary_timing_window_metrics(rows):
         0 if not unsummarized_duration_ms else round(unsummarized_missing_duration_ms / unsummarized_duration_ms, 4)
     )
 
+    missing_window_share_delta = round(
+        unsummarized_missing_window_share - summarized_missing_window_share,
+        4,
+    )
+    missing_window_duration_share_delta = round(
+        unsummarized_missing_window_duration_share - summarized_missing_window_duration_share,
+        4,
+    )
+
     return {
         "summary_recorded_complete_window_count": len(summarized_complete_rows),
         "summary_missing_complete_window_count": len(unsummarized_complete_rows),
@@ -579,10 +600,7 @@ def _summary_timing_window_metrics(rows):
         ),
         "summary_recorded_missing_window_share": summarized_missing_window_share,
         "summary_missing_missing_window_share": unsummarized_missing_window_share,
-        "summary_missing_window_share_delta": round(
-            unsummarized_missing_window_share - summarized_missing_window_share,
-            4,
-        ),
+        "summary_missing_window_share_delta": missing_window_share_delta,
         "summary_recorded_complete_window_duration_share": (
             0 if not summarized_duration_ms else round(summarized_complete_duration_ms / summarized_duration_ms, 4)
         ),
@@ -591,9 +609,10 @@ def _summary_timing_window_metrics(rows):
         ),
         "summary_recorded_missing_window_duration_share": summarized_missing_window_duration_share,
         "summary_missing_missing_window_duration_share": unsummarized_missing_window_duration_share,
-        "summary_missing_window_duration_share_delta": round(
-            unsummarized_missing_window_duration_share - summarized_missing_window_duration_share,
-            4,
+        "summary_missing_window_duration_share_delta": missing_window_duration_share_delta,
+        "summary_missing_window_gap_label": _summary_timing_window_gap_label(
+            missing_window_share_delta,
+            missing_window_duration_share_delta,
         ),
     }
 
