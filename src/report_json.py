@@ -538,6 +538,18 @@ def _summary_timing_window_gap_label(count_delta, duration_delta):
     return "low_missing_summary_gap"
 
 
+def _summary_timing_window_excess_attention_label(excess_share, excess_duration_share):
+    """Label whether positive missing-summary incomplete-window excess needs attention."""
+    max_excess = max(excess_share, excess_duration_share)
+    if max_excess <= 0:
+        return "no_missing_summary_window_excess"
+    if max_excess >= 0.5:
+        return "high_missing_summary_window_excess"
+    if max_excess >= 0.25:
+        return "medium_missing_summary_window_excess"
+    return "low_missing_summary_window_excess"
+
+
 def _summary_timing_window_metrics(rows):
     """Return complete timestamp-window coverage split by summary presence."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -592,6 +604,12 @@ def _summary_timing_window_metrics(rows):
         0,
         len(unsummarized_missing_rows) - len(summarized_missing_rows),
     )
+    missing_window_excess_share = (
+        0 if not total_row_count else round(missing_window_excess_count / total_row_count, 4)
+    )
+    missing_window_excess_duration_share = (
+        0 if not total_duration_ms else round(missing_window_excess_duration_ms / total_duration_ms, 4)
+    )
 
     return {
         "summary_recorded_complete_window_count": len(summarized_complete_rows),
@@ -599,16 +617,16 @@ def _summary_timing_window_metrics(rows):
         "summary_recorded_missing_window_count": len(summarized_missing_rows),
         "summary_missing_missing_window_count": len(unsummarized_missing_rows),
         "summary_missing_window_excess_count": missing_window_excess_count,
-        "summary_missing_window_excess_share": (
-            0 if not total_row_count else round(missing_window_excess_count / total_row_count, 4)
-        ),
+        "summary_missing_window_excess_share": missing_window_excess_share,
         "summary_recorded_complete_window_duration_ms": summarized_complete_duration_ms,
         "summary_missing_complete_window_duration_ms": unsummarized_complete_duration_ms,
         "summary_recorded_missing_window_duration_ms": summarized_missing_duration_ms,
         "summary_missing_missing_window_duration_ms": unsummarized_missing_duration_ms,
         "summary_missing_window_excess_duration_ms": missing_window_excess_duration_ms,
-        "summary_missing_window_excess_duration_share": (
-            0 if not total_duration_ms else round(missing_window_excess_duration_ms / total_duration_ms, 4)
+        "summary_missing_window_excess_duration_share": missing_window_excess_duration_share,
+        "summary_missing_window_excess_attention_label": _summary_timing_window_excess_attention_label(
+            missing_window_excess_share,
+            missing_window_excess_duration_share,
         ),
         "summary_recorded_complete_window_share": (
             0 if not summarized_rows else round(len(summarized_complete_rows) / len(summarized_rows), 4)

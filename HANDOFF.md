@@ -1,3 +1,16 @@
+`agentrace` reports now label positive missing-summary incomplete-window excess. JSON and Markdown include `summary_missing_window_excess_attention_label` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can triage whether count or duration excess around unsummarized incomplete timestamp windows is none, low, medium, or high without interpreting raw shares first.
+
+## What was done
+- created AgentSpec task `T-166` for summary/timing-window excess attention labels
+- added `summary_missing_window_excess_attention_label` to JSON `report_summary_timing_window_impact`
+- rendered the new excess attention label in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now quantify positive missing-summary incomplete-window count excess. JSON and Markdown include `summary_missing_window_excess_count` and `summary_missing_window_excess_share` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see whether unsummarized rows have more incomplete timestamp windows by count before reading duration-only impact.
 
 ## What was done
@@ -326,4 +339,3 @@
 ## Verification
 - `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_summary_coverage_includes_missing_summary_duration_impact tests/test_report_outputs.py::test_summary_duration_impact_labels_missing_duration_concentration tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 3 passed
 - `bash scripts/ci_check.sh` — 44 passed, 1 warning; wrote `examples/trace-example.json`
-

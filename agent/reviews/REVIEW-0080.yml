@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-166-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-166-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-166 worktree changes: JSON calculation, Markdown rendering, regression expectations, regenerated fixture, and docs/handoff are aligned; focused pytest and full ci_check passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-07T23:27:16Z",
+  "id": "REVIEW-0080"
+}
