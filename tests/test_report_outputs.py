@@ -670,6 +670,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_count": 0,
             "summary_recorded_missing_window_count": 0,
             "summary_missing_missing_window_count": 1,
+            "summary_missing_window_excess_count": 1,
+            "summary_missing_window_excess_share": 0.5,
             "summary_recorded_complete_window_duration_ms": 50,
             "summary_missing_complete_window_duration_ms": 0,
             "summary_recorded_missing_window_duration_ms": 0,
@@ -693,6 +695,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_count": 0,
             "summary_recorded_missing_window_count": 1,
             "summary_missing_missing_window_count": 0,
+            "summary_missing_window_excess_count": 0,
+            "summary_missing_window_excess_share": 0.0,
             "summary_recorded_complete_window_duration_ms": 0,
             "summary_missing_complete_window_duration_ms": 0,
             "summary_recorded_missing_window_duration_ms": 80,
@@ -716,6 +720,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_complete_window_count": 0,
             "summary_recorded_missing_window_count": 1,
             "summary_missing_missing_window_count": 1,
+            "summary_missing_window_excess_count": 0,
+            "summary_missing_window_excess_share": 0.0,
             "summary_recorded_complete_window_duration_ms": 50,
             "summary_missing_complete_window_duration_ms": 0,
             "summary_recorded_missing_window_duration_ms": 80,
@@ -743,6 +749,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_share_delta=0.5" in text
     assert "recorded_missing_window_duration_share=0.6154" in text
     assert "missing_window_duration_share_delta=0.3846" in text
+    assert "missing_window_excess_count=1" in text
+    assert "missing_window_excess_share=0.5" in text
     assert "missing_window_excess_duration_ms=70" in text
     assert "missing_window_excess_duration_share=0.25" in text
     assert "missing_window_gap_label=high_missing_summary_gap" in text

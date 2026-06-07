@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-07T13:04:45Z",
+  "updated_at": "2026-06-07T18:04:27Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-164",
-    "context_pack": "agent/context-packs/T-164-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-164: Add command timing and edit summaries to reports",
-    "run_id": "t-164-add-command-timing-and-edit-summaries-to-reports-20260607130150484237",
-    "reason": "Implemented summary_missing_window_excess_duration_share in JSON and Markdown reports; focused tests and bash scripts/ci_check.sh passed.",
-    "updated_at": "2026-06-07T13:04:45Z",
+    "id": "T-165",
+    "context_pack": "agent/context-packs/T-165-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-165: Add command timing and edit summaries to reports",
+    "run_id": "t-165-add-command-timing-and-edit-summaries-to-reports-20260607180106404562",
+    "reason": "Implemented summary missing-window excess-count report metrics and verified with focused tests plus full CI.",
+    "updated_at": "2026-06-07T18:04:27Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0078",
+      "id": "REVIEW-0079",
       "verdict": "ready",
-      "reviewer": "hermes",
+      "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0078.yml"
+      "path": "agent/reviews/REVIEW-0079.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 164,
+      "total": 165,
       "by_status": {
-        "complete": 161,
+        "complete": 162,
         "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 161,
+        "implementation": 162,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0078.yml"
+    "last_code_review": "agent/reviews/REVIEW-0079.yml"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-165-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-165-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-165 worktree diff: JSON, Markdown, tests, fixture, and docs consistently add summary missing-window excess-count metrics; focused and full CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-07T18:04:22Z",
+  "id": "REVIEW-0079"
+}

@@ -605,6 +605,8 @@ def _format_report_summary_timing_window_impact(impact):
             f"missing_complete_windows={row.get('summary_missing_complete_window_count', 0)}/"
             f"recorded_missing_windows={row.get('summary_recorded_missing_window_count', 0)}/"
             f"missing_missing_windows={row.get('summary_missing_missing_window_count', 0)}/"
+            f"missing_window_excess_count={row.get('summary_missing_window_excess_count', 0)}/"
+            f"missing_window_excess_share={row.get('summary_missing_window_excess_share', 0)}/"
             f"recorded_complete_window_duration_ms={row.get('summary_recorded_complete_window_duration_ms', 0)}/"
             f"missing_complete_window_duration_ms={row.get('summary_missing_complete_window_duration_ms', 0)}/"
             f"recorded_missing_window_duration_ms={row.get('summary_recorded_missing_window_duration_ms', 0)}/"
