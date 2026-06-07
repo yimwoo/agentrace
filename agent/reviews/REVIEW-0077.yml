@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-163-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-163-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-163 worktree changes: JSON and Markdown report impact metrics are scoped to summary/timing-window reporting, regression coverage asserts the new excess-duration field, docs and fixture are aligned, and CI passed with 46 tests and one existing warning.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-07T08:05:32Z",
+  "id": "REVIEW-0077"
+}
