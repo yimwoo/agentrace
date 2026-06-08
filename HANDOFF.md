@@ -1,3 +1,17 @@
+`agentrace` reports now quantify how much positive missing-summary incomplete-window duration excess occupies the unsummarized incomplete-window bucket. JSON and Markdown include `summary_missing_window_excess_missing_duration_share` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can tell whether excess sparse unsummarized duration is the whole missing-window problem or only a portion of it.
+
+## What was done
+- created AgentSpec task `T-168` for summary/timing-window excess missing-duration share visibility
+- added `summary_missing_window_excess_missing_duration_share` to JSON `report_summary_timing_window_impact`
+- rendered the new excess missing-duration share metric in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now normalize positive missing-summary incomplete-window excess duration by the count-excess rows. JSON and Markdown include `summary_missing_window_excess_average_duration_ms` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see the per-excess-row duration weight behind sparse unsummarized timestamp windows instead of reading only total excess milliseconds.
 
 ## What was done
