@@ -550,6 +550,25 @@ def _summary_timing_window_excess_attention_label(excess_share, excess_duration_
     return "low_missing_summary_window_excess"
 
 
+def _summary_missing_window_duration_ratio_label(summarized_missing_duration_ms, unsummarized_missing_duration_ms):
+    """Label which summary bucket carries missing timestamp-window duration."""
+    if not summarized_missing_duration_ms and not unsummarized_missing_duration_ms:
+        return "no_missing_window_duration"
+    if not summarized_missing_duration_ms:
+        return "missing_summary_only_missing_window_duration"
+    if not unsummarized_missing_duration_ms:
+        return "recorded_summary_only_missing_window_duration"
+
+    ratio = unsummarized_missing_duration_ms / summarized_missing_duration_ms
+    if ratio >= 2:
+        return "missing_summary_duration_dominant"
+    if ratio >= 1.25:
+        return "missing_summary_duration_elevated"
+    if ratio <= 0.75:
+        return "recorded_summary_duration_higher"
+    return "balanced_missing_window_duration"
+
+
 def _summary_timing_window_metrics(rows):
     """Return complete timestamp-window coverage split by summary presence."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -643,6 +662,10 @@ def _summary_timing_window_metrics(rows):
         "summary_missing_window_excess_duration_share": missing_window_excess_duration_share,
         "summary_missing_window_excess_missing_duration_share": missing_window_excess_missing_duration_share,
         "summary_missing_window_duration_ratio": summary_missing_window_duration_ratio,
+        "summary_missing_window_duration_ratio_label": _summary_missing_window_duration_ratio_label(
+            summarized_missing_duration_ms,
+            unsummarized_missing_duration_ms,
+        ),
         "summary_missing_window_excess_average_duration_ms": missing_window_excess_average_duration_ms,
         "summary_missing_window_excess_attention_label": _summary_timing_window_excess_attention_label(
             missing_window_excess_share,

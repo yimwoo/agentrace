@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-170 worktree changes: JSON and Markdown report outputs now include summary_missing_window_duration_ratio_label; focused regression covers command/edit/activity label states and Markdown rendering; rich fixture/docs/handoff are aligned; CI passed (46 passed, 1 warning).",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-08T18:05:28Z",
+  "id": "REVIEW-0084"
+}

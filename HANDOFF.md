@@ -1,3 +1,17 @@
+`agentrace` reports now label the missing-summary timestamp-window duration ratio in the summary/timestamp-window impact block. JSON and Markdown include `summary_missing_window_duration_ratio_label` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can tell whether incomplete-window duration is absent, summary-only, missing-summary-only, balanced, elevated, or dominant without interpreting the raw ratio first.
+
+## What was done
+- created AgentSpec task `T-170` for summary/timing-window duration-ratio labeling
+- added `summary_missing_window_duration_ratio_label` to JSON `report_summary_timing_window_impact`
+- rendered the new ratio label in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now expose a missing-window duration ratio in the summary/timestamp-window impact block. JSON and Markdown include `summary_missing_window_duration_ratio` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see how much larger unsummarized incomplete-window duration is than summarized incomplete-window duration without calculating the ratio manually.
 
 ## What was done

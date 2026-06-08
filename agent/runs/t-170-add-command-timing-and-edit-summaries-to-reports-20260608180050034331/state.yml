@@ -1,0 +1,97 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-170-add-command-timing-and-edit-summaries-to-reports-20260608180050034331",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-170: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-170-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md": "??:file:3ad3f3827ec64b2ac448477dc55cb27ea30bfee6fd2941044d49b8d12883e081"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-08T18:00:50Z",
+  "updated_at": "2026-06-08T18:05:55Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-170-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-170",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-170 --owner <owner> --branch codex/t-170-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "completion_reason": "Implemented summary_missing_window_duration_ratio_label in JSON and Markdown reports with focused regression coverage, refreshed docs/fixture/handoff, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0084",
+    "verdict": "ready",
+    "summary": "Reviewed T-170 worktree changes: JSON and Markdown report outputs now include summary_missing_window_duration_ratio_label; focused regression covers command/edit/activity label states and Markdown rendering; rich fixture/docs/handoff are aligned; CI passed (46 passed, 1 warning).",
+    "reviewer": "human",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0084.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}
