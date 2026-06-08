@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-171-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-171-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-171 worktree changes: signed summary_missing_window_duration_delta_ms is computed from existing missing-window duration bucket totals, rendered in the compact Markdown line, covered by focused JSON/Markdown assertions for positive, negative, and combined deltas, fixture and docs updated, and full CI passed.",
+  "reviewer": "hermes",
+  "range": "worktree",
+  "created_at": "2026-06-08T23:23:19Z",
+  "id": "REVIEW-0085"
+}

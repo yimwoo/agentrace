@@ -2167,6 +2167,23 @@
         "path": "agent/reviews/REVIEW-0084.yml"
       },
       "updated_at": "2026-06-08T18:05:55Z"
+    },
+    "agent/context-packs/T-171-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-171-add-command-timing-and-edit-summaries-to-reports-20260608230113551240",
+      "reason": "Implemented signed summary missing-window duration delta metric, updated JSON/Markdown/tests/docs, and verified with full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0085",
+        "verdict": "ready",
+        "summary": "Reviewed T-171 worktree changes: signed summary_missing_window_duration_delta_ms is computed from existing missing-window duration bucket totals, rendered in the compact Markdown line, covered by focused JSON/Markdown assertions for positive, negative, and combined deltas, fixture and docs updated, and full CI passed.",
+        "reviewer": "hermes",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0085.yml"
+      },
+      "updated_at": "2026-06-08T23:23:30Z"
     }
   }
 }
