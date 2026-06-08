@@ -1,0 +1,57 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260608T040201154976Z-t-167-73379d43",
+  "status": "finished",
+  "terminal": true,
+  "owner": "codex",
+  "mode": "owner",
+  "created_at": "2026-06-08T04:02:01Z",
+  "updated_at": "2026-06-08T04:06:06Z",
+  "context_pack": "agent/context-packs/T-167-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:9b5721baa384156328694219379449ff575f04cf17361ff84d0bdc134da1ec3c",
+  "task_id": "T-167",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-167-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-167-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-167-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-06-08T04:02:01Z",
+      "action": "started",
+      "by": "codex",
+      "note": null
+    },
+    {
+      "at": "2026-06-08T04:06:06Z",
+      "action": "finished",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0081",
+  "test_status": "passed",
+  "finish_note": null,
+  "finished_at": "2026-06-08T04:06:06Z"
+}
