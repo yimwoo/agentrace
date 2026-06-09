@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-173-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-173-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed summary timing-window absolute delta change: JSON computes abs(signed delta), Markdown renders it with fallback, tests assert command/edit/activity values and fixture was regenerated. CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-09T08:11:34Z",
+  "id": "REVIEW-0087"
+}
