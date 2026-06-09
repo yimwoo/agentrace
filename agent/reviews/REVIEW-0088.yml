@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-174-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-174-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-174 worktree changes: JSON computation, Markdown rendering, regression expectations, fixture refresh, and docs/handoff are scoped to allowed paths. Focused regression and full ci_check passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-09T13:06:36Z",
+  "id": "REVIEW-0088"
+}
