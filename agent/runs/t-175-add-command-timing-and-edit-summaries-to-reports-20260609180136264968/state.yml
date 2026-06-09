@@ -1,0 +1,97 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-175-add-command-timing-and-edit-summaries-to-reports-20260609180136264968",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-175: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-175-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md": "??:file:ca678922f4c3d3a05b83195bd198a3b797e205d4d2a7e4b87a90548f24d17fb2"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-09T18:01:36Z",
+  "updated_at": "2026-06-09T18:06:38Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-175",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-175 --owner <owner> --branch codex/t-175-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "completion_reason": "Implemented signed missing-window duration-delta share in JSON/Markdown reports, refreshed tests/fixture/docs, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0089",
+    "verdict": "ready",
+    "summary": "Reviewed T-175 worktree changes: signed summary missing-window duration delta share is computed from existing signed delta and incomplete-window duration total, rendered in Markdown, covered by command/edit/activity regression expectations and rich fixture, and documented in schema/state/handoff. Verification passed with focused pytest and bash scripts/ci_check.sh.",
+    "reviewer": "hermes",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0089.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

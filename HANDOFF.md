@@ -1,3 +1,17 @@
+`agentrace` reports now expose the signed share of missing-window duration imbalance in the summary/timestamp-window impact block. JSON and Markdown include `summary_missing_window_duration_delta_share` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see both direction and normalized magnitude of the incomplete-window duration imbalance between missing-summary and recorded-summary rows.
+
+## What was done
+- created AgentSpec task `T-175` for signed missing-window duration-delta share visibility
+- added `summary_missing_window_duration_delta_share` to JSON `report_summary_timing_window_impact`
+- rendered the new signed duration-delta share in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now normalize the absolute signed missing-window duration delta in the summary/timestamp-window impact block. JSON and Markdown include `summary_missing_window_duration_delta_abs_share` inside `report_summary_timing_window_impact` for command, edit, and combined activity buckets, so reviewers can see what share of all incomplete-window duration is represented by the imbalance between missing-summary and recorded-summary rows.
 
 ## What was done

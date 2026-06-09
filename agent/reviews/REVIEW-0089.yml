@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-175-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-175 worktree changes: signed summary missing-window duration delta share is computed from existing signed delta and incomplete-window duration total, rendered in Markdown, covered by command/edit/activity regression expectations and rich fixture, and documented in schema/state/handoff. Verification passed with focused pytest and bash scripts/ci_check.sh.",
+  "reviewer": "hermes",
+  "range": "worktree",
+  "created_at": "2026-06-09T18:06:30Z",
+  "id": "REVIEW-0089"
+}

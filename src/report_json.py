@@ -638,6 +638,12 @@ def _summary_timing_window_metrics(rows):
             4,
         )
     )
+    summary_missing_window_duration_delta_share = (
+        0 if not missing_window_duration_total_ms else round(
+            summary_missing_window_duration_delta_ms / missing_window_duration_total_ms,
+            4,
+        )
+    )
     total_row_count = len(summarized_rows) + len(unsummarized_rows)
     missing_window_excess_count = max(
         0,
@@ -684,6 +690,7 @@ def _summary_timing_window_metrics(rows):
         ),
         "summary_missing_window_duration_delta_abs_ms": summary_missing_window_duration_delta_abs_ms,
         "summary_missing_window_duration_delta_abs_share": summary_missing_window_duration_delta_abs_share,
+        "summary_missing_window_duration_delta_share": summary_missing_window_duration_delta_share,
         "summary_missing_window_excess_duration_ms": missing_window_excess_duration_ms,
         "summary_missing_window_excess_duration_share": missing_window_excess_duration_share,
         "summary_missing_window_excess_missing_duration_share": missing_window_excess_missing_duration_share,
