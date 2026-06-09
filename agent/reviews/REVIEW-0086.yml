@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-172-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-172-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-172 worktree changes: scoped JSON/Markdown report field addition, focused regression expectations, rich Markdown fixture, and schema/state/handoff docs are aligned. Required CI passed with 46 tests and 1 existing warning.",
+  "reviewer": "autonomous",
+  "range": "worktree",
+  "created_at": "2026-06-09T04:06:17Z",
+  "id": "REVIEW-0086"
+}

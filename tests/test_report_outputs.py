@@ -677,6 +677,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 0,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_duration_delta_ms": 150,
+            "summary_missing_window_duration_delta_label": "missing_summary_missing_window_duration_higher",
             "summary_missing_window_excess_duration_ms": 150,
             "summary_missing_window_excess_duration_share": 0.75,
             "summary_missing_window_excess_missing_duration_share": 1.0,
@@ -708,6 +709,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 0,
             "summary_missing_window_duration_delta_ms": -80,
+            "summary_missing_window_duration_delta_label": "recorded_summary_missing_window_duration_higher",
             "summary_missing_window_excess_duration_ms": 0,
             "summary_missing_window_excess_duration_share": 0.0,
             "summary_missing_window_excess_missing_duration_share": 0,
@@ -739,6 +741,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_duration_delta_ms": 70,
+            "summary_missing_window_duration_delta_label": "missing_summary_missing_window_duration_higher",
             "summary_missing_window_excess_duration_ms": 70,
             "summary_missing_window_excess_duration_share": 0.25,
             "summary_missing_window_excess_missing_duration_share": 0.4667,
@@ -770,6 +773,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_duration_delta_ms=150" in text
     assert "missing_window_duration_delta_ms=-80" in text
     assert "missing_window_duration_delta_ms=70" in text
+    assert "missing_window_duration_delta_label=missing_summary_missing_window_duration_higher" in text
+    assert "missing_window_duration_delta_label=recorded_summary_missing_window_duration_higher" in text
     assert "missing_window_excess_count=1" in text
     assert "missing_window_excess_share=0.5" in text
     assert "missing_window_excess_duration_ms=70" in text
