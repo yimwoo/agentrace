@@ -678,6 +678,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_complete_window_duration_total_share": 0.25,
             "summary_complete_window_duration_delta_ms": -50,
             "summary_complete_window_duration_delta_label": "recorded_summary_complete_window_duration_higher",
+            "summary_complete_window_duration_delta_abs_ms": 50,
             "summary_recorded_missing_window_duration_ms": 0,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_duration_delta_ms": 150,
@@ -719,6 +720,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_complete_window_duration_total_share": 0.0,
             "summary_complete_window_duration_delta_ms": 0,
             "summary_complete_window_duration_delta_label": "balanced_complete_window_duration_delta",
+            "summary_complete_window_duration_delta_abs_ms": 0,
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 0,
             "summary_missing_window_duration_delta_ms": -80,
@@ -760,6 +762,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_complete_window_duration_total_share": 0.1786,
             "summary_complete_window_duration_delta_ms": -50,
             "summary_complete_window_duration_delta_label": "recorded_summary_complete_window_duration_higher",
+            "summary_complete_window_duration_delta_abs_ms": 50,
             "summary_recorded_missing_window_duration_ms": 80,
             "summary_missing_missing_window_duration_ms": 150,
             "summary_missing_window_duration_delta_ms": 70,
@@ -814,6 +817,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "complete_window_duration_delta_ms=0" in text
     assert "complete_window_duration_delta_label=recorded_summary_complete_window_duration_higher" in text
     assert "complete_window_duration_delta_label=balanced_complete_window_duration_delta" in text
+    assert "complete_window_duration_delta_abs_ms=50" in text
+    assert "complete_window_duration_delta_abs_ms=0" in text
     assert "missing_window_duration_total_ms=150" in text
     assert "missing_window_duration_total_ms=80" in text
     assert "missing_window_duration_total_ms=230" in text

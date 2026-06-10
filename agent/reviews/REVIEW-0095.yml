@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-181-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-181-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-181 worktree changes: JSON/Markdown report_summary_timing_window_impact now exposes complete-window absolute signed duration delta; regression and golden fixture cover JSON and Markdown output; schema and state docs updated; required CI passed (46 passed, 1 warning).",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-06-10T23:06:40Z",
+  "id": "REVIEW-0095"
+}

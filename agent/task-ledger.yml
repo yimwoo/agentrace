@@ -2337,6 +2337,23 @@
         "path": "agent/reviews/REVIEW-0094.yml"
       },
       "updated_at": "2026-06-10T18:05:23Z"
+    },
+    "agent/context-packs/T-181-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-181-add-command-timing-and-edit-summaries-to-reports-20260610230204947319",
+      "reason": "Implemented summary_complete_window_duration_delta_abs_ms in JSON/Markdown reports with focused regression and full CI passing.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0095",
+        "verdict": "ready",
+        "summary": "Reviewed T-181 worktree changes: JSON/Markdown report_summary_timing_window_impact now exposes complete-window absolute signed duration delta; regression and golden fixture cover JSON and Markdown output; schema and state docs updated; required CI passed (46 passed, 1 warning).",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0095.yml"
+      },
+      "updated_at": "2026-06-10T23:06:45Z"
     }
   }
 }
