@@ -2303,6 +2303,23 @@
         "path": "agent/reviews/REVIEW-0092.yml"
       },
       "updated_at": "2026-06-10T08:06:09Z"
+    },
+    "agent/context-packs/T-179-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-179-add-command-timing-and-edit-summaries-to-reports-20260610130615080061",
+      "reason": "Implemented summary_complete_window_duration_delta_ms in JSON/Markdown reports, refreshed regression fixture/docs, and verified with focused pytest plus bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0093",
+        "verdict": "ready",
+        "summary": "Reviewed T-179 implementation: JSON metric, Markdown rendering, focused regression assertions, regenerated fixture, and docs/handoff updates are scoped to allowed paths. Verification passed via focused pytest and full scripts/ci_check.sh.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0093.yml"
+      },
+      "updated_at": "2026-06-10T13:06:15Z"
     }
   }
 }
