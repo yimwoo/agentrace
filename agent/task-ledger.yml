@@ -2286,6 +2286,23 @@
         "path": "agent/reviews/REVIEW-0091.yml"
       },
       "updated_at": "2026-06-10T04:40:08Z"
+    },
+    "agent/context-packs/T-178-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-178-add-command-timing-and-edit-summaries-to-reports-20260610080609627476",
+      "reason": "Implemented complete-window duration total metrics in report_summary_timing_window_impact; focused regression and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0092",
+        "verdict": "ready",
+        "summary": "Reviewed T-178 worktree changes: complete-window duration total metrics are computed from recorded plus missing-summary complete windows, guarded by total duration denominator, rendered in Markdown, covered by focused JSON/Markdown regression, and full CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0092.yml"
+      },
+      "updated_at": "2026-06-10T08:06:09Z"
     }
   }
 }

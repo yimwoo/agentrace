@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-178-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-178-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-178 worktree changes: complete-window duration total metrics are computed from recorded plus missing-summary complete windows, guarded by total duration denominator, rendered in Markdown, covered by focused JSON/Markdown regression, and full CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-10T08:06:02Z",
+  "id": "REVIEW-0092"
+}
