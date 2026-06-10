@@ -578,6 +578,15 @@ def _summary_missing_window_duration_delta_label(duration_delta_ms):
     return "balanced_missing_window_duration_delta"
 
 
+def _summary_complete_window_duration_delta_label(duration_delta_ms):
+    """Label the signed complete-window duration delta by summary bucket."""
+    if duration_delta_ms > 0:
+        return "missing_summary_complete_window_duration_higher"
+    if duration_delta_ms < 0:
+        return "recorded_summary_complete_window_duration_higher"
+    return "balanced_complete_window_duration_delta"
+
+
 def _summary_timing_window_metrics(rows):
     """Return complete timestamp-window coverage split by summary presence."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -695,6 +704,9 @@ def _summary_timing_window_metrics(rows):
         "summary_complete_window_duration_total_ms": complete_window_duration_total_ms,
         "summary_complete_window_duration_total_share": summary_complete_window_duration_total_share,
         "summary_complete_window_duration_delta_ms": summary_complete_window_duration_delta_ms,
+        "summary_complete_window_duration_delta_label": _summary_complete_window_duration_delta_label(
+            summary_complete_window_duration_delta_ms,
+        ),
         "summary_recorded_missing_window_duration_ms": summarized_missing_duration_ms,
         "summary_missing_missing_window_duration_ms": unsummarized_missing_duration_ms,
         "summary_missing_window_duration_delta_ms": summary_missing_window_duration_delta_ms,

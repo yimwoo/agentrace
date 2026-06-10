@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-180-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-180-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-180 worktree changes: complete-window duration delta labels are computed next to existing signed delta metrics, rendered in Markdown, covered by focused report-output assertions and rich fixture regeneration, and documented in schema/state/handoff. Required CI passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-06-10T18:05:19Z",
+  "id": "REVIEW-0094"
+}
