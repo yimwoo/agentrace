@@ -1,0 +1,109 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-177-add-command-timing-and-edit-summaries-to-reports-20260610040054186324",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-177-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-177: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-177-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-177-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:352c8cb429b0703f7df1cedbb092d082f82c31688f7c66e82ac1e31d7a38c491",
+      "PROJECT_STATE.md": " M:file:a3e1fe73ef0b94932fe843594386ad403717e120f678cc0292709c31f7280b89",
+      "TRACE_SCHEMA.md": " M:file:12e31cd9199b1bcbf681c7b643c7d13cab051148defd5c8ed6f98034783547f5",
+      "agent/handoff.yml": " M:file:0fa39e628c0b0bd42fd3171ea7d0ac09167200c6a92b192b749cbde0fb79c3e6",
+      "agent/task-ledger.yml": " M:file:4b43ab0e67c0d8ec76c249df8cd2ee517e2495f0228efd658b5ca603532f60a9",
+      "src/report_json.py": " M:file:9c580538f730be915643d0a6d66df2fd16738baeb19d2cc2cfa24fdc62c7e619",
+      "src/report_markdown.py": " M:file:9f62ebd47473f692627badb5e7f1b2a284047f63452ed89657e3193270eada7e",
+      "tests/fixtures/rich-report.md": " M:file:6939991cbf06a8115071949bf5c05ec98a5dc8cd67586f835b782fc4c8834a0c",
+      "tests/test_report_outputs.py": " M:file:87331178859072bffb76f98cdfbfb74d6ad38a67a4f290f37be6b6236f2d9740",
+      "agent/context-packs/T-176-add-command-timing-and-edit-summaries-to-reports.md": "??:file:424c07555e4b204a22671f3187a77c7a303434f5612354b192bc5fe16da8effe",
+      "agent/context-packs/T-177-add-command-timing-and-edit-summaries-to-reports.md": "??:file:815cfce0d16197175d2134a1e8aea0e97db4fd3c61781c592920824c83d33198",
+      "agent/reviews/REVIEW-0090.yml": "??:file:69054d86e23978f7ab87562d3e93751f4b71a3c7cfec4d35675a4facc2c24cd3",
+      "agent/runs/t-176-add-command-timing-and-edit-summaries-to-reports-20260609230304131628/summary.yml": "??:file:84c79ba8deaee62b9541c175c836a6e2170b04b80f6b37d9178d67ffad64f3ab"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-10T04:00:54Z",
+  "updated_at": "2026-06-10T04:40:08Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-177-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-177",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-177 --owner <owner> --branch codex/t-177-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "completion_reason": "Implemented summary_missing_window_duration_total_share in JSON and Markdown reports with focused regression coverage and full CI passing.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0091",
+    "verdict": "ready",
+    "summary": "Reviewed T-177 changes: JSON, Markdown, focused regression expectations, fixture, and docs consistently expose summary_missing_window_duration_total_share. Verification passed with focused pytest (2 passed) and full bash scripts/ci_check.sh (46 passed, 1 warning).",
+    "reviewer": "human",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0091.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

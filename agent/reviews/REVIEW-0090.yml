@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-176-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-176-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Code review: T-176 adds a single report_summary_timing_window_impact denominator field, renders it in Markdown, updates focused JSON/Markdown regression coverage and golden fixture, and aligns schema/state/handoff docs. Full CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-09T23:12:55Z",
+  "id": "REVIEW-0090"
+}

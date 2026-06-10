@@ -679,6 +679,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_duration_delta_ms": 150,
             "summary_missing_window_duration_delta_label": "missing_summary_missing_window_duration_higher",
             "summary_missing_window_duration_delta_abs_ms": 150,
+            "summary_missing_window_duration_total_ms": 150,
+            "summary_missing_window_duration_total_share": 0.75,
             "summary_missing_window_duration_delta_abs_share": 1.0,
             "summary_missing_window_duration_delta_share": 1.0,
             "summary_missing_window_excess_duration_ms": 150,
@@ -714,6 +716,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_duration_delta_ms": -80,
             "summary_missing_window_duration_delta_label": "recorded_summary_missing_window_duration_higher",
             "summary_missing_window_duration_delta_abs_ms": 80,
+            "summary_missing_window_duration_total_ms": 80,
+            "summary_missing_window_duration_total_share": 1.0,
             "summary_missing_window_duration_delta_abs_share": 1.0,
             "summary_missing_window_duration_delta_share": -1.0,
             "summary_missing_window_excess_duration_ms": 0,
@@ -749,6 +753,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_duration_delta_ms": 70,
             "summary_missing_window_duration_delta_label": "missing_summary_missing_window_duration_higher",
             "summary_missing_window_duration_delta_abs_ms": 70,
+            "summary_missing_window_duration_total_ms": 230,
+            "summary_missing_window_duration_total_share": 0.8214,
             "summary_missing_window_duration_delta_abs_share": 0.3043,
             "summary_missing_window_duration_delta_share": 0.3043,
             "summary_missing_window_excess_duration_ms": 70,
@@ -787,6 +793,12 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_duration_delta_abs_ms=150" in text
     assert "missing_window_duration_delta_abs_ms=80" in text
     assert "missing_window_duration_delta_abs_ms=70" in text
+    assert "missing_window_duration_total_ms=150" in text
+    assert "missing_window_duration_total_ms=80" in text
+    assert "missing_window_duration_total_ms=230" in text
+    assert "missing_window_duration_total_share=0.75" in text
+    assert "missing_window_duration_total_share=1.0" in text
+    assert "missing_window_duration_total_share=0.8214" in text
     assert "missing_window_duration_delta_abs_share=1.0" in text
     assert "missing_window_duration_delta_abs_share=0.3043" in text
     assert "missing_window_duration_delta_share=1.0" in text

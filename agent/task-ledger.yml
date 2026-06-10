@@ -2252,6 +2252,40 @@
         "path": "agent/reviews/REVIEW-0089.yml"
       },
       "updated_at": "2026-06-09T18:06:38Z"
+    },
+    "agent/context-packs/T-176-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-176-add-command-timing-and-edit-summaries-to-reports-20260609230304131628",
+      "reason": "Implemented summary_missing_window_duration_total_ms denominator visibility in JSON/Markdown report_summary_timing_window_impact; focused tests and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0090",
+        "verdict": "ready",
+        "summary": "Code review: T-176 adds a single report_summary_timing_window_impact denominator field, renders it in Markdown, updates focused JSON/Markdown regression coverage and golden fixture, and aligns schema/state/handoff docs. Full CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0090.yml"
+      },
+      "updated_at": "2026-06-09T23:13:02Z"
+    },
+    "agent/context-packs/T-177-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-177-add-command-timing-and-edit-summaries-to-reports-20260610040054186324",
+      "reason": "Implemented summary_missing_window_duration_total_share in JSON and Markdown reports with focused regression coverage and full CI passing.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0091",
+        "verdict": "ready",
+        "summary": "Reviewed T-177 changes: JSON, Markdown, focused regression expectations, fixture, and docs consistently expose summary_missing_window_duration_total_share. Verification passed with focused pytest (2 passed) and full bash scripts/ci_check.sh (46 passed, 1 warning).",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0091.yml"
+      },
+      "updated_at": "2026-06-10T04:40:08Z"
     }
   }
 }
