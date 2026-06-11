@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-11T08:06:31Z",
+  "updated_at": "2026-06-11T13:06:55Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-183",
-    "context_pack": "agent/context-packs/T-183-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-183: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-183-add-command-timing-and-edit-summaries-to-reports-20260611080631748696",
-    "reason": "Implemented signed complete-window duration-delta share in JSON/Markdown reports with focused regression and full CI passing.",
-    "updated_at": "2026-06-11T08:06:31Z",
+    "id": "T-184",
+    "context_pack": "agent/context-packs/T-184-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-184: Add command timing and edit summaries to reports",
+    "run_id": "t-184-add-command-timing-and-edit-summaries-to-reports-20260611130216425784",
+    "reason": "Implemented summary_complete_window_duration_ratio in JSON/Markdown reports with tests, docs, refreshed fixture, and full CI verification.",
+    "updated_at": "2026-06-11T13:06:55Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0097",
+      "id": "REVIEW-0098",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "hermes",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0097.yml"
+      "path": "agent/reviews/REVIEW-0098.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 183,
+      "total": 184,
       "by_status": {
-        "complete": 180,
+        "complete": 181,
         "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 180,
+        "implementation": 181,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0097.yml"
+    "last_code_review": "agent/reviews/REVIEW-0098.yml"
   }
 }

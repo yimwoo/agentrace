@@ -2388,6 +2388,23 @@
         "path": "agent/reviews/REVIEW-0097.yml"
       },
       "updated_at": "2026-06-11T08:06:31Z"
+    },
+    "agent/context-packs/T-184-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-184-add-command-timing-and-edit-summaries-to-reports-20260611130216425784",
+      "reason": "Implemented summary_complete_window_duration_ratio in JSON/Markdown reports with tests, docs, refreshed fixture, and full CI verification.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0098",
+        "verdict": "ready",
+        "summary": "Reviewed T-184 worktree changes: summary_complete_window_duration_ratio is computed from complete-window unsummarized/summarized duration totals, rendered in Markdown, covered by explicit report output expectations, and documented. Verification passed via bash scripts/ci_check.sh (46 passed, 1 warning).",
+        "reviewer": "hermes",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0098.yml"
+      },
+      "updated_at": "2026-06-11T13:06:55Z"
     }
   }
 }

@@ -618,6 +618,7 @@ def _format_report_summary_timing_window_impact(impact):
             f"{row.get('summary_complete_window_duration_delta_abs_ms', abs(row.get('summary_complete_window_duration_delta_ms', 0)))}/"
             f"complete_window_duration_delta_abs_share={row.get('summary_complete_window_duration_delta_abs_share', 0)}/"
             f"complete_window_duration_delta_share={row.get('summary_complete_window_duration_delta_share', 0)}/"
+            f"complete_window_duration_ratio={row.get('summary_complete_window_duration_ratio', 0)}/"
             f"recorded_missing_window_duration_ms={row.get('summary_recorded_missing_window_duration_ms', 0)}/"
             f"missing_missing_window_duration_ms={row.get('summary_missing_missing_window_duration_ms', 0)}/"
             f"missing_window_duration_delta_ms={row.get('summary_missing_window_duration_delta_ms', 0)}/"
