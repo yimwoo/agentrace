@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-183-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-183-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-183 worktree changes: signed complete-window duration-delta share is computed beside the absolute share with denominator guard, emitted in JSON, rendered in Markdown, covered by focused JSON/Markdown assertions, and docs/fixture/handoff were updated. Verification passed via focused pytest and full ci_check.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-11T08:06:26Z",
+  "id": "REVIEW-0097"
+}
