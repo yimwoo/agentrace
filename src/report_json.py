@@ -646,6 +646,12 @@ def _summary_timing_window_metrics(rows):
         unsummarized_complete_duration_ms - summarized_complete_duration_ms
     )
     summary_complete_window_duration_delta_abs_ms = abs(summary_complete_window_duration_delta_ms)
+    summary_complete_window_duration_delta_abs_share = (
+        0 if not complete_window_duration_total_ms else round(
+            summary_complete_window_duration_delta_abs_ms / complete_window_duration_total_ms,
+            4,
+        )
+    )
     summary_complete_window_duration_total_share = (
         0 if not total_duration_ms else round(complete_window_duration_total_ms / total_duration_ms, 4)
     )
@@ -709,6 +715,7 @@ def _summary_timing_window_metrics(rows):
             summary_complete_window_duration_delta_ms,
         ),
         "summary_complete_window_duration_delta_abs_ms": summary_complete_window_duration_delta_abs_ms,
+        "summary_complete_window_duration_delta_abs_share": summary_complete_window_duration_delta_abs_share,
         "summary_recorded_missing_window_duration_ms": summarized_missing_duration_ms,
         "summary_missing_missing_window_duration_ms": unsummarized_missing_duration_ms,
         "summary_missing_window_duration_delta_ms": summary_missing_window_duration_delta_ms,

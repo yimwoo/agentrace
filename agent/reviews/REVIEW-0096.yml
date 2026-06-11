@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-182-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-182-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed scoped report_summary_timing_window_impact update: JSON computes summary_complete_window_duration_delta_abs_share from existing complete-window absolute delta and total, Markdown renders the new field, focused regression covers command/edit/activity JSON values and Markdown substrings, rich fixture and docs were updated, and CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-11T04:05:20Z",
+  "id": "REVIEW-0096"
+}

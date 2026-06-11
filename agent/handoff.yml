@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-10T23:06:45Z",
+  "updated_at": "2026-06-11T04:05:25Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-181",
-    "context_pack": "agent/context-packs/T-181-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-181: Add command timing and edit summaries to reports",
-    "run_id": "t-181-add-command-timing-and-edit-summaries-to-reports-20260610230204947319",
-    "reason": "Implemented summary_complete_window_duration_delta_abs_ms in JSON/Markdown reports with focused regression and full CI passing.",
-    "updated_at": "2026-06-10T23:06:45Z",
+    "id": "T-182",
+    "context_pack": "agent/context-packs/T-182-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-182: Add command timing and edit summaries to reports",
+    "run_id": "t-182-add-command-timing-and-edit-summaries-to-reports-20260611040141340279",
+    "reason": "Implemented summary_complete_window_duration_delta_abs_share in JSON/Markdown reports with focused regression, regenerated fixture, documentation updates, and full CI passing.",
+    "updated_at": "2026-06-11T04:05:25Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0095",
+      "id": "REVIEW-0096",
       "verdict": "ready",
-      "reviewer": "codex",
+      "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0095.yml"
+      "path": "agent/reviews/REVIEW-0096.yml"
     }
   },
   "current_state": {
@@ -35,20 +35,20 @@
       }
     },
     "dcrs": {
-      "total": 2,
+      "total": 3,
       "by_status": {
-        "classified": 2
+        "classified": 3
       }
     },
     "tasks": {
-      "total": 181,
+      "total": 182,
       "by_status": {
-        "complete": 178,
+        "complete": 179,
         "halted": 2,
         "started": 1
       },
       "by_type": {
-        "implementation": 178,
+        "implementation": 179,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0095.yml"
+    "last_code_review": "agent/reviews/REVIEW-0096.yml"
   }
 }
