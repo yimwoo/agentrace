@@ -2422,6 +2422,23 @@
         "path": "agent/reviews/REVIEW-0099.yml"
       },
       "updated_at": "2026-06-11T18:06:47Z"
+    },
+    "agent/context-packs/T-186-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-186-add-command-timing-and-edit-summaries-to-reports-20260611230141158015",
+      "reason": "Completed complete-window summary coverage delta reporting. Acceptance evidence: JSON report_summary_timing_window_impact now includes summary_complete_window_share_delta, summary_complete_window_duration_share_delta, and summary_complete_window_coverage_label for command/edit/activity; Markdown renders those fields; tests assert command recorded-summary-higher deltas (-1.0), edit balanced deltas (0.0), and activity recorded-summary-higher partial deltas (-0.5/-0.3846); rich Markdown fixture, TRACE_SCHEMA.md, PROJECT_STATE.md, and HANDOFF.md are updated. Verification passed: focused timing-window pytest, focused rich fixture pytest, and bash scripts/ci_check.sh (46 passed, 1 warning).",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0100",
+        "verdict": "ready",
+        "summary": "Reviewed complete-window coverage delta implementation. Scope stayed within AgentSpec allowed paths. JSON metrics compute count-share and duration-share deltas from existing complete-window shares, label recorded-summary-higher/balanced/missing-summary-higher coverage, Markdown renders the new fields, tests assert command/edit/activity values, and rich fixture/docs/handoff are aligned. Verification passed with focused report pytest, focused fixture pytest, and bash scripts/ci_check.sh (46 passed, 1 warning).",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0100.yml"
+      },
+      "updated_at": "2026-06-11T23:06:27Z"
     }
   }
 }

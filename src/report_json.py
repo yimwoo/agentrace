@@ -538,6 +538,25 @@ def _summary_timing_window_gap_label(count_delta, duration_delta):
     return "low_missing_summary_gap"
 
 
+def _summary_complete_window_coverage_label(count_delta, duration_delta):
+    """Label which summary bucket has stronger complete timestamp-window coverage."""
+    max_delta = max(count_delta, duration_delta)
+    min_delta = min(count_delta, duration_delta)
+    if max_delta <= 0 and min_delta >= 0:
+        return "balanced_complete_window_coverage"
+    if max_delta > abs(min_delta):
+        if max_delta >= 0.5:
+            return "high_missing_summary_complete_window_coverage"
+        if max_delta >= 0.25:
+            return "medium_missing_summary_complete_window_coverage"
+        return "low_missing_summary_complete_window_coverage"
+    if abs(min_delta) >= 0.5:
+        return "high_recorded_summary_complete_window_coverage"
+    if abs(min_delta) >= 0.25:
+        return "medium_recorded_summary_complete_window_coverage"
+    return "low_recorded_summary_complete_window_coverage"
+
+
 def _summary_timing_window_excess_attention_label(excess_share, excess_duration_share):
     """Label whether positive missing-summary incomplete-window excess needs attention."""
     max_excess = max(excess_share, excess_duration_share)
@@ -635,6 +654,18 @@ def _summary_timing_window_metrics(rows):
     unsummarized_missing_window_share = (
         0 if not unsummarized_rows else round(len(unsummarized_missing_rows) / len(unsummarized_rows), 4)
     )
+    summarized_complete_window_share = (
+        0 if not summarized_rows else round(len(summarized_complete_rows) / len(summarized_rows), 4)
+    )
+    unsummarized_complete_window_share = (
+        0 if not unsummarized_rows else round(len(unsummarized_complete_rows) / len(unsummarized_rows), 4)
+    )
+    summarized_complete_window_duration_share = (
+        0 if not summarized_duration_ms else round(summarized_complete_duration_ms / summarized_duration_ms, 4)
+    )
+    unsummarized_complete_window_duration_share = (
+        0 if not unsummarized_duration_ms else round(unsummarized_complete_duration_ms / unsummarized_duration_ms, 4)
+    )
     summarized_missing_window_duration_share = (
         0 if not summarized_duration_ms else round(summarized_missing_duration_ms / summarized_duration_ms, 4)
     )
@@ -642,6 +673,14 @@ def _summary_timing_window_metrics(rows):
         0 if not unsummarized_duration_ms else round(unsummarized_missing_duration_ms / unsummarized_duration_ms, 4)
     )
 
+    complete_window_share_delta = round(
+        unsummarized_complete_window_share - summarized_complete_window_share,
+        4,
+    )
+    complete_window_duration_share_delta = round(
+        unsummarized_complete_window_duration_share - summarized_complete_window_duration_share,
+        4,
+    )
     missing_window_share_delta = round(
         unsummarized_missing_window_share - summarized_missing_window_share,
         4,
@@ -779,20 +818,18 @@ def _summary_timing_window_metrics(rows):
             missing_window_excess_share,
             missing_window_excess_duration_share,
         ),
-        "summary_recorded_complete_window_share": (
-            0 if not summarized_rows else round(len(summarized_complete_rows) / len(summarized_rows), 4)
-        ),
-        "summary_missing_complete_window_share": (
-            0 if not unsummarized_rows else round(len(unsummarized_complete_rows) / len(unsummarized_rows), 4)
-        ),
+        "summary_recorded_complete_window_share": summarized_complete_window_share,
+        "summary_missing_complete_window_share": unsummarized_complete_window_share,
+        "summary_complete_window_share_delta": complete_window_share_delta,
         "summary_recorded_missing_window_share": summarized_missing_window_share,
         "summary_missing_missing_window_share": unsummarized_missing_window_share,
         "summary_missing_window_share_delta": missing_window_share_delta,
-        "summary_recorded_complete_window_duration_share": (
-            0 if not summarized_duration_ms else round(summarized_complete_duration_ms / summarized_duration_ms, 4)
-        ),
-        "summary_missing_complete_window_duration_share": (
-            0 if not unsummarized_duration_ms else round(unsummarized_complete_duration_ms / unsummarized_duration_ms, 4)
+        "summary_recorded_complete_window_duration_share": summarized_complete_window_duration_share,
+        "summary_missing_complete_window_duration_share": unsummarized_complete_window_duration_share,
+        "summary_complete_window_duration_share_delta": complete_window_duration_share_delta,
+        "summary_complete_window_coverage_label": _summary_complete_window_coverage_label(
+            complete_window_share_delta,
+            complete_window_duration_share_delta,
         ),
         "summary_recorded_missing_window_duration_share": summarized_missing_window_duration_share,
         "summary_missing_missing_window_duration_share": unsummarized_missing_window_duration_share,

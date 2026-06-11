@@ -701,11 +701,14 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_excess_attention_label": "high_missing_summary_window_excess",
             "summary_recorded_complete_window_share": 1.0,
             "summary_missing_complete_window_share": 0.0,
+            "summary_complete_window_share_delta": -1.0,
             "summary_recorded_missing_window_share": 0.0,
             "summary_missing_missing_window_share": 1.0,
             "summary_missing_window_share_delta": 1.0,
             "summary_recorded_complete_window_duration_share": 1.0,
             "summary_missing_complete_window_duration_share": 0.0,
+            "summary_complete_window_duration_share_delta": -1.0,
+            "summary_complete_window_coverage_label": "high_recorded_summary_complete_window_coverage",
             "summary_recorded_missing_window_duration_share": 0.0,
             "summary_missing_missing_window_duration_share": 1.0,
             "summary_missing_window_duration_share_delta": 1.0,
@@ -747,11 +750,14 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_excess_attention_label": "no_missing_summary_window_excess",
             "summary_recorded_complete_window_share": 0.0,
             "summary_missing_complete_window_share": 0,
+            "summary_complete_window_share_delta": 0.0,
             "summary_recorded_missing_window_share": 1.0,
             "summary_missing_missing_window_share": 0,
             "summary_missing_window_share_delta": -1.0,
             "summary_recorded_complete_window_duration_share": 0.0,
             "summary_missing_complete_window_duration_share": 0,
+            "summary_complete_window_duration_share_delta": 0.0,
+            "summary_complete_window_coverage_label": "balanced_complete_window_coverage",
             "summary_recorded_missing_window_duration_share": 1.0,
             "summary_missing_missing_window_duration_share": 0,
             "summary_missing_window_duration_share_delta": -1.0,
@@ -793,11 +799,14 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_excess_attention_label": "medium_missing_summary_window_excess",
             "summary_recorded_complete_window_share": 0.5,
             "summary_missing_complete_window_share": 0.0,
+            "summary_complete_window_share_delta": -0.5,
             "summary_recorded_missing_window_share": 0.5,
             "summary_missing_missing_window_share": 1.0,
             "summary_missing_window_share_delta": 0.5,
             "summary_recorded_complete_window_duration_share": 0.3846,
             "summary_missing_complete_window_duration_share": 0.0,
+            "summary_complete_window_duration_share_delta": -0.3846,
+            "summary_complete_window_coverage_label": "high_recorded_summary_complete_window_coverage",
             "summary_recorded_missing_window_duration_share": 0.6154,
             "summary_missing_missing_window_duration_share": 1.0,
             "summary_missing_window_duration_share_delta": 0.3846,
@@ -809,7 +818,15 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "report_summary_timing_window_impact:" in text
     assert "command=recorded_complete_windows=1/missing_complete_windows=0/recorded_missing_windows=0/missing_missing_windows=1" in text
     assert "recorded_missing_window_share=0.5" in text
+    assert "complete_window_share_delta=-1.0" in text
+    assert "complete_window_share_delta=0.0" in text
+    assert "complete_window_share_delta=-0.5" in text
     assert "missing_window_share_delta=0.5" in text
+    assert "complete_window_duration_share_delta=-1.0" in text
+    assert "complete_window_duration_share_delta=0.0" in text
+    assert "complete_window_duration_share_delta=-0.3846" in text
+    assert "complete_window_coverage_label=high_recorded_summary_complete_window_coverage" in text
+    assert "complete_window_coverage_label=balanced_complete_window_coverage" in text
     assert "recorded_missing_window_duration_share=0.6154" in text
     assert "missing_window_duration_share_delta=0.3846" in text
     assert "missing_window_duration_delta_ms=150" in text

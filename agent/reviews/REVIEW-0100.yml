@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-186-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-186-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed complete-window coverage delta implementation. Scope stayed within AgentSpec allowed paths. JSON metrics compute count-share and duration-share deltas from existing complete-window shares, label recorded-summary-higher/balanced/missing-summary-higher coverage, Markdown renders the new fields, tests assert command/edit/activity values, and rich fixture/docs/handoff are aligned. Verification passed with focused report pytest, focused fixture pytest, and bash scripts/ci_check.sh (46 passed, 1 warning).",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-11T23:06:18Z",
+  "id": "REVIEW-0100"
+}

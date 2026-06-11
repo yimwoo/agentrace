@@ -1,3 +1,17 @@
+`agentrace` reports now expose complete-window summary coverage deltas in the summary/timing-window impact block. JSON and Markdown include `summary_complete_window_share_delta`, `summary_complete_window_duration_share_delta`, and `summary_complete_window_coverage_label` for command, edit, and combined activity buckets, so reviewers can tell whether fully timestamped coverage is stronger for missing-summary rows, stronger for recorded-summary rows, or balanced before comparing incomplete-window sparsity.
+
+## What was done
+- created AgentSpec task `T-186` for complete-window summary coverage delta visibility
+- added complete-window count-share and duration-share deltas to JSON `report_summary_timing_window_impact`
+- rendered the new deltas and coverage label in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now label complete-window duration ratios in the summary/timing-window impact block. JSON and Markdown include `summary_complete_window_duration_ratio_label` next to `summary_complete_window_duration_ratio` for command, edit, and combined activity buckets, so reviewers can distinguish no complete-window duration, recorded-summary-only complete duration, missing-summary-only complete duration, and balanced/elevated/dominant complete-window duration without interpreting the raw ratio alone.
 
 ## What was done
