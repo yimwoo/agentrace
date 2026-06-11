@@ -2405,6 +2405,23 @@
         "path": "agent/reviews/REVIEW-0098.yml"
       },
       "updated_at": "2026-06-11T13:06:55Z"
+    },
+    "agent/context-packs/T-185-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-185-add-command-timing-and-edit-summaries-to-reports-20260611180158675849",
+      "reason": "Implemented complete-window duration ratio labels in JSON/Markdown; focused regressions and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0099",
+        "verdict": "ready",
+        "summary": "Reviewed T-185 worktree changes: JSON and Markdown expose complete-window duration ratio labels, focused regression covers JSON and Markdown output, rich Markdown fixture/docs/handoff updated, and full CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0099.yml"
+      },
+      "updated_at": "2026-06-11T18:06:47Z"
     }
   }
 }

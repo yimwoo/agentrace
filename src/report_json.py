@@ -587,6 +587,25 @@ def _summary_complete_window_duration_delta_label(duration_delta_ms):
     return "balanced_complete_window_duration_delta"
 
 
+def _summary_complete_window_duration_ratio_label(summarized_complete_duration_ms, unsummarized_complete_duration_ms):
+    """Label the complete-window duration ratio by summary bucket."""
+    if not summarized_complete_duration_ms and not unsummarized_complete_duration_ms:
+        return "no_complete_window_duration"
+    if not summarized_complete_duration_ms:
+        return "missing_summary_only_complete_window_duration"
+    if not unsummarized_complete_duration_ms:
+        return "recorded_summary_only_complete_window_duration"
+
+    ratio = unsummarized_complete_duration_ms / summarized_complete_duration_ms
+    if ratio >= 2:
+        return "missing_summary_complete_duration_dominant"
+    if ratio >= 1.25:
+        return "missing_summary_complete_duration_elevated"
+    if ratio <= 0.75:
+        return "recorded_summary_complete_duration_higher"
+    return "balanced_complete_window_duration"
+
+
 def _summary_timing_window_metrics(rows):
     """Return complete timestamp-window coverage split by summary presence."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -732,6 +751,10 @@ def _summary_timing_window_metrics(rows):
         "summary_complete_window_duration_delta_abs_share": summary_complete_window_duration_delta_abs_share,
         "summary_complete_window_duration_delta_share": summary_complete_window_duration_delta_share,
         "summary_complete_window_duration_ratio": summary_complete_window_duration_ratio,
+        "summary_complete_window_duration_ratio_label": _summary_complete_window_duration_ratio_label(
+            summarized_complete_duration_ms,
+            unsummarized_complete_duration_ms,
+        ),
         "summary_recorded_missing_window_duration_ms": summarized_missing_duration_ms,
         "summary_missing_missing_window_duration_ms": unsummarized_missing_duration_ms,
         "summary_missing_window_duration_delta_ms": summary_missing_window_duration_delta_ms,

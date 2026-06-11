@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-185-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-185-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-185 worktree changes: JSON and Markdown expose complete-window duration ratio labels, focused regression covers JSON and Markdown output, rich Markdown fixture/docs/handoff updated, and full CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-11T18:06:40Z",
+  "id": "REVIEW-0099"
+}
