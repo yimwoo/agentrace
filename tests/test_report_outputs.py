@@ -669,6 +669,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_complete_window_count": 1,
             "summary_missing_complete_window_count": 0,
             "summary_complete_window_count_delta": -1,
+            "summary_complete_window_count_delta_abs": 1,
             "summary_recorded_missing_window_count": 0,
             "summary_missing_missing_window_count": 1,
             "summary_missing_window_excess_count": 1,
@@ -719,6 +720,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_complete_window_count": 0,
             "summary_missing_complete_window_count": 0,
             "summary_complete_window_count_delta": 0,
+            "summary_complete_window_count_delta_abs": 0,
             "summary_recorded_missing_window_count": 1,
             "summary_missing_missing_window_count": 0,
             "summary_missing_window_excess_count": 0,
@@ -769,6 +771,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_recorded_complete_window_count": 1,
             "summary_missing_complete_window_count": 0,
             "summary_complete_window_count_delta": -1,
+            "summary_complete_window_count_delta_abs": 1,
             "summary_recorded_missing_window_count": 1,
             "summary_missing_missing_window_count": 1,
             "summary_missing_window_excess_count": 0,
@@ -819,10 +822,12 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
 
     text = build_markdown_summary(trace)
     assert "report_summary_timing_window_impact:" in text
-    assert "command=recorded_complete_windows=1/missing_complete_windows=0/complete_window_count_delta=-1/recorded_missing_windows=0/missing_missing_windows=1" in text
+    assert "command=recorded_complete_windows=1/missing_complete_windows=0/complete_window_count_delta=-1/complete_window_count_delta_abs=1/recorded_missing_windows=0/missing_missing_windows=1" in text
     assert "recorded_missing_window_share=0.5" in text
     assert "complete_window_count_delta=-1" in text
     assert "complete_window_count_delta=0" in text
+    assert "complete_window_count_delta_abs=1" in text
+    assert "complete_window_count_delta_abs=0" in text
     assert "complete_window_share_delta=-1.0" in text
     assert "complete_window_share_delta=0.0" in text
     assert "complete_window_share_delta=-0.5" in text
@@ -884,7 +889,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_excess_average_duration_ms=0" in text
     assert "missing_window_excess_attention_label=medium_missing_summary_window_excess" in text
     assert "missing_window_gap_label=high_missing_summary_gap" in text
-    assert "activity=recorded_complete_windows=1/missing_complete_windows=0/complete_window_count_delta=-1/recorded_missing_windows=1/missing_missing_windows=1" in text
+    assert "activity=recorded_complete_windows=1/missing_complete_windows=0/complete_window_count_delta=-1/complete_window_count_delta_abs=1/recorded_missing_windows=1/missing_missing_windows=1" in text
 
 
 def test_build_sample_trace_shape():

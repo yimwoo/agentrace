@@ -776,6 +776,7 @@ def _summary_timing_window_metrics(rows):
         "summary_recorded_complete_window_count": len(summarized_complete_rows),
         "summary_missing_complete_window_count": len(unsummarized_complete_rows),
         "summary_complete_window_count_delta": complete_window_count_delta,
+        "summary_complete_window_count_delta_abs": abs(complete_window_count_delta),
         "summary_recorded_missing_window_count": len(summarized_missing_rows),
         "summary_missing_missing_window_count": len(unsummarized_missing_rows),
         "summary_missing_window_excess_count": missing_window_excess_count,
