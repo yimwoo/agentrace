@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-190-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-190-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-190 worktree changes: scope is limited to allowed report code, tests, fixture, schema, project state, handoff, and AgentSpec artifacts. The new summary_complete_window_count_delta_abs_share uses the total complete-window row count denominator, is exposed in JSON and Markdown beside the absolute count delta, and focused/full verification passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-12T18:12:35Z",
+  "id": "REVIEW-0103"
+}

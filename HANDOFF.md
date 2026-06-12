@@ -1,3 +1,17 @@
+`agentrace` reports now expose the complete-window-normalized share of the absolute complete-window count delta in the summary/timing-window impact block. JSON and Markdown include `summary_complete_window_count_delta_abs_share` for command, edit, and combined activity buckets, so reviewers can see how large the complete-window count imbalance is relative to all complete-window rows in that bucket.
+
+## What was done
+- created AgentSpec task `T-190` for complete-window count-delta absolute-share visibility
+- added `summary_complete_window_count_delta_abs_share` to JSON `report_summary_timing_window_impact`
+- rendered the new absolute count-delta share in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed after RED failure and implementation
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now expose the absolute magnitude of the signed complete-window count delta in the summary/timing-window impact block. JSON and Markdown include `summary_complete_window_count_delta_abs` for command, edit, and combined activity buckets, so reviewers can see count-imbalance size even when direction differs between missing-summary and recorded-summary rows.
 
 ## What was done
