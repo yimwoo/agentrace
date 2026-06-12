@@ -1,0 +1,89 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "complete-t-188-add-command-timing-and-edit-summaries-to-reports-20260612080646723206",
+  "status": "complete",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-188-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-188: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-188-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-188-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-12T08:06:46Z",
+  "updated_at": "2026-06-12T08:06:46Z",
+  "last_decision": "complete",
+  "completion_reason": "Implemented summary_complete_window_count_delta in JSON/Markdown reports, refreshed tests/fixture/docs, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0101",
+    "verdict": "ready",
+    "summary": "Reviewed T-188 worktree changes: summary_complete_window_count_delta is computed from complete-window row counts, exposed in JSON and Markdown, covered by focused regression assertions, and documented in schema/state/handoff. Full CI passed (46 passed, 1 warning).",
+    "reviewer": "hermes",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0101.yml"
+  },
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-188-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-188",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-188 --owner <owner> --branch codex/t-188-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-11T23:06:27Z",
+  "updated_at": "2026-06-12T08:06:46Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-186",
-    "context_pack": "agent/context-packs/T-186-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-186: Add command timing and edit summaries to reports",
-    "run_id": "t-186-add-command-timing-and-edit-summaries-to-reports-20260611230141158015",
-    "reason": "Completed complete-window summary coverage delta reporting. Acceptance evidence: JSON report_summary_timing_window_impact now includes summary_complete_window_share_delta, summary_complete_window_duration_share_delta, and summary_complete_window_coverage_label for command/edit/activity; Markdown renders those fields; tests assert command recorded-summary-higher deltas (-1.0), edit balanced deltas (0.0), and activity recorded-summary-higher partial deltas (-0.5/-0.3846); rich Markdown fixture, TRACE_SCHEMA.md, PROJECT_STATE.md, and HANDOFF.md are updated. Verification passed: focused timing-window pytest, focused rich fixture pytest, and bash scripts/ci_check.sh (46 passed, 1 warning).",
-    "updated_at": "2026-06-11T23:06:27Z",
+    "id": "T-188",
+    "context_pack": "agent/context-packs/T-188-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-188: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-188-add-command-timing-and-edit-summaries-to-reports-20260612080646723206",
+    "reason": "Implemented summary_complete_window_count_delta in JSON/Markdown reports, refreshed tests/fixture/docs, and verified with bash scripts/ci_check.sh (46 passed, 1 warning).",
+    "updated_at": "2026-06-12T08:06:46Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0100",
+      "id": "REVIEW-0101",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "hermes",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0100.yml"
+      "path": "agent/reviews/REVIEW-0101.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,15 @@
       }
     },
     "tasks": {
-      "total": 186,
+      "total": 188,
       "by_status": {
-        "complete": 183,
+        "complete": 184,
         "halted": 2,
+        "ready": 1,
         "started": 1
       },
       "by_type": {
-        "implementation": 183,
+        "implementation": 185,
         "scaffold": 3
       }
     }
@@ -66,6 +67,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0100.yml"
+    "last_code_review": "agent/reviews/REVIEW-0101.yml"
   }
 }
