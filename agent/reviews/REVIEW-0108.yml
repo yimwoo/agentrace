@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-195-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-195-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-195 worktree changes: new summary_missing_window_gap_source is derived from existing missing-window gap deltas, rendered in Markdown, covered by focused command/edit/activity JSON and Markdown assertions, fixture/docs/handoff updated, and full scripts/ci_check.sh passed.",
+  "reviewer": "hermes",
+  "range": "worktree",
+  "created_at": "2026-06-13T23:06:07Z",
+  "id": "REVIEW-0108"
+}

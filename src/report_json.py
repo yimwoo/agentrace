@@ -538,6 +538,20 @@ def _summary_timing_window_gap_label(count_delta, duration_delta):
     return "low_missing_summary_gap"
 
 
+def _summary_timing_window_gap_source(count_delta, duration_delta):
+    """Name whether count share, duration share, or both drive the missing-window gap."""
+    max_gap = max(0, count_delta, duration_delta)
+    if max_gap <= 0:
+        return "no_missing_summary_gap_source"
+    count_matches = count_delta == max_gap
+    duration_matches = duration_delta == max_gap
+    if count_matches and duration_matches:
+        return "count_and_duration_missing_summary_gap_source"
+    if count_matches:
+        return "count_share_missing_summary_gap_source"
+    return "duration_share_missing_summary_gap_source"
+
+
 def _summary_complete_window_coverage_label(count_delta, duration_delta):
     """Label which summary bucket has stronger complete timestamp-window coverage."""
     max_delta = max(count_delta, duration_delta)
@@ -880,6 +894,10 @@ def _summary_timing_window_metrics(rows):
         "summary_missing_missing_window_duration_share": unsummarized_missing_window_duration_share,
         "summary_missing_window_duration_share_delta": missing_window_duration_share_delta,
         "summary_missing_window_gap_delta_max": missing_window_gap_delta_max,
+        "summary_missing_window_gap_source": _summary_timing_window_gap_source(
+            missing_window_share_delta,
+            missing_window_duration_share_delta,
+        ),
         "summary_missing_window_gap_label": _summary_timing_window_gap_label(
             missing_window_share_delta,
             missing_window_duration_share_delta,

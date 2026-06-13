@@ -1,3 +1,17 @@
+`agentrace` reports now name the source of the maximum missing-window summary gap in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_source` for command, edit, and combined activity buckets, so reviewers can tell whether the strongest missing-summary timestamp-sparsity gap is driven by count share, duration share, both, or neither before reading the qualitative gap label.
+
+## What was done
+- created AgentSpec task `T-195` for missing-window gap source visibility
+- added `summary_missing_window_gap_source` to JSON `report_summary_timing_window_impact`
+- rendered the new gap source in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — initially failed until the rich Markdown fixture was regenerated
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now expose the maximum positive missing-window gap delta in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_delta_max` for command, edit, and combined activity buckets, so reviewers can quantify the strongest missing-summary timestamp-sparsity gap before reading the qualitative gap label.
 
 ## What was done
