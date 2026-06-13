@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-194-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-194-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-194 worktree changes: new summary_missing_window_gap_delta_max metric is scoped to report_summary_timing_window_impact, rendered in Markdown, covered by focused JSON/Markdown assertions, docs and fixture updated, and full CI passed.",
+  "reviewer": "hermes",
+  "range": "worktree",
+  "created_at": "2026-06-13T18:06:09Z",
+  "id": "REVIEW-0107"
+}
