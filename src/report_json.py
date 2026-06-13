@@ -606,6 +606,15 @@ def _summary_complete_window_duration_delta_label(duration_delta_ms):
     return "balanced_complete_window_duration_delta"
 
 
+def _summary_complete_window_count_delta_label(count_delta):
+    """Label the signed complete-window count delta by summary bucket."""
+    if count_delta > 0:
+        return "missing_summary_complete_window_count_higher"
+    if count_delta < 0:
+        return "recorded_summary_complete_window_count_higher"
+    return "balanced_complete_window_count_delta"
+
+
 def _summary_complete_window_duration_ratio_label(summarized_complete_duration_ms, unsummarized_complete_duration_ms):
     """Label the complete-window duration ratio by summary bucket."""
     if not summarized_complete_duration_ms and not unsummarized_complete_duration_ms:
@@ -677,6 +686,9 @@ def _summary_timing_window_metrics(rows):
     complete_window_count_total = len(summarized_complete_rows) + len(unsummarized_complete_rows)
     complete_window_count_delta_abs_share = (
         0 if not complete_window_count_total else round(abs(complete_window_count_delta) / complete_window_count_total, 4)
+    )
+    complete_window_count_delta_share = (
+        0 if not complete_window_count_total else round(complete_window_count_delta / complete_window_count_total, 4)
     )
     complete_window_share_delta = round(
         unsummarized_complete_window_share - summarized_complete_window_share,
@@ -782,6 +794,10 @@ def _summary_timing_window_metrics(rows):
         "summary_complete_window_count_delta": complete_window_count_delta,
         "summary_complete_window_count_delta_abs": abs(complete_window_count_delta),
         "summary_complete_window_count_delta_abs_share": complete_window_count_delta_abs_share,
+        "summary_complete_window_count_delta_share": complete_window_count_delta_share,
+        "summary_complete_window_count_delta_label": _summary_complete_window_count_delta_label(
+            complete_window_count_delta,
+        ),
         "summary_recorded_missing_window_count": len(summarized_missing_rows),
         "summary_missing_missing_window_count": len(unsummarized_missing_rows),
         "summary_missing_window_excess_count": missing_window_excess_count,

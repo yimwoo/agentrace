@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-191-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-191-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-191 worktree changes: JSON computes signed complete-window count-delta share, Markdown renders it, focused regression covers command/edit/activity values plus Markdown, docs and fixture are aligned, and full scripts/ci_check.sh passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-06-13T04:08:27Z",
+  "id": "REVIEW-0104"
+}
