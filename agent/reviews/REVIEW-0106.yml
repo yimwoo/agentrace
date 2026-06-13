@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-193-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-193-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-193 worktree changes: JSON computes summary_complete_window_count_delta_attention_label from complete-window count-delta absolute share, Markdown renders it beside count-delta metrics, focused regression covers high/no-attention labels and Markdown output, docs/fixture/handoff are aligned, and bash scripts/ci_check.sh passed.",
+  "reviewer": "codex",
+  "range": "worktree",
+  "created_at": "2026-06-13T13:07:03Z",
+  "id": "REVIEW-0106"
+}

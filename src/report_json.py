@@ -615,6 +615,17 @@ def _summary_complete_window_count_delta_label(count_delta):
     return "balanced_complete_window_count_delta"
 
 
+def _summary_complete_window_count_delta_attention_label(abs_share):
+    """Label the severity of complete-window count imbalance."""
+    if abs_share <= 0:
+        return "no_complete_window_count_delta"
+    if abs_share >= 0.5:
+        return "high_complete_window_count_delta"
+    if abs_share >= 0.25:
+        return "medium_complete_window_count_delta"
+    return "low_complete_window_count_delta"
+
+
 def _summary_complete_window_duration_ratio_label(summarized_complete_duration_ms, unsummarized_complete_duration_ms):
     """Label the complete-window duration ratio by summary bucket."""
     if not summarized_complete_duration_ms and not unsummarized_complete_duration_ms:
@@ -797,6 +808,11 @@ def _summary_timing_window_metrics(rows):
         "summary_complete_window_count_delta_share": complete_window_count_delta_share,
         "summary_complete_window_count_delta_label": _summary_complete_window_count_delta_label(
             complete_window_count_delta,
+        ),
+        "summary_complete_window_count_delta_attention_label": (
+            _summary_complete_window_count_delta_attention_label(
+                complete_window_count_delta_abs_share,
+            )
         ),
         "summary_recorded_missing_window_count": len(summarized_missing_rows),
         "summary_missing_missing_window_count": len(unsummarized_missing_rows),
