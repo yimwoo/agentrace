@@ -673,6 +673,8 @@ def _format_report_summary_timing_window_impact(impact):
             f"{row.get('summary_missing_window_gap_duration_minus_count_delta', 0)}/"
             f"missing_window_gap_duration_minus_count_delta_abs="
             f"{row.get('summary_missing_window_gap_duration_minus_count_delta_abs', abs(row.get('summary_missing_window_gap_duration_minus_count_delta', 0)))}/"
+            f"missing_window_gap_delta_comparison_label="
+            f"{row.get('summary_missing_window_gap_delta_comparison_label', 'balanced_missing_summary_gap_signals')}/"
             f"missing_window_gap_label={row.get('summary_missing_window_gap_label', 'no_missing_summary_gap')}"
         )
     return "; ".join(parts)
