@@ -736,6 +736,10 @@ def _summary_timing_window_metrics(rows):
         missing_window_share_delta,
         missing_window_duration_share_delta,
     )
+    summary_missing_window_gap_duration_minus_count_delta = round(
+        missing_window_duration_share_delta - missing_window_share_delta,
+        4,
+    )
     total_duration_ms = summarized_duration_ms + unsummarized_duration_ms
     missing_window_excess_duration_ms = max(
         0,
@@ -897,6 +901,9 @@ def _summary_timing_window_metrics(rows):
         "summary_missing_window_gap_source": _summary_timing_window_gap_source(
             missing_window_share_delta,
             missing_window_duration_share_delta,
+        ),
+        "summary_missing_window_gap_duration_minus_count_delta": (
+            summary_missing_window_gap_duration_minus_count_delta
         ),
         "summary_missing_window_gap_label": _summary_timing_window_gap_label(
             missing_window_share_delta,
