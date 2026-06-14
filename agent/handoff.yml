@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-14T13:06:01Z",
+  "updated_at": "2026-06-14T18:05:24Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-198",
-    "context_pack": "agent/context-packs/T-198-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-198: Add command timing and edit summaries to reports",
-    "run_id": "t-198-add-command-timing-and-edit-summaries-to-reports-20260614130212644581",
-    "reason": "Implemented and verified summary_missing_window_gap_delta_comparison_label in JSON/Markdown reports; focused report tests and bash scripts/ci_check.sh passed.",
-    "updated_at": "2026-06-14T13:06:01Z",
+    "id": "T-199",
+    "context_pack": "agent/context-packs/T-199-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-199: Add command timing and edit summaries to reports",
+    "run_id": "t-199-add-command-timing-and-edit-summaries-to-reports-20260614180104160095",
+    "reason": "Implemented and verified missing-window gap comparison attention label; CI passed.",
+    "updated_at": "2026-06-14T18:05:24Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0111",
+      "id": "REVIEW-0112",
       "verdict": "ready",
       "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0111.yml"
+      "path": "agent/reviews/REVIEW-0112.yml"
     }
   },
   "current_state": {
@@ -41,15 +41,15 @@
       }
     },
     "tasks": {
-      "total": 198,
+      "total": 199,
       "by_status": {
-        "complete": 194,
+        "complete": 195,
         "halted": 2,
         "ready": 1,
         "started": 1
       },
       "by_type": {
-        "implementation": 195,
+        "implementation": 196,
         "scaffold": 3
       }
     }
@@ -67,6 +67,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0111.yml"
+    "last_code_review": "agent/reviews/REVIEW-0112.yml"
   }
 }

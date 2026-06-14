@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-199-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-199-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-199 worktree changes: JSON metric helper/field, Markdown renderer, focused regression expectations, rich fixture, schema/state/handoff docs are scoped to allowed paths and CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-14T18:05:20Z",
+  "id": "REVIEW-0112"
+}

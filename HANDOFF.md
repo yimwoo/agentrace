@@ -1,3 +1,17 @@
+`agentrace` reports now add an attention label for missing-window count-vs-duration gap divergence in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_label` for command, edit, and combined activity buckets, so reviewers can tell whether sparse-summary timestamp gap signals have no, low, medium, or high count/duration disagreement before interpreting the source and comparison labels.
+
+## What was done
+- created AgentSpec task `T-199` for missing-window gap signal-divergence attention labeling
+- added `summary_missing_window_gap_delta_comparison_attention_label` to JSON `report_summary_timing_window_impact`
+- rendered the new comparison attention label in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed after refreshing the rich Markdown fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now label the missing-window gap duration-vs-count comparison in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_delta_comparison_label` for command, edit, and combined activity buckets, so reviewers can see whether sparse-summary timestamp gaps are duration-led, count-led, or balanced without interpreting the signed comparison manually.
 
 ## What was done
