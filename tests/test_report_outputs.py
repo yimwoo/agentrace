@@ -721,6 +721,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_max": 1.0,
             "summary_missing_window_gap_source": "count_and_duration_missing_summary_gap_source",
             "summary_missing_window_gap_duration_minus_count_delta": 0.0,
+            "summary_missing_window_gap_duration_minus_count_delta_abs": 0.0,
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
         "edit": {
@@ -779,6 +780,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_max": 0,
             "summary_missing_window_gap_source": "no_missing_summary_gap_source",
             "summary_missing_window_gap_duration_minus_count_delta": 0.0,
+            "summary_missing_window_gap_duration_minus_count_delta_abs": 0.0,
             "summary_missing_window_gap_label": "no_missing_summary_gap",
         },
         "activity": {
@@ -837,6 +839,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_max": 0.5,
             "summary_missing_window_gap_source": "count_share_missing_summary_gap_source",
             "summary_missing_window_gap_duration_minus_count_delta": -0.1154,
+            "summary_missing_window_gap_duration_minus_count_delta_abs": 0.1154,
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
     }
@@ -875,6 +878,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_gap_source=count_share_missing_summary_gap_source" in text
     assert "missing_window_gap_duration_minus_count_delta=0.0" in text
     assert "missing_window_gap_duration_minus_count_delta=-0.1154" in text
+    assert "missing_window_gap_duration_minus_count_delta_abs=0.0" in text
+    assert "missing_window_gap_duration_minus_count_delta_abs=0.1154" in text
     assert "missing_window_duration_delta_ms=150" in text
     assert "missing_window_duration_delta_ms=-80" in text
     assert "missing_window_duration_delta_ms=70" in text

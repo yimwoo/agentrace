@@ -1,3 +1,17 @@
+`agentrace` reports now expose the absolute magnitude of the missing-window gap duration-vs-count comparison in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_duration_minus_count_delta_abs` for command, edit, and combined activity buckets, so reviewers can see how far duration-share and count-share sparsity signals diverge regardless of which signal is larger.
+
+## What was done
+- created AgentSpec task `T-197` for missing-window gap comparison magnitude visibility
+- added `summary_missing_window_gap_duration_minus_count_delta_abs` to JSON `report_summary_timing_window_impact`
+- rendered the new absolute duration-minus-count gap delta in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 1 passed after refreshing the fixture
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now quantify disagreement between missing-window count-share and duration-share gaps in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_duration_minus_count_delta` for command, edit, and combined activity buckets, so reviewers can tell whether the strongest missing-summary timestamp-sparsity signal is count-led, duration-led, or tied before reading the qualitative gap label.
 
 ## What was done
