@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-200-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-200-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-200 worktree diff: JSON computes the new missing-window gap comparison attention rank from the same divergence thresholds as the existing label, Markdown renders it in the compact impact line, tests cover command/edit/activity rank values and Markdown output, docs/handoff are updated, and CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-14T23:05:02Z",
+  "id": "REVIEW-0113"
+}

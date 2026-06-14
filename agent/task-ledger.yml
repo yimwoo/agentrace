@@ -2643,6 +2643,23 @@
         "path": "agent/reviews/REVIEW-0112.yml"
       },
       "updated_at": "2026-06-14T18:05:24Z"
+    },
+    "agent/context-packs/T-200-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-200-add-command-timing-and-edit-summaries-to-reports-20260614230507200389",
+      "reason": "Implemented and verified summary_missing_window_gap_delta_comparison_attention_rank in JSON and Markdown reports; focused regression, fixture regression, and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0113",
+        "verdict": "ready",
+        "summary": "Reviewed T-200 worktree diff: JSON computes the new missing-window gap comparison attention rank from the same divergence thresholds as the existing label, Markdown renders it in the compact impact line, tests cover command/edit/activity rank values and Markdown output, docs/handoff are updated, and CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0113.yml"
+      },
+      "updated_at": "2026-06-14T23:05:07Z"
     }
   }
 }
