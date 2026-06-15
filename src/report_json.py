@@ -614,6 +614,13 @@ def _summary_timing_window_gap_delta_comparison_attention_rank(duration_minus_co
     return 1
 
 
+def _summary_timing_window_gap_delta_comparison_attention_status(duration_minus_count_delta_abs):
+    """Return a compact status for missing-window gap signal divergence attention."""
+    if duration_minus_count_delta_abs > 0:
+        return "missing_summary_gap_signal_attention_needed"
+    return "no_missing_summary_gap_signal_attention_needed"
+
+
 def _summary_missing_window_duration_ratio_label(summarized_missing_duration_ms, unsummarized_missing_duration_ms):
     """Label which summary bucket carries missing timestamp-window duration."""
     if not summarized_missing_duration_ms and not unsummarized_missing_duration_ms:
@@ -959,6 +966,11 @@ def _summary_timing_window_metrics(rows):
         ),
         "summary_missing_window_gap_delta_comparison_attention_required": (
             summary_missing_window_gap_duration_minus_count_delta_abs > 0
+        ),
+        "summary_missing_window_gap_delta_comparison_attention_status": (
+            _summary_timing_window_gap_delta_comparison_attention_status(
+                summary_missing_window_gap_duration_minus_count_delta_abs,
+            )
         ),
         "summary_missing_window_gap_label": _summary_timing_window_gap_label(
             missing_window_share_delta,

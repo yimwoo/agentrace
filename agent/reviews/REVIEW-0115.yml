@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-202-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-202-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-202 worktree changes: JSON and Markdown expose the new missing-window gap comparison attention status beside existing label/rank/required fields; focused report regression and rich Markdown fixture cover no-attention and attention-needed states; docs and handoff are aligned; full CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-15T08:05:52Z",
+  "id": "REVIEW-0115"
+}
