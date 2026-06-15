@@ -957,6 +957,9 @@ def _summary_timing_window_metrics(rows):
                 summary_missing_window_gap_duration_minus_count_delta_abs,
             )
         ),
+        "summary_missing_window_gap_delta_comparison_attention_required": (
+            summary_missing_window_gap_duration_minus_count_delta_abs > 0
+        ),
         "summary_missing_window_gap_label": _summary_timing_window_gap_label(
             missing_window_share_delta,
             missing_window_duration_share_delta,

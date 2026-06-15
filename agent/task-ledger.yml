@@ -2660,6 +2660,23 @@
         "path": "agent/reviews/REVIEW-0113.yml"
       },
       "updated_at": "2026-06-14T23:05:07Z"
+    },
+    "agent/context-packs/T-201-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-201-add-command-timing-and-edit-summaries-to-reports-20260615040516976423",
+      "reason": "T-201 added summary_missing_window_gap_delta_comparison_attention_required to JSON/Markdown reports, refreshed tests/fixtures/docs, and passed bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0114",
+        "verdict": "ready",
+        "summary": "Reviewed T-201 worktree changes: JSON/Markdown add the attention-required flag adjacent to existing comparison attention label/rank; focused regression covers command/edit/activity False/False/True states and Markdown rendering; full CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0114.yml"
+      },
+      "updated_at": "2026-06-15T04:05:16Z"
     }
   }
 }

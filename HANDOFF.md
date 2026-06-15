@@ -1,3 +1,16 @@
+`agentrace` reports now expose whether missing-window count-vs-duration gap divergence requires attention. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_required` alongside the existing comparison attention label and rank for command, edit, and combined activity buckets, so reviewers can filter buckets with any sparse-summary signal divergence without interpreting labels or ranks.
+
+## What was done
+- created AgentSpec task `T-201` for missing-window gap signal-divergence attention filtering
+- added `summary_missing_window_gap_delta_comparison_attention_required` to JSON `report_summary_timing_window_impact`
+- rendered the new comparison attention-required flag in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — 1 passed after RED failure and implementation
+- Full CI pending in current AgentSpec run
+
+## Older status
 `agentrace` reports now add a sortable attention rank for missing-window count-vs-duration gap divergence in the summary/timing-window impact block. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_rank` alongside the existing attention label for command, edit, and combined activity buckets, so reviewers can sort sparse-summary timestamp signal divergence by severity without parsing label text.
 
 ## What was done
