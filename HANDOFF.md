@@ -1,3 +1,16 @@
+`agentrace` reports now include a compact signal-family field for missing-window gap comparison attention triggers. JSON and Markdown expose `summary_missing_window_gap_delta_comparison_attention_trigger_signal` beside the verbose trigger enum for command, edit, and combined activity buckets, so reviewers can group divergence attention by `count_share`, `duration_share`, or `none` without parsing long trigger strings.
+
+## What was done
+- created AgentSpec task `T-204` for missing-window gap comparison attention trigger signals
+- added `summary_missing_window_gap_delta_comparison_attention_trigger_signal` to JSON `report_summary_timing_window_impact`
+- rendered the new trigger signal in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — 2 passed
+- `bash scripts/ci_check.sh` — 46 passed, 1 warning; wrote `examples/trace-example.json`
+
+## Older status
 `agentrace` reports now name which sparse-summary signal triggers missing-window count-vs-duration gap attention. JSON and Markdown expose `summary_missing_window_gap_delta_comparison_attention_trigger` beside the existing attention status, required flag, rank, and label for command, edit, and combined activity buckets, so reviewers can distinguish count-share-led divergence from duration-share-led divergence without recomputing the signed comparison.
 
 ## What was done

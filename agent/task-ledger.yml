@@ -2711,6 +2711,23 @@
         "path": "agent/reviews/REVIEW-0116.yml"
       },
       "updated_at": "2026-06-15T13:06:31Z"
+    },
+    "agent/context-packs/T-204-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-204-add-command-timing-and-edit-summaries-to-reports-20260615180259903310",
+      "reason": "T-204 added compact missing-window gap comparison attention trigger signals to JSON/Markdown reports, updated regression coverage/docs/fixture, and passed bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0117",
+        "verdict": "ready",
+        "summary": "Reviewed T-204 worktree changes: JSON/Markdown report output now includes compact missing-window gap comparison attention trigger signal; focused regression coverage, fixture, and docs/handoff are aligned; bash scripts/ci_check.sh passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0117.yml"
+      },
+      "updated_at": "2026-06-15T18:07:23Z"
     }
   }
 }

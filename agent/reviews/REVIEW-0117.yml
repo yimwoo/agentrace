@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-204-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-204-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-204 worktree changes: JSON/Markdown report output now includes compact missing-window gap comparison attention trigger signal; focused regression coverage, fixture, and docs/handoff are aligned; bash scripts/ci_check.sh passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-15T18:07:17Z",
+  "id": "REVIEW-0117"
+}
