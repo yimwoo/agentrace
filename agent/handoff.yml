@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-15T08:05:57Z",
+  "updated_at": "2026-06-15T13:06:31Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-202",
-    "context_pack": "agent/context-packs/T-202-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-202: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-202-add-command-timing-and-edit-summaries-to-reports-20260615080557711471",
-    "reason": "Implemented summary_missing_window_gap_delta_comparison_attention_status in JSON/Markdown reports with focused regression, refreshed fixture/docs/handoff, and full CI passed.",
-    "updated_at": "2026-06-15T08:05:57Z",
+    "id": "T-203",
+    "context_pack": "agent/context-packs/T-203-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-203: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-203-add-command-timing-and-edit-summaries-to-reports-20260615130631562635",
+    "reason": "T-203 added the missing-window gap comparison attention trigger to JSON/Markdown reports, updated regression coverage and docs/fixture, and passed bash scripts/ci_check.sh.",
+    "updated_at": "2026-06-15T13:06:31Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0115",
+      "id": "REVIEW-0116",
       "verdict": "ready",
       "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0115.yml"
+      "path": "agent/reviews/REVIEW-0116.yml"
     }
   },
   "current_state": {
@@ -41,15 +41,14 @@
       }
     },
     "tasks": {
-      "total": 202,
+      "total": 203,
       "by_status": {
-        "complete": 198,
+        "complete": 199,
         "halted": 2,
-        "ready": 1,
-        "started": 1
+        "started": 2
       },
       "by_type": {
-        "implementation": 199,
+        "implementation": 200,
         "scaffold": 3
       }
     }
@@ -67,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0115.yml"
+    "last_code_review": "agent/reviews/REVIEW-0116.yml"
   }
 }

@@ -1,3 +1,17 @@
+`agentrace` reports now name which sparse-summary signal triggers missing-window count-vs-duration gap attention. JSON and Markdown expose `summary_missing_window_gap_delta_comparison_attention_trigger` beside the existing attention status, required flag, rank, and label for command, edit, and combined activity buckets, so reviewers can distinguish count-share-led divergence from duration-share-led divergence without recomputing the signed comparison.
+
+## What was done
+- created AgentSpec task `T-203` for missing-window gap signal-divergence attention triggers
+- added `summary_missing_window_gap_delta_comparison_attention_trigger` to JSON `report_summary_timing_window_impact`
+- rendered the new comparison attention trigger in Markdown reports
+- refreshed regression expectations, rich Markdown fixture, `TRACE_SCHEMA.md`, `PROJECT_STATE.md`, and this handoff
+
+## Verification
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_report_summary_timing_window_impact_splits_complete_windows_by_summary_presence -q` — failed first because the trigger field was missing, then 1 passed after implementation
+- `PYTHONPATH=. python3 -m pytest tests/test_report_outputs.py::test_markdown_report_matches_rich_trace_fixture -q` — failed until the rich Markdown fixture was regenerated
+- Full CI pending in current AgentSpec run
+
+## Older status
 `agentrace` reports now include a compact status for missing-window count-vs-duration gap divergence attention. JSON and Markdown expose `summary_missing_window_gap_delta_comparison_attention_status` beside the existing attention-required boolean, label, and rank for command, edit, and combined activity buckets, so reviewers can filter for explicit “attention needed” vs “no attention needed” states without interpreting booleans alone.
 
 ## What was done
