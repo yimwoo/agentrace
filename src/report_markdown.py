@@ -687,6 +687,12 @@ def _format_report_summary_timing_window_impact(impact):
             f"{row.get('summary_missing_window_gap_delta_comparison_attention_trigger', 'no_missing_summary_gap_signal_attention_trigger')}/"
             f"missing_window_gap_delta_comparison_attention_trigger_signal="
             f"{row.get('summary_missing_window_gap_delta_comparison_attention_trigger_signal', 'none')}/"
+            f"missing_window_gap_delta_comparison_attention_trigger_signal_label="
+            f"{row.get('summary_missing_window_gap_delta_comparison_attention_trigger_signal_label', 'no_missing_summary_gap_signal_family')}/"
+            f"missing_window_gap_delta_comparison_attention_trigger_signal_rank="
+            f"{row.get('summary_missing_window_gap_delta_comparison_attention_trigger_signal_rank', 0)}/"
+            f"missing_window_gap_delta_comparison_attention_trigger_signal_required="
+            f"{row.get('summary_missing_window_gap_delta_comparison_attention_trigger_signal_required', False)}/"
             f"missing_window_gap_label={row.get('summary_missing_window_gap_label', 'no_missing_summary_gap')}"
         )
     return "; ".join(parts)

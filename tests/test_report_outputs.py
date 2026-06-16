@@ -729,6 +729,9 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_status": "no_missing_summary_gap_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger": "no_missing_summary_gap_signal_attention_trigger",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal": "none",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_label": "no_missing_summary_gap_signal_family",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_rank": 0,
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": False,
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
         "edit": {
@@ -795,6 +798,9 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_status": "no_missing_summary_gap_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger": "no_missing_summary_gap_signal_attention_trigger",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal": "none",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_label": "no_missing_summary_gap_signal_family",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_rank": 0,
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": False,
             "summary_missing_window_gap_label": "no_missing_summary_gap",
         },
         "activity": {
@@ -861,6 +867,9 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_status": "missing_summary_gap_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger": "count_share_missing_summary_gap_signal_attention_trigger",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal": "count_share",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_label": "count_share_missing_summary_gap_signal_family",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_rank": 1,
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": True,
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
     }
@@ -915,6 +924,12 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_gap_delta_comparison_attention_trigger=count_share_missing_summary_gap_signal_attention_trigger" in text
     assert "missing_window_gap_delta_comparison_attention_trigger_signal=none" in text
     assert "missing_window_gap_delta_comparison_attention_trigger_signal=count_share" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_label=no_missing_summary_gap_signal_family" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_label=count_share_missing_summary_gap_signal_family" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_rank=0" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_rank=1" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_required=False" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_required=True" in text
     assert "missing_window_duration_delta_ms=150" in text
     assert "missing_window_duration_delta_ms=-80" in text
     assert "missing_window_duration_delta_ms=70" in text

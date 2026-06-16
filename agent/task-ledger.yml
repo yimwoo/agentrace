@@ -2728,6 +2728,49 @@
         "path": "agent/reviews/REVIEW-0117.yml"
       },
       "updated_at": "2026-06-15T18:07:23Z"
+    },
+    "agent/context-packs/T-205-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-205-add-command-timing-and-edit-summaries-to-reports-20260616001318175379",
+      "reason": "Executor reports completion and verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-16T00:56:46Z"
+    },
+    "agent/context-packs/T-206-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-206-add-command-timing-and-edit-summaries-to-reports-20260616050139947975",
+      "reason": "Implemented trigger signal rank in JSON/Markdown reports, updated tests/docs/fixture, linked review REVIEW-0118, and passed bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0118",
+        "verdict": "ready",
+        "summary": "Reviewed T-206 worktree changes for the trigger signal rank report field. The JSON helper maps compact signal families deterministically (none=0, count_share=1, duration_share=2), Markdown renders the new rank next to the existing signal label, regression coverage asserts JSON and Markdown values, and full CI passed.",
+        "reviewer": "hermes",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0118.yml"
+      },
+      "updated_at": "2026-06-16T06:07:22Z"
+    },
+    "agent/context-packs/T-207-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-207-add-command-timing-and-edit-summaries-to-reports-20260616080204241166",
+      "reason": "Implemented trigger-signal required flag in JSON/Markdown reports with focused regression, fixture refresh, schema/state docs update, and full CI passing.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0119",
+        "verdict": "ready",
+        "summary": "Reviewed T-207 report changes: JSON/Markdown expose the new trigger-signal required flag adjacent to existing compact trigger signal rank; regression covers balanced false buckets and count-share-led true bucket; rich fixture and schema/state docs updated; CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0119.yml"
+      },
+      "updated_at": "2026-06-16T08:06:16Z"
     }
   }
 }

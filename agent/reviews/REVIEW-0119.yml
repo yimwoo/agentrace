@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-207-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-207-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-207 report changes: JSON/Markdown expose the new trigger-signal required flag adjacent to existing compact trigger signal rank; regression covers balanced false buckets and count-share-led true bucket; rich fixture and schema/state docs updated; CI passed.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-16T08:06:11Z",
+  "id": "REVIEW-0119"
+}

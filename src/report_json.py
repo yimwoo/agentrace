@@ -639,6 +639,24 @@ def _summary_timing_window_gap_delta_comparison_attention_trigger_signal(duratio
     return "none"
 
 
+def _summary_timing_window_gap_delta_comparison_attention_trigger_signal_label(duration_minus_count_delta):
+    """Return a readable label for the compact gap-comparison trigger signal."""
+    if duration_minus_count_delta > 0:
+        return "duration_share_missing_summary_gap_signal_family"
+    if duration_minus_count_delta < 0:
+        return "count_share_missing_summary_gap_signal_family"
+    return "no_missing_summary_gap_signal_family"
+
+
+def _summary_timing_window_gap_delta_comparison_attention_trigger_signal_rank(duration_minus_count_delta):
+    """Return a sortable family rank for the compact gap-comparison trigger signal."""
+    if duration_minus_count_delta > 0:
+        return 2
+    if duration_minus_count_delta < 0:
+        return 1
+    return 0
+
+
 def _summary_missing_window_duration_ratio_label(summarized_missing_duration_ms, unsummarized_missing_duration_ms):
     """Label which summary bucket carries missing timestamp-window duration."""
     if not summarized_missing_duration_ms and not unsummarized_missing_duration_ms:
@@ -999,6 +1017,19 @@ def _summary_timing_window_metrics(rows):
             _summary_timing_window_gap_delta_comparison_attention_trigger_signal(
                 summary_missing_window_gap_duration_minus_count_delta,
             )
+        ),
+        "summary_missing_window_gap_delta_comparison_attention_trigger_signal_label": (
+            _summary_timing_window_gap_delta_comparison_attention_trigger_signal_label(
+                summary_missing_window_gap_duration_minus_count_delta,
+            )
+        ),
+        "summary_missing_window_gap_delta_comparison_attention_trigger_signal_rank": (
+            _summary_timing_window_gap_delta_comparison_attention_trigger_signal_rank(
+                summary_missing_window_gap_duration_minus_count_delta,
+            )
+        ),
+        "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": (
+            summary_missing_window_gap_duration_minus_count_delta != 0
         ),
         "summary_missing_window_gap_label": _summary_timing_window_gap_label(
             missing_window_share_delta,

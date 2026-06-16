@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-206-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-206-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-206 worktree changes for the trigger signal rank report field. The JSON helper maps compact signal families deterministically (none=0, count_share=1, duration_share=2), Markdown renders the new rank next to the existing signal label, regression coverage asserts JSON and Markdown values, and full CI passed.",
+  "reviewer": "hermes",
+  "range": "worktree",
+  "created_at": "2026-06-16T06:07:15Z",
+  "id": "REVIEW-0118"
+}
