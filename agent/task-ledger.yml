@@ -2805,6 +2805,23 @@
         "path": "agent/reviews/REVIEW-0121.yml"
       },
       "updated_at": "2026-06-16T18:04:29Z"
+    },
+    "agent/context-packs/T-210-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-210-add-command-timing-and-edit-summaries-to-reports-20260616230147686436",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0122",
+        "verdict": "ready",
+        "summary": "Code review ready: implementation is limited to allowed paths, adds the trigger-signal action label consistently to JSON and Markdown report output, updates tests/fixture/docs/handoff, and passes bash scripts/ci_check.sh (46 passed, 1 warning).",
+        "reviewer": "autonomous",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0122.yml"
+      },
+      "updated_at": "2026-06-16T23:06:08Z"
     }
   }
 }

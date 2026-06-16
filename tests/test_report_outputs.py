@@ -734,6 +734,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": False,
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_status": "no_missing_summary_gap_trigger_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action": "no_missing_summary_gap_trigger_signal_action",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_label": "no_missing_summary_gap_trigger_signal_review_action",
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
         "edit": {
@@ -805,6 +806,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": False,
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_status": "no_missing_summary_gap_trigger_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action": "no_missing_summary_gap_trigger_signal_action",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_label": "no_missing_summary_gap_trigger_signal_review_action",
             "summary_missing_window_gap_label": "no_missing_summary_gap",
         },
         "activity": {
@@ -876,6 +878,7 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_required": True,
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_status": "missing_summary_gap_trigger_signal_attention_needed",
             "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action": "review_count_share_missing_summary_gap_signal",
+            "summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_label": "count_share_missing_summary_gap_signal_review_action",
             "summary_missing_window_gap_label": "high_missing_summary_gap",
         },
     }
@@ -940,6 +943,8 @@ def test_report_summary_timing_window_impact_splits_complete_windows_by_summary_
     assert "missing_window_gap_delta_comparison_attention_trigger_signal_status=missing_summary_gap_trigger_signal_attention_needed" in text
     assert "missing_window_gap_delta_comparison_attention_trigger_signal_action=no_missing_summary_gap_trigger_signal_action" in text
     assert "missing_window_gap_delta_comparison_attention_trigger_signal_action=review_count_share_missing_summary_gap_signal" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_action_label=no_missing_summary_gap_trigger_signal_review_action" in text
+    assert "missing_window_gap_delta_comparison_attention_trigger_signal_action_label=count_share_missing_summary_gap_signal_review_action" in text
     assert "missing_window_duration_delta_ms=150" in text
     assert "missing_window_duration_delta_ms=-80" in text
     assert "missing_window_duration_delta_ms=70" in text

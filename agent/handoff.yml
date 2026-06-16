@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-16T18:04:29Z",
+  "updated_at": "2026-06-16T23:06:08Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-209",
-    "context_pack": "agent/context-packs/T-209-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-209: Add command timing and edit summaries to reports",
-    "run_id": "t-209-add-command-timing-and-edit-summaries-to-reports-20260616180133861674",
-    "reason": "Implemented and verified trigger-signal review action reporting; CI passed.",
-    "updated_at": "2026-06-16T18:04:29Z",
+    "id": "T-210",
+    "context_pack": "agent/context-packs/T-210-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-210: Add command timing and edit summaries to reports",
+    "run_id": "t-210-add-command-timing-and-edit-summaries-to-reports-20260616230147686436",
+    "reason": "Marked complete by user.",
+    "updated_at": "2026-06-16T23:06:08Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0121",
+      "id": "REVIEW-0122",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "autonomous",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0121.yml"
+      "path": "agent/reviews/REVIEW-0122.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 209,
+      "total": 210,
       "by_status": {
-        "complete": 205,
+        "complete": 206,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 206,
+        "implementation": 207,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0121.yml"
+    "last_code_review": "agent/reviews/REVIEW-0122.yml"
   }
 }
