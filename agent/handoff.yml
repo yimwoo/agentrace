@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-16T13:05:48Z",
+  "updated_at": "2026-06-16T18:04:29Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-208",
-    "context_pack": "agent/context-packs/T-208-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-208: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-208-add-command-timing-and-edit-summaries-to-reports-20260616130548915100",
-    "reason": "T-208 implemented trigger-signal attention status in JSON/Markdown reports, updated regression/fixture/docs, and passed full CI.",
-    "updated_at": "2026-06-16T13:05:48Z",
+    "id": "T-209",
+    "context_pack": "agent/context-packs/T-209-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-209: Add command timing and edit summaries to reports",
+    "run_id": "t-209-add-command-timing-and-edit-summaries-to-reports-20260616180133861674",
+    "reason": "Implemented and verified trigger-signal review action reporting; CI passed.",
+    "updated_at": "2026-06-16T18:04:29Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0120",
+      "id": "REVIEW-0121",
       "verdict": "ready",
-      "reviewer": "codex",
+      "reviewer": "human",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0120.yml"
+      "path": "agent/reviews/REVIEW-0121.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 208,
+      "total": 209,
       "by_status": {
-        "complete": 204,
+        "complete": 205,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 205,
+        "implementation": 206,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0120.yml"
+    "last_code_review": "agent/reviews/REVIEW-0121.yml"
   }
 }

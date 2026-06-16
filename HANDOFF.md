@@ -1,3 +1,11 @@
+`agentrace` reports now expose a next review action for missing-window gap comparison trigger signals. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action` next to the trigger signal status, mapping count-led, duration-led, and balanced signal families to copy-ready review actions.
+
+Session notes:
+- created AgentSpec task `T-209` for trigger-signal review actions
+- added `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action` to JSON `report_summary_timing_window_impact`
+- rendered and tested the new action in Markdown reports
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now expose a compact trigger-signal attention status for missing-window gap comparison attention. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_status` next to the compact trigger signal required flag, so reviewers can filter no-attention versus attention-needed sparse-summary signal divergence without interpreting booleans alone.
 
 ## What was done

@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-209-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-209-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-209 report changes: JSON field, Markdown renderer, focused regression, regenerated fixture, and docs are scoped to allowed paths; verification passed via focused pytest and bash scripts/ci_check.sh.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-16T18:04:24Z",
+  "id": "REVIEW-0121"
+}
