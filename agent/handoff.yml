@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-16T08:06:16Z",
+  "updated_at": "2026-06-16T13:05:48Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-207",
-    "context_pack": "agent/context-packs/T-207-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-207: Add command timing and edit summaries to reports",
-    "run_id": "t-207-add-command-timing-and-edit-summaries-to-reports-20260616080204241166",
-    "reason": "Implemented trigger-signal required flag in JSON/Markdown reports with focused regression, fixture refresh, schema/state docs update, and full CI passing.",
-    "updated_at": "2026-06-16T08:06:16Z",
+    "id": "T-208",
+    "context_pack": "agent/context-packs/T-208-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-208: Add command timing and edit summaries to reports",
+    "run_id": "complete-t-208-add-command-timing-and-edit-summaries-to-reports-20260616130548915100",
+    "reason": "T-208 implemented trigger-signal attention status in JSON/Markdown reports, updated regression/fixture/docs, and passed full CI.",
+    "updated_at": "2026-06-16T13:05:48Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0119",
+      "id": "REVIEW-0120",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "codex",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0119.yml"
+      "path": "agent/reviews/REVIEW-0120.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 207,
+      "total": 208,
       "by_status": {
-        "complete": 203,
+        "complete": 204,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 204,
+        "implementation": 205,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0119.yml"
+    "last_code_review": "agent/reviews/REVIEW-0120.yml"
   }
 }

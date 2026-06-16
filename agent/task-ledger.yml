@@ -2771,6 +2771,23 @@
         "path": "agent/reviews/REVIEW-0119.yml"
       },
       "updated_at": "2026-06-16T08:06:16Z"
+    },
+    "agent/context-packs/T-208-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-208-add-command-timing-and-edit-summaries-to-reports-20260616130548915100",
+      "reason": "T-208 implemented trigger-signal attention status in JSON/Markdown reports, updated regression/fixture/docs, and passed full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0120",
+        "verdict": "ready",
+        "summary": "Reviewed T-208 report change: JSON, Markdown, focused regression, fixture, and docs all align with the new trigger-signal attention status; full CI passed (46 passed, 1 warning).",
+        "reviewer": "codex",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0120.yml"
+      },
+      "updated_at": "2026-06-16T13:05:48Z"
     }
   }
 }
