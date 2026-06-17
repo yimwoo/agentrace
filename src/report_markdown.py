@@ -316,6 +316,23 @@ def _format_summary_source_counts_by_label(counts_by_label):
     )
 
 
+def _format_report_summary_text_metrics(metrics):
+    if not metrics:
+        return "none"
+    parts = []
+    for label in ["command", "edit", "activity"]:
+        row = metrics.get(label) or {}
+        parts.append(
+            f"{label}=count={row.get('summary_text_count', 0)},"
+            f"total_chars={row.get('summary_text_total_chars', 0)},"
+            f"average_chars={row.get('summary_text_average_chars', 0)},"
+            f"min_chars={row.get('summary_text_min_chars', 0)},"
+            f"max_chars={row.get('summary_text_max_chars', 0)},"
+            f"empty={row.get('summary_text_empty_count', 0)}"
+        )
+    return "; ".join(parts)
+
+
 def _format_report_summary_source_counts(source_counts):
     if not source_counts:
         return "none"
@@ -1253,6 +1270,7 @@ def build_markdown_summary(trace):
         f"- report_summary_coverage: {_format_report_summary_coverage(payload['report_summary_coverage'])}",
         f"- report_summary_duration_impact: {_format_report_summary_duration_impact(payload['report_summary_duration_impact'])}",
         f"- report_summary_timing_window_impact: {_format_report_summary_timing_window_impact(payload['report_summary_timing_window_impact'])}",
+        f"- report_summary_text_metrics: {_format_report_summary_text_metrics(payload['report_summary_text_metrics'])}",
         f"- report_summary_source_counts: {_format_report_summary_source_counts(payload['report_summary_source_counts'])}",
         f"- report_timing_window_coverage: {_format_report_timing_window_coverage(payload['report_timing_window_coverage'])}",
         f"- command_count: {command_totals['count']}",

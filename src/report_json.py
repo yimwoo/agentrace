@@ -250,6 +250,21 @@ def _summary_source_counts_by_activity_identity(rows):
     }
 
 
+def _summary_text_metrics(rows):
+    """Return character-count metrics for human-readable command/edit summaries."""
+    normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
+    lengths = [len(str(row.get("summary"))) for row in normalized_rows if row.get("summary")]
+    total_chars = sum(lengths)
+    return {
+        "summary_text_count": len(lengths),
+        "summary_text_total_chars": total_chars,
+        "summary_text_average_chars": 0 if not lengths else round(total_chars / len(lengths), 4),
+        "summary_text_min_chars": 0 if not lengths else min(lengths),
+        "summary_text_max_chars": 0 if not lengths else max(lengths),
+        "summary_text_empty_count": len(normalized_rows) - len(lengths),
+    }
+
+
 def _summary_duration_example_row(row):
     """Return compact context for an unsummarized row contributing duration."""
     example = {
@@ -2976,6 +2991,11 @@ def build_json_summary(trace):
         "edit": _summary_timing_window_metrics(edit_summary),
         "activity": _summary_timing_window_metrics(activity_timeline),
     }
+    report_summary_text_metrics = {
+        "command": _summary_text_metrics(command_timing),
+        "edit": _summary_text_metrics(edit_summary),
+        "activity": _summary_text_metrics(activity_timeline),
+    }
     report_timing_window_coverage = {
         "command": _timing_window_metrics(command_timing),
         "edit": _timing_window_metrics(edit_summary),
@@ -2993,6 +3013,7 @@ def build_json_summary(trace):
         "report_summary_coverage": report_summary_coverage,
         "report_summary_duration_impact": report_summary_duration_impact,
         "report_summary_timing_window_impact": report_summary_timing_window_impact,
+        "report_summary_text_metrics": report_summary_text_metrics,
         "report_summary_source_counts": report_summary_source_counts,
         "report_timing_window_coverage": report_timing_window_coverage,
         "command_timing_summary": build_command_timing_summary(command_timing),

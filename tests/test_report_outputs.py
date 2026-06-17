@@ -67,6 +67,70 @@ def test_json_and_markdown_stay_consistent():
     assert payload["run_id"] in text
 
 
+def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
+    trace = {
+        "trace_version": "0.1",
+        "run": {"id": "summary-text-1", "task": "inspect summary text", "status": "succeeded"},
+        "events": [
+            {
+                "id": "cmd_summary",
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 4,
+                "command": {"value": "pytest -q", "summary": "Run tests"},
+            },
+            {
+                "id": "cmd_missing_summary",
+                "type": "command",
+                "status": "succeeded",
+                "duration_ms": 2,
+                "command": {"value": "ruff check"},
+            },
+            {
+                "id": "edit_summary",
+                "type": "file_edit",
+                "status": "succeeded",
+                "duration_ms": 3,
+                "file": {"path": "docs/notes.md"},
+                "change": {"kind": "modify", "added_lines": 1, "removed_lines": 0, "summary": "Document edit"},
+            },
+        ],
+    }
+
+    payload = build_json_summary(trace)
+
+    assert payload["report_summary_text_metrics"] == {
+        "command": {
+            "summary_text_count": 1,
+            "summary_text_total_chars": 9,
+            "summary_text_average_chars": 9.0,
+            "summary_text_min_chars": 9,
+            "summary_text_max_chars": 9,
+            "summary_text_empty_count": 1,
+        },
+        "edit": {
+            "summary_text_count": 1,
+            "summary_text_total_chars": 13,
+            "summary_text_average_chars": 13.0,
+            "summary_text_min_chars": 13,
+            "summary_text_max_chars": 13,
+            "summary_text_empty_count": 0,
+        },
+        "activity": {
+            "summary_text_count": 2,
+            "summary_text_total_chars": 22,
+            "summary_text_average_chars": 11.0,
+            "summary_text_min_chars": 9,
+            "summary_text_max_chars": 13,
+            "summary_text_empty_count": 1,
+        },
+    }
+    markdown = build_markdown_summary(trace)
+    assert "- report_summary_text_metrics: command=count=1,total_chars=9,average_chars=9.0,min_chars=9,max_chars=9,empty=1" in markdown
+    assert "edit=count=1,total_chars=13,average_chars=13.0,min_chars=13,max_chars=13,empty=0" in markdown
+    assert "activity=count=2,total_chars=22,average_chars=11.0,min_chars=9,max_chars=13,empty=1" in markdown
+
+
 def test_report_summary_coverage_groups_explanations_by_report_labels():
     trace = {
         "trace_version": "0.1",

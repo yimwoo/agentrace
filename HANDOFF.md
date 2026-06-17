@@ -1,3 +1,10 @@
+`agentrace` reports now quantify command/edit summary text length. JSON and Markdown include `report_summary_text_metrics` for command, edit, and combined activity rows, exposing summary text counts, total/average/min/max character lengths, and empty-summary counts so reviewers can spot absent or overly terse summaries before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-213` for command/edit summary text metrics
+- added `report_summary_text_metrics` to JSON reports and rendered it in Markdown
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now expose a sortable action-priority rank for missing-window gap comparison trigger-signal review actions. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_rank` next to the existing no/low/medium/high priority label, so reviewers can sort action priority numerically without parsing label text.
 
 Session notes:

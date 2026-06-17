@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-17T08:05:49Z",
+  "updated_at": "2026-06-17T13:06:47Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-212",
-    "context_pack": "agent/context-packs/T-212-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-212: Add command timing and edit summaries to reports",
-    "run_id": "complete-t-212-add-command-timing-and-edit-summaries-to-reports-20260617080549040651",
-    "reason": "Marked complete by user.",
-    "updated_at": "2026-06-17T08:05:49Z",
+    "id": "T-213",
+    "context_pack": "agent/context-packs/T-213-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-213: Add command timing and edit summaries to reports",
+    "run_id": "t-213-add-command-timing-and-edit-summaries-to-reports-20260617130154721980",
+    "reason": "Implemented and verified report_summary_text_metrics acceptance evidence for command/edit/activity summary text metrics.",
+    "updated_at": "2026-06-17T13:06:47Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0124",
+      "id": "REVIEW-0125",
       "verdict": "ready",
-      "reviewer": "human",
+      "reviewer": "deterministic",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0124.yml"
+      "path": "agent/reviews/REVIEW-0125.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 212,
+      "total": 213,
       "by_status": {
-        "complete": 208,
+        "complete": 209,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 209,
+        "implementation": 210,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0124.yml"
+    "last_code_review": "agent/reviews/REVIEW-0125.yml"
   }
 }
