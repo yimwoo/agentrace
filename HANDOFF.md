@@ -1,3 +1,10 @@
+`agentrace` reports now include summary-text missing ratios for command/edit report summaries. JSON and Markdown include `summary_text_missing_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the unsummarized share next to coverage ratios before scanning detail rows.
+
+Session notes:
+- created AgentSpec task `T-215` for command/edit summary text missing ratios
+- added `summary_text_missing_ratio` to JSON summary text metrics and rendered `missing=` in Markdown
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now include summary-text coverage ratios for command/edit report summaries. JSON and Markdown include `summary_text_coverage_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the share of rows with human-readable summaries alongside raw character counts before detail scanning.
 
 Session notes:
