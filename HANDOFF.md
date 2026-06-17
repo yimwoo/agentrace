@@ -1,3 +1,11 @@
+`agentrace` reports now expose a sortable action-priority rank for missing-window gap comparison trigger-signal review actions. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_rank` next to the existing no/low/medium/high priority label, so reviewers can sort action priority numerically without parsing label text.
+
+Session notes:
+- created AgentSpec task `T-212` for trigger-signal review action priority ranks
+- added `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_rank` to JSON `report_summary_timing_window_impact`
+- rendered and tested the new priority rank in Markdown reports
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now expose a review-priority label for missing-window gap comparison trigger-signal actions. JSON and Markdown include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_label` next to the action label, so reviewers can distinguish no/low/medium/high priority action follow-up without recomputing the count-vs-duration signal delta.
 
 Session notes:

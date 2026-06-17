@@ -2839,6 +2839,23 @@
         "path": "agent/reviews/REVIEW-0123.yml"
       },
       "updated_at": "2026-06-17T04:07:07Z"
+    },
+    "agent/context-packs/T-212-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "complete-t-212-add-command-timing-and-edit-summaries-to-reports-20260617080549040651",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0124",
+        "verdict": "ready",
+        "summary": "Implemented and tested sortable missing-window gap trigger-signal action priority rank in JSON and Markdown reports; CI passed.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0124.yml"
+      },
+      "updated_at": "2026-06-17T08:05:49Z"
     }
   }
 }
