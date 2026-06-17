@@ -1,3 +1,10 @@
+`agentrace` reports now include summary-text coverage ratios for command/edit report summaries. JSON and Markdown include `summary_text_coverage_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the share of rows with human-readable summaries alongside raw character counts before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-214` for command/edit summary text coverage ratios
+- added `summary_text_coverage_ratio` to JSON summary text metrics and rendered `coverage=` in Markdown
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now quantify command/edit summary text length. JSON and Markdown include `report_summary_text_metrics` for command, edit, and combined activity rows, exposing summary text counts, total/average/min/max character lengths, and empty-summary counts so reviewers can spot absent or overly terse summaries before detail scanning.
 
 Session notes:

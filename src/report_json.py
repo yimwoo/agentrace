@@ -254,14 +254,17 @@ def _summary_text_metrics(rows):
     """Return character-count metrics for human-readable command/edit summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
     lengths = [len(str(row.get("summary"))) for row in normalized_rows if row.get("summary")]
+    total_rows = len(normalized_rows)
+    summary_count = len(lengths)
     total_chars = sum(lengths)
     return {
-        "summary_text_count": len(lengths),
+        "summary_text_count": summary_count,
         "summary_text_total_chars": total_chars,
-        "summary_text_average_chars": 0 if not lengths else round(total_chars / len(lengths), 4),
+        "summary_text_average_chars": 0 if not lengths else round(total_chars / summary_count, 4),
         "summary_text_min_chars": 0 if not lengths else min(lengths),
         "summary_text_max_chars": 0 if not lengths else max(lengths),
-        "summary_text_empty_count": len(normalized_rows) - len(lengths),
+        "summary_text_empty_count": total_rows - summary_count,
+        "summary_text_coverage_ratio": 0 if not total_rows else round(summary_count / total_rows, 4),
     }
 
 

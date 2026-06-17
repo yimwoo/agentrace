@@ -107,6 +107,7 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_min_chars": 9,
             "summary_text_max_chars": 9,
             "summary_text_empty_count": 1,
+            "summary_text_coverage_ratio": 0.5,
         },
         "edit": {
             "summary_text_count": 1,
@@ -115,6 +116,7 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_min_chars": 13,
             "summary_text_max_chars": 13,
             "summary_text_empty_count": 0,
+            "summary_text_coverage_ratio": 1.0,
         },
         "activity": {
             "summary_text_count": 2,
@@ -123,12 +125,13 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_min_chars": 9,
             "summary_text_max_chars": 13,
             "summary_text_empty_count": 1,
+            "summary_text_coverage_ratio": 0.6667,
         },
     }
     markdown = build_markdown_summary(trace)
-    assert "- report_summary_text_metrics: command=count=1,total_chars=9,average_chars=9.0,min_chars=9,max_chars=9,empty=1" in markdown
-    assert "edit=count=1,total_chars=13,average_chars=13.0,min_chars=13,max_chars=13,empty=0" in markdown
-    assert "activity=count=2,total_chars=22,average_chars=11.0,min_chars=9,max_chars=13,empty=1" in markdown
+    assert "- report_summary_text_metrics: command=count=1,total_chars=9,average_chars=9.0,min_chars=9,max_chars=9,empty=1,coverage=0.5" in markdown
+    assert "edit=count=1,total_chars=13,average_chars=13.0,min_chars=13,max_chars=13,empty=0,coverage=1.0" in markdown
+    assert "activity=count=2,total_chars=22,average_chars=11.0,min_chars=9,max_chars=13,empty=1,coverage=0.6667" in markdown
 
 
 def test_report_summary_coverage_groups_explanations_by_report_labels():

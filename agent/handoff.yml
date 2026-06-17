@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-17T13:06:47Z",
+  "updated_at": "2026-06-17T18:04:00Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-213",
-    "context_pack": "agent/context-packs/T-213-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-213: Add command timing and edit summaries to reports",
-    "run_id": "t-213-add-command-timing-and-edit-summaries-to-reports-20260617130154721980",
-    "reason": "Implemented and verified report_summary_text_metrics acceptance evidence for command/edit/activity summary text metrics.",
-    "updated_at": "2026-06-17T13:06:47Z",
+    "id": "T-214",
+    "context_pack": "agent/context-packs/T-214-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-214: Add command timing and edit summaries to reports",
+    "run_id": "t-214-add-command-timing-and-edit-summaries-to-reports-20260617180120503688",
+    "reason": "Implemented and verified summary_text_coverage_ratio for command/edit/activity report summary text metrics.",
+    "updated_at": "2026-06-17T18:04:00Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0125",
+      "id": "REVIEW-0126",
       "verdict": "ready",
-      "reviewer": "deterministic",
+      "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0125.yml"
+      "path": "agent/reviews/REVIEW-0126.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 213,
+      "total": 214,
       "by_status": {
-        "complete": 209,
+        "complete": 210,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 210,
+        "implementation": 211,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0125.yml"
+    "last_code_review": "agent/reviews/REVIEW-0126.yml"
   }
 }
