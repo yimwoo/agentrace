@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-211-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-211-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Acceptance evidence: report_summary_timing_window_impact now includes summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_label in JSON and Markdown; tests assert no-priority and low-priority labels; rich Markdown fixture refreshed; TRACE_SCHEMA, PROJECT_STATE, and HANDOFF document the field. Verification passed: focused pytest (2 passed) and bash scripts/ci_check.sh (46 passed, 1 warning).",
+  "reviewer": "deterministic",
+  "range": "worktree",
+  "created_at": "2026-06-17T04:06:51Z",
+  "id": "REVIEW-0123"
+}

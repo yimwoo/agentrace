@@ -4,6 +4,7 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_missing_window_gap_delta_comparison_attention_trigger_signal_action_priority_label` in `report_summary_timing_window_impact`, so reviewers can see no/low/medium/high review priority for missing-window gap trigger-signal actions without inferring severity from numeric deltas.
 - initial README
 - initial agent operating docs
 - first concrete JSON trace example in `examples/trace-example.json` using the `trace_version` / `run` / `summary` shape
