@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-18T05:18:12Z",
+  "updated_at": "2026-06-18T08:05:01Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-216",
-    "context_pack": "agent/context-packs/T-216-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-216: Add command timing and edit summaries to reports",
-    "run_id": "t-216-add-command-timing-and-edit-summaries-to-reports-20260618042011044311",
-    "reason": "Implemented summary text density per duration in reports and verified with focused tests plus full CI.",
-    "updated_at": "2026-06-18T05:18:12Z",
+    "id": "T-217",
+    "context_pack": "agent/context-packs/T-217-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-217: Add command timing and edit summaries to reports",
+    "run_id": "t-217-add-command-timing-and-edit-summaries-to-reports-20260618080146125511",
+    "reason": "Implemented summary_text_chars_per_row report summary text metric and verified with full CI.",
+    "updated_at": "2026-06-18T08:05:01Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0128",
+      "id": "REVIEW-0129",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0128.yml"
+      "path": "agent/reviews/REVIEW-0129.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 216,
+      "total": 217,
       "by_status": {
-        "complete": 212,
+        "complete": 213,
         "halted": 2,
         "started": 2
       },
       "by_type": {
-        "implementation": 213,
+        "implementation": 214,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0128.yml"
+    "last_code_review": "agent/reviews/REVIEW-0129.yml"
   }
 }

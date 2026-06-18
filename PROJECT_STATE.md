@@ -4,6 +4,7 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_text_chars_per_row` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary text density across all rows, including unsummarized rows, before scanning detail rows.
 - top-level JSON and Markdown reports now include `summary_text_chars_per_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary text density against recorded command/edit duration before scanning detail rows.
 - top-level JSON and Markdown reports now include `summary_text_missing_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the unsummarized share next to summary-text coverage before scanning detail rows.
 - top-level JSON and Markdown reports now include `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary text counts, total/average/min/max character lengths, empty-summary counts, and summary-text coverage ratios before scanning detail rows.

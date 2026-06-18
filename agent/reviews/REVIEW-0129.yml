@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-217-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-217-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-217 diff: added summary_text_chars_per_row to JSON/Markdown report summary text metrics, updated tests, rich fixture, schema/state/handoff docs, and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-18T08:04:48Z",
+  "id": "REVIEW-0129"
+}
