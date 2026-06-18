@@ -330,7 +330,8 @@ def _format_report_summary_text_metrics(metrics):
             f"max_chars={row.get('summary_text_max_chars', 0)},"
             f"empty={row.get('summary_text_empty_count', 0)},"
             f"coverage={row.get('summary_text_coverage_ratio', 0)},"
-            f"missing={row.get('summary_text_missing_ratio', 0)}"
+            f"missing={row.get('summary_text_missing_ratio', 0)},"
+            f"chars_per_duration_ms={row.get('summary_text_chars_per_duration_ms', 0)}"
         )
     return "; ".join(parts)
 

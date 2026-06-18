@@ -258,6 +258,7 @@ def _summary_text_metrics(rows):
     summary_count = len(lengths)
     total_chars = sum(lengths)
     empty_count = total_rows - summary_count
+    total_duration_ms = sum(_numeric_value(row.get("duration_ms")) for row in normalized_rows)
     return {
         "summary_text_count": summary_count,
         "summary_text_total_chars": total_chars,
@@ -267,6 +268,7 @@ def _summary_text_metrics(rows):
         "summary_text_empty_count": empty_count,
         "summary_text_coverage_ratio": 0 if not total_rows else round(summary_count / total_rows, 4),
         "summary_text_missing_ratio": 0 if not total_rows else round(empty_count / total_rows, 4),
+        "summary_text_chars_per_duration_ms": 0 if not total_duration_ms else round(total_chars / total_duration_ms, 4),
     }
 
 

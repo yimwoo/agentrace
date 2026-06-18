@@ -2907,6 +2907,23 @@
         "path": "agent/reviews/REVIEW-0127.yml"
       },
       "updated_at": "2026-06-17T23:21:56Z"
+    },
+    "agent/context-packs/T-216-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-216-add-command-timing-and-edit-summaries-to-reports-20260618042011044311",
+      "reason": "Implemented summary text density per duration in reports and verified with focused tests plus full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0128",
+        "verdict": "ready",
+        "summary": "Reviewed T-216 diff: added summary_text_chars_per_duration_ms to JSON/Markdown report summary text metrics, updated tests, rich fixture, schema/state/handoff docs, and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0128.yml"
+      },
+      "updated_at": "2026-06-18T05:18:12Z"
     }
   }
 }

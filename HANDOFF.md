@@ -1,3 +1,10 @@
+`agentrace` reports now include summary-text density per duration for command/edit report summaries. JSON and Markdown include `summary_text_chars_per_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare how much human-readable summary detail exists relative to recorded command/edit timing before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-216` for summary text density per duration
+- added `summary_text_chars_per_duration_ms` to JSON summary text metrics and rendered `chars_per_duration_ms=` in Markdown
+- refreshed the rich Markdown fixture and documented the schema/state update
+
 `agentrace` reports now include summary-text missing ratios for command/edit report summaries. JSON and Markdown include `summary_text_missing_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the unsummarized share next to coverage ratios before scanning detail rows.
 
 Session notes:
