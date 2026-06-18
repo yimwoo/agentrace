@@ -2941,6 +2941,23 @@
         "path": "agent/reviews/REVIEW-0129.yml"
       },
       "updated_at": "2026-06-18T08:05:01Z"
+    },
+    "agent/context-packs/T-218-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-218-add-command-timing-and-edit-summaries-to-reports-20260618130143720628",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0130",
+        "verdict": "ready",
+        "summary": "Reviewed T-218 diff: added summary_text_chars_per_summarized_duration_ms to JSON/Markdown report summary text metrics, updated tests, rich fixture, schema/state/handoff docs, and full CI passed.",
+        "reviewer": "deterministic",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0130.yml"
+      },
+      "updated_at": "2026-06-18T13:05:26Z"
     }
   }
 }
