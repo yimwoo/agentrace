@@ -2958,6 +2958,23 @@
         "path": "agent/reviews/REVIEW-0130.yml"
       },
       "updated_at": "2026-06-18T13:05:26Z"
+    },
+    "agent/context-packs/T-219-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-219-add-command-timing-and-edit-summaries-to-reports-20260618180136229713",
+      "reason": "Implemented summary text duration denominators and verified with full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0131",
+        "verdict": "ready",
+        "summary": "Reviewed T-219 changes: summary text metrics now expose total/summarized/unsummarized duration denominators in JSON and Markdown; regression tests, fixture, schema, state, and handoff are aligned; bash scripts/ci_check.sh passed (47 passed, 1 warning).",
+        "reviewer": "deterministic",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0131.yml"
+      },
+      "updated_at": "2026-06-18T18:06:39Z"
     }
   }
 }

@@ -1,3 +1,10 @@
+`agentrace` reports now expose the timing denominators behind summary-text density for command/edit report summaries. JSON and Markdown include `summary_text_duration_ms`, `summary_text_summarized_duration_ms`, and `summary_text_unsummarized_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see exactly which recorded durations back each summary-text density value before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-219` for summary text duration denominators
+- added total, summarized, and unsummarized duration denominators to JSON summary text metrics and rendered `duration_ms=`, `summarized_duration_ms=`, and `unsummarized_duration_ms=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now include summary-text density per summarized duration for command/edit report summaries. JSON and Markdown include `summary_text_chars_per_summarized_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare human-readable summary density against only rows that actually have summaries before detail scanning.
 
 Session notes:
