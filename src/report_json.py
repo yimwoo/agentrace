@@ -277,6 +277,12 @@ def _summary_text_metrics(rows):
         "summary_text_duration_ms": total_duration_ms,
         "summary_text_summarized_duration_ms": summarized_duration_ms,
         "summary_text_unsummarized_duration_ms": unsummarized_duration_ms,
+        "summary_text_summarized_duration_ratio": (
+            0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
+        ),
+        "summary_text_unsummarized_duration_ratio": (
+            0 if not total_duration_ms else round(unsummarized_duration_ms / total_duration_ms, 4)
+        ),
         "summary_text_chars_per_duration_ms": 0 if not total_duration_ms else round(total_chars / total_duration_ms, 4),
         "summary_text_chars_per_summarized_duration_ms": (
             0 if not summarized_duration_ms else round(total_chars / summarized_duration_ms, 4)

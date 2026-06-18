@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-220-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-220-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-220 diff: narrow report metric addition, Markdown rendering, regression fixture/docs refresh, full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-18T23:05:21Z",
+  "id": "REVIEW-0132"
+}

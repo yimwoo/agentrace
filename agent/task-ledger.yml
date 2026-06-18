@@ -2975,6 +2975,23 @@
         "path": "agent/reviews/REVIEW-0131.yml"
       },
       "updated_at": "2026-06-18T18:06:39Z"
+    },
+    "agent/context-packs/T-220-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-220-add-command-timing-and-edit-summaries-to-reports-20260618230209491565",
+      "reason": "Implemented summary-text duration share ratios and verified with full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0132",
+        "verdict": "ready",
+        "summary": "Reviewed T-220 diff: narrow report metric addition, Markdown rendering, regression fixture/docs refresh, full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0132.yml"
+      },
+      "updated_at": "2026-06-18T23:05:26Z"
     }
   }
 }

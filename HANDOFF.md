@@ -1,3 +1,10 @@
+`agentrace` reports now expose summary-text duration share ratios for command/edit report summaries. JSON and Markdown include `summary_text_summarized_duration_ratio` and `summary_text_unsummarized_duration_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary coverage against the share of recorded time explained by summarized versus unsummarized rows before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-220` for summary text duration share ratios
+- added summarized and unsummarized duration ratios to JSON summary text metrics and rendered `summarized_duration_ratio=` and `unsummarized_duration_ratio=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now expose the timing denominators behind summary-text density for command/edit report summaries. JSON and Markdown include `summary_text_duration_ms`, `summary_text_summarized_duration_ms`, and `summary_text_unsummarized_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see exactly which recorded durations back each summary-text density value before detail scanning.
 
 Session notes:

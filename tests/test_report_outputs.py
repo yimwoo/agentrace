@@ -112,6 +112,8 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_duration_ms": 6,
             "summary_text_summarized_duration_ms": 4,
             "summary_text_unsummarized_duration_ms": 2,
+            "summary_text_summarized_duration_ratio": 0.6667,
+            "summary_text_unsummarized_duration_ratio": 0.3333,
             "summary_text_chars_per_duration_ms": 1.5,
             "summary_text_chars_per_summarized_duration_ms": 2.25,
             "summary_text_chars_per_row": 4.5,
@@ -128,6 +130,8 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_duration_ms": 3,
             "summary_text_summarized_duration_ms": 3,
             "summary_text_unsummarized_duration_ms": 0,
+            "summary_text_summarized_duration_ratio": 1.0,
+            "summary_text_unsummarized_duration_ratio": 0.0,
             "summary_text_chars_per_duration_ms": 4.3333,
             "summary_text_chars_per_summarized_duration_ms": 4.3333,
             "summary_text_chars_per_row": 13.0,
@@ -144,15 +148,17 @@ def test_report_summary_text_metrics_quantify_command_and_edit_summary_detail():
             "summary_text_duration_ms": 9,
             "summary_text_summarized_duration_ms": 7,
             "summary_text_unsummarized_duration_ms": 2,
+            "summary_text_summarized_duration_ratio": 0.7778,
+            "summary_text_unsummarized_duration_ratio": 0.2222,
             "summary_text_chars_per_duration_ms": 2.4444,
             "summary_text_chars_per_summarized_duration_ms": 3.1429,
             "summary_text_chars_per_row": 7.3333,
         },
     }
     markdown = build_markdown_summary(trace)
-    assert "- report_summary_text_metrics: command=count=1,total_chars=9,average_chars=9.0,min_chars=9,max_chars=9,empty=1,coverage=0.5,missing=0.5,duration_ms=6,summarized_duration_ms=4,unsummarized_duration_ms=2,chars_per_duration_ms=1.5,chars_per_summarized_duration_ms=2.25,chars_per_row=4.5" in markdown
-    assert "edit=count=1,total_chars=13,average_chars=13.0,min_chars=13,max_chars=13,empty=0,coverage=1.0,missing=0.0,duration_ms=3,summarized_duration_ms=3,unsummarized_duration_ms=0,chars_per_duration_ms=4.3333,chars_per_summarized_duration_ms=4.3333,chars_per_row=13.0" in markdown
-    assert "activity=count=2,total_chars=22,average_chars=11.0,min_chars=9,max_chars=13,empty=1,coverage=0.6667,missing=0.3333,duration_ms=9,summarized_duration_ms=7,unsummarized_duration_ms=2,chars_per_duration_ms=2.4444,chars_per_summarized_duration_ms=3.1429,chars_per_row=7.3333" in markdown
+    assert "- report_summary_text_metrics: command=count=1,total_chars=9,average_chars=9.0,min_chars=9,max_chars=9,empty=1,coverage=0.5,missing=0.5,duration_ms=6,summarized_duration_ms=4,unsummarized_duration_ms=2,summarized_duration_ratio=0.6667,unsummarized_duration_ratio=0.3333,chars_per_duration_ms=1.5,chars_per_summarized_duration_ms=2.25,chars_per_row=4.5" in markdown
+    assert "edit=count=1,total_chars=13,average_chars=13.0,min_chars=13,max_chars=13,empty=0,coverage=1.0,missing=0.0,duration_ms=3,summarized_duration_ms=3,unsummarized_duration_ms=0,summarized_duration_ratio=1.0,unsummarized_duration_ratio=0.0,chars_per_duration_ms=4.3333,chars_per_summarized_duration_ms=4.3333,chars_per_row=13.0" in markdown
+    assert "activity=count=2,total_chars=22,average_chars=11.0,min_chars=9,max_chars=13,empty=1,coverage=0.6667,missing=0.3333,duration_ms=9,summarized_duration_ms=7,unsummarized_duration_ms=2,summarized_duration_ratio=0.7778,unsummarized_duration_ratio=0.2222,chars_per_duration_ms=2.4444,chars_per_summarized_duration_ms=3.1429,chars_per_row=7.3333" in markdown
 
 
 def test_report_summary_coverage_groups_explanations_by_report_labels():
