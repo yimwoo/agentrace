@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-222-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-222-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-222 diff: narrow report metric addition with JSON/Markdown rendering, regression fixture updates, docs/state alignment, and CI passing.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-19T09:43:09Z",
+  "id": "REVIEW-0133"
+}

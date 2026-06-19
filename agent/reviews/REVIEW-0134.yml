@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-224-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-224-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-224 diff: adds signed average-duration delta to report summary text metrics, Markdown rendering, regression expectations, fixture, and schema/state docs. Full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-19T18:18:22Z",
+  "id": "REVIEW-0134"
+}

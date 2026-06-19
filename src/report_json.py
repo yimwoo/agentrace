@@ -265,6 +265,18 @@ def _summary_text_metrics(rows):
     unsummarized_duration_ms = sum(
         _numeric_value(row.get("duration_ms")) for row in normalized_rows if not row.get("summary")
     )
+    summarized_count = summary_count
+    unsummarized_count = empty_count
+    summarized_average_duration_ms = (
+        0 if not summarized_count else round(summarized_duration_ms / summarized_count, 4)
+    )
+    unsummarized_average_duration_ms = (
+        0 if not unsummarized_count else round(unsummarized_duration_ms / unsummarized_count, 4)
+    )
+    average_duration_delta_ms = round(
+        unsummarized_average_duration_ms - summarized_average_duration_ms,
+        4,
+    )
     return {
         "summary_text_count": summary_count,
         "summary_text_total_chars": total_chars,
@@ -277,6 +289,9 @@ def _summary_text_metrics(rows):
         "summary_text_duration_ms": total_duration_ms,
         "summary_text_summarized_duration_ms": summarized_duration_ms,
         "summary_text_unsummarized_duration_ms": unsummarized_duration_ms,
+        "summary_text_summarized_average_duration_ms": summarized_average_duration_ms,
+        "summary_text_unsummarized_average_duration_ms": unsummarized_average_duration_ms,
+        "summary_text_average_duration_delta_ms": average_duration_delta_ms,
         "summary_text_summarized_duration_ratio": (
             0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
         ),

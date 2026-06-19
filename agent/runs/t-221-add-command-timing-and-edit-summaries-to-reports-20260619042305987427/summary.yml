@@ -1,0 +1,19 @@
+{
+  "schema": "agentspec.supervised_run.summary.v0",
+  "run_id": "t-221-add-command-timing-and-edit-summaries-to-reports-20260619042305987427",
+  "mode": "autonomous",
+  "context_pack": "agent/context-packs/T-221-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-221: Add command timing and edit summaries to reports",
+  "status": "started",
+  "terminal": false,
+  "last_decision": null,
+  "iteration": 0,
+  "max_iterations": 3,
+  "verdict_counts": {},
+  "event_counts": {
+    "run_started": 1
+  },
+  "blocked_findings": [],
+  "created_at": "2026-06-19T04:23:06Z",
+  "updated_at": "2026-06-19T04:23:06Z"
+}

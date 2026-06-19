@@ -1,3 +1,17 @@
+`agentrace` reports now expose the signed average-duration gap between unsummarized and summarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_delta_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can immediately see whether unsummarized work is slower or faster on average before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-224` for summary text average-duration delta metrics
+- added `summary_text_average_duration_delta_ms` to JSON summary text metrics and rendered `average_duration_delta_ms=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
+`agentrace` reports now expose average summarized and unsummarized row durations for command/edit report summaries. JSON and Markdown include `summary_text_summarized_average_duration_ms` and `summary_text_unsummarized_average_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether missing summaries are concentrated in longer rows before detail scanning.
+
+Session notes:
+- created AgentSpec task `T-222` for summary text average duration split metrics
+- added summarized and unsummarized average duration metrics to JSON summary text metrics and rendered `summarized_average_duration_ms=` and `unsummarized_average_duration_ms=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now expose summary-text duration share ratios for command/edit report summaries. JSON and Markdown include `summary_text_summarized_duration_ratio` and `summary_text_unsummarized_duration_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary coverage against the share of recorded time explained by summarized versus unsummarized rows before detail scanning.
 
 Session notes:
