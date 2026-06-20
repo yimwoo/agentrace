@@ -1,3 +1,24 @@
+`agentrace` reports now label normalized average-duration gaps between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter none/low/medium/high sparse-summary timing gaps without interpreting ratios manually.
+
+Session notes:
+- created AgentSpec task `T-227` for summary text average-duration gap labels
+- added `summary_text_average_duration_gap_label` to JSON summary text metrics and rendered `average_duration_gap_label=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
+`agentrace` reports now expose normalized absolute average-duration gaps between unsummarized and summarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_delta_abs_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare sparse-summary timing gap magnitude across buckets with different timing scales.
+
+Session notes:
+- created AgentSpec task `T-226` for summary text average-duration absolute delta ratios
+- added `summary_text_average_duration_delta_abs_ratio` to JSON summary text metrics and rendered `average_duration_delta_abs_ratio=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
+`agentrace` reports now expose absolute average-duration gaps between unsummarized and summarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_delta_abs_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort sparse-summary timing gaps by magnitude even when the signed delta changes direction.
+
+Session notes:
+- created AgentSpec task `T-225` for summary text average-duration absolute delta metrics
+- added `summary_text_average_duration_delta_abs_ms` to JSON summary text metrics and rendered `average_duration_delta_abs_ms=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now expose the signed average-duration gap between unsummarized and summarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_delta_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can immediately see whether unsummarized work is slower or faster on average before detail scanning.
 
 Session notes:

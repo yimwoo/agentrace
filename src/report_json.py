@@ -250,6 +250,17 @@ def _summary_source_counts_by_activity_identity(rows):
     }
 
 
+def _summary_text_average_duration_gap_label(abs_ratio):
+    """Label normalized average-duration gaps between summarized and unsummarized rows."""
+    if abs_ratio >= 0.75:
+        return "high_average_duration_gap"
+    if abs_ratio >= 0.25:
+        return "medium_average_duration_gap"
+    if abs_ratio > 0:
+        return "low_average_duration_gap"
+    return "no_average_duration_gap"
+
+
 def _summary_text_metrics(rows):
     """Return character-count metrics for human-readable command/edit summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -277,6 +288,16 @@ def _summary_text_metrics(rows):
         unsummarized_average_duration_ms - summarized_average_duration_ms,
         4,
     )
+    average_duration_delta_abs_ms = round(abs(average_duration_delta_ms), 4)
+    average_duration_delta_abs_ratio_denominator = max(
+        summarized_average_duration_ms,
+        unsummarized_average_duration_ms,
+    )
+    average_duration_delta_abs_ratio = (
+        0
+        if not average_duration_delta_abs_ratio_denominator
+        else round(average_duration_delta_abs_ms / average_duration_delta_abs_ratio_denominator, 4)
+    )
     return {
         "summary_text_count": summary_count,
         "summary_text_total_chars": total_chars,
@@ -292,6 +313,11 @@ def _summary_text_metrics(rows):
         "summary_text_summarized_average_duration_ms": summarized_average_duration_ms,
         "summary_text_unsummarized_average_duration_ms": unsummarized_average_duration_ms,
         "summary_text_average_duration_delta_ms": average_duration_delta_ms,
+        "summary_text_average_duration_delta_abs_ms": average_duration_delta_abs_ms,
+        "summary_text_average_duration_delta_abs_ratio": average_duration_delta_abs_ratio,
+        "summary_text_average_duration_gap_label": _summary_text_average_duration_gap_label(
+            average_duration_delta_abs_ratio,
+        ),
         "summary_text_summarized_duration_ratio": (
             0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
         ),

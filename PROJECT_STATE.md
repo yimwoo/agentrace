@@ -4,6 +4,9 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_text_average_duration_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter none/low/medium/high normalized average-duration gaps without interpreting ratios manually.
+- top-level JSON and Markdown reports now include `summary_text_average_duration_delta_abs_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare average-duration gap magnitude across buckets with different timing scales.
+- top-level JSON and Markdown reports now include `summary_text_average_duration_delta_abs_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort by average-duration gap magnitude regardless of whether summarized or unsummarized rows are slower.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_delta_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the signed unsummarized-minus-summarized average-duration gap before scanning detail rows.
 - top-level JSON and Markdown reports now include `summary_text_summarized_average_duration_ms` and `summary_text_unsummarized_average_duration_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare the average recorded duration of summarized versus unsummarized rows before scanning detail rows.
 - top-level JSON and Markdown reports now include `summary_text_summarized_duration_ratio` and `summary_text_unsummarized_duration_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare summary-text coverage against recorded duration share before scanning detail rows.

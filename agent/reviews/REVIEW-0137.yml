@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-227-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-227-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-227 diff: adds summary_text_average_duration_gap_label to JSON and Markdown report summary text metrics, updates tests/fixture and schema/state docs; CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-20T08:05:43Z",
+  "id": "REVIEW-0137"
+}

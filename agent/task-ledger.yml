@@ -3018,6 +3018,57 @@
         "path": "agent/reviews/REVIEW-0134.yml"
       },
       "updated_at": "2026-06-19T18:18:28Z"
+    },
+    "agent/context-packs/T-225-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-225-add-command-timing-and-edit-summaries-to-reports-20260619235840632094",
+      "reason": "Added summary text average-duration absolute delta metrics to reports and verified with CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0135",
+        "verdict": "ready",
+        "summary": "Reviewed T-225 diff: narrow report summary text metric addition with JSON, Markdown, tests, fixture, and schema/state docs covered by CI.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0135.yml"
+      },
+      "updated_at": "2026-06-20T01:08:57Z"
+    },
+    "agent/context-packs/T-226-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-226-add-command-timing-and-edit-summaries-to-reports-20260620040240919138",
+      "reason": "Implemented normalized summary text average-duration gap ratios and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0136",
+        "verdict": "ready",
+        "summary": "Reviewed T-226 diff: adds normalized absolute average-duration delta ratio to JSON/Markdown report summary text metrics, updates regression expectations, rich fixture, and docs. bash scripts/ci_check.sh passed (47 passed, 1 warning).",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0136.yml"
+      },
+      "updated_at": "2026-06-20T04:33:28Z"
+    },
+    "agent/context-packs/T-227-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-227-add-command-timing-and-edit-summaries-to-reports-20260620080151690228",
+      "reason": "Implemented summary_text_average_duration_gap_label and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0137",
+        "verdict": "ready",
+        "summary": "Reviewed T-227 diff: adds summary_text_average_duration_gap_label to JSON and Markdown report summary text metrics, updates tests/fixture and schema/state docs; CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0137.yml"
+      },
+      "updated_at": "2026-06-20T08:05:51Z"
     }
   }
 }
