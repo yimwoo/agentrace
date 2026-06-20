@@ -3086,6 +3086,23 @@
         "path": "agent/reviews/REVIEW-0138.yml"
       },
       "updated_at": "2026-06-20T13:05:04Z"
+    },
+    "agent/context-packs/T-229-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-229-add-command-timing-and-edit-summaries-to-reports-20260620180111693514",
+      "reason": "Implemented summary text average-duration gap direction labels; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0139",
+        "verdict": "ready",
+        "summary": "Reviewed T-229 diff: narrow report metric addition with JSON/Markdown rendering, regression fixture updates, schema/state/handoff docs, and CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0139.yml"
+      },
+      "updated_at": "2026-06-20T18:04:32Z"
     }
   }
 }

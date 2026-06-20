@@ -1,3 +1,10 @@
+`agentrace` reports now name the average-duration gap direction between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_direction` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether summarized rows, unsummarized rows, or neither bucket has the higher average duration without interpreting signed deltas manually.
+
+Session notes:
+- created AgentSpec task `T-229` for summary text average-duration gap direction labels
+- added `summary_text_average_duration_gap_direction` to JSON summary text metrics and rendered `average_duration_gap_direction=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now rank normalized average-duration gap severity between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort none/low/medium/high sparse-summary timing gaps numerically without parsing label text.
 
 Session notes:

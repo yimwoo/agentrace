@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-20T13:05:04Z",
+  "updated_at": "2026-06-20T18:04:32Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-228",
-    "context_pack": "agent/context-packs/T-228-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-228: Add command timing and edit summaries to reports",
-    "run_id": "t-228-add-command-timing-and-edit-summaries-to-reports-20260620130156556788",
-    "reason": "Implemented summary_text_average_duration_gap_rank and verified with bash scripts/ci_check.sh.",
-    "updated_at": "2026-06-20T13:05:04Z",
+    "id": "T-229",
+    "context_pack": "agent/context-packs/T-229-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-229: Add command timing and edit summaries to reports",
+    "run_id": "t-229-add-command-timing-and-edit-summaries-to-reports-20260620180111693514",
+    "reason": "Implemented summary text average-duration gap direction labels; CI passed.",
+    "updated_at": "2026-06-20T18:04:32Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0138",
+      "id": "REVIEW-0139",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0138.yml"
+      "path": "agent/reviews/REVIEW-0139.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 228,
+      "total": 229,
       "by_status": {
-        "complete": 222,
+        "complete": 223,
         "halted": 2,
         "started": 4
       },
       "by_type": {
-        "implementation": 225,
+        "implementation": 226,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0138.yml"
+    "last_code_review": "agent/reviews/REVIEW-0139.yml"
   }
 }

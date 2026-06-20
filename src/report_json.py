@@ -272,6 +272,15 @@ def _summary_text_average_duration_gap_rank(abs_ratio):
     return 0
 
 
+def _summary_text_average_duration_gap_direction(delta_ms):
+    """Name which summary bucket has the higher average duration."""
+    if delta_ms > 0:
+        return "unsummarized_rows_slower"
+    if delta_ms < 0:
+        return "summarized_rows_slower"
+    return "balanced_average_duration"
+
+
 def _summary_text_metrics(rows):
     """Return character-count metrics for human-readable command/edit summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -331,6 +340,9 @@ def _summary_text_metrics(rows):
         ),
         "summary_text_average_duration_gap_rank": _summary_text_average_duration_gap_rank(
             average_duration_delta_abs_ratio,
+        ),
+        "summary_text_average_duration_gap_direction": _summary_text_average_duration_gap_direction(
+            average_duration_delta_ms,
         ),
         "summary_text_summarized_duration_ratio": (
             0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
