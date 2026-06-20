@@ -4,6 +4,7 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_text_duration_ms_per_char` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can spot terse summary coverage over long recorded command/edit duration by sorting the reciprocal duration-per-summary-character ratio.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_gap_direction` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether summarized rows, unsummarized rows, or neither bucket has the higher average duration without interpreting signed deltas manually.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_gap_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort none/low/medium/high normalized average-duration gap severity numerically without parsing label text.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter none/low/medium/high normalized average-duration gaps without interpreting ratios manually.

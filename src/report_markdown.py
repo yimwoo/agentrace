@@ -345,6 +345,7 @@ def _format_report_summary_text_metrics(metrics):
             f"summarized_duration_ratio={row.get('summary_text_summarized_duration_ratio', 0)},"
             f"unsummarized_duration_ratio={row.get('summary_text_unsummarized_duration_ratio', 0)},"
             f"chars_per_duration_ms={row.get('summary_text_chars_per_duration_ms', 0)},"
+            f"duration_ms_per_char={row.get('summary_text_duration_ms_per_char', 0)},"
             f"chars_per_summarized_duration_ms={row.get('summary_text_chars_per_summarized_duration_ms', 0)},"
             f"chars_per_row={row.get('summary_text_chars_per_row', 0)}"
         )

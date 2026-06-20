@@ -1,3 +1,10 @@
+`agentrace` reports now expose duration per summary character for command/edit report summaries. JSON and Markdown include `summary_text_duration_ms_per_char` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can spot terse summaries over long recorded command/edit work by sorting the reciprocal of summary text density.
+
+Session notes:
+- created AgentSpec task `T-230` for summary text duration-per-character metrics
+- added `summary_text_duration_ms_per_char` to JSON summary text metrics and rendered `duration_ms_per_char=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now name the average-duration gap direction between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_direction` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether summarized rows, unsummarized rows, or neither bucket has the higher average duration without interpreting signed deltas manually.
 
 Session notes:

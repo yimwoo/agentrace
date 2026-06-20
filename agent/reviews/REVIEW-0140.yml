@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-230-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-230-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-230 diff: narrow report summary-text duration-per-character metric, Markdown rendering, regression expectations, generated fixture, and docs/state updates; focused tests and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-20T23:35:49Z",
+  "id": "REVIEW-0140"
+}
