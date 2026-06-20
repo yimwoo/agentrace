@@ -340,6 +340,7 @@ def _format_report_summary_text_metrics(metrics):
             f"average_duration_delta_abs_ms={row.get('summary_text_average_duration_delta_abs_ms', 0)},"
             f"average_duration_delta_abs_ratio={row.get('summary_text_average_duration_delta_abs_ratio', 0)},"
             f"average_duration_gap_label={row.get('summary_text_average_duration_gap_label', 'no_average_duration_gap')},"
+            f"average_duration_gap_rank={row.get('summary_text_average_duration_gap_rank', 0)},"
             f"summarized_duration_ratio={row.get('summary_text_summarized_duration_ratio', 0)},"
             f"unsummarized_duration_ratio={row.get('summary_text_unsummarized_duration_ratio', 0)},"
             f"chars_per_duration_ms={row.get('summary_text_chars_per_duration_ms', 0)},"

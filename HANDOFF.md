@@ -1,3 +1,10 @@
+`agentrace` reports now rank normalized average-duration gap severity between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort none/low/medium/high sparse-summary timing gaps numerically without parsing label text.
+
+Session notes:
+- created AgentSpec task `T-228` for summary text average-duration gap ranks
+- added `summary_text_average_duration_gap_rank` to JSON summary text metrics and rendered `average_duration_gap_rank=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now label normalized average-duration gaps between summarized and unsummarized rows for command/edit report summaries. JSON and Markdown include `summary_text_average_duration_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter none/low/medium/high sparse-summary timing gaps without interpreting ratios manually.
 
 Session notes:

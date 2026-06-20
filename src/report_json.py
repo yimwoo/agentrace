@@ -261,6 +261,17 @@ def _summary_text_average_duration_gap_label(abs_ratio):
     return "no_average_duration_gap"
 
 
+def _summary_text_average_duration_gap_rank(abs_ratio):
+    """Return sortable severity rank for normalized average-duration gaps."""
+    if abs_ratio >= 0.75:
+        return 3
+    if abs_ratio >= 0.25:
+        return 2
+    if abs_ratio > 0:
+        return 1
+    return 0
+
+
 def _summary_text_metrics(rows):
     """Return character-count metrics for human-readable command/edit summaries."""
     normalized_rows = [row for row in rows or [] if isinstance(row, dict)]
@@ -316,6 +327,9 @@ def _summary_text_metrics(rows):
         "summary_text_average_duration_delta_abs_ms": average_duration_delta_abs_ms,
         "summary_text_average_duration_delta_abs_ratio": average_duration_delta_abs_ratio,
         "summary_text_average_duration_gap_label": _summary_text_average_duration_gap_label(
+            average_duration_delta_abs_ratio,
+        ),
+        "summary_text_average_duration_gap_rank": _summary_text_average_duration_gap_rank(
             average_duration_delta_abs_ratio,
         ),
         "summary_text_summarized_duration_ratio": (

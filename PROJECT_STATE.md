@@ -4,6 +4,7 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_text_average_duration_gap_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort none/low/medium/high normalized average-duration gap severity numerically without parsing label text.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter none/low/medium/high normalized average-duration gaps without interpreting ratios manually.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_delta_abs_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare average-duration gap magnitude across buckets with different timing scales.
 - top-level JSON and Markdown reports now include `summary_text_average_duration_delta_abs_ms` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort by average-duration gap magnitude regardless of whether summarized or unsummarized rows are slower.
