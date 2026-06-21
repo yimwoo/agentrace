@@ -3154,6 +3154,23 @@
         "path": "agent/reviews/REVIEW-0142.yml"
       },
       "updated_at": "2026-06-21T18:04:47Z"
+    },
+    "agent/context-packs/T-235-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-235-add-command-timing-and-edit-summaries-to-reports-20260621230155495989",
+      "reason": "Implemented coverage-duration-share delta absolute magnitude metric for report summary text metrics; full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0143",
+        "verdict": "ready",
+        "summary": "Reviewed T-235 diff: narrow report summary text metric addition, Markdown rendering, tests/fixture and docs updated; focused tests and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0143.yml"
+      },
+      "updated_at": "2026-06-21T23:05:19Z"
     }
   }
 }
