@@ -350,6 +350,11 @@ def _summary_text_metrics(rows):
         "summary_text_unsummarized_duration_ratio": (
             0 if not total_duration_ms else round(unsummarized_duration_ms / total_duration_ms, 4)
         ),
+        "summary_text_coverage_duration_share_delta": (
+            0
+            if not total_rows or not total_duration_ms
+            else round((summary_count / total_rows) - (summarized_duration_ms / total_duration_ms), 4)
+        ),
         "summary_text_chars_per_duration_ms": 0 if not total_duration_ms else round(total_chars / total_duration_ms, 4),
         "summary_text_duration_ms_per_char": 0 if not total_chars else round(total_duration_ms / total_chars, 4),
         "summary_text_chars_per_summarized_duration_ms": (

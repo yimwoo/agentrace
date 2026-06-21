@@ -3137,6 +3137,23 @@
         "path": "agent/reviews/REVIEW-0141.yml"
       },
       "updated_at": "2026-06-21T16:25:11Z"
+    },
+    "agent/context-packs/T-234-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-234-add-command-timing-and-edit-summaries-to-reports-20260621180140203409",
+      "reason": "Implemented summary_text_coverage_duration_share_delta and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0142",
+        "verdict": "ready",
+        "summary": "Reviewed T-234 diff: narrow report metric addition, regression expectations and rich Markdown fixture updated, CI passed (47 passed, 1 warning).",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0142.yml"
+      },
+      "updated_at": "2026-06-21T18:04:47Z"
     }
   }
 }

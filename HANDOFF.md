@@ -1,3 +1,10 @@
+`agentrace` reports now expose summary row coverage versus summarized-duration share skew for command/edit report summaries. JSON and Markdown include `summary_text_coverage_duration_share_delta` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can tell whether summary coverage by row count over- or under-represents the duration share of summarized work.
+
+Session notes:
+- created AgentSpec task `T-234` for summary text coverage-vs-duration-share skew metrics
+- added `summary_text_coverage_duration_share_delta` to JSON summary text metrics and rendered `coverage_duration_share_delta=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose summarized-row duration per summary character for command/edit report summaries. JSON and Markdown include `summary_text_summarized_duration_ms_per_char` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort terse summary coverage specifically over rows that actually have summaries.
 
 Session notes:
