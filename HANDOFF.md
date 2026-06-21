@@ -1,3 +1,10 @@
+`agentrace` reports now expose summarized-row duration per summary character for command/edit report summaries. JSON and Markdown include `summary_text_summarized_duration_ms_per_char` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort terse summary coverage specifically over rows that actually have summaries.
+
+Session notes:
+- created AgentSpec task `T-233` for summarized-row duration-per-summary-character metrics
+- added `summary_text_summarized_duration_ms_per_char` to JSON summary text metrics and rendered `summarized_duration_ms_per_char=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose duration per summary character for command/edit report summaries. JSON and Markdown include `summary_text_duration_ms_per_char` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can spot terse summaries over long recorded command/edit work by sorting the reciprocal of summary text density.
 
 Session notes:

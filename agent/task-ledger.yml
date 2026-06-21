@@ -3120,6 +3120,23 @@
         "path": "agent/reviews/REVIEW-0140.yml"
       },
       "updated_at": "2026-06-20T23:36:03Z"
+    },
+    "agent/context-packs/T-233-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-233-add-command-timing-and-edit-summaries-to-reports-20260621161703722649",
+      "reason": "Implemented summarized-row duration-per-summary-character report metric and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0141",
+        "verdict": "ready",
+        "summary": "Reviewed T-233 diff: narrow report summary text metric addition, Markdown rendering, tests, fixture, and docs updated; CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0141.yml"
+      },
+      "updated_at": "2026-06-21T16:25:11Z"
     }
   }
 }

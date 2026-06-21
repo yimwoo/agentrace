@@ -355,6 +355,9 @@ def _summary_text_metrics(rows):
         "summary_text_chars_per_summarized_duration_ms": (
             0 if not summarized_duration_ms else round(total_chars / summarized_duration_ms, 4)
         ),
+        "summary_text_summarized_duration_ms_per_char": (
+            0 if not total_chars else round(summarized_duration_ms / total_chars, 4)
+        ),
         "summary_text_chars_per_row": 0 if not total_rows else round(total_chars / total_rows, 4),
     }
 
