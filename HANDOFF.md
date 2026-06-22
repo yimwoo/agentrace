@@ -1,3 +1,10 @@
+`agentrace` reports now label summary row coverage versus summarized-duration share skew for command/edit report summaries. JSON and Markdown include `summary_text_coverage_duration_share_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high normalized coverage-vs-duration-share skew without interpreting ratios manually.
+
+Session notes:
+- created AgentSpec task `T-237` for coverage-vs-duration-share skew labels
+- added `summary_text_coverage_duration_share_gap_label` to JSON summary text metrics and rendered `coverage_duration_share_gap_label=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose normalized summary row coverage versus summarized-duration share skew for command/edit report summaries. JSON and Markdown include `summary_text_coverage_duration_share_delta_abs_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare skew severity across buckets with different baseline coverage/duration shares.
 
 Session notes:

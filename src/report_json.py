@@ -272,6 +272,17 @@ def _summary_text_average_duration_gap_rank(abs_ratio):
     return 0
 
 
+def _summary_text_coverage_duration_share_gap_label(abs_ratio):
+    """Label normalized summary-coverage versus summarized-duration-share skew."""
+    if abs_ratio >= 0.75:
+        return "high_coverage_duration_share_gap"
+    if abs_ratio >= 0.25:
+        return "medium_coverage_duration_share_gap"
+    if abs_ratio > 0:
+        return "low_coverage_duration_share_gap"
+    return "no_coverage_duration_share_gap"
+
+
 def _summary_text_average_duration_gap_direction(delta_ms):
     """Name which summary bucket has the higher average duration."""
     if delta_ms > 0:
@@ -376,6 +387,9 @@ def _summary_text_metrics(rows):
         "summary_text_coverage_duration_share_delta": coverage_duration_share_delta,
         "summary_text_coverage_duration_share_delta_abs": coverage_duration_share_delta_abs,
         "summary_text_coverage_duration_share_delta_abs_ratio": coverage_duration_share_delta_abs_ratio,
+        "summary_text_coverage_duration_share_gap_label": _summary_text_coverage_duration_share_gap_label(
+            coverage_duration_share_delta_abs_ratio,
+        ),
         "summary_text_chars_per_duration_ms": 0 if not total_duration_ms else round(total_chars / total_duration_ms, 4),
         "summary_text_duration_ms_per_char": 0 if not total_chars else round(total_duration_ms / total_chars, 4),
         "summary_text_chars_per_summarized_duration_ms": (
