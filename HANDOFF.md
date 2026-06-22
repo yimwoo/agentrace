@@ -1,3 +1,10 @@
+`agentrace` reports now label review attention for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high coverage-duration-share skew attention without recomputing normalized ratios.
+
+Session notes:
+- created AgentSpec task `T-240` for coverage-vs-duration-share skew attention labels
+- added `summary_text_coverage_duration_share_gap_attention_label` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_label=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now name the summary row coverage versus summarized-duration share skew direction for command/edit report summaries. JSON and Markdown include `summary_text_coverage_duration_share_gap_direction` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can tell whether row coverage over-represents, under-represents, or balances summarized-duration share without interpreting signed deltas manually.
 
 Session notes:

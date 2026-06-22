@@ -3239,6 +3239,23 @@
         "path": "agent/reviews/REVIEW-0147.yml"
       },
       "updated_at": "2026-06-22T18:05:57Z"
+    },
+    "agent/context-packs/T-240-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-240-add-command-timing-and-edit-summaries-to-reports-20260622230216879556",
+      "reason": "Implemented coverage-duration-share gap attention label and verified with CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0148",
+        "verdict": "ready",
+        "summary": "Reviewed T-240 diff: narrow report-summary metric addition, Markdown rendering, regression expectations, fixture refresh, docs/state updates, and CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0148.yml"
+      },
+      "updated_at": "2026-06-22T23:05:17Z"
     }
   }
 }

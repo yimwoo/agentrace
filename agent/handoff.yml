@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-22T18:05:57Z",
+  "updated_at": "2026-06-22T23:05:17Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-239",
-    "context_pack": "agent/context-packs/T-239-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-239: Add command timing and edit summaries to reports",
-    "run_id": "t-239-add-command-timing-and-edit-summaries-to-reports-20260622180149154326",
-    "reason": "Added summary_text_coverage_duration_share_gap_direction to JSON and Markdown report summary text metrics with tests, rich fixture, and docs; CI passed.",
-    "updated_at": "2026-06-22T18:05:57Z",
+    "id": "T-240",
+    "context_pack": "agent/context-packs/T-240-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-240: Add command timing and edit summaries to reports",
+    "run_id": "t-240-add-command-timing-and-edit-summaries-to-reports-20260622230216879556",
+    "reason": "Implemented coverage-duration-share gap attention label and verified with CI.",
+    "updated_at": "2026-06-22T23:05:17Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0147",
+      "id": "REVIEW-0148",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0147.yml"
+      "path": "agent/reviews/REVIEW-0148.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 239,
+      "total": 240,
       "by_status": {
-        "complete": 231,
+        "complete": 232,
         "halted": 2,
         "started": 6
       },
       "by_type": {
-        "implementation": 236,
+        "implementation": 237,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0147.yml"
+    "last_code_review": "agent/reviews/REVIEW-0148.yml"
   }
 }
