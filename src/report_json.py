@@ -318,6 +318,33 @@ def _summary_text_metrics(rows):
         if not average_duration_delta_abs_ratio_denominator
         else round(average_duration_delta_abs_ms / average_duration_delta_abs_ratio_denominator, 4)
     )
+    summary_text_coverage_ratio = 0 if not total_rows else round(summary_count / total_rows, 4)
+    summary_text_missing_ratio = 0 if not total_rows else round(empty_count / total_rows, 4)
+    summary_text_summarized_duration_ratio = (
+        0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
+    )
+    summary_text_unsummarized_duration_ratio = (
+        0 if not total_duration_ms else round(unsummarized_duration_ms / total_duration_ms, 4)
+    )
+    coverage_duration_share_delta = (
+        0
+        if not total_rows or not total_duration_ms
+        else round((summary_count / total_rows) - (summarized_duration_ms / total_duration_ms), 4)
+    )
+    coverage_duration_share_delta_abs = round(abs(coverage_duration_share_delta), 4)
+    coverage_duration_share_delta_abs_ratio_denominator = max(
+        summary_text_coverage_ratio,
+        summary_text_summarized_duration_ratio,
+    )
+    coverage_duration_share_delta_abs_ratio = (
+        0
+        if not coverage_duration_share_delta_abs_ratio_denominator
+        else round(
+            coverage_duration_share_delta_abs
+            / coverage_duration_share_delta_abs_ratio_denominator,
+            4,
+        )
+    )
     return {
         "summary_text_count": summary_count,
         "summary_text_total_chars": total_chars,
@@ -325,8 +352,8 @@ def _summary_text_metrics(rows):
         "summary_text_min_chars": 0 if not lengths else min(lengths),
         "summary_text_max_chars": 0 if not lengths else max(lengths),
         "summary_text_empty_count": empty_count,
-        "summary_text_coverage_ratio": 0 if not total_rows else round(summary_count / total_rows, 4),
-        "summary_text_missing_ratio": 0 if not total_rows else round(empty_count / total_rows, 4),
+        "summary_text_coverage_ratio": summary_text_coverage_ratio,
+        "summary_text_missing_ratio": summary_text_missing_ratio,
         "summary_text_duration_ms": total_duration_ms,
         "summary_text_summarized_duration_ms": summarized_duration_ms,
         "summary_text_unsummarized_duration_ms": unsummarized_duration_ms,
@@ -344,22 +371,11 @@ def _summary_text_metrics(rows):
         "summary_text_average_duration_gap_direction": _summary_text_average_duration_gap_direction(
             average_duration_delta_ms,
         ),
-        "summary_text_summarized_duration_ratio": (
-            0 if not total_duration_ms else round(summarized_duration_ms / total_duration_ms, 4)
-        ),
-        "summary_text_unsummarized_duration_ratio": (
-            0 if not total_duration_ms else round(unsummarized_duration_ms / total_duration_ms, 4)
-        ),
-        "summary_text_coverage_duration_share_delta": (
-            0
-            if not total_rows or not total_duration_ms
-            else round((summary_count / total_rows) - (summarized_duration_ms / total_duration_ms), 4)
-        ),
-        "summary_text_coverage_duration_share_delta_abs": (
-            0
-            if not total_rows or not total_duration_ms
-            else round(abs((summary_count / total_rows) - (summarized_duration_ms / total_duration_ms)), 4)
-        ),
+        "summary_text_summarized_duration_ratio": summary_text_summarized_duration_ratio,
+        "summary_text_unsummarized_duration_ratio": summary_text_unsummarized_duration_ratio,
+        "summary_text_coverage_duration_share_delta": coverage_duration_share_delta,
+        "summary_text_coverage_duration_share_delta_abs": coverage_duration_share_delta_abs,
+        "summary_text_coverage_duration_share_delta_abs_ratio": coverage_duration_share_delta_abs_ratio,
         "summary_text_chars_per_duration_ms": 0 if not total_duration_ms else round(total_chars / total_duration_ms, 4),
         "summary_text_duration_ms_per_char": 0 if not total_chars else round(total_duration_ms / total_chars, 4),
         "summary_text_chars_per_summarized_duration_ms": (
