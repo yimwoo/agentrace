@@ -4,6 +4,7 @@
 Bootstrap moving into first concrete trace spec
 
 ## What exists now
+- top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_direction` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether summary row coverage over-represents, under-represents, or balances summarized-duration share without interpreting signed deltas manually.
 - top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort no/low/medium/high normalized summary row coverage versus summarized-duration share skew numerically without parsing label text.
 - top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high normalized summary row coverage versus summarized-duration share skew without interpreting ratios manually.
 - top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_delta_abs_ratio` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can compare normalized summary row coverage versus summarized-duration share skew severity across buckets with different baseline coverage/duration shares.
