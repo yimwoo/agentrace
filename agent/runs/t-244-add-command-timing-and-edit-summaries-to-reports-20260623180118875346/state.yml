@@ -1,0 +1,103 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-244-add-command-timing-and-edit-summaries-to-reports-20260623180118875346",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-244-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-244: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-244-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-244-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "src/report_json.py": " M:file:bada6c9ca34bb448859b52965f3cdd9433d1322f151aadb67904c8c8ac1a0139",
+      "src/report_markdown.py": " M:file:5495e6faceb96e9be595193b8cad54a1d05763611a09c8a0d9c3bb42c1a88c3d",
+      "tests/test_report_outputs.py": " M:file:a7952b5007c50569c5f7e45e8afbf98b967eb243b2b6b59cf06c80986343530b",
+      "agent/context-packs/T-243-add-command-timing-and-edit-summaries-to-reports.md": "??:file:e42c6e42dbafc4a7840a11e24e72b2ff7b985a92803eb5534ac07a530e7f7278",
+      "agent/context-packs/T-244-add-command-timing-and-edit-summaries-to-reports.md": "??:file:36f33b94aa8af0bedd67c7bbc1fba3339642a154b8b177cdca45df95ceef8a09",
+      "agent/runs/t-243-add-command-timing-and-edit-summaries-to-reports-20260623130409520447/summary.yml": "??:file:5726af186165370c9e4f6396b2708bfe41e11549d761aa8452f299c133d1947f"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-23T18:01:18Z",
+  "updated_at": "2026-06-23T18:05:22Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-244-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-244",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-244 --owner <owner> --branch codex/t-244-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "autonomous_finding": "Q-1082",
+  "completion_reason": "Added summary text coverage-duration-share gap attention action priority labels to JSON/Markdown reports; focused tests and full CI passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0151",
+    "verdict": "ready",
+    "summary": "Reviewed T-244 diff: narrow report metric addition for summary text coverage-duration-share gap attention action priority labels, with focused report-output assertions, rich fixture regeneration, docs, and full CI passed.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0151.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

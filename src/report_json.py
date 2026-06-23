@@ -323,6 +323,24 @@ def _summary_text_coverage_duration_share_gap_attention_status(abs_ratio):
     return "no_coverage_duration_share_gap_attention_needed"
 
 
+def _summary_text_coverage_duration_share_gap_attention_action(abs_ratio):
+    """Return the suggested review action for coverage versus duration-share skew."""
+    if abs_ratio > 0:
+        return "review_coverage_duration_share_gap"
+    return "no_coverage_duration_share_gap_action"
+
+
+def _summary_text_coverage_duration_share_gap_attention_action_priority_label(abs_ratio):
+    """Return a review-priority label for the coverage versus duration-share skew action."""
+    if abs_ratio >= 0.75:
+        return "high_priority_coverage_duration_share_gap_attention_action"
+    if abs_ratio >= 0.25:
+        return "medium_priority_coverage_duration_share_gap_attention_action"
+    if abs_ratio > 0:
+        return "low_priority_coverage_duration_share_gap_attention_action"
+    return "no_priority_coverage_duration_share_gap_attention_action"
+
+
 def _summary_text_coverage_duration_share_gap_direction(delta):
     """Name whether summary row coverage over- or under-represents duration share."""
     if delta > 0:
@@ -457,6 +475,16 @@ def _summary_text_metrics(rows):
         ),
         "summary_text_coverage_duration_share_gap_attention_status": (
             _summary_text_coverage_duration_share_gap_attention_status(
+                coverage_duration_share_delta_abs_ratio,
+            )
+        ),
+        "summary_text_coverage_duration_share_gap_attention_action": (
+            _summary_text_coverage_duration_share_gap_attention_action(
+                coverage_duration_share_delta_abs_ratio,
+            )
+        ),
+        "summary_text_coverage_duration_share_gap_attention_action_priority_label": (
+            _summary_text_coverage_duration_share_gap_attention_action_priority_label(
                 coverage_duration_share_delta_abs_ratio,
             )
         ),

@@ -1,3 +1,17 @@
+`agentrace` reports now label review-action priority for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high action priority without recomputing skew ratios.
+
+Session notes:
+- created AgentSpec task `T-244` for coverage-vs-duration-share skew action priority labels
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_label` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_label=` in Markdown
+- carried forward the pending `summary_text_coverage_duration_share_gap_attention_action` report field from the immediately prior AgentSpec slice and refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
+`agentrace` reports now expose a suggested review action for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether to review coverage-duration-share gaps without translating attention status manually.
+
+Session notes:
+- created AgentSpec task `T-243` for coverage-vs-duration-share skew attention actions
+- added `summary_text_coverage_duration_share_gap_attention_action` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose a compact review-attention status for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter attention-needed coverage-duration-share skew without parsing label or rank fields.
 
 Session notes:

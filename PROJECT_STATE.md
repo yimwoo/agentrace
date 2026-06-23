@@ -1,3 +1,5 @@
+- top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_attention_action_priority_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high priority for coverage-duration-share skew review actions.
+- top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_attention_action` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see the suggested follow-up action for coverage-duration-share skew without inferring it from attention status.
 - top-level JSON and Markdown reports now include `summary_text_coverage_duration_share_gap_attention_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter whether coverage-duration-share skew needs attention without parsing no/low/medium/high labels.
 # PROJECT_STATE.md
 
