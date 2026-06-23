@@ -1,3 +1,10 @@
+`agentrace` reports now expose a compact review-attention status for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter attention-needed coverage-duration-share skew without parsing label or rank fields.
+
+Session notes:
+- created AgentSpec task `T-242` for coverage-vs-duration-share skew attention statuses
+- added `summary_text_coverage_duration_share_gap_attention_status` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_status=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now rank review attention for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort no/low/medium/high coverage-duration-share skew attention numerically without parsing label text.
 
 Session notes:

@@ -3273,6 +3273,23 @@
         "path": "agent/reviews/REVIEW-0149.yml"
       },
       "updated_at": "2026-06-23T04:06:36Z"
+    },
+    "agent/context-packs/T-242-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-242-add-command-timing-and-edit-summaries-to-reports-20260623080243979585",
+      "reason": "Added summary_text_coverage_duration_share_gap_attention_status to report summary text metrics; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0150",
+        "verdict": "ready",
+        "summary": "Reviewed T-242 diff: narrow report summary-text attention status metric added in JSON/Markdown, focused tests and rich fixture updated, docs/state aligned, CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0150.yml"
+      },
+      "updated_at": "2026-06-23T08:08:21Z"
     }
   }
 }

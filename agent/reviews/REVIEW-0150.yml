@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-242-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-242-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-242 diff: narrow report summary-text attention status metric added in JSON/Markdown, focused tests and rich fixture updated, docs/state aligned, CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-23T08:08:10Z",
+  "id": "REVIEW-0150"
+}
