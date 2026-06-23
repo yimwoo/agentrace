@@ -3307,6 +3307,23 @@
         "path": "agent/reviews/REVIEW-0151.yml"
       },
       "updated_at": "2026-06-23T18:05:22Z"
+    },
+    "agent/context-packs/T-245-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-245-add-command-timing-and-edit-summaries-to-reports-20260623230225670790",
+      "reason": "Implemented coverage-duration-share action priority rank report metric; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0152",
+        "verdict": "ready",
+        "summary": "Reviewed T-245 diff: narrow report metric rank addition, Markdown rendering, focused expectations, rich fixture, schema/state/handoff docs; CI passed with 47 tests.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0152.yml"
+      },
+      "updated_at": "2026-06-23T23:07:10Z"
     }
   }
 }

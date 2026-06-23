@@ -1,3 +1,10 @@
+`agentrace` reports now rank review-action priority for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort no/low/medium/high action priorities numerically without parsing label text.
+
+Session notes:
+- created AgentSpec task `T-245` for coverage-vs-duration-share skew action priority ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_rank=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now label review-action priority for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_label` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter no/low/medium/high action priority without recomputing skew ratios.
 
 Session notes:
