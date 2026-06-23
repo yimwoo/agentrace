@@ -351,6 +351,7 @@ def _format_report_summary_text_metrics(metrics):
             f"coverage_duration_share_gap_rank={row.get('summary_text_coverage_duration_share_gap_rank', 0)},"
             f"coverage_duration_share_gap_direction={row.get('summary_text_coverage_duration_share_gap_direction', 'balanced_coverage_duration_share')},"
             f"coverage_duration_share_gap_attention_label={row.get('summary_text_coverage_duration_share_gap_attention_label', 'no_coverage_duration_share_gap_attention')},"
+            f"coverage_duration_share_gap_attention_rank={row.get('summary_text_coverage_duration_share_gap_attention_rank', 0)},"
             f"chars_per_duration_ms={row.get('summary_text_chars_per_duration_ms', 0)},"
             f"duration_ms_per_char={row.get('summary_text_duration_ms_per_char', 0)},"
             f"chars_per_summarized_duration_ms={row.get('summary_text_chars_per_summarized_duration_ms', 0)},"

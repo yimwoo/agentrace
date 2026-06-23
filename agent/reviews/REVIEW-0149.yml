@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-241-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-241-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-241 diff: narrow report metric addition for coverage-duration-share attention rank, Markdown rendering, focused expectations, fixture refresh, schema/state/handoff docs; CI passed with 47 tests.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-23T04:06:29Z",
+  "id": "REVIEW-0149"
+}

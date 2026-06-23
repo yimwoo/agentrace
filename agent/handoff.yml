@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-22T23:05:17Z",
+  "updated_at": "2026-06-23T04:06:36Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-240",
-    "context_pack": "agent/context-packs/T-240-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-240: Add command timing and edit summaries to reports",
-    "run_id": "t-240-add-command-timing-and-edit-summaries-to-reports-20260622230216879556",
-    "reason": "Implemented coverage-duration-share gap attention label and verified with CI.",
-    "updated_at": "2026-06-22T23:05:17Z",
+    "id": "T-241",
+    "context_pack": "agent/context-packs/T-241-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-241: Add command timing and edit summaries to reports",
+    "run_id": "t-241-add-command-timing-and-edit-summaries-to-reports-20260623040136653104",
+    "reason": "Implemented coverage-duration-share attention rank metric and verified with full CI.",
+    "updated_at": "2026-06-23T04:06:36Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0148",
+      "id": "REVIEW-0149",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0148.yml"
+      "path": "agent/reviews/REVIEW-0149.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 240,
+      "total": 241,
       "by_status": {
-        "complete": 232,
+        "complete": 233,
         "halted": 2,
         "started": 6
       },
       "by_type": {
-        "implementation": 237,
+        "implementation": 238,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0148.yml"
+    "last_code_review": "agent/reviews/REVIEW-0149.yml"
   }
 }
