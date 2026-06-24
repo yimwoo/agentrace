@@ -2593,5 +2593,33 @@
     "preserve": "autonomous-finding",
     "context_pack": "agent/context-packs/T-245-add-command-timing-and-edit-summaries-to-reports.md",
     "iteration": 1
+  },
+  {
+    "id": "Q-1084",
+    "question": "Blocked finding from autonomous run t-247-add-command-timing-and-edit-summaries-to-reports-20260624100622967768: No deterministic auto-continue rule matched the executor output.",
+    "status": "open",
+    "impact": [
+      "autonomous-mode",
+      "blocked-finding"
+    ],
+    "source_sections": [],
+    "raised_by": "t-247-add-command-timing-and-edit-summaries-to-reports-20260624100622967768",
+    "preserve": "autonomous-finding",
+    "context_pack": "agent/context-packs/T-247-add-command-timing-and-edit-summaries-to-reports.md",
+    "iteration": 1
+  },
+  {
+    "id": "Q-1085",
+    "question": "Blocked finding from autonomous run t-249-add-command-timing-and-edit-summaries-to-reports-20260624181130471068: No deterministic auto-continue rule matched the executor output.",
+    "status": "open",
+    "impact": [
+      "autonomous-mode",
+      "blocked-finding"
+    ],
+    "source_sections": [],
+    "raised_by": "t-249-add-command-timing-and-edit-summaries-to-reports-20260624181130471068",
+    "preserve": "autonomous-finding",
+    "context_pack": "agent/context-packs/T-249-add-command-timing-and-edit-summaries-to-reports.md",
+    "iteration": 1
   }
 ]

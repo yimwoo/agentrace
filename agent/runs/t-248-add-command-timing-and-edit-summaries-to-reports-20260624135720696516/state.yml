@@ -1,0 +1,95 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-248-add-command-timing-and-edit-summaries-to-reports-20260624135720696516",
+  "status": "started",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-248-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-248: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-248-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-248-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:7ffc0cf551cf9ad337e687364dea952678d9885d8f54de016e6aee09c8ab4c84",
+      "PROJECT_STATE.md": " M:file:ccb5b1ffc8133a75ae9e237614c5756bebb38734c6a1d86a54452889daedb061",
+      "TRACE_SCHEMA.md": " M:file:3392365e21cf317c3dc643977a4a3a0f9fd944ae7e093659fccc888c8090aa1d",
+      "agent/task-ledger.yml": " M:file:9e4830b01de7ff5524709e9ce330b2329a2dacae3ff4256a5c8233482159dc0d",
+      "docs/discovery/open-questions.yml": " M:file:6c06b55eaf0f11e71430d730cbd575d6c34f2943280468f9a4c3f6c219eb05d9",
+      "src/report_json.py": " M:file:9251f086139d2e07397628f246c4d0aba0b822ce6b38dfa626fa317c24079fb4",
+      "src/report_markdown.py": " M:file:290ac4e89ac4efa6649652dc0572a893c1a6762d24e4423d2825b22ddaf0a569",
+      "tests/fixtures/rich-report.md": " M:file:23e53f5c116480894a22779d051e0c16f746e11937284863a4792e9dfaa68237",
+      "tests/test_report_outputs.py": " M:file:6f67ca50eae33be7f7e4b2597fd67c4c278fee5e6f0e6a9a3cff009e61b9e2f7",
+      "agent/context-packs/T-246-add-command-timing-and-edit-summaries-to-reports.md": "??:file:aef214a50141934e6b8eb04ad326420a68f66e3f655b0bfc0788ccb7aeb5bcc9",
+      "agent/context-packs/T-247-add-command-timing-and-edit-summaries-to-reports.md": "??:file:e2fda6aa3ebb5b77f41516742126fb2c68bd9fb48bef51676a26c0934de93a1f",
+      "agent/context-packs/T-248-add-command-timing-and-edit-summaries-to-reports.md": "??:file:85eb13ef95e2ec743b127ce0dfca4eb090c0e6d33192e1e965431ccbabd57a71",
+      "agent/reviews/REVIEW-0153.yml": "??:file:393f2cd0433d32f52d50e29f441a217eda0cf70e9249f1a651ed51fba9c43f65",
+      "agent/runs/t-246-add-command-timing-and-edit-summaries-to-reports-20260624053710315403/summary.yml": "??:file:d7665d1544c6caf3ed46c5198b86be2ef45aa286b48b06f840e28e8836b2a805",
+      "agent/runs/t-247-add-command-timing-and-edit-summaries-to-reports-20260624100622967768/summary.yml": "??:file:7bc2fb0287ab39cc44ee52f9fc286b09445176082b5828e20ddbddec20221fc7",
+      "agent/sessions/active/S-20260624T053733796475Z-t-246-f6e5d0db.yml": "??:file:9793d7c809f7c1f64e1960febb4fa082c0df516d413b9aaa3efdf5d5ae5361db"
+    }
+  },
+  "iteration": 0,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-24T13:57:20Z",
+  "updated_at": "2026-06-24T13:57:20Z",
+  "last_decision": null,
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-248-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-248",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-248 --owner <owner> --branch codex/t-248-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  }
+}

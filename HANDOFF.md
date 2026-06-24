@@ -1,3 +1,17 @@
+`agentrace` reports now rank review-action priority status for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort binary prioritized/not-prioritized coverage-duration-share actions without parsing status strings.
+
+Session notes:
+- created AgentSpec task `T-249` for coverage-vs-duration-share skew action priority status ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_rank=` in Markdown
+- carried forward pending AgentSpec lifecycle artifacts and refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
+`agentrace` reports now expose review-action priority status for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter prioritized coverage-duration-share actions without parsing no/low/medium/high labels or numeric ranks.
+
+Session notes:
+- created AgentSpec task `T-247` for coverage-vs-duration-share skew action priority statuses
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status=` in Markdown
+- carried forward the pending helper from the immediately prior AgentSpec slice and refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now rank review-action priority for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort no/low/medium/high action priorities numerically without parsing label text.
 
 Session notes:

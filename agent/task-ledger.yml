@@ -3324,6 +3324,40 @@
         "path": "agent/reviews/REVIEW-0152.yml"
       },
       "updated_at": "2026-06-23T23:07:10Z"
+    },
+    "agent/context-packs/T-247-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-247-add-command-timing-and-edit-summaries-to-reports-20260624100622967768",
+      "reason": "Implemented summary text coverage-duration-share action priority status and passed CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0153",
+        "verdict": "ready",
+        "summary": "Reviewed T-247 diff: narrow report metric status field, JSON/Markdown rendering, focused regression expectations, fixture/docs updated; CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0153.yml"
+      },
+      "updated_at": "2026-06-24T10:11:12Z"
+    },
+    "agent/context-packs/T-249-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-249-add-command-timing-and-edit-summaries-to-reports-20260624181130471068",
+      "reason": "Added summary_text_coverage_duration_share_gap_attention_action_priority_status_rank to report JSON/Markdown output with tests, fixture, and docs; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0154",
+        "verdict": "ready",
+        "summary": "Reviewed T-249 diff: narrow summary-text priority-status rank metric added to JSON/Markdown reports, focused expectations and rich fixture updated, schema/state/handoff docs aligned, CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0154.yml"
+      },
+      "updated_at": "2026-06-24T18:16:21Z"
     }
   }
 }

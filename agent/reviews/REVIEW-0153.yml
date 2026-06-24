@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-247-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-247-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-247 diff: narrow report metric status field, JSON/Markdown rendering, focused regression expectations, fixture/docs updated; CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-24T10:11:05Z",
+  "id": "REVIEW-0153"
+}
