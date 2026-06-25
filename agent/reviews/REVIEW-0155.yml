@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-250-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-250-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-250 diff: narrow report metric addition with JSON, Markdown, focused regression expectations, regenerated rich Markdown fixture, and schema/state/handoff docs. Full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-25T00:42:11Z",
+  "id": "REVIEW-0155"
+}

@@ -366,6 +366,13 @@ def _summary_text_coverage_duration_share_gap_attention_action_priority_status_r
     return 0
 
 
+def _summary_text_coverage_duration_share_gap_attention_action_priority_status_reason(abs_ratio):
+    """Return a compact reason for the coverage-duration-share action priority status."""
+    if abs_ratio > 0:
+        return "coverage_duration_share_gap_present"
+    return "coverage_duration_share_gap_absent"
+
+
 def _summary_text_coverage_duration_share_gap_direction(delta):
     """Name whether summary row coverage over- or under-represents duration share."""
     if delta > 0:
@@ -525,6 +532,11 @@ def _summary_text_metrics(rows):
         ),
         "summary_text_coverage_duration_share_gap_attention_action_priority_status_rank": (
             _summary_text_coverage_duration_share_gap_attention_action_priority_status_rank(
+                coverage_duration_share_delta_abs_ratio,
+            )
+        ),
+        "summary_text_coverage_duration_share_gap_attention_action_priority_status_reason": (
+            _summary_text_coverage_duration_share_gap_attention_action_priority_status_reason(
                 coverage_duration_share_delta_abs_ratio,
             )
         ),

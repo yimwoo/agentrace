@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-24T18:16:21Z",
+  "updated_at": "2026-06-25T00:49:52Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-249",
-    "context_pack": "agent/context-packs/T-249-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-249: Add command timing and edit summaries to reports",
-    "run_id": "t-249-add-command-timing-and-edit-summaries-to-reports-20260624181130471068",
-    "reason": "Added summary_text_coverage_duration_share_gap_attention_action_priority_status_rank to report JSON/Markdown output with tests, fixture, and docs; CI passed.",
-    "updated_at": "2026-06-24T18:16:21Z",
+    "id": "T-250",
+    "context_pack": "agent/context-packs/T-250-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-250: Add command timing and edit summaries to reports",
+    "run_id": "t-250-add-command-timing-and-edit-summaries-to-reports-20260625001247527223",
+    "reason": "Added summary_text_coverage_duration_share_gap_attention_action_priority_status_reason to report JSON/Markdown output with tests, fixture, and docs; CI passed.",
+    "updated_at": "2026-06-25T00:49:52Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0154",
+      "id": "REVIEW-0155",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0154.yml"
+      "path": "agent/reviews/REVIEW-0155.yml"
     }
   },
   "current_state": {
@@ -41,15 +41,14 @@
       }
     },
     "tasks": {
-      "total": 249,
+      "total": 250,
       "by_status": {
-        "complete": 238,
+        "complete": 239,
         "halted": 2,
-        "ready": 2,
-        "started": 7
+        "started": 9
       },
       "by_type": {
-        "implementation": 246,
+        "implementation": 247,
         "scaffold": 3
       }
     }
@@ -67,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0154.yml"
+    "last_code_review": "agent/reviews/REVIEW-0155.yml"
   }
 }

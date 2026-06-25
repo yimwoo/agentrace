@@ -3358,6 +3358,23 @@
         "path": "agent/reviews/REVIEW-0154.yml"
       },
       "updated_at": "2026-06-24T18:16:21Z"
+    },
+    "agent/context-packs/T-250-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-250-add-command-timing-and-edit-summaries-to-reports-20260625001247527223",
+      "reason": "Added summary_text_coverage_duration_share_gap_attention_action_priority_status_reason to report JSON/Markdown output with tests, fixture, and docs; CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0155",
+        "verdict": "ready",
+        "summary": "Reviewed T-250 diff: narrow report metric addition with JSON, Markdown, focused regression expectations, regenerated rich Markdown fixture, and schema/state/handoff docs. Full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0155.yml"
+      },
+      "updated_at": "2026-06-25T00:49:52Z"
     }
   }
 }
