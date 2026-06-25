@@ -1,3 +1,17 @@
+`agentrace` reports now spell out review-action priority status reason details for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can read whether priority status is active because a coverage-duration-share gap is present or inactive because no gap exists without decoding compact reason strings.
+
+Session notes:
+- created AgentSpec task `T-252` for coverage-vs-duration-share skew action priority status reason details
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_detail=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
+`agentrace` reports now rank review-action priority status reasons for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort coverage-duration-share skew action priority status reasons as binary 0/1 values without parsing reason strings.
+
+Session notes:
+- created AgentSpec task `T-251` for coverage-vs-duration-share skew action priority status reason ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_rank=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now explain review-action priority status for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can see whether priority is active because a coverage-duration-share gap is present or inactive because no gap exists without recomputing ratios.
 
 Session notes:

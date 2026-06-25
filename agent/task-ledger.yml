@@ -3375,6 +3375,24 @@
         "path": "agent/reviews/REVIEW-0155.yml"
       },
       "updated_at": "2026-06-25T00:49:52Z"
+    },
+    "agent/context-packs/T-251-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-251-add-command-timing-and-edit-summaries-to-reports-20260625040321417323",
+      "reason": "Executor reports completion and verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-25T04:49:02Z"
+    },
+    "agent/context-packs/T-252-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-252-add-command-timing-and-edit-summaries-to-reports-20260625080134048617",
+      "reason": "Implemented summary text coverage-duration-share priority status reason detail and verified full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-25T08:07:48Z"
     }
   }
 }
