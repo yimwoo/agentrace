@@ -1,3 +1,10 @@
+`agentrace` reports now rank explicit review-action priority status reason details for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort active versus inactive explicit priority-status reason details without parsing detail strings.
+
+Session notes:
+- created AgentSpec task `T-253` for coverage-vs-duration-share skew action priority status reason detail ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_detail_rank=` in Markdown
+- refreshed regression expectations, rich Markdown fixture, schema/state docs, and this handoff
+
 `agentrace` reports now spell out review-action priority status reason details for summary row coverage versus summarized-duration share skew. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can read whether priority status is active because a coverage-duration-share gap is present or inactive because no gap exists without decoding compact reason strings.
 
 Session notes:

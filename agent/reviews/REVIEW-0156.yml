@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-253-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-253-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-253 diff: narrow report metric addition covered by focused tests and full CI (47 passed, 1 warning).",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-25T13:10:37Z",
+  "id": "REVIEW-0156"
+}
