@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260625T180325137777Z-t-254-d0c38ef6",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "owner",
+  "created_at": "2026-06-25T18:03:25Z",
+  "updated_at": "2026-06-25T18:08:46Z",
+  "context_pack": "agent/context-packs/T-254-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:cf93c4ecb42f0f60b68589bec44490f54bb3540bcb2f7ce8b92e2c3a02a8cb17",
+  "task_id": "T-254",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-254-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-254-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "codex/t-254-implementation",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": null,
+  "note": null,
+  "history": [
+    {
+      "at": "2026-06-25T18:03:25Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": null
+    },
+    {
+      "at": "2026-06-25T18:08:46Z",
+      "action": "finished",
+      "note": "T-254 completed and verified with full CI; changes committed directly in host checkout.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0157",
+  "test_status": "passed",
+  "finish_note": "T-254 completed and verified with full CI; changes committed directly in host checkout.",
+  "finished_at": "2026-06-25T18:08:46Z"
+}

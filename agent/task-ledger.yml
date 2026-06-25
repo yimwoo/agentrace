@@ -3410,6 +3410,23 @@
         "path": "agent/reviews/REVIEW-0156.yml"
       },
       "updated_at": "2026-06-25T13:10:46Z"
+    },
+    "agent/context-packs/T-254-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-254-add-command-timing-and-edit-summaries-to-reports-20260625180212210918",
+      "reason": "Implemented reason detail status report metric and verified with focused tests plus full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0157",
+        "verdict": "ready",
+        "summary": "Reviewed T-254 diff: narrow report metric addition across JSON/Markdown, focused expectations, regenerated rich Markdown fixture, and schema/state/handoff docs. Focused tests and full ci_check passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0157.yml"
+      },
+      "updated_at": "2026-06-25T18:07:46Z"
     }
   }
 }
