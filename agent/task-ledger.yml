@@ -3427,6 +3427,49 @@
         "path": "agent/reviews/REVIEW-0157.yml"
       },
       "updated_at": "2026-06-25T18:07:46Z"
+    },
+    "agent/context-packs/T-255-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-255-add-command-timing-and-edit-summaries-to-reports-20260625230546921939",
+      "reason": "Marked complete by user.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0158",
+        "verdict": "ready",
+        "summary": "Implemented boolean active flag for coverage-duration-share priority reason detail status in JSON and Markdown report summary text metrics; CI passed with 47 tests.",
+        "reviewer": "human",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0158.yml"
+      },
+      "updated_at": "2026-06-25T23:12:27Z"
+    },
+    "agent/context-packs/T-256-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-256-add-command-timing-and-edit-summaries-to-reports-20260626042541386456",
+      "reason": "Executor reports completion and verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-26T05:31:17Z"
+    },
+    "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-257-add-command-timing-and-edit-summaries-to-reports-20260626093450626549",
+      "reason": "Implemented summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0159",
+        "verdict": "ready",
+        "summary": "Reviewed T-257 diff: narrow report metric follow-on covered by focused expectations and full ci_check.sh passing.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0159.yml"
+      },
+      "updated_at": "2026-06-26T10:10:43Z"
     }
   }
 }

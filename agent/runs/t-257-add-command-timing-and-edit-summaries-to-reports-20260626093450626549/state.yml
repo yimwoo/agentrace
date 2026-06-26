@@ -1,0 +1,110 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-257-add-command-timing-and-edit-summaries-to-reports-20260626093450626549",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-257: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-257-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:ca8e5f787210c62848096da42f6b12a4d217d60676529a3569f5d99eb0b85247",
+      "PROJECT_STATE.md": " M:file:6926541a8cfd908be0f7b139a6ea9b83797ad1d7d242e8cfa52202251f102f06",
+      "TRACE_SCHEMA.md": " M:file:6daef541b6df3f480b59d2e65355ff51ca2b5c3ff757feb4f18fbba3389fe8c8",
+      "agent/task-ledger.yml": " M:file:23f0e96bf406847019acb6a8f061b6b503dc49df6f56d1a2707c9361e80cbfb1",
+      "src/report_json.py": " M:file:40387f2eb4217816271fe9f3deffb4f34a15ea985e3be587afe933f93a64c729",
+      "src/report_markdown.py": " M:file:6bd0ef392f6d123dbaa1e152a59c792f015b740cf83216468f4c772a91d14ec6",
+      "tests/fixtures/rich-report.md": " M:file:cb5a000e809241e6250c8d7dcf3dacdf57cc5baa95df3005fc0981ab3c6bf4c2",
+      "tests/test_report_outputs.py": " M:file:7491c8db250ebd0627803f428e28618ff31d5cbb479409afd0d2ddc9445b5bb9",
+      "agent/context-packs/T-255-add-command-timing-and-edit-summaries-to-reports.md": "??:file:4af6629e219cc3f2c223b4838ffd9081cbe6972040f3bcd75afe57b216ab5842",
+      "agent/context-packs/T-256-add-command-timing-and-edit-summaries-to-reports.md": "??:file:9fc716e95ff3c5262f899f4fd7fac1a82f512bd82f4f2e2595350e87556a279a",
+      "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md": "??:file:fd184a033e61f5f4dc6f584b04932c6444240a74f54ba46d1baa68f214a3f63c",
+      "agent/reviews/REVIEW-0158.yml": "??:file:1ba0817658f24305b7f4f009ff066a5e20af90aaafbc1e48bdd96353e0a83c34",
+      "agent/runs/t-255-add-command-timing-and-edit-summaries-to-reports-20260625230546921939/summary.yml": "??:file:e74b32f48138e95d1122ae4481b58f6f3cac8748c9ff31d6c5fb26b7308ca602",
+      "agent/runs/t-256-add-command-timing-and-edit-summaries-to-reports-20260626042541386456/summary.yml": "??:file:7017a5d114b1a28402cc0e15d064b7f2d387a6cbab436d15bf9897c601a681c5"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-26T09:34:50Z",
+  "updated_at": "2026-06-26T10:10:43Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-257",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-257 --owner <owner> --branch codex/t-257-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "completion_reason": "Implemented summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status and verified with bash scripts/ci_check.sh.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0159",
+    "verdict": "ready",
+    "summary": "Reviewed T-257 diff: narrow report metric follow-on covered by focused expectations and full ci_check.sh passing.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0159.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}

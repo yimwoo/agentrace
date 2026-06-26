@@ -1,3 +1,6 @@
+- Report summary text metrics include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status`, an active/inactive status-string companion to the active coverage-duration-share priority reason detail boolean and rank for downstream filters that prefer enum values.
+- Report summary text metrics include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_rank`, a sortable 0/1 companion to the active coverage-duration-share priority reason detail boolean for downstream ranking and filtering.
+- Report summary text metrics include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active`, a boolean companion to the active/inactive status string for coverage-duration-share priority reason details, so downstream filters can use machine-friendly booleans.
 # TRACE_SCHEMA.md
 
 ## Goal

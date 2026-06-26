@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-255-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-255-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Implemented boolean active flag for coverage-duration-share priority reason detail status in JSON and Markdown report summary text metrics; CI passed with 47 tests.",
+  "reviewer": "human",
+  "range": "worktree",
+  "created_at": "2026-06-25T23:12:19Z",
+  "id": "REVIEW-0158"
+}

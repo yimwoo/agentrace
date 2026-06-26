@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-257-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-257 diff: narrow report metric follow-on covered by focused expectations and full ci_check.sh passing.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-26T10:10:36Z",
+  "id": "REVIEW-0159"
+}
