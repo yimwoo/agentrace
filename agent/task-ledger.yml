@@ -3470,6 +3470,40 @@
         "path": "agent/reviews/REVIEW-0159.yml"
       },
       "updated_at": "2026-06-26T10:10:43Z"
+    },
+    "agent/context-packs/T-258-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-258-add-command-timing-and-edit-summaries-to-reports-20260626150158256908",
+      "reason": "Added active status rank report metric with JSON/Markdown coverage, docs, fixture refresh, and CI passing.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0160",
+        "verdict": "ready",
+        "summary": "Reviewed T-258 diff: narrow report metric addition with JSON emission, Markdown rendering, focused regression updates, schema/state/handoff docs, regenerated rich fixture, and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0160.yml"
+      },
+      "updated_at": "2026-06-26T16:09:51Z"
+    },
+    "agent/context-packs/T-259-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-259-add-command-timing-and-edit-summaries-to-reports-20260626180300893732",
+      "reason": "Implemented active status rank status companion metric for report_summary_text_metrics and verified with focused tests plus full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0161",
+        "verdict": "ready",
+        "summary": "Reviewed T-259 diff: narrow report_summary_text_metrics active-status-rank status companion added to JSON/Markdown, focused expectations and rich fixture updated, schema/state/handoff documented, CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0161.yml"
+      },
+      "updated_at": "2026-06-26T18:07:22Z"
     }
   }
 }

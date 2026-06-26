@@ -1,3 +1,17 @@
+`agentrace` reports now expose active/inactive enum statuses for active coverage-duration-share priority reason detail status ranks. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter active status ranks with stable strings without parsing numeric rank fields.
+
+Session notes:
+- created AgentSpec task `T-259` for active coverage-duration-share priority reason detail active status rank statuses
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
+`agentrace` reports now rank active/inactive enum statuses for active coverage-duration-share priority reason details. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort active reason detail statuses as stable 0/1 values without parsing enum strings.
+
+Session notes:
+- created AgentSpec task `T-258` for active coverage-duration-share priority reason detail active status ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose active/inactive enum statuses for active coverage-duration-share priority reason details. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter active reason details with a stable status string without parsing booleans or rank fields.
 
 Session notes:
