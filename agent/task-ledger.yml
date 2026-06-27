@@ -3547,6 +3547,23 @@
         "path": "agent/reviews/REVIEW-0163.yml"
       },
       "updated_at": "2026-06-27T08:05:59Z"
+    },
+    "agent/context-packs/T-263-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-263-add-command-timing-and-edit-summaries-to-reports-20260627130212872616",
+      "reason": "Implemented report-summary-text enum status companion and passed focused/full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0164",
+        "verdict": "ready",
+        "summary": "Reviewed T-263 diff: narrow report-summary-text metric addition, Markdown rendering, focused expectations, rich fixture, and docs updated; focused pytest and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0164.yml"
+      },
+      "updated_at": "2026-06-27T13:06:45Z"
     }
   }
 }

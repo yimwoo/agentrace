@@ -455,6 +455,13 @@ def _summary_text_coverage_duration_share_gap_attention_action_priority_status_r
     return 0
 
 
+def _summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status(abs_ratio):
+    """Return active/inactive status for the active reason detail status-rank status-rank status rank."""
+    if abs_ratio > 0:
+        return "coverage_duration_share_gap_priority_reason_detail_active_status_rank_status_rank_status_rank_active"
+    return "coverage_duration_share_gap_priority_reason_detail_active_status_rank_status_rank_status_rank_inactive"
+
+
 def _summary_text_coverage_duration_share_gap_direction(delta):
     """Name whether summary row coverage over- or under-represents duration share."""
     if delta > 0:
@@ -679,6 +686,11 @@ def _summary_text_metrics(rows):
         ),
         "summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank": (
             _summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank(
+                coverage_duration_share_delta_abs_ratio,
+            )
+        ),
+        "summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status": (
+            _summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status(
                 coverage_duration_share_delta_abs_ratio,
             )
         ),
