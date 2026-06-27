@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-27T00:21:06Z",
+  "updated_at": "2026-06-27T08:05:59Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-260",
-    "context_pack": "agent/context-packs/T-260-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-260: Add command timing and edit summaries to reports",
-    "run_id": "t-260-add-command-timing-and-edit-summaries-to-reports-20260626233309383767",
-    "reason": "Implemented active status-rank status rank metric for summary text reports; focused tests and ci_check passed.",
-    "updated_at": "2026-06-27T00:21:06Z",
+    "id": "T-262",
+    "context_pack": "agent/context-packs/T-262-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-262: Add command timing and edit summaries to reports",
+    "run_id": "t-262-add-command-timing-and-edit-summaries-to-reports-20260627080230345883",
+    "reason": "Implemented and verified sortable rank companion for active status-rank status-rank enum summary text metric with acceptance evidence.",
+    "updated_at": "2026-06-27T08:05:59Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0162",
+      "id": "REVIEW-0163",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0162.yml"
+      "path": "agent/reviews/REVIEW-0163.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 260,
+      "total": 262,
       "by_status": {
-        "complete": 249,
+        "complete": 251,
         "halted": 2,
         "started": 9
       },
       "by_type": {
-        "implementation": 257,
+        "implementation": 259,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0162.yml"
+    "last_code_review": "agent/reviews/REVIEW-0163.yml"
   }
 }

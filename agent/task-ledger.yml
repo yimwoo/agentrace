@@ -3521,6 +3521,32 @@
         "path": "agent/reviews/REVIEW-0162.yml"
       },
       "updated_at": "2026-06-27T00:21:06Z"
+    },
+    "agent/context-packs/T-261-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-261-add-command-timing-and-edit-summaries-to-reports-20260627042401356690",
+      "reason": "Executor reports completion and verification passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "updated_at": "2026-06-27T05:25:47Z"
+    },
+    "agent/context-packs/T-262-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-262-add-command-timing-and-edit-summaries-to-reports-20260627080230345883",
+      "reason": "Implemented and verified sortable rank companion for active status-rank status-rank enum summary text metric with acceptance evidence.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0163",
+        "verdict": "ready",
+        "summary": "Reviewed T-262 diff: acceptance evidence shows the report_summary_text_metrics field summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank was added in JSON, rendered in Markdown, covered by focused JSON/Markdown expectations, rich fixture regenerated, and schema/state/handoff docs updated. Verification passed: focused pytest for summary text metrics, focused rich fixture pytest, and bash scripts/ci_check.sh (47 passed, 1 warning).",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0163.yml"
+      },
+      "updated_at": "2026-06-27T08:05:59Z"
     }
   }
 }
