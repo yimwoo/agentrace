@@ -3504,6 +3504,23 @@
         "path": "agent/reviews/REVIEW-0161.yml"
       },
       "updated_at": "2026-06-26T18:07:22Z"
+    },
+    "agent/context-packs/T-260-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-260-add-command-timing-and-edit-summaries-to-reports-20260626233309383767",
+      "reason": "Implemented active status-rank status rank metric for summary text reports; focused tests and ci_check passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0162",
+        "verdict": "ready",
+        "summary": "Reviewed T-260 diff: narrow report metric/rank companion in JSON and Markdown, focused expectations and rich fixture updated, docs refreshed, CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0162.yml"
+      },
+      "updated_at": "2026-06-27T00:21:06Z"
     }
   }
 }

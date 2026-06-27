@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-26T18:07:22Z",
+  "updated_at": "2026-06-27T00:21:06Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-259",
-    "context_pack": "agent/context-packs/T-259-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-259: Add command timing and edit summaries to reports",
-    "run_id": "t-259-add-command-timing-and-edit-summaries-to-reports-20260626180300893732",
-    "reason": "Implemented active status rank status companion metric for report_summary_text_metrics and verified with focused tests plus full CI.",
-    "updated_at": "2026-06-26T18:07:22Z",
+    "id": "T-260",
+    "context_pack": "agent/context-packs/T-260-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-260: Add command timing and edit summaries to reports",
+    "run_id": "t-260-add-command-timing-and-edit-summaries-to-reports-20260626233309383767",
+    "reason": "Implemented active status-rank status rank metric for summary text reports; focused tests and ci_check passed.",
+    "updated_at": "2026-06-27T00:21:06Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0161",
+      "id": "REVIEW-0162",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0161.yml"
+      "path": "agent/reviews/REVIEW-0162.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 259,
+      "total": 260,
       "by_status": {
-        "complete": 248,
+        "complete": 249,
         "halted": 2,
         "started": 9
       },
       "by_type": {
-        "implementation": 256,
+        "implementation": 257,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0161.yml"
+    "last_code_review": "agent/reviews/REVIEW-0162.yml"
   }
 }
