@@ -3564,6 +3564,23 @@
         "path": "agent/reviews/REVIEW-0164.yml"
       },
       "updated_at": "2026-06-27T13:06:45Z"
+    },
+    "agent/context-packs/T-264-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-264-add-command-timing-and-edit-summaries-to-reports-20260627180128384091",
+      "reason": "Implemented and verified sortable active status-rank status-rank status-rank report summary text metric with acceptance evidence.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0165",
+        "verdict": "ready",
+        "summary": "Acceptance evidence reviewed for T-264: JSON summary text metrics now include summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status_rank as a sortable 0/1 companion to the active status-rank status-rank status enum; Markdown renders the field immediately after the paired enum; tests cover active/inactive command/edit/activity expectations and the rich Markdown fixture was regenerated. Verification passed: focused pytest (2 passed) and bash scripts/ci_check.sh (47 passed, 1 warning).",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0165.yml"
+      },
+      "updated_at": "2026-06-27T18:05:29Z"
     }
   }
 }
