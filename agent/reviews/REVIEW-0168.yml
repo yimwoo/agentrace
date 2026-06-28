@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-268-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-268-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-268 diff: narrow report metric companion rank added in JSON/Markdown, focused expectations and rich fixture updated, schema/state/handoff documented, and CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-28T13:05:25Z",
+  "id": "REVIEW-0168"
+}

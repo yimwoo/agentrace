@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-28T08:08:02Z",
+  "updated_at": "2026-06-28T13:05:34Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-267",
-    "context_pack": "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-267: Add command timing and edit summaries to reports",
-    "run_id": "t-267-add-command-timing-and-edit-summaries-to-reports-20260628080318863112",
-    "reason": "Implemented filter-friendly enum companion for active status-rank status-rank status-rank status-rank rank values; focused tests and full CI passed.",
-    "updated_at": "2026-06-28T08:08:02Z",
+    "id": "T-268",
+    "context_pack": "agent/context-packs/T-268-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-268: Add command timing and edit summaries to reports",
+    "run_id": "t-268-add-command-timing-and-edit-summaries-to-reports-20260628130243131796",
+    "reason": "Added sortable binary rank companion for latest active status-rank enum and verified with focused tests plus full CI.",
+    "updated_at": "2026-06-28T13:05:34Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0167",
+      "id": "REVIEW-0168",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0167.yml"
+      "path": "agent/reviews/REVIEW-0168.yml"
     }
   },
   "current_state": {
@@ -41,15 +41,14 @@
       }
     },
     "tasks": {
-      "total": 267,
+      "total": 268,
       "by_status": {
-        "complete": 255,
+        "complete": 256,
         "halted": 2,
-        "ready": 1,
-        "started": 9
+        "started": 10
       },
       "by_type": {
-        "implementation": 264,
+        "implementation": 265,
         "scaffold": 3
       }
     }
@@ -67,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0167.yml"
+    "last_code_review": "agent/reviews/REVIEW-0168.yml"
   }
 }
