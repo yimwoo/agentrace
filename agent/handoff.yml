@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-28T13:05:34Z",
+  "updated_at": "2026-06-28T18:07:41Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-268",
-    "context_pack": "agent/context-packs/T-268-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-268: Add command timing and edit summaries to reports",
-    "run_id": "t-268-add-command-timing-and-edit-summaries-to-reports-20260628130243131796",
-    "reason": "Added sortable binary rank companion for latest active status-rank enum and verified with focused tests plus full CI.",
-    "updated_at": "2026-06-28T13:05:34Z",
+    "id": "T-269",
+    "context_pack": "agent/context-packs/T-269-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-269: Add command timing and edit summaries to reports",
+    "run_id": "t-269-add-command-timing-and-edit-summaries-to-reports-20260628180128682999",
+    "reason": "Added enum companion report metric and passed CI.",
+    "updated_at": "2026-06-28T18:07:41Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0168",
+      "id": "REVIEW-0169",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0168.yml"
+      "path": "agent/reviews/REVIEW-0169.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 268,
+      "total": 269,
       "by_status": {
-        "complete": 256,
+        "complete": 257,
         "halted": 2,
         "started": 10
       },
       "by_type": {
-        "implementation": 265,
+        "implementation": 266,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0168.yml"
+    "last_code_review": "agent/reviews/REVIEW-0169.yml"
   }
 }

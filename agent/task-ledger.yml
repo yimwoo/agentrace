@@ -3632,6 +3632,23 @@
         "path": "agent/reviews/REVIEW-0168.yml"
       },
       "updated_at": "2026-06-28T13:05:34Z"
+    },
+    "agent/context-packs/T-269-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-269-add-command-timing-and-edit-summaries-to-reports-20260628180128682999",
+      "reason": "Added enum companion report metric and passed CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0169",
+        "verdict": "ready",
+        "summary": "Reviewed T-269 diff: narrow enum companion metric added to JSON/Markdown reports, expectations/docs/fixture updated, focused tests and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0169.yml"
+      },
+      "updated_at": "2026-06-28T18:07:41Z"
     }
   }
 }
