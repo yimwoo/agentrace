@@ -3649,6 +3649,23 @@
         "path": "agent/reviews/REVIEW-0169.yml"
       },
       "updated_at": "2026-06-28T18:07:41Z"
+    },
+    "agent/context-packs/T-270-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-270-add-command-timing-and-edit-summaries-to-reports-20260628230240269858",
+      "reason": "Implemented sortable binary rank companion for the latest active status-rank status metric; focused tests and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0170",
+        "verdict": "ready",
+        "summary": "Reviewed T-270 diff: narrow report-summary metric addition, Markdown renderer/tests/fixture/docs updated, focused tests and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0170.yml"
+      },
+      "updated_at": "2026-06-28T23:09:55Z"
     }
   }
 }

@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-28T18:07:41Z",
+  "updated_at": "2026-06-28T23:09:55Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-269",
-    "context_pack": "agent/context-packs/T-269-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-269: Add command timing and edit summaries to reports",
-    "run_id": "t-269-add-command-timing-and-edit-summaries-to-reports-20260628180128682999",
-    "reason": "Added enum companion report metric and passed CI.",
-    "updated_at": "2026-06-28T18:07:41Z",
+    "id": "T-270",
+    "context_pack": "agent/context-packs/T-270-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-270: Add command timing and edit summaries to reports",
+    "run_id": "t-270-add-command-timing-and-edit-summaries-to-reports-20260628230240269858",
+    "reason": "Implemented sortable binary rank companion for the latest active status-rank status metric; focused tests and full CI passed.",
+    "updated_at": "2026-06-28T23:09:55Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0169",
+      "id": "REVIEW-0170",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0169.yml"
+      "path": "agent/reviews/REVIEW-0170.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 269,
+      "total": 270,
       "by_status": {
-        "complete": 257,
+        "complete": 258,
         "halted": 2,
         "started": 10
       },
       "by_type": {
-        "implementation": 266,
+        "implementation": 267,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0169.yml"
+    "last_code_review": "agent/reviews/REVIEW-0170.yml"
   }
 }
