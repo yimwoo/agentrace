@@ -3598,6 +3598,23 @@
         "path": "agent/reviews/REVIEW-0166.yml"
       },
       "updated_at": "2026-06-27T23:06:14Z"
+    },
+    "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-267-add-command-timing-and-edit-summaries-to-reports-20260628080318863112",
+      "reason": "Implemented filter-friendly enum companion for active status-rank status-rank status-rank status-rank rank values; focused tests and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0167",
+        "verdict": "ready",
+        "summary": "Reviewed T-267 diff: narrow report metric enum companion, covered by focused tests and full CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0167.yml"
+      },
+      "updated_at": "2026-06-28T08:08:02Z"
     }
   }
 }

@@ -1,0 +1,106 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-267-add-command-timing-and-edit-summaries-to-reports-20260628080318863112",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-267: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-267-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:1d510c7db10189a28f04985699c604cd0d5c13f39566c94fba482f7b30d308e9",
+      "PROJECT_STATE.md": " M:file:85a46f23144456f9dc04f5cc80d1885838ca545dc088e14aca1cf54d60c69e0a",
+      "TRACE_SCHEMA.md": " M:file:02f7673400eb80b7ce3098b9bd1750f972b40b74041525fc2a6371de94b1f277",
+      "src/report_json.py": " M:file:d301b97a53cba17940a3a648ad1e79975d119e3cf677c5cc4b713751031a283c",
+      "src/report_markdown.py": " M:file:906bed91b068024b1ee09ff14a8d49b67897dca39c286cba6d343c9ab2da087c",
+      "tests/test_report_outputs.py": " M:file:7a35ce55c5cf5408b394bc91933fcdf4adda6bceabdf229b8cdf4f283b4adfe0",
+      "agent/context-packs/T-266-add-command-timing-and-edit-summaries-to-reports.md": "??:file:44fd68ef1129132c93bc00eac037b8eef2a611044ac57d760a3ee3ea798348c9",
+      "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md": "??:file:5c9b314ad041571c9957e10b1918445bfe0ea751056c354b05fb423a7b83cfaa",
+      "agent/runs/t-266-add-command-timing-and-edit-summaries-to-reports-20260628041326924387/summary.yml": "??:file:90e0e029254c4e526be3aa44d423e30e0918f410ee587b20a1b2ef90a1824799"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-28T08:03:19Z",
+  "updated_at": "2026-06-28T08:08:02Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "missing",
+    "required": true,
+    "context_pack": "agent/context-packs/T-267-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-267",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": null,
+    "active_session": null,
+    "satisfied_by": null,
+    "message": "No active owner or patcher session lease with branch and worktree metadata covers this implementation task.",
+    "recommended_command": "aspec session start --task T-267 --owner <owner> --branch codex/t-267-implementation --worktree /Users/jc/Workspace/Apps/agentrace",
+    "agent_guidance": "Claim or create a branch/worktree session before mutating code, or record an explicit host-worktree session when sharing this checkout is intentional."
+  },
+  "autonomous_finding": "Q-1091",
+  "completion_reason": "Implemented filter-friendly enum companion for active status-rank status-rank status-rank status-rank rank values; focused tests and full CI passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0167",
+    "verdict": "ready",
+    "summary": "Reviewed T-267 diff: narrow report metric enum companion, covered by focused tests and full CI passed.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0167.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}
