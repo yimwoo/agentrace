@@ -1,0 +1,102 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-272-add-command-timing-and-edit-summaries-to-reports-20260629144845489120",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-272: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-272-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:de4ba7d6932425a1d78884d49a7dae01a527e656c46677ce56fcb87455e5cac5",
+      "PROJECT_STATE.md": " M:file:7a9372a81cc81e27347c6d543e955e402a0663e4227a153a0f049c4cc95e22b4",
+      "TRACE_SCHEMA.md": " M:file:ac09aaa5e278d6e1dc24d79602191830080eeb9db43189a562a2b4ee82123326",
+      "agent/task-ledger.yml": " M:file:9763810c77d8c8415505fcfa5da746974b9c807743eacdd5d1bad3b5ad066ec3",
+      "src/report_json.py": " M:file:bbdc13d5adb4c70153e034b6d7adcdd2bf631f209411e708f1aedb4ecaaffbba",
+      "src/report_markdown.py": " M:file:fb50feef430a95afc64e642a98740d97f2c917763ce158b6aace789f82c2f9d6",
+      "tests/fixtures/rich-report.md": " M:file:ff4c524c901871c1b0cb99402decdb2f2b8944afb0d30c2bea9ff9c677a82a33",
+      "tests/test_report_outputs.py": " M:file:7ef8c08ebb0e0c3eec4f40559a584b680d067a0e6bb8ea9de0200aea98756efd",
+      "agent/context-packs/T-271-add-command-timing-and-edit-summaries-to-reports.md": "??:file:43073ff80577c4b5b2621df91a892fcb3f3d6b5401796a4cfbe4934df5bd9d93",
+      "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md": "??:file:21494bde1d1a974c0edd5d439b13a6f83b9c15eae4055b0fd95deec0cba64201",
+      "agent/runs/t-271-add-command-timing-and-edit-summaries-to-reports-20260629045111217904/summary.yml": "??:file:7b5ea37aac83ae7c1de3ec9471fa0d4576f4ccfd713d2bae535db01785837ac5"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-29T14:48:45Z",
+  "updated_at": "2026-06-29T16:22:12Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-272",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": "explicit",
+    "active_session": null,
+    "satisfied_by": "explicit_host_worktree",
+    "message": "Explicit host-worktree execution is declared for this implementation task.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution in the declared host worktree only because the context pack records host-worktree execution as an intentional mode."
+  },
+  "completion_reason": "Added sortable binary rank companion for the latest summary-text active/inactive enum; focused tests and full CI passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0171",
+    "verdict": "ready",
+    "summary": "Reviewed T-272 diff: adds a narrow binary rank companion for the latest summary-text enum metric, updates Markdown rendering, focused expectations, rich fixture, and schema/state/handoff docs; focused pytest and full CI passed.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0171.yml"
+  }
+}

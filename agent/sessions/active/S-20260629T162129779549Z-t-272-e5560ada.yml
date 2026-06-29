@@ -1,0 +1,47 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260629T162129779549Z-t-272-e5560ada",
+  "status": "active",
+  "terminal": false,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-06-29T16:21:29Z",
+  "updated_at": "2026-06-29T16:21:29Z",
+  "context_pack": "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:85c8a3e67d89535a190a2b210e99b236ec71133d44b8e247f3ded014aac02ee8",
+  "task_id": "T-272",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-272-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-272-add-command-timing-and-edit-summaries-to-reports-20260629144845489120",
+  "note": "Cron implementation used explicit host-worktree checkout; CI passed.",
+  "history": [
+    {
+      "at": "2026-06-29T16:21:29Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Cron implementation used explicit host-worktree checkout; CI passed."
+    }
+  ]
+}

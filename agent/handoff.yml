@@ -1,23 +1,23 @@
 {
   "schema": "agentspec.project_handoff.v0",
-  "updated_at": "2026-06-28T23:09:55Z",
+  "updated_at": "2026-06-29T18:06:18Z",
   "root": ".",
   "last_completed_task": {
-    "id": "T-270",
-    "context_pack": "agent/context-packs/T-270-add-command-timing-and-edit-summaries-to-reports.md",
-    "title": "T-270: Add command timing and edit summaries to reports",
-    "run_id": "t-270-add-command-timing-and-edit-summaries-to-reports-20260628230240269858",
-    "reason": "Implemented sortable binary rank companion for the latest active status-rank status metric; focused tests and full CI passed.",
-    "updated_at": "2026-06-28T23:09:55Z",
+    "id": "T-273",
+    "context_pack": "agent/context-packs/T-273-add-command-timing-and-edit-summaries-to-reports.md",
+    "title": "T-273: Add command timing and edit summaries to reports",
+    "run_id": "t-273-add-command-timing-and-edit-summaries-to-reports-20260629180035168388",
+    "reason": "Implemented enum companion metric for active coverage-duration-share priority reason detail rank; full CI passed.",
+    "updated_at": "2026-06-29T18:06:18Z",
     "verification": {
       "status": "passed"
     },
     "code_review": {
-      "id": "REVIEW-0170",
+      "id": "REVIEW-0172",
       "verdict": "ready",
       "reviewer": "hermes-cron",
       "range": "worktree",
-      "path": "agent/reviews/REVIEW-0170.yml"
+      "path": "agent/reviews/REVIEW-0172.yml"
     }
   },
   "current_state": {
@@ -41,14 +41,14 @@
       }
     },
     "tasks": {
-      "total": 270,
+      "total": 273,
       "by_status": {
-        "complete": 258,
+        "complete": 261,
         "halted": 2,
         "started": 10
       },
       "by_type": {
-        "implementation": 267,
+        "implementation": 270,
         "scaffold": 3
       }
     }
@@ -66,6 +66,6 @@
   "artifacts": {
     "task_ledger": "agent/task-ledger.yml",
     "handoff": "agent/handoff.yml",
-    "last_code_review": "agent/reviews/REVIEW-0170.yml"
+    "last_code_review": "agent/reviews/REVIEW-0172.yml"
   }
 }

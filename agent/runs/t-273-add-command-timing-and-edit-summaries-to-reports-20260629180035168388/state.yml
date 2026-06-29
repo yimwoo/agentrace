@@ -1,0 +1,112 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-273-add-command-timing-and-edit-summaries-to-reports-20260629180035168388",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-273-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-273: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-273-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-273-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "HANDOFF.md": " M:file:11112a4eeee82c02078050a9f84f1c0af73d26937b0e5ee31777d4d74e7f90a5",
+      "PROJECT_STATE.md": " M:file:418cef63204a5a9d23830b7bab8723bc606bfd86004cb93e15c29efd00aee3cf",
+      "TRACE_SCHEMA.md": " M:file:b02e9e9b5db61dd6eef9460921020df6241d7f0daf3404892823bacc253c501a",
+      "agent/handoff.yml": " M:file:4dd699c78e50487d6376ff1026e204f8ac15bda058e921eb256de28436cf3b17",
+      "agent/task-ledger.yml": " M:file:db6d6fb3ea06a3ccc40bbbbf2def8d0773f2bdc7301cf6d9d2fea4130e7a4ef4",
+      "src/report_json.py": " M:file:452dd80b44bcf63cd99cc894ee4fd4a73933478edc47d162ee659aa6a5fc1627",
+      "src/report_markdown.py": " M:file:a60ec916b24ed228fc005b07868e2e5546d943823707a94b8fedb2228e48dd0b",
+      "tests/fixtures/rich-report.md": " M:file:cbd8824dbe4038521d820ff6dde0876686750d81fd48bd2772179b81394aa41e",
+      "tests/test_report_outputs.py": " M:file:6e9dd98d76029a01dc53374489dc64f3bae77625063e163a866b302b28c0128f",
+      "agent/context-packs/T-271-add-command-timing-and-edit-summaries-to-reports.md": "??:file:43073ff80577c4b5b2621df91a892fcb3f3d6b5401796a4cfbe4934df5bd9d93",
+      "agent/context-packs/T-272-add-command-timing-and-edit-summaries-to-reports.md": "??:file:85c8a3e67d89535a190a2b210e99b236ec71133d44b8e247f3ded014aac02ee8",
+      "agent/context-packs/T-273-add-command-timing-and-edit-summaries-to-reports.md": "??:file:6945ac5a5da7fa4d5d059c9663598cfa6eba880d896f24bb12b4828f13ce7e24",
+      "agent/reviews/REVIEW-0171.yml": "??:file:7fe8f7890823f7a5a8dd996a5080cc4a8dc29c2387744d05f7900074411e5ecf",
+      "agent/runs/t-271-add-command-timing-and-edit-summaries-to-reports-20260629045111217904/summary.yml": "??:file:7b5ea37aac83ae7c1de3ec9471fa0d4576f4ccfd713d2bae535db01785837ac5",
+      "agent/runs/t-272-add-command-timing-and-edit-summaries-to-reports-20260629144845489120/summary.yml": "??:file:e81d7a6831e7214790402fc1832b0fc7f8379c0102f3474c9c05816a05c07174",
+      "agent/sessions/active/S-20260629T162129779549Z-t-272-e5560ada.yml": "??:file:3752391dbb40ff85d3533a7853de16400945be8405f9ec321e121ca7a419e660"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-29T18:00:35Z",
+  "updated_at": "2026-06-29T18:06:18Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-273-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-273",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": "explicit",
+    "active_session": null,
+    "satisfied_by": "explicit_host_worktree",
+    "message": "Explicit host-worktree execution is declared for this implementation task.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution in the declared host worktree only because the context pack records host-worktree execution as an intentional mode."
+  },
+  "completion_reason": "Implemented enum companion metric for active coverage-duration-share priority reason detail rank; full CI passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0172",
+    "verdict": "ready",
+    "summary": "Reviewed T-273 diff: narrow report metric enum companion added in JSON and Markdown, covered by focused regression expectations, rich fixture regeneration, docs, and full CI passed.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0172.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}
