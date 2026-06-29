@@ -1,3 +1,10 @@
+`agentrace` reports now rank active/inactive enum statuses for active coverage-duration-share priority reason detail status-rank status-rank status-rank status-rank status-rank status-rank status-rank states. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can sort active status-rank status-rank status-rank status-rank status-rank status-rank status-rank statuses without parsing strings.
+
+Session notes:
+- created AgentSpec task `T-274` for active coverage-duration-share priority reason detail active status-rank status-rank status-rank status-rank status-rank status-rank status-rank ranks
+- added `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank` to JSON summary text metrics and rendered `coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank=` in Markdown
+- refreshed regression expectations, schema/state docs, rich Markdown fixture, and this handoff
+
 `agentrace` reports now expose active/inactive enum statuses for active coverage-duration-share priority reason detail status-rank status-rank status-rank status-rank status-rank status-rank status ranks. JSON and Markdown include `summary_text_coverage_duration_share_gap_attention_action_priority_status_reason_detail_active_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status_rank_status` inside `report_summary_text_metrics` for command, edit, and combined activity rows, so reviewers can filter active status-rank status-rank status-rank status-rank status-rank status-rank status ranks without parsing numeric 0/1 values.
 
 Session notes:

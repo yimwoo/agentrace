@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-274-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-274-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-274 diff: narrow summary-text metric addition with JSON/Markdown rendering, focused tests, regenerated fixture, docs, and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-29T23:05:51Z",
+  "id": "REVIEW-0173"
+}
