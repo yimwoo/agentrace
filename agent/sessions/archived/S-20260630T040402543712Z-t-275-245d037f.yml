@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260630T040402543712Z-t-275-245d037f",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-06-30T04:04:02Z",
+  "updated_at": "2026-06-30T04:04:55Z",
+  "context_pack": "agent/context-packs/T-275-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:798cee2e69d79271f1f10e7c1eb83e82e874a1a43d74bd8adb8af34e8c367345",
+  "task_id": "T-275",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-275-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-275-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-275-add-command-timing-and-edit-summaries-to-reports-20260630040047692545",
+  "note": "Cron uses existing host worktree for AgentSpec T-275 after verification.",
+  "history": [
+    {
+      "at": "2026-06-30T04:04:02Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Cron uses existing host worktree for AgentSpec T-275 after verification."
+    },
+    {
+      "at": "2026-06-30T04:04:55Z",
+      "action": "finished",
+      "note": "T-275 completed with focused tests and full CI passed.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0174",
+  "test_status": "passed",
+  "finish_note": "T-275 completed with focused tests and full CI passed.",
+  "finished_at": "2026-06-30T04:04:55Z"
+}

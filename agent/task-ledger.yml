@@ -3726,6 +3726,23 @@
         "path": "agent/reviews/REVIEW-0173.yml"
       },
       "updated_at": "2026-06-29T23:05:58Z"
+    },
+    "agent/context-packs/T-275-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-275-add-command-timing-and-edit-summaries-to-reports-20260630040047692545",
+      "reason": "Implemented report metric enum companion and verified with focused tests plus full CI.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0174",
+        "verdict": "ready",
+        "summary": "Reviewed T-275 diff: narrow report metric enum companion, Markdown rendering, focused expectations, rich fixture, docs, and CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0174.yml"
+      },
+      "updated_at": "2026-06-30T04:04:42Z"
     }
   }
 }
