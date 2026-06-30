@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-278-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-278-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-278 diff: narrow report summary metric/rank addition, Markdown rendering, focused expectations, rich fixture, schema/state/handoff docs; focused pytest and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-30T18:05:16Z",
+  "id": "REVIEW-0177"
+}

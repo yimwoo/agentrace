@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260630T180443264401Z-t-278-349fcc8c",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-06-30T18:04:43Z",
+  "updated_at": "2026-06-30T18:05:36Z",
+  "context_pack": "agent/context-packs/T-278-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:42c6e6a53a9bb0a6fdc295994853bbfda5d3bbc65b11c1984d70754bc4f87c25",
+  "task_id": "T-278",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-278-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-278-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-278-add-command-timing-and-edit-summaries-to-reports-20260630180104025626",
+  "note": "Cron host-worktree implementation for T-278.",
+  "history": [
+    {
+      "at": "2026-06-30T18:04:43Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Cron host-worktree implementation for T-278."
+    },
+    {
+      "at": "2026-06-30T18:05:36Z",
+      "action": "finished",
+      "note": "T-278 complete; focused pytest and full CI passed.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0177",
+  "test_status": "passed",
+  "finish_note": "T-278 complete; focused pytest and full CI passed.",
+  "finished_at": "2026-06-30T18:05:36Z"
+}
