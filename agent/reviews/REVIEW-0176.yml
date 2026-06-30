@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-277-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-277-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-277 diff: narrow report_summary_text_metrics enum companion added in JSON/Markdown, covered by focused expectations, fixture regeneration, docs, and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-30T13:05:23Z",
+  "id": "REVIEW-0176"
+}
