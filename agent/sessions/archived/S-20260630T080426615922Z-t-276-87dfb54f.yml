@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260630T080426615922Z-t-276-87dfb54f",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-06-30T08:04:26Z",
+  "updated_at": "2026-06-30T08:05:25Z",
+  "context_pack": "agent/context-packs/T-276-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:05339e1e94d37aa3b69d6f10b3f21c8cff4d89b46eed72c6335981f92502ab4f",
+  "task_id": "T-276",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-276-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-276-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-276-add-command-timing-and-edit-summaries-to-reports-20260630080056470644",
+  "note": "Shared host-worktree cron execution for T-276 after explicit context-pack declaration.",
+  "history": [
+    {
+      "at": "2026-06-30T08:04:26Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Shared host-worktree cron execution for T-276 after explicit context-pack declaration."
+    },
+    {
+      "at": "2026-06-30T08:05:25Z",
+      "action": "finished",
+      "note": "T-276 completed and verified through full CI; shared host worktree changes retained for commit.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0175",
+  "test_status": "passed",
+  "finish_note": "T-276 completed and verified through full CI; shared host worktree changes retained for commit.",
+  "finished_at": "2026-06-30T08:05:25Z"
+}
