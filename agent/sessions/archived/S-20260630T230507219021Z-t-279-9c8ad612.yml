@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260630T230507219021Z-t-279-9c8ad612",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-06-30T23:05:07Z",
+  "updated_at": "2026-06-30T23:06:03Z",
+  "context_pack": "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:6a4acbad1742a4c512951a94523cfe5d7eddf21f2458d0bd89291dde6858f452",
+  "task_id": "T-279",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-279-add-command-timing-and-edit-summaries-to-reports-20260630230101263043",
+  "note": "Host-worktree cron execution for T-279 after context pack recorded explicit host worktree execution.",
+  "history": [
+    {
+      "at": "2026-06-30T23:05:07Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Host-worktree cron execution for T-279 after context pack recorded explicit host worktree execution."
+    },
+    {
+      "at": "2026-06-30T23:06:03Z",
+      "action": "finished",
+      "note": "T-279 completed with full CI passed and review REVIEW-0178.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0178",
+  "test_status": "passed",
+  "finish_note": "T-279 completed with full CI passed and review REVIEW-0178.",
+  "finished_at": "2026-06-30T23:06:03Z"
+}

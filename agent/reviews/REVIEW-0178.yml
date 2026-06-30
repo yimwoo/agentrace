@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-279 diff: narrow report metric enum companion, Markdown rendering, focused regression expectations, rich fixture, schema/state/handoff docs; focused tests and full CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-06-30T23:05:41Z",
+  "id": "REVIEW-0178"
+}

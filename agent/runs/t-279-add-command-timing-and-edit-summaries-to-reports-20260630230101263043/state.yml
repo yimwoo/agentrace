@@ -1,0 +1,97 @@
+{
+  "schema": "agentspec.supervised_run.state.v0",
+  "run_id": "t-279-add-command-timing-and-edit-summaries-to-reports-20260630230101263043",
+  "status": "complete",
+  "mode": "autonomous",
+  "run_state_dir": "/Users/jc/Workspace/Apps/agentrace/agent/runs",
+  "context_pack": "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "T-279: Add command timing and edit summaries to reports",
+  "task_type": "implementation",
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "controller_path_baseline": {
+    "schema": "agentspec.controller_path_baseline.v0",
+    "available": true,
+    "paths": {
+      "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md": "??:file:792e136c2e156a993b56b56423fe944aead29a21e5dfcb3fb7e9e8fc76ac354e"
+    }
+  },
+  "iteration": 1,
+  "max_iterations": 3,
+  "profiles": {
+    "executor": {
+      "name": "main_executor",
+      "adapter": "current-host",
+      "model": "host-default"
+    },
+    "continuation_reviewer": {
+      "name": "continuation_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "low"
+    },
+    "quality_reviewer": {
+      "name": "quality_reviewer",
+      "adapter": "codex",
+      "credential_source": "codex-auth",
+      "config_source": "codex-config",
+      "model": null,
+      "reasoning": "high"
+    }
+  },
+  "created_at": "2026-06-30T23:01:01Z",
+  "updated_at": "2026-06-30T23:05:48Z",
+  "last_decision": "complete",
+  "session_preflight": {
+    "schema": "agentspec.session_preflight.v0",
+    "status": "satisfied",
+    "required": true,
+    "context_pack": "agent/context-packs/T-279-add-command-timing-and-edit-summaries-to-reports.md",
+    "task_id": "T-279",
+    "task_type": "implementation",
+    "workflow": "none",
+    "branch": null,
+    "worktree": null,
+    "host_worktree_execution": "explicit",
+    "active_session": null,
+    "satisfied_by": "explicit_host_worktree",
+    "message": "Explicit host-worktree execution is declared for this implementation task.",
+    "recommended_command": null,
+    "agent_guidance": "Continue execution in the declared host worktree only because the context pack records host-worktree execution as an intentional mode."
+  },
+  "completion_reason": "Implemented the next report_summary_text_metrics enum companion, updated Markdown/tests/docs/fixture, and full CI passed.",
+  "verification": {
+    "status": "passed"
+  },
+  "code_review": {
+    "id": "REVIEW-0178",
+    "verdict": "ready",
+    "summary": "Reviewed T-279 diff: narrow report metric enum companion, Markdown rendering, focused regression expectations, rich fixture, schema/state/handoff docs; focused tests and full CI passed.",
+    "reviewer": "hermes-cron",
+    "range": "worktree",
+    "path": "agent/reviews/REVIEW-0178.yml"
+  },
+  "quality_gc": {
+    "status": "skipped",
+    "reason": "disabled",
+    "run_on_task_complete": false
+  }
+}
