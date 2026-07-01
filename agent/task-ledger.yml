@@ -3811,6 +3811,23 @@
         "path": "agent/reviews/REVIEW-0178.yml"
       },
       "updated_at": "2026-06-30T23:05:48Z"
+    },
+    "agent/context-packs/T-280-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-280-add-command-timing-and-edit-summaries-to-reports-20260701040121437049",
+      "reason": "Implemented sortable binary rank companion for the latest summary text coverage-duration-share priority status ladder; focused tests and full CI passed.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0179",
+        "verdict": "ready",
+        "summary": "Reviewed T-280 diff: narrow report metric rank companion in JSON/Markdown with focused expectations, rich fixture, docs, and CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0179.yml"
+      },
+      "updated_at": "2026-07-01T04:05:59Z"
     }
   }
 }
