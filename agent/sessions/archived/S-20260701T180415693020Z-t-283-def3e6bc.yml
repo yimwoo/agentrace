@@ -1,0 +1,58 @@
+{
+  "schema": "agentspec.session_lease.v0",
+  "session_id": "S-20260701T180415693020Z-t-283-def3e6bc",
+  "status": "finished",
+  "terminal": true,
+  "owner": "hermes-cron",
+  "mode": "patcher",
+  "created_at": "2026-07-01T18:04:15Z",
+  "updated_at": "2026-07-01T18:05:03Z",
+  "context_pack": "agent/context-packs/T-283-add-command-timing-and-edit-summaries-to-reports.md",
+  "context_pack_title": "Add command timing and edit summaries to reports",
+  "context_pack_sha256": "sha256:0134de2692eac06e42d4bfcd74eee698d41f2961c3a06ff7473c8805ae1f2b15",
+  "task_id": "T-283",
+  "task_type": "implementation",
+  "originating_dcr": null,
+  "requirements": [],
+  "allowed_paths": [
+    "docs/**",
+    "agent/context-packs/T-283-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/workflows/W-283-add-command-timing-and-edit-summaries-to-reports.md",
+    "agent/doc-reviews/*.yml",
+    "docs/ROADMAP.md",
+    "agent/reviews/*.yml",
+    "agent/task-ledger.yml",
+    "agent/handoff.yml",
+    "tests/",
+    "src/**/*.py",
+    "tests/**/*.py",
+    "examples/**/*.json",
+    "TRACE_SCHEMA.md",
+    "PROJECT_STATE.md",
+    "HANDOFF.md",
+    "agent/**"
+  ],
+  "branch": "main",
+  "worktree": "/Users/jc/Workspace/Apps/agentrace",
+  "run_id": "t-283-add-command-timing-and-edit-summaries-to-reports-20260701180042625126",
+  "note": "Cron is intentionally operating in the existing host checkout; context pack records explicit host worktree execution.",
+  "history": [
+    {
+      "at": "2026-07-01T18:04:15Z",
+      "action": "started",
+      "by": "hermes-cron",
+      "note": "Cron is intentionally operating in the existing host checkout; context pack records explicit host worktree execution."
+    },
+    {
+      "at": "2026-07-01T18:05:03Z",
+      "action": "finished",
+      "note": "T-283 completed; focused tests and ci_check.sh passed.",
+      "disposition": "keep"
+    }
+  ],
+  "disposition": "keep",
+  "review_id": "REVIEW-0182",
+  "test_status": "passed",
+  "finish_note": "T-283 completed; focused tests and ci_check.sh passed.",
+  "finished_at": "2026-07-01T18:05:03Z"
+}
