@@ -3828,6 +3828,23 @@
         "path": "agent/reviews/REVIEW-0179.yml"
       },
       "updated_at": "2026-07-01T04:05:59Z"
+    },
+    "agent/context-packs/T-281-add-command-timing-and-edit-summaries-to-reports.md": {
+      "status": "complete",
+      "run_id": "t-281-add-command-timing-and-edit-summaries-to-reports-20260701080058014241",
+      "reason": "Implemented enum companion metric, updated tests/docs/fixture, and verified with bash scripts/ci_check.sh.",
+      "verification": {
+        "status": "passed"
+      },
+      "code_review": {
+        "id": "REVIEW-0180",
+        "verdict": "ready",
+        "summary": "Reviewed T-281 diff: narrow report metric companion, expected JSON/Markdown updated, rich fixture regenerated, docs refreshed, CI passed.",
+        "reviewer": "hermes-cron",
+        "range": "worktree",
+        "path": "agent/reviews/REVIEW-0180.yml"
+      },
+      "updated_at": "2026-07-01T08:04:50Z"
     }
   }
 }

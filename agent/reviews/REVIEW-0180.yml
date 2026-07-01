@@ -1,0 +1,13 @@
+{
+  "schema": "agentspec.code_review.v0",
+  "task": {
+    "selector": "agent/context-packs/T-281-add-command-timing-and-edit-summaries-to-reports.md",
+    "context_pack": "agent/context-packs/T-281-add-command-timing-and-edit-summaries-to-reports.md"
+  },
+  "verdict": "ready",
+  "summary": "Reviewed T-281 diff: narrow report metric companion, expected JSON/Markdown updated, rich fixture regenerated, docs refreshed, CI passed.",
+  "reviewer": "hermes-cron",
+  "range": "worktree",
+  "created_at": "2026-07-01T08:04:43Z",
+  "id": "REVIEW-0180"
+}
